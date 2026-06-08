@@ -1,0 +1,4 @@
+interface:
+  display_name: "Run Test"
+  short_description: "Run whitelisted test commands"
+  default_prompt: "Use run_test to validate safely."

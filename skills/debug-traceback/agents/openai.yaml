@@ -1,0 +1,4 @@
+interface:
+  display_name: "Debug Traceback"
+  short_description: "Debug errors from tracebacks"
+  default_prompt: "Use debug_traceback on this traceback."

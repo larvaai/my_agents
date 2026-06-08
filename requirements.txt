@@ -1,0 +1,4 @@
+openai
+mcp
+mcp-server-git
+PyYAML

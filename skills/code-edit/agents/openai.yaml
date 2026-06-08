@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Edit"
+  short_description: "Make small scoped code edits"
+  default_prompt: "Use code_edit for a narrow code change."

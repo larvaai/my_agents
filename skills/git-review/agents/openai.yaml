@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Review"
+  short_description: "Review local git diffs safely"
+  default_prompt: "Use git_review without committing."
