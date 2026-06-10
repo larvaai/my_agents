@@ -1,7 +1,4 @@
-"""
-Society Sim - A terminal-based life simulation engine.
-"""
+# Society Sim - A terminal-based life simulation engine
 
-# Package initialization
-NAME = 'Society Sim'
-VERSION = '0.1.0'
+__version__ = "1.0.0"
+__all__ = ["Person", "House", "Job", "WorldEvent", "WorldState"]

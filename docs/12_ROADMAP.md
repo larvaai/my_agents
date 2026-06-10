@@ -253,3 +253,34 @@ This skips the older staged rollout and implements the full v0.5 behavior:
 
 The v0.5 layer is still separate from the main LangGraph path. Keep it that way
 until the dedicated smoke and existing LangGraph smoke stay stable together.
+
+## Current: Company Agents v0.5 Implemented
+
+The project now includes a deterministic full-chain department runtime:
+
+```text
+Research -> Planner -> Architect -> Code -> Test -> Review -> Ledger -> Final
+```
+
+Implemented pieces:
+
+- Department lens specs for Research, Planning, Architecture, Engineering, QA, Review, Ledger/Ops, and Final/Communication.
+- Full Company Agents runtime v0.5 in `orchestration/company_orchestrator.py`.
+- Demo runner: `run_company_agents_demo.py`.
+- Smoke runner: `run_company_agents_smoke.py`.
+- Full guide: `docs/15_COMPANY_AGENTS_V05.md`.
+
+Commands:
+
+```powershell
+python run_company_agents_smoke.py
+python run_company_agents_demo.py --version v0.5 --max-cycles 2
+```
+
+Expected smoke marker:
+
+```text
+COMPANY_AGENTS_V05_SMOKE_OK
+```
+
+This v0.5 layer is still separate from the main LangGraph path. Keep it that way until the dedicated smoke and existing LangGraph smoke stay stable together.

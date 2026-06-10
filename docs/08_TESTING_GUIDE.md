@@ -9,6 +9,7 @@ Project có nhiều lớp test, từ deterministic đến LLM-driven.
 | Compile | `python -m py_compile ...` | Không | Bắt lỗi syntax/import |
 | JsonGate | `run_json_gate_smoke.py` | Không | Kiểm JSON repair, schema, dry-run |
 | Role permission | `run_agent_role_smoke.py` | Không | Kiểm role allowlist và department lenses |
+| Company v0.5 | `run_company_agents_smoke.py` | Không | Kiểm full Research/Planner/Architect/Code/Test/Review/Ledger/Final chain |
 | LangGraph compile | `run_langgraph_smoke.py` | Không | Build graph, repair guard, failure capture |
 | MCP chain | `run_mcp_chain_smoke.py` | Không | Test tool chain thật không qua LLM |
 | Prompt cases | `run_all_cases.py` | Có | Test agent thật qua prompt |
@@ -21,6 +22,7 @@ Chạy sau khi sửa core:
 ```powershell
 python run_json_gate_smoke.py
 python run_agent_role_smoke.py
+python run_company_agents_smoke.py
 python run_langgraph_smoke.py
 ```
 
@@ -71,11 +73,42 @@ JSON_GATE_SMOKE_OK
 - Review diff được nhưng không commit.
 - Ledger ghi memory được nhưng không terminal.
 - Final read-only.
-- 4 department có đúng lens:
-  - Code: implementation, integration, defensive_coding, refactor_discipline, developer_experience
-  - Test: logic, critical_thinking, experienced_qa, regression, purpose_alignment, test_executor
-  - Review: senior_engineer, scope_diff, security_review, maintainability, release_risk
-  - Ledger: historian, task_state, decision_record, auditor, incident_tracker
+- All core roles có đúng lens:
+- Code: implementation, integration, defensive_coding, refactor_discipline, developer_experience
+- Test: logic, critical_thinking, experienced_qa, regression, edge_case, purpose_alignment, test_executor
+- Review: senior_engineer, scope_diff, security_review, maintainability, release_risk
+- Ledger: historian, task_state, decision_record, auditor, incident_tracker
+- Research: source_scout, source_credibility, fact_check, synthesis, knowledge_curator
+- Planner: product_manager, project_manager, dependency_planner, risk_manager, scope_control
+- Architect: system_architect, data_architect, api_contract, security_architect, scalability
+- Final: executive_summary, technical_writer, user_facing_explanation, limitation_disclosure, next_step_recommendation
+
+## Company v0.5 Tests
+
+`run_company_agents_smoke.py` kiểm:
+
+- Research routes to Planner.
+- Planner routes to Architect.
+- Architect routes to Code.
+- Code writes a scoped Python artifact through File Editor.
+- Test runs `python.run_python` and checks stdout.
+- Review approves only after QA passes.
+- Ledger records the approved run.
+- Final routes to `done`.
+
+Expected marker:
+
+```text
+COMPANY_AGENTS_V05_SMOKE_OK
+```
+
+For a real prompt run through the full company pipeline:
+
+```powershell
+python run_company_agents_demo.py --real --task-file prompts/the_sims_prompt.md --real-max-steps 260
+```
+
+The real mode requires LM Studio/OpenAI-compatible server to be running.
 
 ## LangGraph Tests
 
@@ -205,6 +238,7 @@ Tối thiểu:
 python -m py_compile agents\base_agent.py agents\role_agents.py orchestration\langgraph_orchestrator.py output_gate\json_gate.py tools\tool_schemas.py
 python run_json_gate_smoke.py
 python run_agent_role_smoke.py
+python run_company_agents_smoke.py
 python run_langgraph_smoke.py
 ```
 

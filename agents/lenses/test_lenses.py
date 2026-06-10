@@ -57,6 +57,19 @@ TEST_LENSES: tuple[LensSpec, ...] = (
         },
     ),
     LensSpec(
+        name="edge_case",
+        department="qa",
+        purpose="Find boundary values, unusual inputs, empty data, timeout, and malformed state cases.",
+        forbidden_tools=("file_editor.*", "filesystem.write_file", "git.git_commit"),
+        output_schema={
+            "lens": "edge_case",
+            "edge_cases": [],
+            "boundary_values": [],
+            "must_test": [],
+            "confidence": "low|medium|high",
+        },
+    ),
+    LensSpec(
         name="purpose_alignment",
         department="qa",
         purpose="Catch behavior that technically passes but misses the user's intended purpose.",

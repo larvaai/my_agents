@@ -114,9 +114,30 @@ Files:
 
 ### Department Lens Layer
 
-`agents/lenses/` chứa role lenses cho 4 department đầu tiên:
+`agents/lenses/` contains role lenses for all core departments:
 
 ```text
+Research Department
+  -> source_scout
+  -> source_credibility
+  -> fact_check
+  -> synthesis
+  -> knowledge_curator
+
+Planning Department
+  -> product_manager
+  -> project_manager
+  -> dependency_planner
+  -> risk_manager
+  -> scope_control
+
+Architecture Department
+  -> system_architect
+  -> data_architect
+  -> api_contract
+  -> security_architect
+  -> scalability
+
 Engineering Department
   -> implementation
   -> integration
@@ -129,6 +150,7 @@ QA Department
   -> critical_thinking
   -> experienced_qa
   -> regression
+  -> edge_case
   -> purpose_alignment
   -> test_executor
 
@@ -145,6 +167,13 @@ Ledger / Audit / Operations
   -> decision_record
   -> auditor
   -> incident_tracker
+
+Final / Communication
+  -> executive_summary
+  -> technical_writer
+  -> user_facing_explanation
+  -> limitation_disclosure
+  -> next_step_recommendation
 ```
 
 Lens hiện là prompt/spec layer. Chúng không tự chạy tool, không tự loop, không tự quyết định.
@@ -314,4 +343,40 @@ Full guide:
 
 ```text
 docs/14_CODE_TEST_V05.md
+```
+
+## Full Company Agents v0.5 Path
+
+The project also has a deterministic full-company v0.5 path:
+
+```text
+run_company_agents_demo.py
+  -> orchestration/company_orchestrator.py
+  -> ResearchAgent
+  -> PlannerAgent
+  -> ArchitectAgent
+  -> CodeAgent
+  -> TestAgent
+  -> ReviewAgent
+  -> LedgerAgent
+  -> FinalAgent
+```
+
+This path uses the same department principle as LangGraph, but keeps the runtime
+small and directly testable. Each department returns:
+
+```text
+agent + version + lens_results + synthesis + records + route
+```
+
+Smoke:
+
+```powershell
+python run_company_agents_smoke.py
+```
+
+Full guide:
+
+```text
+docs/15_COMPANY_AGENTS_V05.md
 ```

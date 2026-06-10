@@ -120,6 +120,13 @@ class TestAgent:
                 "recommended_regression_tests": [],
                 "confidence": "medium",
             },
+            "edge_case": {
+                "lens": "edge_case",
+                "edge_cases": ["missing file", "non-zero exit", "stdout without expected sentinel"],
+                "boundary_values": ["empty stdout", "timeout at test executor limit"],
+                "must_test": tests,
+                "confidence": "high",
+            },
             "purpose_alignment": {
                 "lens": "purpose_alignment",
                 "alignment": "pass" if tests else "warning",

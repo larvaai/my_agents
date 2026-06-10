@@ -1,7 +1,16 @@
 from __future__ import annotations
 
 from agents.base_agent import BaseAgent
-from agents.lenses import CODE_LENSES, LEDGER_LENSES, REVIEW_LENSES, TEST_LENSES
+from agents.lenses import (
+    ARCHITECT_LENSES,
+    CODE_LENSES,
+    FINAL_LENSES,
+    LEDGER_LENSES,
+    PLANNER_LENSES,
+    RESEARCH_LENSES,
+    REVIEW_LENSES,
+    TEST_LENSES,
+)
 
 
 READ_ONLY_FILES = (
@@ -147,31 +156,52 @@ ROLE_AGENTS: dict[str, BaseAgent] = {
     "research": BaseAgent(
         name="Research Agent",
         role="Gather external and internal context without modifying project state.",
+        department="Research Department",
+        department_rule=(
+            "Research owns context gathering and evidence quality. Use source scouting, "
+            "credibility, fact-checking, synthesis, and knowledge curation lenses. "
+            "Research stays read-only for project code."
+        ),
         system_prompt=(
             "Research facts, docs, code references, and RAG context. Prefer primary "
             "sources and read-only tools. Do not edit files or create issues unless "
             "delegated through another role."
         ),
+        lenses=RESEARCH_LENSES,
         allowed_tools=RESEARCH_TOOLS,
         allowed_skills=("project-plan",),
     ),
     "planner": BaseAgent(
         name="Planner Agent",
         role="Turn user goals into scoped tasks, issues, risks, and validation plans.",
+        department="Planning Department",
+        department_rule=(
+            "Planning owns product intent, project sequencing, dependencies, risk, "
+            "and scope control. Planning may update issues or ledger records, but "
+            "does not edit source code."
+        ),
         system_prompt=(
             "Plan the work. Create or update issues when useful. Stay read-only for "
             "source code and do not implement changes."
         ),
+        lenses=PLANNER_LENSES,
         allowed_tools=PLANNER_TOOLS,
         allowed_skills=("project-plan",),
     ),
     "architect": BaseAgent(
         name="Architect Agent",
         role="Design architecture, boundaries, contracts, and implementation approach.",
+        department="Architecture Department",
+        department_rule=(
+            "Architecture owns system boundaries, data shape, API contracts, security "
+            "requirements, and scalability tradeoffs. Architecture writes guidance, "
+            "not source implementation."
+        ),
         system_prompt=(
             "Produce design decisions and architecture guidance. You may write design "
             "documents, ledger decisions, and issues, but do not edit source code."
         ),
+        lenses=ARCHITECT_LENSES,
         allowed_tools=ARCHITECT_TOOLS,
         allowed_skills=("project-plan",),
     ),
@@ -252,10 +282,16 @@ ROLE_AGENTS: dict[str, BaseAgent] = {
     "final": BaseAgent(
         name="Final Agent",
         role="Synthesize final user-facing answers from gathered evidence.",
+        department="Communication Department",
+        department_rule=(
+            "Final owns user-facing communication only. It summarizes evidence, "
+            "discloses limits, and recommends next steps without mutating project state."
+        ),
         system_prompt=(
             "Summarize outcomes, validation, blockers, and next steps. Prefer read-only "
             "evidence. Do not perform implementation or mutation."
         ),
+        lenses=FINAL_LENSES,
         allowed_tools=FINAL_TOOLS,
         allowed_skills=(),
     ),

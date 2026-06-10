@@ -1,42 +1,44 @@
-# Society Sim - Core Data Models
+"""Data model classes for Society Sim."""
 
-# All needs must stay in range 0.0 to 100.0
-NEEDS = ['hunger', 'energy', 'social', 'fun', 'hygiene']
+from __future__ import annotations
+import random
+from dataclasses import dataclass, field, asdict
+from typing import Optional
 
-from dataclasses import dataclass, field
-from typing import Optional, List, Dict
-import uuid
+# Constants
+NEEDS = ["hunger", "energy", "social", "fun", "hygiene"]
+MOOD_VALUES = {"distressed": 0.1, "lonely": 0.2, "happy": 0.3, "neutral": 0.4}
 
 @dataclass
 class Person:
-    id: str = field(default_factory=lambda: f'p_{uuid.uuid4().hex[:8]}')
+    id: str
     name: str
     age: int
     money: float = 0.0
-    traits: List[str] = field(default_factory=list)
-    skills: Dict[str, float] = field(default_factory=dict)
-    needs: Dict[str, float] = field(default_factory=dict)
-    mood: str = 'neutral'
+    traits: list[str] = field(default_factory=list)
+    skills: dict[str, float] = field(default_factory=dict)
+    needs: dict[str, float] = field(default_factory=dict)
+    mood: str = "neutral"
     home_id: Optional[str] = None
     job_id: Optional[str] = None
-    relationships: Dict[str, float] = field(default_factory=dict)
-    current_action: str = 'idle'
+    relationships: dict[str, float] = field(default_factory=dict)
+    current_action: str = "idle"
 
 @dataclass
 class House:
-    id: str = field(default_factory=lambda: f'h_{uuid.uuid4().hex[:8]}')
+    id: str
     name: str
     capacity: int
     comfort: float = 50.0
-    residents: List[str] = field(default_factory=list)
+    residents: list[str] = field(default_factory=list)
 
 @dataclass
 class Job:
-    id: str = field(default_factory=lambda: f'j_{uuid.uuid4().hex[:8]}')
+    id: str
     title: str
     salary_per_day: float
     required_skill: Optional[str] = None
-    start_hour: int = 9
+    start_hour: int = 8
     end_hour: int = 17
 
 @dataclass
@@ -52,7 +54,7 @@ class WorldState:
     tick: int = 0
     hour: int = 6
     day: int = 1
-    people: List[Person] = field(default_factory=list)
-    houses: List[House] = field(default_factory=list)
-    jobs: List[Job] = field(default_factory=list)
-    events: List[WorldEvent] = field(default_factory=list)
+    people: list[Person] = field(default_factory=list)
+    houses: list[House] = field(default_factory=list)
+    jobs: list[Job] = field(default_factory=list)
+    events: list[WorldEvent] = field(default_factory=list)

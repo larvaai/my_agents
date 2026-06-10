@@ -148,3 +148,63 @@ Tool calls remain normal:
   }
 }
 ```
+
+## Research / Planning / Architecture / Final Addendum
+
+The department lens model now covers all core roles, not only Code/Test/Review/Ledger.
+
+Research lenses:
+
+- `source_scout`
+- `source_credibility`
+- `fact_check`
+- `synthesis`
+- `knowledge_curator`
+
+Planning lenses:
+
+- `product_manager`
+- `project_manager`
+- `dependency_planner`
+- `risk_manager`
+- `scope_control`
+
+Architecture lenses:
+
+- `system_architect`
+- `data_architect`
+- `api_contract`
+- `security_architect`
+- `scalability`
+
+QA addendum:
+
+- `edge_case`
+
+Final / Communication lenses:
+
+- `executive_summary`
+- `technical_writer`
+- `user_facing_explanation`
+- `limitation_disclosure`
+- `next_step_recommendation`
+
+## Full Company v0.5 Runtime
+
+The v0.5 runtime now covers the full chain:
+
+```text
+Research -> Planner -> Architect -> Code -> Test -> Review -> Ledger -> Final
+```
+
+Command:
+
+```powershell
+python run_company_agents_smoke.py
+```
+
+Guide:
+
+```text
+docs/15_COMPANY_AGENTS_V05.md
+```

@@ -79,6 +79,9 @@ Bốn agent lõi đã được nâng thành mô hình phòng ban:
 | Review Agent | Senior Review Board | Review scope, correctness, security, maintainability |
 | Ledger Agent | Ledger / Audit / Operations | Ghi memory, task state, decision, incident |
 
+Note: v0.5 now also gives Research, Planner, Architect, and Final their own
+department lenses and direct runtime agents. See `docs/15_COMPANY_AGENTS_V05.md`.
+
 Mỗi department có role lenses trong `agents/lenses/`.
 
 Nguyên tắc:
@@ -211,9 +214,40 @@ Một số phần đã có nền nhưng còn có thể nâng cấp:
 
 - Lens hiện là prompt/spec layer, chưa là sub-agent LLM riêng.
 - Test Council chưa chạy parallel reasoning thật.
-- Planner/Research/Architect chưa có lens riêng.
+- Planner/Research/Architect đã có lens specs; bước sau là cho một số lens chạy LLM bounded khi cần.
 - Context condenser còn có thể thông minh hơn theo file diff.
 - Full e2e prompt lớn như `the_sims_prompt.md` vẫn cần tối ưu thêm budget và routing.
+
+## Company Agents v0.5
+
+Project now includes a direct full-company v0.5 runner:
+
+```text
+Research -> Planner -> Architect -> Code -> Test -> Review -> Ledger -> Final
+```
+
+It is implemented in:
+
+- `agents/research_agent.py`
+- `agents/planner_agent.py`
+- `agents/architect_agent.py`
+- `agents/code_agent.py`
+- `agents/test_agent.py`
+- `agents/review_agent.py`
+- `agents/ledger_agent.py`
+- `agents/final_agent.py`
+- `orchestration/company_orchestrator.py`
+- `run_company_agents_demo.py`
+- `run_company_agents_smoke.py`
+
+Use it to inspect the full department/lens/synthesis/route contract without
+depending on LLM behavior.
+
+Smoke:
+
+```powershell
+python run_company_agents_smoke.py
+```
 
 ## Code/Test Department v0.5
 

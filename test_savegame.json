@@ -6,7 +6,7 @@
     {
       "id": "person_1",
       "name": "Alice",
-      "age": 46,
+      "age": 41,
       "money": 205.0,
       "traits": [],
       "skills": {},
@@ -32,7 +32,7 @@
     {
       "id": "person_2",
       "name": "Bob",
-      "age": 36,
+      "age": 46,
       "money": 100.0,
       "traits": [],
       "skills": {},
@@ -58,20 +58,20 @@
     {
       "id": "person_3",
       "name": "Charlie",
-      "age": 28,
-      "money": 300.0,
+      "age": 41,
+      "money": 231.25,
       "traits": [],
       "skills": {},
       "needs": {
         "hunger": 45.0,
-        "energy": 37.800000000000026,
+        "energy": 31.00000000000003,
         "social": 40.999999999999986,
-        "fun": 7.999999999999989,
-        "hygiene": 54.49999999999997
+        "fun": 32.99999999999999,
+        "hygiene": 57.49999999999997
       },
-      "mood": "lonely",
-      "home_id": "house_2",
-      "job_id": "job_1",
+      "mood": "neutral",
+      "home_id": "house_1",
+      "job_id": "job_2",
       "relationships": {
         "person_1": 0.0,
         "person_2": 0.0,
@@ -84,7 +84,7 @@
     {
       "id": "person_4",
       "name": "Diana",
-      "age": 22,
+      "age": 44,
       "money": 100.0,
       "traits": [],
       "skills": {},
@@ -96,7 +96,7 @@
         "hygiene": 78.49999999999994
       },
       "mood": "neutral",
-      "home_id": "house_1",
+      "home_id": "house_2",
       "job_id": null,
       "relationships": {
         "person_1": 0.0,
@@ -110,7 +110,7 @@
     {
       "id": "person_5",
       "name": "Eve",
-      "age": 28,
+      "age": 47,
       "money": 205.0,
       "traits": [],
       "skills": {},
@@ -136,7 +136,7 @@
     {
       "id": "person_6",
       "name": "Frank",
-      "age": 28,
+      "age": 26,
       "money": 100.0,
       "traits": [],
       "skills": {},
@@ -165,7 +165,7 @@
       "id": "house_1",
       "name": "House 1",
       "capacity": 4,
-      "comfort": 49.744648130528994,
+      "comfort": 51.866760074812476,
       "residents": [
         "person_1",
         "person_2",
@@ -177,7 +177,7 @@
       "id": "house_2",
       "name": "House 2",
       "capacity": 4,
-      "comfort": 46.98046278759813,
+      "comfort": 53.0874595579143,
       "residents": [
         "person_5",
         "person_6"
@@ -223,8 +223,8 @@
     },
     {
       "tick": 0,
-      "type": "idle",
-      "message": "Charlie was idle"
+      "type": "work",
+      "message": "Charlie worked (+$18.75)"
     },
     {
       "tick": 0,
@@ -254,7 +254,7 @@
     {
       "tick": 0,
       "type": "work",
-      "message": "Charlie worked (+$25.00)"
+      "message": "Charlie worked (+$18.75)"
     },
     {
       "tick": 0,
@@ -284,7 +284,7 @@
     {
       "tick": 0,
       "type": "work",
-      "message": "Charlie worked (+$25.00)"
+      "message": "Charlie worked (+$18.75)"
     },
     {
       "tick": 0,
@@ -314,7 +314,7 @@
     {
       "tick": 0,
       "type": "work",
-      "message": "Charlie worked (+$25.00)"
+      "message": "Charlie worked (+$18.75)"
     },
     {
       "tick": 0,
@@ -344,7 +344,7 @@
     {
       "tick": 0,
       "type": "work",
-      "message": "Charlie worked (+$25.00)"
+      "message": "Charlie worked (+$18.75)"
     },
     {
       "tick": 0,
@@ -374,7 +374,7 @@
     {
       "tick": 0,
       "type": "work",
-      "message": "Charlie worked (+$25.00)"
+      "message": "Charlie worked (+$18.75)"
     },
     {
       "tick": 0,
@@ -404,37 +404,7 @@
     {
       "tick": 0,
       "type": "work",
-      "message": "Charlie worked (+$25.00)"
-    },
-    {
-      "tick": 0,
-      "type": "idle",
-      "message": "Diana was idle"
-    },
-    {
-      "tick": 0,
-      "type": "work",
-      "message": "Eve worked (+$15.00)"
-    },
-    {
-      "tick": 0,
-      "type": "idle",
-      "message": "Frank was idle"
-    },
-    {
-      "tick": 0,
-      "type": "work",
-      "message": "Alice worked (+$15.00)"
-    },
-    {
-      "tick": 0,
-      "type": "idle",
-      "message": "Bob was idle"
-    },
-    {
-      "tick": 0,
-      "type": "work",
-      "message": "Charlie worked (+$25.00)"
+      "message": "Charlie worked (+$18.75)"
     },
     {
       "tick": 0,
@@ -483,6 +453,36 @@
     },
     {
       "tick": 0,
+      "type": "work",
+      "message": "Alice worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "play",
+      "message": "Charlie played (+10 fun)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Eve worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    },
+    {
+      "tick": 0,
       "type": "sleep",
       "message": "Alice slept (+25 energy)"
     },
@@ -493,8 +493,8 @@
     },
     {
       "tick": 0,
-      "type": "work",
-      "message": "Charlie worked (+$25.00)"
+      "type": "play",
+      "message": "Charlie played (+10 fun)"
     },
     {
       "tick": 0,

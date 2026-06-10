@@ -422,3 +422,45 @@ Expected:
 ```text
 CODE_TEST_AGENTS_V05_SMOKE_OK
 ```
+
+## Company Agents v0.5
+
+Da trien khai truc tiep v0.5 cho toan bo chuoi agent:
+
+```text
+Research -> Planner -> Architect -> Code -> Test -> Review -> Ledger -> Final
+```
+
+Files moi:
+
+- `agents/department_v05.py`
+- `agents/research_agent.py`
+- `agents/planner_agent.py`
+- `agents/architect_agent.py`
+- `agents/review_agent.py`
+- `agents/ledger_agent.py`
+- `agents/final_agent.py`
+- `orchestration/company_orchestrator.py`
+- `run_company_agents_demo.py`
+- `run_company_agents_smoke.py`
+- `docs/15_COMPANY_AGENTS_V05.md`
+
+Them lens specs cho:
+
+- Research: source_scout, source_credibility, fact_check, synthesis, knowledge_curator
+- Planner: product_manager, project_manager, dependency_planner, risk_manager, scope_control
+- Architect: system_architect, data_architect, api_contract, security_architect, scalability
+- QA: edge_case
+- Final: executive_summary, technical_writer, user_facing_explanation, limitation_disclosure, next_step_recommendation
+
+Smoke:
+
+```powershell
+python run_company_agents_smoke.py
+```
+
+Expected:
+
+```text
+COMPANY_AGENTS_V05_SMOKE_OK
+```

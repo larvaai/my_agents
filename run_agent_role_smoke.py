@@ -58,6 +58,27 @@ def main() -> int:
         ("final_no_edit", lambda: not _allowed("final", "file_editor.file_editor_create")),
         ("tool_agent_backcompat_allows_edit", lambda: _allowed("tool", "file_editor.file_editor_create")),
         (
+            "research_department_lenses",
+            lambda: _has_lenses(
+                "research",
+                {"source_scout", "source_credibility", "fact_check", "synthesis", "knowledge_curator"},
+            ),
+        ),
+        (
+            "planner_department_lenses",
+            lambda: _has_lenses(
+                "planner",
+                {"product_manager", "project_manager", "dependency_planner", "risk_manager", "scope_control"},
+            ),
+        ),
+        (
+            "architect_department_lenses",
+            lambda: _has_lenses(
+                "architect",
+                {"system_architect", "data_architect", "api_contract", "security_architect", "scalability"},
+            ),
+        ),
+        (
             "code_department_lenses",
             lambda: _has_lenses(
                 "code",
@@ -68,7 +89,15 @@ def main() -> int:
             "test_department_lenses",
             lambda: _has_lenses(
                 "test",
-                {"logic", "critical_thinking", "experienced_qa", "regression", "purpose_alignment", "test_executor"},
+                {
+                    "logic",
+                    "critical_thinking",
+                    "experienced_qa",
+                    "regression",
+                    "edge_case",
+                    "purpose_alignment",
+                    "test_executor",
+                },
             ),
         ),
         (
@@ -83,6 +112,19 @@ def main() -> int:
             lambda: _has_lenses(
                 "ledger",
                 {"historian", "task_state", "decision_record", "auditor", "incident_tracker"},
+            ),
+        ),
+        (
+            "final_department_lenses",
+            lambda: _has_lenses(
+                "final",
+                {
+                    "executive_summary",
+                    "technical_writer",
+                    "user_facing_explanation",
+                    "limitation_disclosure",
+                    "next_step_recommendation",
+                },
             ),
         ),
     ]

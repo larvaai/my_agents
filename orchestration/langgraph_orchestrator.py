@@ -41,17 +41,17 @@ ROLE_BUDGETS = {
     "research": 2,
     "planner": 3,
     "architect": 4,
-    "code": 60,
-    "test": 24,
+    "code": 140,
+    "test": 48,
     "review": 8,
     "ledger": 4,
     "final": 4,
 }
 SUBTASK_BUDGETS = {
-    "code:create": 6,
-    "code:repair": 7,
+    "code:create": 14,
+    "code:repair": 20,
     "code:general": 12,
-    "test:validate": 8,
+    "test:validate": 20,
     "review:general": 4,
 }
 VALIDATION_KEYWORDS = (
@@ -99,6 +99,8 @@ ROLE_GUIDANCE: dict[str, str] = {
         "- Use filesystem.write_file only for short filesystem MCP smoke tests; use file_editor for generated code even if an old prompt says write_file.\n"
         "- For multi-file projects, create exactly one file per tool call, then continue as code until all required files exist.\n"
         "- The current state summary includes missing_files. Create the first missing file before touching existing files.\n"
+        "- If missing_files is not empty and there is no last_failure, your next mutating file tool must target missing_files[0].\n"
+        "- Do not patch or polish an earlier file before all required files exist; QA will find syntax/runtime problems after the first full pass.\n"
         "- Keep generated file content compact and complete. Avoid long banners, large comments, and over-explaining inside code.\n"
         "- For generated files over roughly 30 lines, prefer file_editor.file_editor_write_lines with a JSON lines array instead of one large multiline content string.\n"
         "- For file_editor.file_editor_write_lines, args.lines must contain one physical file line per item; never put the whole file in one string with \\n escapes.\n"
@@ -724,6 +726,8 @@ def _has_run_path(state: AgentState, path: str) -> bool:
     for item in state.get("tests_run", []):
         if not isinstance(item, dict):
             continue
+        if item.get("ok") is not True:
+            continue
         item_path = item.get("path") or item.get("args", {}).get("path")
         if isinstance(item_path, str) and _normalize_project_path(item_path).endswith(normalized):
             return True
@@ -979,16 +983,17 @@ def make_role_node(role: AgentName, event_logger: EventLogger | None = None) -> 
             }
 
         if role == "final":
-            if _requires_validation(state) and not _has_passing_validation(state):
+            validation_complete = _validation_complete(state)
+            if _requires_validation(state) and not validation_complete:
                 message = _finish_gate_message(state)
-            elif _has_passing_validation(state):
+            elif validation_complete:
                 message = _build_validated_final_message(state)
             else:
                 message = "Done. No validation requirement was detected for this run."
 
             action = {
                 "action": "final",
-                "finish_reason": "validated" if _has_passing_validation(state) else "blocker",
+                "finish_reason": "validated" if validation_complete else "blocker",
                 "message": message,
             }
             output = json.dumps(action, ensure_ascii=False)
@@ -1042,6 +1047,43 @@ def make_role_node(role: AgentName, event_logger: EventLogger | None = None) -> 
             if role == "planner":
                 result["plan"] = str(action.get("message", ""))
             return result
+
+        if (
+            role == "code"
+            and state.get("required_files")
+            and not _missing_required_files(state)
+            and not state.get("last_failure")
+            and not _validation_complete(state)
+        ):
+            action = {
+                "action": "final",
+                "finish_reason": "handoff",
+                "message": "All required files exist. Engineering hands off to QA validation.",
+            }
+            output = json.dumps(action, ensure_ascii=False)
+            if event_logger:
+                event_logger.emit(
+                    "ActionEvent",
+                    action="final",
+                    node=role,
+                    step=step,
+                    tool=None,
+                    payload=action,
+                    synthetic=True,
+                )
+            return {
+                "last_agent": role,
+                "agent_output": output,
+                "parsed_action": action,
+                "messages": _append_message(state, "assistant", output),
+                "role_outputs": _record_role_output(state, role, action),
+                "files_modified": list(state.get("files_modified", [])),
+                "json_retries": dict(state.get("json_retries", {})),
+                "role_visits": role_visits,
+                "subtask_visits": subtask_visits,
+                "step_count": step,
+                "next_agent": "test",
+            }
 
         if role == "test":
             missing_files = _missing_required_files(state)
@@ -1291,7 +1333,7 @@ def make_role_node(role: AgentName, event_logger: EventLogger | None = None) -> 
             result["ledger_result"] = action
 
         if role == "final" and action.get("action") == "final":
-            if _requires_validation(state) and not _has_passing_validation(state):
+            if _requires_validation(state) and not _validation_complete(state):
                 result["final_message"] = _finish_gate_message(state)
             else:
                 result["final_message"] = str(action.get("message", ""))
@@ -1483,6 +1525,16 @@ def run_langgraph_orchestrator(user_task: str, max_steps: int | None = None) -> 
 
     app = build_graph(event_logger)
     required_files = _extract_required_files(user_task)
+    existing_required_files = [
+        path
+        for path in required_files
+        if (WORKSPACE_DIR / path).exists()
+    ]
+    missing_required_files = [
+        path
+        for path in required_files
+        if path not in set(existing_required_files)
+    ]
     initial_state: AgentState = {
         "user_task": user_task,
         "messages": [{"role": "user", "content": user_task}],
@@ -1491,8 +1543,8 @@ def run_langgraph_orchestrator(user_task: str, max_steps: int | None = None) -> 
         "max_steps": max_steps or int(os.getenv("LANGGRAPH_MAX_STEPS", "80")),
         "errors": [],
         "required_files": required_files,
-        "missing_files": required_files,
-        "files_modified": [],
+        "missing_files": missing_required_files,
+        "files_modified": existing_required_files,
         "tests_run": [],
         "role_outputs": {},
         "repeated_tool_calls": {},
@@ -1504,6 +1556,18 @@ def run_langgraph_orchestrator(user_task: str, max_steps: int | None = None) -> 
     }
     final_state = app.invoke(initial_state)
     final_message = final_state.get("final_message")
+    status = "completed" if final_message and not str(final_message).startswith("Blocked") else "blocked"
+    event_logger.write_summary(
+        status=status,
+        metrics={
+            "steps": final_state.get("step_count"),
+            "events": event_logger.sequence,
+            "tests_run": len(final_state.get("tests_run", [])),
+            "files_modified": len(final_state.get("files_modified", [])),
+            "role_visits": final_state.get("role_visits", {}),
+        },
+        final_message=str(final_message or ""),
+    )
     if final_message:
         return str(final_message)
     return json.dumps(final_state, ensure_ascii=False, indent=2, default=str)

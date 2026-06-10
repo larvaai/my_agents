@@ -103,6 +103,7 @@ Nếu bạn muốn đóng góp kiến trúc:
 | `main_langgraph.py` | Chạy LangGraph multi-agent pipeline |
 | `orchestrator.py` | ReAct loop cũ, vẫn còn dùng được |
 | `orchestration/langgraph_orchestrator.py` | Role pipeline mới |
+| `orchestration/company_orchestrator.py` | Full Company Agents v0.5 runner |
 | `agents/role_agents.py` | Khai báo role agents và quyền tool |
 | `agents/lenses/` | Department lens specs |
 | `output_gate/` | JsonGate và JSON repair sandbox |
@@ -143,4 +144,30 @@ Read the full guide:
 
 ```text
 docs/14_CODE_TEST_V05.md
+```
+
+## Full Company Agents v0.5 Quick Start
+
+Project also has a direct full-company v0.5 runner:
+
+```text
+Research -> Planner -> Architect -> Code -> Test -> Review -> Ledger -> Final
+```
+
+Run the deterministic smoke:
+
+```powershell
+python run_company_agents_smoke.py
+```
+
+Run the demo and inspect JSON:
+
+```powershell
+python run_company_agents_demo.py --version v0.5 --max-cycles 2
+```
+
+Read the full guide:
+
+```text
+docs/15_COMPANY_AGENTS_V05.md
 ```

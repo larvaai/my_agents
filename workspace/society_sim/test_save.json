@@ -1,0 +1,240 @@
+{
+  "tick": 10,
+  "hour": 6,
+  "day": 1,
+  "people": [
+    {
+      "id": "p1",
+      "name": "Alex",
+      "age": 34,
+      "money": 231.44,
+      "traits": [
+        "analytical"
+      ],
+      "skills": {
+        "general": 72.9
+      },
+      "needs": {
+        "hunger": 52.8,
+        "energy": 58.2,
+        "social": 68.9,
+        "fun": 55.6,
+        "hygiene": 40.8
+      },
+      "mood": "neutral",
+      "home_id": "h1",
+      "job_id": null,
+      "relationships": {
+        "p1": -0.4,
+        "p2": 1.4,
+        "p3": 1.2,
+        "p4": 27.5,
+        "p5": 21.5,
+        "p6": -0.8
+      },
+      "current_action": "idle"
+    },
+    {
+      "id": "p2",
+      "name": "Jordan",
+      "age": 44,
+      "money": 65.56,
+      "traits": [
+        "calm",
+        "calm"
+      ],
+      "skills": {
+        "general": 55.9
+      },
+      "needs": {
+        "hunger": 59.3,
+        "energy": 32.6,
+        "social": 56.7,
+        "fun": 54.6,
+        "hygiene": 35.1
+      },
+      "mood": "neutral",
+      "home_id": "h2",
+      "job_id": null,
+      "relationships": {
+        "p1": 6.4,
+        "p2": 2.4,
+        "p3": 32.3,
+        "p4": 0.1,
+        "p5": -2.5,
+        "p6": 24.1
+      },
+      "current_action": "idle"
+    },
+    {
+      "id": "p3",
+      "name": "Taylor",
+      "age": 25,
+      "money": 119.98,
+      "traits": [
+        "calm",
+        "creative"
+      ],
+      "skills": {
+        "general": 47.9
+      },
+      "needs": {
+        "hunger": 46.5,
+        "energy": 47.7,
+        "social": 52.9,
+        "fun": 45.6,
+        "hygiene": 38.2
+      },
+      "mood": "neutral",
+      "home_id": "h2",
+      "job_id": null,
+      "relationships": {
+        "p1": -3.3,
+        "p2": 28.0,
+        "p3": -2.2,
+        "p4": -1.6,
+        "p5": -0.1,
+        "p6": 17.1
+      },
+      "current_action": "idle"
+    },
+    {
+      "id": "p4",
+      "name": "Morgan",
+      "age": 45,
+      "money": 201.59,
+      "traits": [
+        "calm"
+      ],
+      "skills": {
+        "general": 58.3
+      },
+      "needs": {
+        "hunger": 46.2,
+        "energy": 33.5,
+        "social": 48.4,
+        "fun": 57.9,
+        "hygiene": 54.5
+      },
+      "mood": "neutral",
+      "home_id": "h1",
+      "job_id": null,
+      "relationships": {
+        "p1": 22.5,
+        "p2": -1.1,
+        "p3": 0.3,
+        "p4": -3.7,
+        "p5": 18.6,
+        "p6": 1.7
+      },
+      "current_action": "idle"
+    },
+    {
+      "id": "p5",
+      "name": "Casey",
+      "age": 36,
+      "money": 121.95,
+      "traits": [
+        "creative",
+        "energetic"
+      ],
+      "skills": {
+        "general": 60.1
+      },
+      "needs": {
+        "hunger": 46.7,
+        "energy": 54.1,
+        "social": 63.7,
+        "fun": 50.2,
+        "hygiene": 61.5
+      },
+      "mood": "neutral",
+      "home_id": "h1",
+      "job_id": null,
+      "relationships": {
+        "p1": 22.3,
+        "p2": -6.5,
+        "p3": 3.9,
+        "p4": 18.8,
+        "p5": -2.3,
+        "p6": 1.8
+      },
+      "current_action": "idle"
+    },
+    {
+      "id": "p6",
+      "name": "Riley",
+      "age": 30,
+      "money": 268.39,
+      "traits": [
+        "creative",
+        "calm"
+      ],
+      "skills": {
+        "general": 73.6
+      },
+      "needs": {
+        "hunger": 37.9,
+        "energy": 53.2,
+        "social": 90.7,
+        "fun": 51.2,
+        "hygiene": 56.8
+      },
+      "mood": "neutral",
+      "home_id": "h2",
+      "job_id": null,
+      "relationships": {
+        "p1": 2.5,
+        "p2": 22.0,
+        "p3": 19.8,
+        "p4": 0.2,
+        "p5": 0.3,
+        "p6": -2.4
+      },
+      "current_action": "idle"
+    }
+  ],
+  "houses": [
+    {
+      "id": "h1",
+      "name": "Apartment 4B",
+      "capacity": 4,
+      "comfort": 50.0,
+      "residents": []
+    },
+    {
+      "id": "h2",
+      "name": "Studio 7A",
+      "capacity": 3,
+      "comfort": 45.0,
+      "residents": []
+    }
+  ],
+  "jobs": [
+    {
+      "id": "j1",
+      "title": "Barista",
+      "salary_per_day": 80.0,
+      "required_skill": null,
+      "start_hour": 7,
+      "end_hour": 15
+    },
+    {
+      "id": "j2",
+      "title": "Office Clerk",
+      "salary_per_day": 100.0,
+      "required_skill": "general",
+      "start_hour": 8,
+      "end_hour": 17
+    },
+    {
+      "id": "j3",
+      "title": "Warehouse Worker",
+      "salary_per_day": 90.0,
+      "required_skill": null,
+      "start_hour": 6,
+      "end_hour": 14
+    }
+  ],
+  "events": []
+}

@@ -171,3 +171,19 @@ main_langgraph.py
 ```
 
 Keep this step separate until the v0.5 smoke and the existing LangGraph smoke both stay green.
+
+## Full Company v0.5 Follow-Up
+
+The Code/Test loop is now also used inside a full company-style v0.5 chain:
+
+```text
+Research -> Planner -> Architect -> Code -> Test -> Review -> Ledger -> Final
+```
+
+See:
+
+```text
+docs/15_COMPANY_AGENTS_V05.md
+python run_company_agents_smoke.py
+python run_company_agents_demo.py --version v0.5 --max-cycles 2
+```
