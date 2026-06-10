@@ -148,3 +148,19 @@ Không cần chạy tất cả ngay. Thứ tự tốt nhất:
 4. `python run_langgraph_smoke.py`.
 5. Một prompt nhỏ qua `main.py`.
 6. Một prompt role-based qua `main_langgraph.py`.
+
+## Run Code/Test Department v0.5
+
+The direct v0.5 Code/Test runner is deterministic by default and does not need
+LLM unless `--use-llm` is provided.
+
+```powershell
+python run_code_test_agents_smoke.py
+python run_code_test_agents_demo.py --version v0.5 --agent orchestrator --max-cycles 2
+```
+
+For model-backed lens experimentation:
+
+```powershell
+python run_code_test_agents_demo.py --version v0.5 --agent orchestrator --use-llm
+```

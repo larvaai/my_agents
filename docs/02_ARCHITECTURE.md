@@ -276,3 +276,42 @@ Full data vẫn nằm trong event log.
 - Ledger Agent ghi và audit, không thực thi code.
 - JsonGate chặn output sai trước khi tool chạy.
 - Logs phải đủ để replay/debug run.
+
+## Code/Test Department v0.5 Path
+
+The project also has a focused Code/Test v0.5 path:
+
+```text
+run_code_test_agents_demo.py
+  -> orchestration/code_test_orchestrator.py
+  -> agents/code_agent.py
+  -> agents/test_agent.py
+  -> tools/tool_registry.py
+  -> MCP tools
+```
+
+This path does not replace the main LangGraph pipeline yet. It is a small
+department-level proving ground for route decisions.
+
+v0.5 behavior:
+
+- Code Agent runs engineering lenses, synthesizes an implementation decision,
+  executes through a gated file-editor executor, records ledger/issue data, and
+  routes to Test Agent.
+- Test Agent runs QA lenses, synthesizes a validation plan, executes only
+  allowlisted validation/read tools, records ledger/issue data, and routes to
+  Review Agent or back to Code Agent.
+- The orchestrator reads `route.next_agent` from each result instead of relying
+  on free-form prose.
+
+Smoke:
+
+```powershell
+python run_code_test_agents_smoke.py
+```
+
+Full guide:
+
+```text
+docs/14_CODE_TEST_V05.md
+```

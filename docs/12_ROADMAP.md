@@ -49,6 +49,12 @@ Roadmap này ưu tiên làm project thành coding-agent ổn định trước kh
   - Senior Review
   - Ledger/Ops
 - Department lenses v0.1.
+- Code/Test Department runtime v0.5:
+  - lens results
+  - synthesis
+  - gated executor
+  - ledger/issue integration
+  - route decision
 
 ### Orchestration
 
@@ -81,6 +87,13 @@ Roadmap này ưu tiên làm project thành coding-agent ổn định trước kh
 - Agent docs.
 - Workflows/templates.
 - Department lenses docs.
+
+## Historical Plan: v0.2-v0.4
+
+The sections below are preserved as historical staged-plan notes. The project
+has already implemented a direct Code/Test v0.5 runner, so future work should
+focus on integrating that v0.5 layer into LangGraph instead of replaying each
+older intermediate version.
 
 ## Next: v0.2
 
@@ -219,3 +232,24 @@ Reliability means:
 - Tests run.
 - Failures route to the right role.
 - Final answer has evidence.
+
+## Current: Code/Test v0.5 Implemented
+
+The project now includes a direct v0.5 Code/Test department loop:
+
+- `agents/code_agent.py`
+- `agents/test_agent.py`
+- `orchestration/code_test_orchestrator.py`
+- `run_code_test_agents_demo.py`
+- `run_code_test_agents_smoke.py`
+
+This skips the older staged rollout and implements the full v0.5 behavior:
+
+- lens results
+- synthesis
+- gated executor
+- ledger/issue integration
+- route decision
+
+The v0.5 layer is still separate from the main LangGraph path. Keep it that way
+until the dedicated smoke and existing LangGraph smoke stay stable together.

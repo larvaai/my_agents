@@ -128,3 +128,19 @@ python inspect_runs.py events latest --limit 20
 python run_json_gate_smoke.py
 python run_agent_role_smoke.py
 ```
+
+## Code/Test v0.5 Quick Start
+
+Project now has a direct Code/Test Department v0.5 runner. It is separate from
+`main_langgraph.py` and is safe to test independently.
+
+```powershell
+python run_code_test_agents_smoke.py
+python run_code_test_agents_demo.py --version v0.5 --agent orchestrator --max-cycles 2
+```
+
+Read the full guide:
+
+```text
+docs/14_CODE_TEST_V05.md
+```

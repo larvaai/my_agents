@@ -219,3 +219,26 @@ Nếu change động tới prompt runner:
 ```powershell
 python run_all_cases.py --group langgraph --timeout 180 --fail-fast
 ```
+
+## Code/Test v0.5 Tests
+
+The Code/Test v0.5 layer has its own deterministic smoke.
+
+```powershell
+python run_code_test_agents_smoke.py
+```
+
+Expected marker:
+
+```text
+CODE_TEST_AGENTS_V05_SMOKE_OK
+```
+
+Manual demo:
+
+```powershell
+python run_code_test_agents_demo.py --version v0.5 --agent orchestrator --max-cycles 2
+```
+
+This runner does not require LLM by default. Add `--use-llm` only when you want
+to experiment with model-generated lens output.

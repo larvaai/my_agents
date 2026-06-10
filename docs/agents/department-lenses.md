@@ -102,6 +102,40 @@ Department agents still use the normal JSON action protocol:
 }
 ```
 
+## v0.5 Runtime Lens Results
+
+The direct Code/Test v0.5 runner turns lens specs into concrete runtime
+`lens_results`.
+
+Files:
+
+```text
+agents/code_agent.py
+agents/test_agent.py
+orchestration/code_test_orchestrator.py
+```
+
+By default the v0.5 runner uses deterministic lens results so smoke tests are
+fast and stable. Add `--use-llm` to experiment with model-generated lens JSON:
+
+```powershell
+python run_code_test_agents_demo.py --version v0.5 --agent orchestrator --use-llm
+```
+
+The route decision is not inferred from prose. Each department returns:
+
+```json
+{
+  "route": {
+    "next_agent": "test_agent",
+    "reason": "Implementation is ready for QA validation."
+  }
+}
+```
+
+This is the core v0.5 rule: lens results influence synthesis, synthesis drives
+executor plans, executor evidence drives route decisions.
+
 Tool calls remain normal:
 
 ```json

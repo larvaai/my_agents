@@ -376,3 +376,49 @@ Reliable local coding-agent
   -> auditable logs
   -> bounded multi-agent reasoning
 ```
+
+## Code/Test Department v0.5
+
+Da trien khai truc tiep v0.5 cho Code Agent va Test Agent, bo qua cac stage cu
+v0.1-v0.4 trong ban tham khao.
+
+Files moi:
+
+- `agents/code_agent.py`
+- `agents/test_agent.py`
+- `orchestration/code_test_orchestrator.py`
+- `run_code_test_agents_demo.py`
+- `run_code_test_agents_smoke.py`
+- `docs/14_CODE_TEST_V05.md`
+
+Code Agent v0.5:
+
+- tao engineering lens results
+- synthesize implementation decision
+- tao executor plan
+- chi execute qua allowlist file editor
+- append ledger
+- create issue neu execution fail
+- route sang `test_agent`, `code_agent`, hoac `planner_agent`
+
+Test Agent v0.5:
+
+- tao QA lens results
+- synthesize validation plan
+- chi execute validation/read tools trong allowlist
+- check expected stdout token neu co
+- append ledger
+- create issue neu quality gate fail
+- route sang `review_agent`, `code_agent`, hoac `planner_agent`
+
+Smoke:
+
+```powershell
+python run_code_test_agents_smoke.py
+```
+
+Expected:
+
+```text
+CODE_TEST_AGENTS_V05_SMOKE_OK
+```

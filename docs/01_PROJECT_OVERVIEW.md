@@ -214,3 +214,22 @@ Một số phần đã có nền nhưng còn có thể nâng cấp:
 - Planner/Research/Architect chưa có lens riêng.
 - Context condenser còn có thể thông minh hơn theo file diff.
 - Full e2e prompt lớn như `the_sims_prompt.md` vẫn cần tối ưu thêm budget và routing.
+
+## Code/Test Department v0.5
+
+Project now includes a dedicated v0.5 Code/Test department runner:
+
+```text
+Code Agent -> Test Agent -> route to Review or back to Code
+```
+
+It is implemented in:
+
+- `agents/code_agent.py`
+- `agents/test_agent.py`
+- `orchestration/code_test_orchestrator.py`
+- `run_code_test_agents_demo.py`
+- `run_code_test_agents_smoke.py`
+
+Use it to test the department/lens/executor/routing architecture before wiring
+it into the broader LangGraph path.

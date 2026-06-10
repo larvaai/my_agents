@@ -19,6 +19,7 @@ Muc tieu cua project khong phai lam chatbot chung chung, ma la xay mot coding-ag
 - Muon them MCP/skill/agent: `docs/workflows/`.
 - Muon debug/test: `docs/08_TESTING_GUIDE.md` va `docs/09_DEBUGGING_GUIDE.md`.
 - Muon thu LangGraph role orchestration: `python run_langgraph_smoke.py` de compile smoke nhanh, hoac `python main_langgraph.py prompts/auto_cases/test_langgraph_01_smoke.md` de chay LLM smoke that qua MCP.
+- Muon thu Code/Test Department v0.5: `python run_code_test_agents_smoke.py`, hoac doc `docs/14_CODE_TEST_V05.md`.
 
 ## Kien truc ngan gon
 
@@ -44,6 +45,8 @@ User prompt
 
 ```text
 agents/              LLM-facing agent wrapper.
+agents/code_agent.py Code Agent v0.5 runtime rieng.
+agents/test_agent.py Test Agent v0.5 runtime rieng.
 tools/               MCP client, MCP config, prompt loader, skill loader.
 mcp_servers/         MCP servers noi bo: python, file_editor, terminal, code_index, lint_test, docker, obsidian, issue, RAG, fetch, search, document, ledger, playwright.
 skills/              Project skills: plan, edit, debug, test, review.
@@ -125,6 +128,13 @@ Chay mot prompt cu the:
 ```powershell
 python main.py prompts/test_mcp_prompt.md
 python main.py prompts/test_rag_02_negative_search.md
+```
+
+Chay Code/Test Department v0.5 rieng:
+
+```powershell
+python run_code_test_agents_smoke.py
+python run_code_test_agents_demo.py --version v0.5 --agent orchestrator --max-cycles 2
 ```
 
 Gioi han so buoc orchestrator:
