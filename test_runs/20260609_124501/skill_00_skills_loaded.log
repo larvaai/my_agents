@@ -1,0 +1,52 @@
+CASE: skill_00_skills_loaded
+GROUP: skill
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 14.74
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\extra_skill_00_skills_loaded.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "## Tổng quan các Project Skills\n\n### 1. project_plan\n- **Dùng khi:** Khi cần phân tích yêu cầu, xác định file cần kiểm tra, chia nhỏ task thành các bước có thứ tự, hoặc đánh giá rủi ro trước khi sửa code (alias: `project_plan`)\n- **Điều cấm quan trọng nhất:** Chạy theo chế độ read-only - không được sửa đổi bất kỳ file nào trong suốt quá trình thực hiện\n\n### 2. code_edit\n- **Dùng khi:** Khi cần thay đổi nhỏ, có phạm vi hẹp sau khi đã đọc các file liên quan (alias: `code_edit`)\n- **Điều cấm quan trọng nhất:** Chỉ sửa vùng nhỏ nhất cần thiết; tránh refactor rộng, dọn dẹp không liên quan, hoặc thay đổi format trừ khi người dùng yêu cầu rõ ràng\n\n### 3. debug_traceback\n- **Dùng khi:** Khi gặp lỗi/exception với traceback cụ thể để tìm nguyên nhân gốc (alias: `debug_traceback`)\n- **Điều cấm quan trọng nhất:** Bắt đầu từ điểm thất bại cụ thể, không phải từ việc viết lại toàn bộ; chỉ áp dụng fix nhỏ nhất tại chỗ\n\n### 4. run_test\n- **Dùng khi:** Khi cần chạy các lệnh validation được whitelist (pytest, npm test, git status/diff, v.v.) để xác nhận kết quả (alias: `run_test`)\n- **Điều cấm quan trọng nhất:** Chỉ chạy các lệnh nằm trong danh sách whitelist; nếu lệnh không có sẵn phải hỏi sự đồng ý trước\n\n### 5. git_review\n- **Dùng khi:** Khi cần xem xét các thay đổi Git tại chỗ mà chưa commit (alias: `git_review`)\n- **Điều cấm quan trọng nhất:** Không được commit trong suốt quá trình review; chỉ dừng ở việc đọc status, diff và đề xuất message"}
+
+=== FINAL RESULT ===
+## Tổng quan các Project Skills
+
+### 1. project_plan
+- **Dùng khi:** Khi cần phân tích yêu cầu, xác định file cần kiểm tra, chia nhỏ task thành các bước có thứ tự, hoặc đánh giá rủi ro trước khi sửa code (alias: `project_plan`)
+- **Điều cấm quan trọng nhất:** Chạy theo chế độ read-only - không được sửa đổi bất kỳ file nào trong suốt quá trình thực hiện
+
+### 2. code_edit
+- **Dùng khi:** Khi cần thay đổi nhỏ, có phạm vi hẹp sau khi đã đọc các file liên quan (alias: `code_edit`)
+- **Điều cấm quan trọng nhất:** Chỉ sửa vùng nhỏ nhất cần thiết; tránh refactor rộng, dọn dẹp không liên quan, hoặc thay đổi format trừ khi người dùng yêu cầu rõ ràng
+
+### 3. debug_traceback
+- **Dùng khi:** Khi gặp lỗi/exception với traceback cụ thể để tìm nguyên nhân gốc (alias: `debug_traceback`)
+- **Điều cấm quan trọng nhất:** Bắt đầu từ điểm thất bại cụ thể, không phải từ việc viết lại toàn bộ; chỉ áp dụng fix nhỏ nhất tại chỗ
+
+### 4. run_test
+- **Dùng khi:** Khi cần chạy các lệnh validation được whitelist (pytest, npm test, git status/diff, v.v.) để xác nhận kết quả (alias: `run_test`)
+- **Điều cấm quan trọng nhất:** Chỉ chạy các lệnh nằm trong danh sách whitelist; nếu lệnh không có sẵn phải hỏi sự đồng ý trước
+
+### 5. git_review
+- **Dùng khi:** Khi cần xem xét các thay đổi Git tại chỗ mà chưa commit (alias: `git_review`)
+- **Điều cấm quan trọng nhất:** Không được commit trong suốt quá trình review; chỉ dừng ở việc đọc status, diff và đề xuất message
+
+
+================================================================================
+STDERR
+================================================================================

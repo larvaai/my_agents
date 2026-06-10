@@ -1,0 +1,88 @@
+CASE: project_03_python_reject_non_py
+GROUP: project
+STATUS: FAIL
+RETURNCODE: 1
+DURATION_SECONDS: 14.35
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_project_03_python_reject_non_py.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[
+  "Traceback"
+]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.create_directory",
+  "args": {
+    "path": "notes"
+  }
+}
+CALL TOOL: filesystem.create_directory
+ARGS: {'path': 'notes'}
+TOOL RESULT:
+{'ok': True, 'server': 'filesystem', 'tool': 'create_directory', 'text': 'Successfully created directory D:\\Agent PRJ\\my_agents\\workspace\\notes', 'content': [{'type': 'text', 'text': 'Successfully created directory D:\\Agent PRJ\\my_agents\\workspace\\notes', 'annotations': None, 'meta': None}], 'structured_content': {'content': 'Successfully created directory D:\\Agent PRJ\\my_agents\\workspace\\notes'}}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "notes/not_python.txt",
+    "content": "hello"
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'notes/not_python.txt', 'content': 'hello'}
+TOOL RESULT:
+{'ok': True, 'server': 'filesystem', 'tool': 'write_file', 'text': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt', 'content': [{'type': 'text', 'text': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt', 'annotations': None, 'meta': None}], 'structured_content': {'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt'}}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "notes/not_python.txt",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'notes/not_python.txt', 'timeout': 10}
+TOOL RESULT:
+{'ok': True, 'server': 'python', 'tool': 'run_python', 'text': '{\n  "ok": false,\n  "error": "Only .py files can be executed.",\n  "path": "D:\\\\Agent PRJ\\\\my_agents\\\\workspace\\\\notes\\\\not_python.txt",\n  "stdout": "",\n  "stderr": "",\n  "returncode": null\n}', 'content': [{'type': 'text', 'text': '{\n  "ok": false,\n  "error": "Only .py files can be executed.",\n  "path": "D:\\\\Agent PRJ\\\\my_agents\\\\workspace\\\\notes\\\\not_python.txt",\n  "stdout": "",\n  "stderr": "",\n  "returncode": null\n}', 'annotations': None, 'meta': None}], 'structured_content': {'ok': False, 'error': 'Only .py files can be executed.', 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt', 'stdout': '', 'stderr': '', 'returncode': None}}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+================================================================================
+STDERR
+================================================================================
+Traceback (most recent call last):
+  File "D:\Agent PRJ\my_agents\main.py", line 18, in <module>
+    main()
+  File "D:\Agent PRJ\my_agents\main.py", line 11, in main
+    result = run_orchestrator(task)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agent PRJ\my_agents\orchestrator.py", line 93, in run_orchestrator
+    print(agent_output)
+  File "C:\Users\namso\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u1ebf' in position 44: character maps to <undefined>

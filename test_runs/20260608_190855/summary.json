@@ -1,0 +1,15 @@
+[
+  {
+    "name": "rag_01_happy_path",
+    "group": "rag",
+    "status": "FAIL",
+    "returncode": 1,
+    "duration_seconds": 7.45,
+    "missing_expected": [
+      "rag_test_basal_ganglia.md",
+      "RAG_SENTINEL_BG_2026"
+    ],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_190855\\rag_01_happy_path.log"
+  }
+]

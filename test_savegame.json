@@ -1,0 +1,515 @@
+{
+  "tick": 0,
+  "hour": 16,
+  "day": 1,
+  "people": [
+    {
+      "id": "person_1",
+      "name": "Alice",
+      "age": 46,
+      "money": 205.0,
+      "traits": [],
+      "skills": {},
+      "needs": {
+        "hunger": 45.0,
+        "energy": 48.60000000000002,
+        "social": 40.999999999999986,
+        "fun": 12.999999999999986,
+        "hygiene": 57.499999999999964
+      },
+      "mood": "lonely",
+      "home_id": "house_2",
+      "job_id": "job_3",
+      "relationships": {
+        "person_2": 0.0,
+        "person_3": 0.0,
+        "person_4": 0.0,
+        "person_5": 0.0,
+        "person_6": 0.0
+      },
+      "current_action": "idle"
+    },
+    {
+      "id": "person_2",
+      "name": "Bob",
+      "age": 36,
+      "money": 100.0,
+      "traits": [],
+      "skills": {},
+      "needs": {
+        "hunger": 45.0,
+        "energy": 100.0,
+        "social": 43.999999999999986,
+        "fun": 47.99999999999997,
+        "hygiene": 78.49999999999994
+      },
+      "mood": "neutral",
+      "home_id": "house_2",
+      "job_id": null,
+      "relationships": {
+        "person_1": 0.0,
+        "person_3": 0.0,
+        "person_4": 0.0,
+        "person_5": 0.0,
+        "person_6": 0.0
+      },
+      "current_action": "idle"
+    },
+    {
+      "id": "person_3",
+      "name": "Charlie",
+      "age": 28,
+      "money": 300.0,
+      "traits": [],
+      "skills": {},
+      "needs": {
+        "hunger": 45.0,
+        "energy": 37.800000000000026,
+        "social": 40.999999999999986,
+        "fun": 7.999999999999989,
+        "hygiene": 54.49999999999997
+      },
+      "mood": "lonely",
+      "home_id": "house_2",
+      "job_id": "job_1",
+      "relationships": {
+        "person_1": 0.0,
+        "person_2": 0.0,
+        "person_4": 0.0,
+        "person_5": 0.0,
+        "person_6": 0.0
+      },
+      "current_action": "idle"
+    },
+    {
+      "id": "person_4",
+      "name": "Diana",
+      "age": 22,
+      "money": 100.0,
+      "traits": [],
+      "skills": {},
+      "needs": {
+        "hunger": 45.0,
+        "energy": 100.0,
+        "social": 43.999999999999986,
+        "fun": 47.99999999999997,
+        "hygiene": 78.49999999999994
+      },
+      "mood": "neutral",
+      "home_id": "house_1",
+      "job_id": null,
+      "relationships": {
+        "person_1": 0.0,
+        "person_2": 0.0,
+        "person_3": 0.0,
+        "person_5": 0.0,
+        "person_6": 0.0
+      },
+      "current_action": "idle"
+    },
+    {
+      "id": "person_5",
+      "name": "Eve",
+      "age": 28,
+      "money": 205.0,
+      "traits": [],
+      "skills": {},
+      "needs": {
+        "hunger": 45.0,
+        "energy": 48.60000000000002,
+        "social": 40.999999999999986,
+        "fun": 12.999999999999986,
+        "hygiene": 57.499999999999964
+      },
+      "mood": "lonely",
+      "home_id": "house_2",
+      "job_id": "job_3",
+      "relationships": {
+        "person_1": 0.0,
+        "person_2": 0.0,
+        "person_3": 0.0,
+        "person_4": 0.0,
+        "person_6": 0.0
+      },
+      "current_action": "idle"
+    },
+    {
+      "id": "person_6",
+      "name": "Frank",
+      "age": 28,
+      "money": 100.0,
+      "traits": [],
+      "skills": {},
+      "needs": {
+        "hunger": 45.0,
+        "energy": 100.0,
+        "social": 43.999999999999986,
+        "fun": 47.99999999999997,
+        "hygiene": 78.49999999999994
+      },
+      "mood": "neutral",
+      "home_id": "house_2",
+      "job_id": null,
+      "relationships": {
+        "person_1": 0.0,
+        "person_2": 0.0,
+        "person_3": 0.0,
+        "person_4": 0.0,
+        "person_5": 0.0
+      },
+      "current_action": "idle"
+    }
+  ],
+  "houses": [
+    {
+      "id": "house_1",
+      "name": "House 1",
+      "capacity": 4,
+      "comfort": 49.744648130528994,
+      "residents": [
+        "person_1",
+        "person_2",
+        "person_3",
+        "person_4"
+      ]
+    },
+    {
+      "id": "house_2",
+      "name": "House 2",
+      "capacity": 4,
+      "comfort": 46.98046278759813,
+      "residents": [
+        "person_5",
+        "person_6"
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "id": "job_1",
+      "title": "Office Worker",
+      "salary_per_day": 200.0,
+      "required_skill": null,
+      "start_hour": 8,
+      "end_hour": 17
+    },
+    {
+      "id": "job_2",
+      "title": "Factory Worker",
+      "salary_per_day": 150.0,
+      "required_skill": null,
+      "start_hour": 6,
+      "end_hour": 14
+    },
+    {
+      "id": "job_3",
+      "title": "Retail Clerk",
+      "salary_per_day": 120.0,
+      "required_skill": null,
+      "start_hour": 9,
+      "end_hour": 18
+    }
+  ],
+  "events": [
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Alice was idle"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Charlie was idle"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Eve was idle"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Alice was idle"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Charlie worked (+$25.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Eve was idle"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Alice worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Charlie worked (+$25.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Eve worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Alice worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Charlie worked (+$25.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Eve worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Alice worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Charlie worked (+$25.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Eve worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Alice worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Charlie worked (+$25.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Eve worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Alice worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Charlie worked (+$25.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Eve worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Alice worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Charlie worked (+$25.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Eve worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Alice worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "sleep",
+      "message": "Charlie slept (+25 energy)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Eve worked (+$15.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    },
+    {
+      "tick": 0,
+      "type": "sleep",
+      "message": "Alice slept (+25 energy)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Bob was idle"
+    },
+    {
+      "tick": 0,
+      "type": "work",
+      "message": "Charlie worked (+$25.00)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Diana was idle"
+    },
+    {
+      "tick": 0,
+      "type": "sleep",
+      "message": "Eve slept (+25 energy)"
+    },
+    {
+      "tick": 0,
+      "type": "idle",
+      "message": "Frank was idle"
+    }
+  ]
+}

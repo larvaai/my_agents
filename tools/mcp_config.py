@@ -21,7 +21,25 @@ def _context7_env() -> dict[str, str] | None:
     api_key = os.getenv("CONTEXT7_API_KEY")
     if not api_key:
         return None
-    return {"CONTEXT7_API_KEY": api_key}
+
+    env = os.environ.copy()
+    env["CONTEXT7_API_KEY"] = api_key
+    return env
+
+
+def _optional_env(keys: tuple[str, ...]) -> dict[str, str] | None:
+    values = {
+        key: value
+        for key in keys
+        if (value := os.getenv(key)) is not None
+    }
+
+    if not values:
+        return None
+
+    env = os.environ.copy()
+    env.update(values)
+    return env
 
 
 MCP_SERVERS: dict[str, MCPServerConfig] = {
@@ -53,6 +71,127 @@ MCP_SERVERS: dict[str, MCPServerConfig] = {
             "@upstash/context7-mcp",
         ],
         env=_context7_env(),
+    ),
+    "python": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.python_sandbox",
+        ],
+    ),
+    "file_editor": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.file_editor_server",
+        ],
+    ),
+    "terminal": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.terminal_server",
+        ],
+        env=_optional_env(("AGENT_ALLOW_HIGH_RISK_TERMINAL",)),
+    ),
+    "code_index": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.code_index_server",
+        ],
+    ),
+    "lint_test": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.lint_test_server",
+        ],
+    ),
+    "docker": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.docker_server",
+        ],
+        env=_optional_env(("DOCKER_MCP_ALLOW_MUTATION",)),
+    ),
+    "obsidian": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.obsidian_server",
+        ],
+        env=_optional_env(("OBSIDIAN_VAULT_DIR",)),
+    ),
+    "issue": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.issue_server",
+        ],
+        env=_optional_env(("ISSUE_DB_PATH",)),
+    ),
+    "rag": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.rag_server",
+        ],
+        env=_optional_env(
+            (
+                "QDRANT_URL",
+                "QDRANT_API_KEY",
+                "QDRANT_COLLECTION",
+                "EMBEDDING_MODEL",
+                "RAG_CHUNK_SIZE",
+                "RAG_CHUNK_OVERLAP",
+            )
+        ),
+    ),
+    "fetch": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.fetch_server",
+        ],
+    ),
+    "search": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.search_server",
+        ],
+        env=_optional_env(
+            (
+                "SEARCH_PROVIDER",
+                "BRAVE_SEARCH_API_KEY",
+                "TAVILY_API_KEY",
+            )
+        ),
+    ),
+    "document": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.document_server",
+        ],
+    ),
+    "ledger": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.ledger_server",
+        ],
+        env=_optional_env(("LEDGER_PATH",)),
+    ),
+    "playwright": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.playwright_server",
+        ],
+        env=_optional_env(("PLAYWRIGHT_BROWSERS_PATH",)),
     ),
 }
 
@@ -92,6 +231,88 @@ MCP_TOOL_NAMES: dict[str, tuple[str, ...]] = {
         "resolve-library-id",
         "query-docs",
     ),
+    "python": (
+        "run_python",
+        "python_probe",
+    ),
+    "file_editor": (
+        "file_editor_view",
+        "file_editor_create",
+        "file_editor_write_lines",
+        "file_editor_str_replace",
+        "file_editor_insert",
+    ),
+    "terminal": (
+        "terminal_run",
+    ),
+    "code_index": (
+        "code_index",
+        "code_find_symbol",
+        "code_find_references",
+        "code_dependency_graph",
+    ),
+    "lint_test": (
+        "lint_compile",
+        "lint_ruff_check",
+        "lint_ruff_format_check",
+        "test_python_file",
+        "test_smoke_suite",
+    ),
+    "docker": (
+        "docker_health",
+        "docker_ps",
+        "docker_compose_ps",
+        "docker_compose_logs",
+        "docker_compose_up",
+        "docker_compose_stop",
+    ),
+    "obsidian": (
+        "obsidian_list_notes",
+        "obsidian_read_note",
+        "obsidian_write_note",
+        "obsidian_append_note",
+        "obsidian_search_notes",
+        "obsidian_create_daily_note",
+    ),
+    "issue": (
+        "issue_create",
+        "issue_update",
+        "issue_add_comment",
+        "issue_list",
+        "issue_get",
+        "issue_search",
+        "issue_stats",
+    ),
+    "rag": (
+        "rag_health",
+        "rag_ingest",
+        "rag_search",
+    ),
+    "fetch": (
+        "fetch_url",
+    ),
+    "search": (
+        "search_health",
+        "web_search",
+    ),
+    "document": (
+        "document_extract_text",
+        "document_write_markdown",
+        "document_append_section",
+        "document_outline",
+    ),
+    "ledger": (
+        "ledger_append",
+        "ledger_tail",
+        "ledger_search",
+        "ledger_get",
+        "ledger_stats",
+    ),
+    "playwright": (
+        "playwright_health",
+        "playwright_get_text",
+        "playwright_screenshot",
+    ),
 }
 
 
@@ -99,4 +320,63 @@ TOOL_ALIASES: dict[str, tuple[str, str, dict[str, str]]] = {
     "list_files": ("filesystem", "list_directory", {"folder": "path"}),
     "read_file": ("filesystem", "read_file", {}),
     "write_file": ("filesystem", "write_file", {}),
+    "run_python": ("python", "run_python", {}),
+
+    "file_editor_view": ("file_editor", "file_editor_view", {}),
+    "file_editor_create": ("file_editor", "file_editor_create", {}),
+    "file_editor_write_lines": ("file_editor", "file_editor_write_lines", {}),
+    "file_editor_str_replace": ("file_editor", "file_editor_str_replace", {}),
+    "file_editor_insert": ("file_editor", "file_editor_insert", {}),
+    "terminal_run": ("terminal", "terminal_run", {}),
+
+    "code_index": ("code_index", "code_index", {}),
+    "find_symbol": ("code_index", "code_find_symbol", {}),
+    "find_references": ("code_index", "code_find_references", {}),
+    "dependency_graph": ("code_index", "code_dependency_graph", {}),
+
+    "lint_compile": ("lint_test", "lint_compile", {}),
+    "lint_ruff_check": ("lint_test", "lint_ruff_check", {}),
+    "lint_ruff_format_check": ("lint_test", "lint_ruff_format_check", {}),
+    "test_python_file": ("lint_test", "test_python_file", {}),
+    "test_smoke_suite": ("lint_test", "test_smoke_suite", {}),
+
+    "docker_health": ("docker", "docker_health", {}),
+    "docker_ps": ("docker", "docker_ps", {}),
+    "docker_compose_ps": ("docker", "docker_compose_ps", {}),
+    "docker_logs": ("docker", "docker_compose_logs", {}),
+
+    "obsidian_list": ("obsidian", "obsidian_list_notes", {}),
+    "obsidian_read": ("obsidian", "obsidian_read_note", {}),
+    "obsidian_write": ("obsidian", "obsidian_write_note", {}),
+    "obsidian_append": ("obsidian", "obsidian_append_note", {}),
+    "obsidian_search": ("obsidian", "obsidian_search_notes", {}),
+
+    "issue_create": ("issue", "issue_create", {}),
+    "issue_list": ("issue", "issue_list", {}),
+    "issue_get": ("issue", "issue_get", {}),
+    "issue_search": ("issue", "issue_search", {}),
+    "issue_stats": ("issue", "issue_stats", {}),
+
+    "rag_health": ("rag", "rag_health", {}),
+    "rag_ingest": ("rag", "rag_ingest", {}),
+    "rag_search": ("rag", "rag_search", {}),
+
+    "fetch_url": ("fetch", "fetch_url", {}),
+    "search_health": ("search", "search_health", {}),
+    "web_search": ("search", "web_search", {}),
+
+    "document_extract_text": ("document", "document_extract_text", {}),
+    "document_write_markdown": ("document", "document_write_markdown", {}),
+    "document_append_section": ("document", "document_append_section", {}),
+    "document_outline": ("document", "document_outline", {}),
+
+    "ledger_append": ("ledger", "ledger_append", {}),
+    "ledger_tail": ("ledger", "ledger_tail", {}),
+    "ledger_search": ("ledger", "ledger_search", {}),
+    "ledger_get": ("ledger", "ledger_get", {}),
+    "ledger_stats": ("ledger", "ledger_stats", {}),
+
+    "playwright_health": ("playwright", "playwright_health", {}),
+    "playwright_get_text": ("playwright", "playwright_get_text", {}),
+    "playwright_screenshot": ("playwright", "playwright_screenshot", {}),
 }

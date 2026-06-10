@@ -1,0 +1,1 @@
+print("PROJECT_SMOKE_TEST_OK")

@@ -1,0 +1,55 @@
+CASE: orchestrator_01_json_only
+GROUP: orchestrator
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 8.03
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_orchestrator_01_json_only.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.list_directory",
+  "args": {
+    "path": "."
+  }
+}
+CALL TOOL: filesystem.list_directory
+ARGS: {'path': '.'}
+TOOL RESULT:
+{'content': '[DIR] code\n[DIR] neuroscience_modules\n[FILE] neuroscience_system.py\n[DIR] notes', 'ok': True, 'server': 'filesystem', 'tool': 'list_directory'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "Kết quả kiểm tra kỷ luật JSON thành công.\n\nDanh mục thư mục tại \".\":\n- [DIR] code\n- [DIR] neuroscience_modules\n- [FILE] neuroscience_system.py\n- [DIR] notes"
+}
+
+=== FINAL RESULT ===
+Kết quả kiểm tra kỷ luật JSON thành công.
+
+Danh mục thư mục tại ".":
+- [DIR] code
+- [DIR] neuroscience_modules
+- [FILE] neuroscience_system.py
+- [DIR] notes
+
+
+================================================================================
+STDERR
+================================================================================

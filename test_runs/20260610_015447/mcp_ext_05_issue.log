@@ -1,0 +1,167 @@
+CASE: mcp_ext_05_issue
+GROUP: mcp_ext
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 28.83
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_mcp_ext_05_issue.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260610_015618_d07a4027
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260610_015618_d07a4027\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Step 1: Create a new issue with title 'ISSUE_MCP_OK', description 'Kiem tra issue tracker MCP local', kind 'task', priority 2, assignee 'planner_agent', labels ['test','mcp'], and related_files ['mcp_servers/issue_server.py']",
+  "tool": "issue.issue_create",
+  "args": {
+    "title": "ISSUE_MCP_OK",
+    "description": "Kiem tra issue tracker MCP local",
+    "kind": "task",
+    "priority": 2,
+    "assignee": "planner_agent",
+    "labels": ["test", "mcp"],
+    "related_files": ["mcp_servers/issue_server.py"]
+  }
+}
+CALL TOOL: issue.issue_create
+ARGS: {'title': 'ISSUE_MCP_OK', 'description': 'Kiem tra issue tracker MCP local', 'kind': 'task', 'priority': 2, 'assignee': 'planner_agent', 'labels': ['test', 'mcp'], 'related_files': ['mcp_servers/issue_server.py']}
+TOOL RESULT:
+{'ok': True, 'tool': 'issue_create', 'issue_id': 3, 'title': 'ISSUE_MCP_OK', 'server': 'issue', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'title': {'type': 'str', 'required': True, 'description': 'Issue title'}, 'description': {'type': 'str', 'required': True, 'description': 'Issue description'}, 'kind': {'type': 'str', 'required': False, 'description': 'bug|feature|task|review|risk|question'}, 'priority': {'type': 'int', 'required': False, 'description': '1 highest, 5 lowest'}, 'assignee': {'type': 'str', 'required': False, 'description': 'Agent/person name'}, 'labels': {'type': 'list', 'required': False, 'description': 'Labels'}, 'related_files': {'type': 'list', 'required': False, 'description': 'Project-relative files'}}, 'output_schema': {'ok': 'bool', 'issue_id': 'int', 'title': 'str'}, 'errors': ['error'], 'category': 'issue', 'risk': 'low', 'changes_file': True}, 'duration_seconds': 0.718}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Step 2: List open issues with limit 50 to verify the issue was created and get its ID.",
+  "tool": "issue.issue_list",
+  "args": {
+    "status": "open",
+    "limit": 50
+  }
+}
+CALL TOOL: issue.issue_list
+ARGS: {'status': 'open', 'limit': 50}
+TOOL RESULT:
+{'ok': True, 'tool': 'issue_list', 'count': 2, 'issues': [{'id': 3, 'title': 'ISSUE_MCP_OK', 'description': 'Kiem tra issue tracker MCP local', 'kind': 'task', 'status': 'open', 'priority': 2, 'assignee': 'planner_agent', 'labels': ['test', 'mcp'], 'related_files': ['mcp_servers/issue_server.py'], 'created_at': '2026-06-09T18:56:26.096904+00:00', 'updated_at': '2026-06-09T18:56:26.096904+00:00', 'closed_at': None}, {'id': 1, 'title': 'DIRECT_EXT_MCP_OK', 'description': 'Direct smoke', 'kind': 'task', 'status': 'open', 'priority': 3, 'assignee': '', 'labels': ['smoke'], 'related_files': [], 'created_at': '2026-06-09T18:53:06.904211+00:00', 'updated_at': '2026-06-09T18:53:06.904211+00:00', 'closed_at': None}], 'server': 'issue', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'status': {'type': 'str', 'required': False, 'description': 'Status filter'}, 'kind': {'type': 'str', 'required': False, 'description': 'Kind filter'}, 'assignee': {'type': 'str', 'required': False, 'description': 'Assignee filter'}, 'limit': {'type': 'int', 'required': False, 'description': '1-200 issues'}}, 'output_schema': {'ok': 'bool', 'issues': 'list', 'count': 'int'}, 'errors': ['error'], 'category': 'issue', 'risk': 'low', 'read_only': True}, 'duration_seconds': 0.625}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Step 3: Add a comment to issue_id=3 with message 'Issue tracker MCP hoat dong.' and author 'tester_agent'.",
+  "tool": "issue.issue_add_comment",
+  "args": {
+    "issue_id": 3,
+    "message": "Issue tracker MCP hoat dong.",
+    "author": "tester_agent"
+  }
+}
+CALL TOOL: issue.issue_add_comment
+ARGS: {'issue_id': 3, 'message': 'Issue tracker MCP hoat dong.', 'author': 'tester_agent'}
+TOOL RESULT:
+{'ok': True, 'tool': 'issue_add_comment', 'issue_id': 3, 'comment_id': 2, 'server': 'issue', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'issue_id': {'type': 'int', 'required': True, 'description': 'Issue id'}, 'message': {'type': 'str', 'required': True, 'description': 'Comment text'}, 'author': {'type': 'str', 'required': False, 'description': 'Comment author'}}, 'output_schema': {'ok': 'bool', 'comment_id': 'int'}, 'errors': ['error'], 'category': 'issue', 'risk': 'low', 'changes_file': True}, 'duration_seconds': 0.75}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Step 4: Update the issue status to 'in_progress' using issue_id=3.",
+  "tool": "issue.issue_update",
+  "args": {
+    "issue_id": 3,
+    "status": "in_progress"
+  }
+}
+CALL TOOL: issue.issue_update
+ARGS: {'issue_id': 3, 'status': 'in_progress'}
+TOOL RESULT:
+{'ok': True, 'tool': 'issue_update', 'issue_id': 3, 'rows_updated': 1, 'server': 'issue', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'issue_id': {'type': 'int', 'required': True, 'description': 'Issue id'}, 'status': {'type': 'str', 'required': False, 'description': 'open|in_progress|blocked|review|resolved|closed'}, 'assignee': {'type': 'str', 'required': False, 'description': 'Agent/person name'}, 'priority': {'type': 'int', 'required': False, 'description': '1 highest, 5 lowest'}, 'labels': {'type': 'list', 'required': False, 'description': 'Labels'}, 'related_files': {'type': 'list', 'required': False, 'description': 'Project-relative files'}}, 'output_schema': {'ok': 'bool', 'rows_updated': 'int'}, 'errors': ['error'], 'category': 'issue', 'risk': 'low', 'changes_file': True}, 'duration_seconds': 0.703}
+
+--- STEP 5 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Step 5: Get the issue details using issue_id=3 to verify all changes (status and comments).",
+  "tool": "issue.issue_get",
+  "args": {
+    "issue_id": 3
+  }
+}
+CALL TOOL: issue.issue_get
+ARGS: {'issue_id': 3}
+TOOL RESULT:
+{'ok': True, 'tool': 'issue_get', 'issue': {'id': 3, 'title': 'ISSUE_MCP_OK', 'description': 'Kiem tra issue tracker MCP local', 'kind': 'task', 'status': 'in_progress', 'priority': 2, 'assignee': 'planner_agent', 'labels': ['test', 'mcp'], 'related_files': ['mcp_servers/issue_server.py'], 'created_at': '2026-06-09T18:56:26.096904+00:00', 'updated_at': '2026-06-09T18:56:33.470719+00:00', 'closed_at': None}, 'comments': [{'id': 2, 'issue_id': 3, 'author': 'tester_agent', 'message': 'Issue tracker MCP hoat dong.', 'created_at': '2026-06-09T18:56:31.279645+00:00'}], 'server': 'issue', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'issue_id': {'type': 'int', 'required': True, 'description': 'Issue id'}}, 'output_schema': {'ok': 'bool', 'issue': 'dict', 'comments': 'list'}, 'errors': ['error'], 'category': 'issue', 'risk': 'low', 'read_only': True}, 'duration_seconds': 0.625}
+
+--- STEP 6 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "finish_reason": "validated",
+  "message": "## Kết quả kiểm tra Issue Tracker MCP\n\n### 1. Issue có tạo được không?\n✅ **CÓ** - `issue_create` trả về `ok: true` với `issue_id: 3`\n\n### 2. Issue ID là gì?\n📋 **Issue ID = 3**\n\n### 3. List có thấy issue không?\n✅ **CÓ** - `issue_list` trả về 2 issues, trong đó có issue id=3 với title \"ISSUE_MCP_OK\"\n\n### 4. Comment có lưu không?\n✅ **CÓ** - `issue_add_comment` trả về `ok: true`, và khi gọi `issue_get` đã thấy:\n- 1 comment từ author \"tester_agent\"\n- Message: \"Issue tracker MCP hoat dong.\"\n- Timestamp: 2026-06-09T18:56:31.279645+00:00\n\n### 5. Update status có thành công không?\n✅ **CÓ** - `issue_update` trả về `ok: true`\n\n### 6. Issue get có đủ comments/status không?\n✅ **CÓ** - `issue_get` trả về đầy đủ:\n- **Comments section**: 1 comment với đầy đủ thông tin (id, issue_id, author, message, created_at)\n- **Status info**: Đã được update thành \"in_progress\" (từ các call trước đó)\n\n---\n\n### Tóm tắt toàn bộ flow:\n| Bước | Tool | Kết quả |\n|------|------|---------|\n| 1 | `issue_create` | ✅ ok=true, issue_id=3 |\n| 2 | `issue_list` | ✅ count=2, thấy issue id=3 |\n| 3 | `issue_add_comment` | ✅ ok=true, comment lưu thành công |\n| 4 | `issue_update` | ✅ ok=true, status=\"in_progress\" |\n| 5 | `issue_get` | ✅ ok=true, có comments và status info |\n\n**Kết luận:** Issue Tracker MCP hoạt động hoàn toàn bình thường với đầy đủ các CRUD operations (Create, Read, Update) và Comment functionality."
+}
+
+=== FINAL RESULT ===
+## Kết quả kiểm tra Issue Tracker MCP
+
+### 1. Issue có tạo được không?
+✅ **CÓ** - `issue_create` trả về `ok: true` với `issue_id: 3`
+
+### 2. Issue ID là gì?
+📋 **Issue ID = 3**
+
+### 3. List có thấy issue không?
+✅ **CÓ** - `issue_list` trả về 2 issues, trong đó có issue id=3 với title "ISSUE_MCP_OK"
+
+### 4. Comment có lưu không?
+✅ **CÓ** - `issue_add_comment` trả về `ok: true`, và khi gọi `issue_get` đã thấy:
+- 1 comment từ author "tester_agent"
+- Message: "Issue tracker MCP hoat dong."
+- Timestamp: 2026-06-09T18:56:31.279645+00:00
+
+### 5. Update status có thành công không?
+✅ **CÓ** - `issue_update` trả về `ok: true`
+
+### 6. Issue get có đủ comments/status không?
+✅ **CÓ** - `issue_get` trả về đầy đủ:
+- **Comments section**: 1 comment với đầy đủ thông tin (id, issue_id, author, message, created_at)
+- **Status info**: Đã được update thành "in_progress" (từ các call trước đó)
+
+---
+
+### Tóm tắt toàn bộ flow:
+| Bước | Tool | Kết quả |
+|------|------|---------|
+| 1 | `issue_create` | ✅ ok=true, issue_id=3 |
+| 2 | `issue_list` | ✅ count=2, thấy issue id=3 |
+| 3 | `issue_add_comment` | ✅ ok=true, comment lưu thành công |
+| 4 | `issue_update` | ✅ ok=true, status="in_progress" |
+| 5 | `issue_get` | ✅ ok=true, có comments và status info |
+
+**Kết luận:** Issue Tracker MCP hoạt động hoàn toàn bình thường với đầy đủ các CRUD operations (Create, Read, Update) và Comment functionality.
+
+
+================================================================================
+STDERR
+================================================================================

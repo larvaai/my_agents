@@ -1,0 +1,126 @@
+CASE: chain_05_rag_health_gate_document_ledger
+GROUP: chain
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 36.42
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_chain_05_rag_health_gate_document_ledger.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260609_215129_08e65e1a
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260609_215129_08e65e1a\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "rag.rag_health",
+  "args": {}
+}
+CALL TOOL: rag.rag_health
+ARGS: {}
+TOOL RESULT:
+{'ok': False, 'dependency': 'qdrant', 'dependency_failure': True, 'qdrant_url': 'http://localhost:6333', 'collection': 'my_agents_rag', 'error': '[WinError 10061] No connection could be made because the target machine actively refused it', 'tool': 'rag_health', 'embedding_model': 'intfloat/multilingual-e5-large', 'server': 'rag', 'duration_seconds': 5.984}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "document.document_write_markdown",
+  "args": {
+    "path": "chain_tests/rag_health_gate.md",
+    "title": "RAG Health Gate",
+    "content": "# CHAIN_RAG_HEALTH_GATE_RESULT\n\n## Test: RAG Health Gate -> Optional RAG Chain -> Document -> Ledger\n\n### Step 1: RAG Health Check\n- **Tool**: `rag.rag_health`\n- **Result**: `ok = false` (Dependency Failure)\n- **Error**: `[WinError 10061] No connection could be made because the target machine actively refused it`\n- **Qdrant URL**: http://localhost:6333\n- **Collection**: my_agents_rag\n- **Duration**: 5.984s\n- **Embedding Model**: intfloat/multilingual-e5-large\n\n### Step 2: Conditional RAG Chain (skipped due to failure)\nSince `ok = false`, the following tools were NOT called:\n- `rag.rag_ingest`\n- `rag.rag_search`\n\n### Step 3: Document Report\nCreated report at `chain_tests/rag_health_gate.md` with title \"RAG Health Gate\".\n\n### Step 4: Ledger Audit\nEntry appended to ledger with:\n- **entry_type**: `dependency_failure`\n- **title**: `CHAIN_RAG_HEALTH_GATE_RESULT`\n- **tags**: `[\"chain\", \"rag\", \"dependency\"]`\n\n---\n\n## Classification: Dependency Failure\n\n**Root Cause**: Qdrant vector database server is not running or not accessible at http://localhost:6333.\n\n**Impact**: All RAG operations (ingest, search) require a healthy Qdrant connection. The health gate correctly detected this before proceeding with the chain.\n\n**Resolution**: Start the Qdrant server and retry `rag.rag_health` to verify connectivity.",
+    "overwrite": true
+  }
+}
+CALL TOOL: document.document_write_markdown
+ARGS: {'path': 'chain_tests/rag_health_gate.md', 'title': 'RAG Health Gate', 'content': '# CHAIN_RAG_HEALTH_GATE_RESULT\n\n## Test: RAG Health Gate -> Optional RAG Chain -> Document -> Ledger\n\n### Step 1: RAG Health Check\n- **Tool**: `rag.rag_health`\n- **Result**: `ok = false` (Dependency Failure)\n- **Error**: `[WinError 10061] No connection could be made because the target machine actively refused it`\n- **Qdrant URL**: http://localhost:6333\n- **Collection**: my_agents_rag\n- **Duration**: 5.984s\n- **Embedding Model**: intfloat/multilingual-e5-large\n\n### Step 2: Conditional RAG Chain (skipped due to failure)\nSince `ok = false`, the following tools were NOT called:\n- `rag.rag_ingest`\n- `rag.rag_search`\n\n### Step 3: Document Report\nCreated report at `chain_tests/rag_health_gate.md` with title "RAG Health Gate".\n\n### Step 4: Ledger Audit\nEntry appended to ledger with:\n- **entry_type**: `dependency_failure`\n- **title**: `CHAIN_RAG_HEALTH_GATE_RESULT`\n- **tags**: `["chain", "rag", "dependency"]`\n\n---\n\n## Classification: Dependency Failure\n\n**Root Cause**: Qdrant vector database server is not running or not accessible at http://localhost:6333.\n\n**Impact**: All RAG operations (ingest, search) require a healthy Qdrant connection. The health gate correctly detected this before proceeding with the chain.\n\n**Resolution**: Start the Qdrant server and retry `rag.rag_health` to verify connectivity.', 'overwrite': True}
+TOOL RESULT:
+{'ok': True, 'tool': 'document_write_markdown', 'path': 'chain_tests/rag_health_gate.md', 'chars': 1335, 'server': 'document', 'duration_seconds': 0.578}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "ledger.ledger_append",
+  "args": {
+    "entry_type": "dependency_failure",
+    "title": "CHAIN_RAG_HEALTH_GATE_RESULT",
+    "data": {
+      "ok": false,
+      "dependency": "qdrant",
+      "error": "[WinError 10061] No connection could be made because the target machine actively refused it"
+    },
+    "tags": ["chain", "rag", "dependency"]
+  }
+}
+CALL TOOL: ledger.ledger_append
+ARGS: {'entry_type': 'dependency_failure', 'title': 'CHAIN_RAG_HEALTH_GATE_RESULT', 'data': {'ok': False, 'dependency': 'qdrant', 'error': '[WinError 10061] No connection could be made because the target machine actively refused it'}, 'tags': ['chain', 'rag', 'dependency']}
+TOOL RESULT:
+{'ok': True, 'tool': 'ledger_append', 'entry': {'id': 'd315948ac1be4a61a36ace2384495b44', 'timestamp': '2026-06-09T14:51:58.379471+00:00', 'entry_type': 'dependency_failure', 'title': 'CHAIN_RAG_HEALTH_GATE_RESULT', 'tags': ['chain', 'rag', 'dependency'], 'data': {'ok': False, 'dependency': 'qdrant', 'error': '[WinError 10061] No connection could be made because the target machine actively refused it'}}, 'ledger_path': 'D:\\Agent PRJ\\my_agents\\workspace\\ledger\\ledger.jsonl', 'server': 'ledger', 'duration_seconds': 0.594}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "# CHAIN_RAG_HEALTH_GATE_RESULT\n\n## Test: RAG Health Gate -> Optional RAG Chain -> Document -> Ledger\n\n### Step 1: RAG Health Check\n- **Tool**: `rag.rag_health`\n- **Result**: `ok = false` (Dependency Failure)\n- **Error**: `[WinError 10061] No connection could be made because the target machine actively refused it`\n- **Qdrant URL**: http://localhost:6333\n- **Collection**: my_agents_rag\n- **Duration**: 5.984s\n- **Embedding Model**: intfloat/multilingual-e5-large\n\n### Step 2: Conditional RAG Chain (skipped due to failure)\nSince `ok = false`, the following tools were NOT called:\n- `rag.rag_ingest`\n- `rag.rag_search`\n\n### Step 3: Document Report\nCreated report at `chain_tests/rag_health_gate.md` with title \"RAG Health Gate\".\n\n### Step 4: Ledger Audit\nEntry appended to ledger with:\n- **entry_type**: `dependency_failure`\n- **title**: `CHAIN_RAG_HEALTH_GATE_RESULT`\n- **tags**: `[\"chain\", \"rag\", \"dependency\"]`\n\n---\n\n## Classification: Dependency Failure\n\n**Root Cause**: Qdrant vector database server is not running or not accessible at http://localhost:6333.\n\n**Impact**: All RAG operations (ingest, search) require a healthy Qdrant connection. The health gate correctly detected this before proceeding with the chain.\n\n**Resolution**: Start the Qdrant server and retry `rag.rag_health` to verify connectivity."
+}
+
+=== FINAL RESULT ===
+# CHAIN_RAG_HEALTH_GATE_RESULT
+
+## Test: RAG Health Gate -> Optional RAG Chain -> Document -> Ledger
+
+### Step 1: RAG Health Check
+- **Tool**: `rag.rag_health`
+- **Result**: `ok = false` (Dependency Failure)
+- **Error**: `[WinError 10061] No connection could be made because the target machine actively refused it`
+- **Qdrant URL**: http://localhost:6333
+- **Collection**: my_agents_rag
+- **Duration**: 5.984s
+- **Embedding Model**: intfloat/multilingual-e5-large
+
+### Step 2: Conditional RAG Chain (skipped due to failure)
+Since `ok = false`, the following tools were NOT called:
+- `rag.rag_ingest`
+- `rag.rag_search`
+
+### Step 3: Document Report
+Created report at `chain_tests/rag_health_gate.md` with title "RAG Health Gate".
+
+### Step 4: Ledger Audit
+Entry appended to ledger with:
+- **entry_type**: `dependency_failure`
+- **title**: `CHAIN_RAG_HEALTH_GATE_RESULT`
+- **tags**: `["chain", "rag", "dependency"]`
+
+---
+
+## Classification: Dependency Failure
+
+**Root Cause**: Qdrant vector database server is not running or not accessible at http://localhost:6333.
+
+**Impact**: All RAG operations (ingest, search) require a healthy Qdrant connection. The health gate correctly detected this before proceeding with the chain.
+
+**Resolution**: Start the Qdrant server and retry `rag.rag_health` to verify connectivity.
+
+
+================================================================================
+STDERR
+================================================================================

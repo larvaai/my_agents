@@ -1,0 +1,132 @@
+CASE: project_01_filesystem_python
+GROUP: project
+STATUS: FAIL
+RETURNCODE: 0
+DURATION_SECONDS: 45.57
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_project_01_filesystem_python.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[
+  "Python execution timed out"
+]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "code/project_smoke_test.py",
+    "content": "print(\"PROJECT_SMOKE_TEST_OK\")"
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'code/project_smoke_test.py', 'content': 'print("PROJECT_SMOKE_TEST_OK")'}
+TOOL RESULT:
+{'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py', 'ok': True, 'server': 'filesystem', 'tool': 'write_file'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.read_file",
+  "args": {
+    "path": "code/project_smoke_test.py"
+  }
+}
+CALL TOOL: filesystem.read_file
+ARGS: {'path': 'code/project_smoke_test.py'}
+TOOL RESULT:
+{'content': 'print("PROJECT_SMOKE_TEST_OK")', 'ok': True, 'server': 'filesystem', 'tool': 'read_file'}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "code/project_smoke_test.py",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'code/project_smoke_test.py', 'timeout': 10}
+TOOL RESULT:
+{'ok': False, 'error': 'Python execution timed out after 10 seconds.', 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py', 'command': ['C:\\Users\\namso\\AppData\\Local\\Programs\\Python\\Python311\\python.EXE', 'D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py'], 'python_executable': 'C:\\Users\\namso\\AppData\\Local\\Programs\\Python\\Python311\\python.EXE', 'cwd': 'D:\\Agent PRJ\\my_agents\\workspace', 'stdout': '', 'stderr': '', 'returncode': None, 'server': 'python', 'tool': 'run_python'}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "code/project_smoke_test.py",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'code/project_smoke_test.py', 'timeout': 10}
+TOOL RESULT:
+{'ok': False, 'error': 'Python execution timed out after 10 seconds.', 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py', 'command': ['C:\\Users\\namso\\AppData\\Local\\Programs\\Python\\Python311\\python.EXE', 'D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py'], 'python_executable': 'C:\\Users\\namso\\AppData\\Local\\Programs\\Python\\Python311\\python.EXE', 'cwd': 'D:\\Agent PRJ\\my_agents\\workspace', 'stdout': '', 'stderr': '', 'returncode': None, 'server': 'python', 'tool': 'run_python'}
+
+--- STEP 5 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "## Kết quả kiểm tra Filesystem MCP và Python MCP\n\n### 1. write_file ✅\n- **Có ok không:** Có (true)\n- Chi tiết: `Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py`\n\n### 2. read_file ✅\n- **Có đúng nội dung không:** Có\n- Nội dung đọc được khớp chính xác với nội dung đã ghi:\n  ```python\n  print(\"PROJECT_SMOKE_TEST_OK\")\n  ```\n\n### 3. run_python ❌\n- **Có returncode 0 không:** Không (null)\n- **stdout có PROJECT_SMOKE_TEST_OK không:** Không (rỗng)\n- Chi tiết: Python execution timed out after 10 seconds.\n\n### Tổng kết\n| Bước | Kết quả |\n|------|---------|\n| write_file | ✅ ok = true |\n| read_file | ✅ nội dung đúng |\n| run_python | ❌ timeout, returncode = null |\n\n**Loại lỗi:** Environment/Tool failure (không phải code logic)\n- Tool `python.run_python` bị timeout sau 2 lần gọi với cùng args\n- Code test rất đơn giản nên phải chạy gần như tức thì\n- Python executable tồn tại: `C:\\Users\\namso\\AppData\\Local\\Programs\\Python\\Python311\\python.EXE`\n\n**Gợi ý:** Thử tăng timeout lên 30+ giây hoặc kiểm tra xem Python process có bị lock bởi quá trình khác không."
+}
+
+=== FINAL RESULT ===
+## Kết quả kiểm tra Filesystem MCP và Python MCP
+
+### 1. write_file ✅
+- **Có ok không:** Có (true)
+- Chi tiết: `Successfully wrote to D:\Agent PRJ\my_agents\workspace\code\project_smoke_test.py`
+
+### 2. read_file ✅
+- **Có đúng nội dung không:** Có
+- Nội dung đọc được khớp chính xác với nội dung đã ghi:
+  ```python
+  print("PROJECT_SMOKE_TEST_OK")
+  ```
+
+### 3. run_python ❌
+- **Có returncode 0 không:** Không (null)
+- **stdout có PROJECT_SMOKE_TEST_OK không:** Không (rỗng)
+- Chi tiết: Python execution timed out after 10 seconds.
+
+### Tổng kết
+| Bước | Kết quả |
+|------|---------|
+| write_file | ✅ ok = true |
+| read_file | ✅ nội dung đúng |
+| run_python | ❌ timeout, returncode = null |
+
+**Loại lỗi:** Environment/Tool failure (không phải code logic)
+- Tool `python.run_python` bị timeout sau 2 lần gọi với cùng args
+- Code test rất đơn giản nên phải chạy gần như tức thì
+- Python executable tồn tại: `C:\Users\namso\AppData\Local\Programs\Python\Python311\python.EXE`
+
+**Gợi ý:** Thử tăng timeout lên 30+ giây hoặc kiểm tra xem Python process có bị lock bởi quá trình khác không.
+
+
+================================================================================
+STDERR
+================================================================================

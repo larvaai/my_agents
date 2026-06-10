@@ -1,0 +1,22 @@
+[
+  {
+    "name": "langgraph_00_compile_smoke",
+    "group": "langgraph",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 4.0,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260610_130917\\langgraph_00_compile_smoke.log"
+  },
+  {
+    "name": "langgraph_01_json_gate_smoke",
+    "group": "langgraph",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 0.07,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260610_130917\\langgraph_01_json_gate_smoke.log"
+  }
+]

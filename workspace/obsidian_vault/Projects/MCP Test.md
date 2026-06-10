@@ -1,0 +1,3 @@
+# MCP Test
+
+OBSIDIAN_MCP_OK

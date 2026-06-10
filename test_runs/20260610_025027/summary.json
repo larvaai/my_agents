@@ -1,0 +1,12 @@
+[
+  {
+    "name": "langgraph_00_compile_smoke",
+    "group": "langgraph",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 2.04,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260610_025027\\langgraph_00_compile_smoke.log"
+  }
+]

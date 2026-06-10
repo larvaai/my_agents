@@ -1,0 +1,148 @@
+CASE: chain_05_rag_health_gate_document_ledger
+GROUP: chain
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 39.98
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_chain_05_rag_health_gate_document_ledger.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260609_215451_f82de3dc
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260609_215451_f82de3dc\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "rag.rag_health",
+  "args": {}
+}
+CALL TOOL: rag.rag_health
+ARGS: {}
+TOOL RESULT:
+{'ok': False, 'dependency': 'qdrant', 'dependency_failure': True, 'qdrant_url': 'http://localhost:6333', 'collection': 'my_agents_rag', 'error': '[WinError 10061] No connection could be made because the target machine actively refused it', 'tool': 'rag_health', 'embedding_model': 'intfloat/multilingual-e5-large', 'server': 'rag', 'duration_seconds': 5.969}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.create_directory",
+  "args": {"path": "chain_tests"}
+}
+CALL TOOL: filesystem.create_directory
+ARGS: {'path': 'chain_tests'}
+TOOL RESULT:
+{'content': 'Successfully created directory D:\\Agent PRJ\\my_agents\\workspace\\chain_tests', 'ok': True, 'server': 'filesystem', 'tool': 'create_directory', 'duration_seconds': 1.312}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "document.document_write_markdown",
+  "args": {"path": "chain_tests/rag_health_gate.md", "title": "RAG Health Gate", "content": "# CHAIN_RAG_HEALTH_GATE_RESULT\n\n## Test: RAG Health Gate -> Optional RAG Chain -> Document -> Ledger\n\n### Step 1: RAG Health Check\n- **Tool**: `rag.rag_health`\n- **Result**: `ok = false` (dependency failure)\n- **Error**: `[WinError 10061] No connection could be made because the target machine actively refused it`\n- **Qdrant URL**: `http://localhost:6333`\n\n### Step 2: Conditional Path - Health Gate Failure\nSince `ok = false`, the optional RAG chain was skipped.\n\n#### Skipped Operations:\n- `rag.rag_ingest` (not called)\n- `rag.rag_search` (not called)\n\n### Step 3: Document Report\nCreated report at `chain_tests/rag_health_gate.md` with CHAIN_RAG_HEALTH_GATE_RESULT and dependency failure message.\n\n### Step 4: Ledger Audit\nAppended entry for dependency failure classification.\n\n---\n\n## Classification: **DEPENDENCY FAILURE**\n\nThe RAG health gate detected that Qdrant is not running or not accessible at `http://localhost:6333`. This prevents the optional RAG chain (ingest → search) from executing, but allows the document and ledger components to complete.\n\n### Dependency Chain Status:\n```\nrag.rag_health [FAIL] ──> skip rag.rag_ingest/rag.rag_search ──> document.document_write_markdown [OK] ──> ledger.ledger_append [OK]\n```\n\n---\n\n## Final Result: CHAIN_RAG_HEALTH_GATE_RESULT\n- **Source**: `chain_tests/rag_health_gate.md`\n- **Dependency Failure**: Qdrant connection refused at startup\n- **Recovery Action**: Start Qdrant server or use a different RAG backend",
+  "overwrite": true}
+}
+CALL TOOL: document.document_write_markdown
+ARGS: {'path': 'chain_tests/rag_health_gate.md', 'title': 'RAG Health Gate', 'content': '# CHAIN_RAG_HEALTH_GATE_RESULT\n\n## Test: RAG Health Gate -> Optional RAG Chain -> Document -> Ledger\n\n### Step 1: RAG Health Check\n- **Tool**: `rag.rag_health`\n- **Result**: `ok = false` (dependency failure)\n- **Error**: `[WinError 10061] No connection could be made because the target machine actively refused it`\n- **Qdrant URL**: `http://localhost:6333`\n\n### Step 2: Conditional Path - Health Gate Failure\nSince `ok = false`, the optional RAG chain was skipped.\n\n#### Skipped Operations:\n- `rag.rag_ingest` (not called)\n- `rag.rag_search` (not called)\n\n### Step 3: Document Report\nCreated report at `chain_tests/rag_health_gate.md` with CHAIN_RAG_HEALTH_GATE_RESULT and dependency failure message.\n\n### Step 4: Ledger Audit\nAppended entry for dependency failure classification.\n\n---\n\n## Classification: **DEPENDENCY FAILURE**\n\nThe RAG health gate detected that Qdrant is not running or not accessible at `http://localhost:6333`. This prevents the optional RAG chain (ingest → search) from executing, but allows the document and ledger components to complete.\n\n### Dependency Chain Status:\n```\nrag.rag_health [FAIL] ──> skip rag.rag_ingest/rag.rag_search ──> document.document_write_markdown [OK] ──> ledger.ledger_append [OK]\n```\n\n---\n\n## Final Result: CHAIN_RAG_HEALTH_GATE_RESULT\n- **Source**: `chain_tests/rag_health_gate.md`\n- **Dependency Failure**: Qdrant connection refused at startup\n- **Recovery Action**: Start Qdrant server or use a different RAG backend', 'overwrite': True}
+TOOL RESULT:
+{'ok': True, 'tool': 'document_write_markdown', 'path': 'chain_tests/rag_health_gate.md', 'chars': 1488, 'server': 'document', 'duration_seconds': 0.641}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "ledger.ledger_append",
+  "args": {"entry_type": "dependency_failure", "title": "CHAIN_RAG_HEALTH_GATE_RESULT", "data": {"ok": false, "dependency": "qdrant", "error": "[WinError 10061] No connection could be made because the target machine actively refused it"}, "tags": ["chain", "rag", "dependency"]}
+}
+CALL TOOL: ledger.ledger_append
+ARGS: {'entry_type': 'dependency_failure', 'title': 'CHAIN_RAG_HEALTH_GATE_RESULT', 'data': {'ok': False, 'dependency': 'qdrant', 'error': '[WinError 10061] No connection could be made because the target machine actively refused it'}, 'tags': ['chain', 'rag', 'dependency']}
+TOOL RESULT:
+{'ok': True, 'tool': 'ledger_append', 'entry': {'id': 'e872e8b39a5b4fb9a65217482d3adbe2', 'timestamp': '2026-06-09T14:55:20.598389+00:00', 'entry_type': 'dependency_failure', 'title': 'CHAIN_RAG_HEALTH_GATE_RESULT', 'tags': ['chain', 'rag', 'dependency'], 'data': {'ok': False, 'dependency': 'qdrant', 'error': '[WinError 10061] No connection could be made because the target machine actively refused it'}}, 'ledger_path': 'D:\\Agent PRJ\\my_agents\\workspace\\ledger\\ledger.jsonl', 'server': 'ledger', 'duration_seconds': 0.546}
+
+--- STEP 5 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "ledger.ledger_tail",
+  "args": {"limit": 5}
+}
+CALL TOOL: ledger.ledger_tail
+ARGS: {'limit': 5}
+TOOL RESULT:
+{'ok': True, 'tool': 'ledger_tail', 'entries': [{'id': '98cf7f7eefcf4c9f99ee254b4088e76e', 'timestamp': '2026-06-09T14:52:36.847741+00:00', 'entry_type': 'chain_test', 'title': 'CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK', 'tags': ['chain', 'web', 'document'], 'data': {'url': 'http://www.example.com/', 'fetch_status': 200, 'sentinel': 'CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK'}}, {'id': '728518e77a154ad1b54337644fe358d5', 'timestamp': '2026-06-09T14:53:13.268430+00:00', 'entry_type': 'chain_test', 'title': 'CHAIN_DOC_FS_PY_LEDGER_OK', 'tags': ['chain', 'document', 'python'], 'data': {'spec_path': 'chain_tests/calc_spec.md', 'bug_file': 'code/chain_calc.py', 'original_bug': 'return base + bonus + penalty (wrong sign)', 'fix_applied': 'return base + bonus - penalty (correct sign)', 'first_run_result': 'AssertionError: 18 != 12', 'second_run_result': 'CHAIN_DOC_FS_PY_LEDGER_OK printed, returncode 0'}}, {'id': 'f18a4a42f02e4be7ad80988fc482815c', 'timestamp': '2026-06-09T14:53:59.664155+00:00', 'entry_type': 'chain_test', 'title': 'CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK', 'tags': ['chain', 'playwright', 'fetch'], 'data': {}}, {'id': 'b2f2984a0dff44828111299225667d57', 'timestamp': '2026-06-09T14:54:39.865401+00:00', 'entry_type': 'audit', 'title': 'CHAIN_GIT_DOCUMENT_LEDGER_READONLY_OK', 'tags': ['chain', 'git', 'readonly'], 'data': {}}, {'id': 'e872e8b39a5b4fb9a65217482d3adbe2', 'timestamp': '2026-06-09T14:55:20.598389+00:00', 'entry_type': 'dependency_failure', 'title': 'CHAIN_RAG_HEALTH_GATE_RESULT', 'tags': ['chain', 'rag', 'dependency'], 'data': {'ok': False, 'dependency': 'qdrant', 'error': '[WinError 10061] No connection could be made because the target machine actively refused it'}}], 'count': 12, 'server': 'ledger', 'duration_seconds': 0.609}
+
+--- STEP 6 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "# CHAIN_RAG_HEALTH_GATE_RESULT\n\n## Test: RAG Health Gate -> Optional RAG Chain -> Document -> Ledger\n\n### Step 1: RAG Health Check\n- **Tool**: `rag.rag_health`\n- **Result**: `ok = false` (dependency failure)\n- **Error**: `[WinError 10061] No connection could be made because the target machine actively refused it`\n- **Qdrant URL**: `http://localhost:6333`\n\n### Step 2: Conditional Path - Health Gate Failure\nSince `ok = false`, the optional RAG chain was skipped.\n\n#### Skipped Operations:\n- `rag.rag_ingest` (not called)\n- `rag.rag_search` (not called)\n\n### Step 3: Document Report\nCreated report at `chain_tests/rag_health_gate.md` with CHAIN_RAG_HEALTH_GATE_RESULT and dependency failure message.\n\n### Step 4: Ledger Audit\nAppended entry for dependency failure classification.\n\n---\n\n## Classification: **DEPENDENCY FAILURE**\n\nThe RAG health gate detected that Qdrant is not running or not accessible at `http://localhost:6333`. This prevents the optional RAG chain (ingest → search) from executing, but allows the document and ledger components to complete.\n\n### Dependency Chain Status:\n```\nrag.rag_health [FAIL] ──> skip rag.rag_ingest/rag.rag_search ──> document.document_write_markdown [OK] ──> ledger.ledger_append [OK]\n```\n\n---\n\n## Final Result: CHAIN_RAG_HEALTH_GATE_RESULT\n- **Source**: `chain_tests/rag_health_gate.md`\n- **Dependency Failure**: Qdrant connection refused at startup\n- **Recovery Action**: Start Qdrant server or use a different RAG backend",
+  "source": "notes/chain_rag_note.md",
+  "search_hit_count": 0,
+  "status": "DEPENDENCY_FAILURE"
+}
+
+=== FINAL RESULT ===
+# CHAIN_RAG_HEALTH_GATE_RESULT
+
+## Test: RAG Health Gate -> Optional RAG Chain -> Document -> Ledger
+
+### Step 1: RAG Health Check
+- **Tool**: `rag.rag_health`
+- **Result**: `ok = false` (dependency failure)
+- **Error**: `[WinError 10061] No connection could be made because the target machine actively refused it`
+- **Qdrant URL**: `http://localhost:6333`
+
+### Step 2: Conditional Path - Health Gate Failure
+Since `ok = false`, the optional RAG chain was skipped.
+
+#### Skipped Operations:
+- `rag.rag_ingest` (not called)
+- `rag.rag_search` (not called)
+
+### Step 3: Document Report
+Created report at `chain_tests/rag_health_gate.md` with CHAIN_RAG_HEALTH_GATE_RESULT and dependency failure message.
+
+### Step 4: Ledger Audit
+Appended entry for dependency failure classification.
+
+---
+
+## Classification: **DEPENDENCY FAILURE**
+
+The RAG health gate detected that Qdrant is not running or not accessible at `http://localhost:6333`. This prevents the optional RAG chain (ingest → search) from executing, but allows the document and ledger components to complete.
+
+### Dependency Chain Status:
+```
+rag.rag_health [FAIL] ──> skip rag.rag_ingest/rag.rag_search ──> document.document_write_markdown [OK] ──> ledger.ledger_append [OK]
+```
+
+---
+
+## Final Result: CHAIN_RAG_HEALTH_GATE_RESULT
+- **Source**: `chain_tests/rag_health_gate.md`
+- **Dependency Failure**: Qdrant connection refused at startup
+- **Recovery Action**: Start Qdrant server or use a different RAG backend
+
+
+================================================================================
+STDERR
+================================================================================

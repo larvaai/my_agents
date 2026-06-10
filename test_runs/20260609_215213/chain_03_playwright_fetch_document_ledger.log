@@ -1,0 +1,225 @@
+CASE: chain_03_playwright_fetch_document_ledger
+GROUP: chain
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 43.47
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_chain_03_playwright_fetch_document_ledger.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260609_215328_fa845d50
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260609_215328_fa845d50\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "tool",
+  "tool": "playwright.playwright_health",
+  "args": {}
+}
+```
+CALL TOOL: playwright.playwright_health
+ARGS: {}
+TOOL RESULT:
+{'ok': True, 'tool': 'playwright_health', 'dependency': 'playwright', 'server': 'playwright', 'duration_seconds': 0.64}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "tool",
+  "tool": "playwright.playwright_get_text",
+  "args": {
+    "url": "https://example.com",
+    "selector": "body",
+    "timeout_ms": 30000,
+    "max_chars": 1000
+  }
+}
+```
+CALL TOOL: playwright.playwright_get_text
+ARGS: {'url': 'https://example.com', 'selector': 'body', 'timeout_ms': 30000, 'max_chars': 1000}
+TOOL RESULT:
+{'ok': True, 'tool': 'playwright_get_text', 'url': 'https://example.com', 'final_url': 'https://example.com/', 'title': 'Example Domain', 'selector': 'body', 'text': 'Example Domain\n\nThis domain is for use in documentation examples without needing permission. Avoid use in operations.\n\nLearn more', 'truncated': False, 'server': 'playwright', 'duration_seconds': 2.391}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "tool",
+  "tool": "playwright.playwright_screenshot",
+  "args": {
+    "url": "https://example.com",
+    "path": "chain_tests/example_playwright.png",
+    "full_page": true,
+    "timeout_ms": 30000
+  }
+}
+```
+CALL TOOL: playwright.playwright_screenshot
+ARGS: {'url': 'https://example.com', 'path': 'chain_tests/example_playwright.png', 'full_page': True, 'timeout_ms': 30000}
+TOOL RESULT:
+{'ok': True, 'tool': 'playwright_screenshot', 'url': 'https://example.com', 'final_url': 'https://example.com/', 'title': 'Example Domain', 'path': 'chain_tests\\example_playwright.png', 'server': 'playwright', 'duration_seconds': 1.688}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "tool",
+  "tool": "fetch.fetch_url",
+  "args": {
+    "url": "https://example.com",
+    "max_chars": 1000,
+    "timeout": 10
+  }
+}
+```
+CALL TOOL: fetch.fetch_url
+ARGS: {'url': 'https://example.com', 'max_chars': 1000, 'timeout': 10}
+TOOL RESULT:
+{'ok': True, 'url': 'https://example.com', 'final_url': 'https://example.com', 'status': 200, 'content_type': 'text/html', 'title': 'Example Domain', 'text': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more', 'truncated': False, 'max_chars': 1000, 'server': 'fetch', 'tool': 'fetch_url', 'duration_seconds': 0.703}
+
+--- STEP 5 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "tool",
+  "tool": "document.document_write_markdown",
+  "args": {
+    "path": "chain_tests/playwright_fetch_report.md",
+    "title": "Playwright Fetch Report",
+    "content": "# Playwright Fetch Report\n\n## Chain Status\n**CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK**: ✅ True\n\n---\n\n## Playwright Results\n\n### Health Check\n- **Status**: OK (Dependency Available)\n- **Duration**: 0.64s\n\n### Text Extraction\n- **URL**: https://example.com/\n- **Final URL**: https://example.com/\n- **Title**: Example Domain\n- **Selector**: body\n- **Text Content**: \"Example Domain\\n\\nThis domain is for use in documentation examples without needing permission. Avoid use in operations.\\n\\nLearn more\"\n- **Truncated**: No\n- **Duration**: 2.391s\n\n### Screenshot\n- **Path**: chain_tests\\example_playwright.png\n- **Full Page**: Yes\n- **Status**: Captured successfully\n- **Duration**: 1.688s\n\n---\n\n## Fetch Results\n\n### URL Fetch\n- **URL**: https://example.com\n- **Final URL**: https://example.com\n- **HTTP Status**: 200 (OK)\n- **Content Type**: text/html\n- **Title**: Example Domain\n- **Text Content**: \"Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more\"\n- **Truncated**: No\n- **Max Chars**: 1000\n- **Duration**: 0.703s\n\n---\n\n## Document & Ledger Status\n- **Document Created**: ✅ chain_tests/playwright_fetch_report.md\n- **Ledger Entry**: ✅ Pending append",
+    "overwrite": true
+  }
+}
+```
+CALL TOOL: document.document_write_markdown
+ARGS: {'path': 'chain_tests/playwright_fetch_report.md', 'title': 'Playwright Fetch Report', 'content': '# Playwright Fetch Report\n\n## Chain Status\n**CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK**: ✅ True\n\n---\n\n## Playwright Results\n\n### Health Check\n- **Status**: OK (Dependency Available)\n- **Duration**: 0.64s\n\n### Text Extraction\n- **URL**: https://example.com/\n- **Final URL**: https://example.com/\n- **Title**: Example Domain\n- **Selector**: body\n- **Text Content**: "Example Domain\\n\\nThis domain is for use in documentation examples without needing permission. Avoid use in operations.\\n\\nLearn more"\n- **Truncated**: No\n- **Duration**: 2.391s\n\n### Screenshot\n- **Path**: chain_tests\\example_playwright.png\n- **Full Page**: Yes\n- **Status**: Captured successfully\n- **Duration**: 1.688s\n\n---\n\n## Fetch Results\n\n### URL Fetch\n- **URL**: https://example.com\n- **Final URL**: https://example.com\n- **HTTP Status**: 200 (OK)\n- **Content Type**: text/html\n- **Title**: Example Domain\n- **Text Content**: "Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more"\n- **Truncated**: No\n- **Max Chars**: 1000\n- **Duration**: 0.703s\n\n---\n\n## Document & Ledger Status\n- **Document Created**: ✅ chain_tests/playwright_fetch_report.md\n- **Ledger Entry**: ✅ Pending append', 'overwrite': True}
+TOOL RESULT:
+{'ok': True, 'tool': 'document_write_markdown', 'path': 'chain_tests/playwright_fetch_report.md', 'chars': 1265, 'server': 'document', 'duration_seconds': 0.546}
+
+--- STEP 6 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "tool",
+  "tool": "ledger.ledger_append",
+  "args": {
+    "entry_type": "chain_test",
+    "title": "CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK",
+    "tags": ["chain","playwright","fetch"]
+  }
+}
+```
+CALL TOOL: ledger.ledger_append
+ARGS: {'entry_type': 'chain_test', 'title': 'CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK', 'tags': ['chain', 'playwright', 'fetch']}
+TOOL RESULT:
+{'ok': True, 'tool': 'ledger_append', 'entry': {'id': 'f18a4a42f02e4be7ad80988fc482815c', 'timestamp': '2026-06-09T14:53:59.664155+00:00', 'entry_type': 'chain_test', 'title': 'CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK', 'tags': ['chain', 'playwright', 'fetch'], 'data': {}}, 'ledger_path': 'D:\\Agent PRJ\\my_agents\\workspace\\ledger\\ledger.jsonl', 'server': 'ledger', 'duration_seconds': 0.563}
+
+--- STEP 7 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "final",
+  "message": "# KQ THUC HIEP CHAIN TEST\n\n## Chain Status\n**CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK**: ✅ True\n\n---\n\n## Chi tiet cac buoc:\n\n### 1. Playwright Health Check\n- **Status**: OK (Dependency Available)\n- **Duration**: 0.64s\n- **Result**: Playwright browser binaries available and ready\n\n### 2. Playwright Text Extraction\n- **URL**: https://example.com/\n- **Final URL**: https://example.com/\n- **Title**: Example Domain\n- **Selector**: body\n- **Text Content**: \"Example Domain\\n\\nThis domain is for use in documentation examples without needing permission. Avoid use in operations.\\n\\nLearn more\"\n- **Truncated**: No\n- **Duration**: 2.391s\n\n### 3. Playwright Screenshot\n- **Path**: chain_tests\\example_playwright.png\n- **Full Page**: Yes\n- **Status**: Captured successfully\n- **Duration**: 1.688s\n\n### 4. Fetch URL\n- **URL**: https://example.com\n- **Final URL**: https://example.com\n- **HTTP Status**: 200 (OK)\n- **Content Type**: text/html\n- **Title**: Example Domain\n- **Text Content**: \"Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more\"\n- **Truncated**: No\n- **Max Chars**: 1000\n- **Duration**: 0.703s\n\n### 5. Document Creation\n- **Path**: chain_tests/playwright_fetch_report.md\n- **Title**: Playwright Fetch Report\n- **Chars Written**: 1265\n- **Status**: Created successfully\n- **Duration**: 0.546s\n\n### 6. Ledger Entry\n- **Entry ID**: f18a4a42f02e4be7ad80988fc482815c\n- **Timestamp**: 2026-06-09T14:53:59.664155+00:00\n- **Entry Type**: chain_test\n- **Title**: CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK\n- **Tags**: [\"chain\", \"playwright\", \"fetch\"]\n- **Status**: Appended successfully\n- **Duration**: 0.563s\n\n---\n\n## Tong ket:\n✅ **Tat ca cac buoc trong chain da thuc hien thanh cong theo thu tu:**\n1. Playwright Health → OK\n2. Playwright Get Text → \"Example Domain\"\n3. Playwright Screenshot → \"chain_tests\\example_playwright.png\"\n4. Fetch URL → Status 200, Title \"Example Domain\"\n5. Document Write → \"chain_tests/playwright_fetch_report.md\"\n6. Ledger Append → Entry ID: f18a4a42f02e4be7ad80988fc482815c\n\n✅ **Sentinel CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK da duoc them vao:**\n- File report: chain_tests/playwright_fetch_report.md\n- Ledger entry: ledger/ledger.jsonl"
+}
+```
+
+=== FINAL RESULT ===
+# KQ THUC HIEP CHAIN TEST
+
+## Chain Status
+**CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK**: ✅ True
+
+---
+
+## Chi tiet cac buoc:
+
+### 1. Playwright Health Check
+- **Status**: OK (Dependency Available)
+- **Duration**: 0.64s
+- **Result**: Playwright browser binaries available and ready
+
+### 2. Playwright Text Extraction
+- **URL**: https://example.com/
+- **Final URL**: https://example.com/
+- **Title**: Example Domain
+- **Selector**: body
+- **Text Content**: "Example Domain\n\nThis domain is for use in documentation examples without needing permission. Avoid use in operations.\n\nLearn more"
+- **Truncated**: No
+- **Duration**: 2.391s
+
+### 3. Playwright Screenshot
+- **Path**: chain_tests\example_playwright.png
+- **Full Page**: Yes
+- **Status**: Captured successfully
+- **Duration**: 1.688s
+
+### 4. Fetch URL
+- **URL**: https://example.com
+- **Final URL**: https://example.com
+- **HTTP Status**: 200 (OK)
+- **Content Type**: text/html
+- **Title**: Example Domain
+- **Text Content**: "Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more"
+- **Truncated**: No
+- **Max Chars**: 1000
+- **Duration**: 0.703s
+
+### 5. Document Creation
+- **Path**: chain_tests/playwright_fetch_report.md
+- **Title**: Playwright Fetch Report
+- **Chars Written**: 1265
+- **Status**: Created successfully
+- **Duration**: 0.546s
+
+### 6. Ledger Entry
+- **Entry ID**: f18a4a42f02e4be7ad80988fc482815c
+- **Timestamp**: 2026-06-09T14:53:59.664155+00:00
+- **Entry Type**: chain_test
+- **Title**: CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK
+- **Tags**: ["chain", "playwright", "fetch"]
+- **Status**: Appended successfully
+- **Duration**: 0.563s
+
+---
+
+## Tong ket:
+✅ **Tat ca cac buoc trong chain da thuc hien thanh cong theo thu tu:**
+1. Playwright Health → OK
+2. Playwright Get Text → "Example Domain"
+3. Playwright Screenshot → "chain_tests\example_playwright.png"
+4. Fetch URL → Status 200, Title "Example Domain"
+5. Document Write → "chain_tests/playwright_fetch_report.md"
+6. Ledger Append → Entry ID: f18a4a42f02e4be7ad80988fc482815c
+
+✅ **Sentinel CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK da duoc them vao:**
+- File report: chain_tests/playwright_fetch_report.md
+- Ledger entry: ledger/ledger.jsonl
+
+
+================================================================================
+STDERR
+================================================================================

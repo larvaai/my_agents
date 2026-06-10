@@ -1,0 +1,102 @@
+CASE: project_01_filesystem_python
+GROUP: project
+STATUS: FAIL
+RETURNCODE: 1
+DURATION_SECONDS: 33.4
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_project_01_filesystem_python.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "code/project_smoke_test.py",
+    "content": "print(\"PROJECT_SMOKE_TEST_OK\")"
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'code/project_smoke_test.py', 'content': 'print("PROJECT_SMOKE_TEST_OK")'}
+TOOL RESULT:
+{'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py', 'ok': True, 'server': 'filesystem', 'tool': 'write_file'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.read_file",
+  "args": {
+    "path": "code/project_smoke_test.py"
+  }
+}
+CALL TOOL: filesystem.read_file
+ARGS: {'path': 'code/project_smoke_test.py'}
+TOOL RESULT:
+{'content': 'print("PROJECT_SMOKE_TEST_OK")', 'ok': True, 'server': 'filesystem', 'tool': 'read_file'}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "code/project_smoke_test.py",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'code/project_smoke_test.py', 'timeout': 10}
+TOOL RESULT:
+{'ok': False, 'error': 'Python execution timed out after 10 seconds.', 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py', 'command': ['C:\\Users\\namso\\AppData\\Local\\Programs\\Python\\Python311\\python.EXE', 'D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py'], 'python_executable': 'C:\\Users\\namso\\AppData\\Local\\Programs\\Python\\Python311\\python.EXE', 'cwd': 'D:\\Agent PRJ\\my_agents\\workspace', 'stdout': '', 'stderr': '', 'returncode': None, 'server': 'python', 'tool': 'run_python'}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.get_file_info",
+  "args": {
+    "path": "code/project_smoke_test.py"
+  }
+}
+CALL TOOL: filesystem.get_file_info
+ARGS: {'path': 'code/project_smoke_test.py'}
+TOOL RESULT:
+{'content': 'size: 30\ncreated: Mon Jun 08 2026 19:26:15 GMT+0700 (Indochina Time)\nmodified: Mon Jun 08 2026 19:26:15 GMT+0700 (Indochina Time)\naccessed: Mon Jun 08 2026 19:26:30 GMT+0700 (Indochina Time)\nisDirectory: false\nisFile: true\npermissions: 666', 'ok': True, 'server': 'filesystem', 'tool': 'get_file_info'}
+
+--- STEP 5 ---
+AGENT RAW OUTPUT:
+
+
+================================================================================
+STDERR
+================================================================================
+Traceback (most recent call last):
+  File "D:\Agent PRJ\my_agents\main.py", line 24, in <module>
+    main()
+  File "D:\Agent PRJ\my_agents\main.py", line 14, in main
+    result = run_orchestrator(
+             ^^^^^^^^^^^^^^^^^
+  File "D:\Agent PRJ\my_agents\orchestrator.py", line 94, in run_orchestrator
+    print(agent_output)
+  File "C:\Users\namso\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u1ebe' in position 44: character maps to <undefined>

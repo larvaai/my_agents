@@ -1,0 +1,68 @@
+CASE: rag_02_negative_search
+GROUP: rag
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 15.92
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_rag_02_negative_search.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "rag.rag_search",
+  "args": {
+    "query": "công thức pha hồng trà 12k bán kiosk",
+    "top_k": 5,
+    "score_threshold": 0.85
+  }
+}
+CALL TOOL: rag.rag_search
+ARGS: {'query': 'công thức pha hồng trà 12k bán kiosk', 'top_k': 5, 'score_threshold': 0.85}
+TOOL RESULT:
+{'ok': True, 'tool': 'rag_search', 'query': 'công thức pha hồng trà 12k bán kiosk', 'top_k': 5, 'score_threshold': 0.85, 'hits': [], 'server': 'rag'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "RAG negative search test kết quả:\n\n✓ Search đã chạy thành công (ok: true)\n\n📊 Kết quả:\n- Hits trả về: 0 (rỗng [])\n- Score threshold áp dụng: 0.85\n\n🔍 Phân tích:\nVới query rất cụ thể \"công thức pha hồng trà 12k bán kiosk\" và threshold cao 0.85, việc không có hits nào vượt qua ngưỡng cho thấy:\n\n1. **Search đã thực thi đúng**: Tool trả về kết quả hợp lệ với ok: true\n\n2. **Không có false-positive**: Nếu có hits rỗng, điều này chứng tỏ threshold đang hoạt động tốt - chỉ những chunk có score ≥ 0.85 mới được giữ lại\n\n3. **Kết luận**: Negative search thành công! Không có tài liệu nào trong workspace khớp đủ tốt với query cụ thể này để vượt qua ngưỡng 0.85.\n\n✅ Test negative search: PASSED"
+}
+
+=== FINAL RESULT ===
+RAG negative search test kết quả:
+
+✓ Search đã chạy thành công (ok: true)
+
+📊 Kết quả:
+- Hits trả về: 0 (rỗng [])
+- Score threshold áp dụng: 0.85
+
+🔍 Phân tích:
+Với query rất cụ thể "công thức pha hồng trà 12k bán kiosk" và threshold cao 0.85, việc không có hits nào vượt qua ngưỡng cho thấy:
+
+1. **Search đã thực thi đúng**: Tool trả về kết quả hợp lệ với ok: true
+
+2. **Không có false-positive**: Nếu có hits rỗng, điều này chứng tỏ threshold đang hoạt động tốt - chỉ những chunk có score ≥ 0.85 mới được giữ lại
+
+3. **Kết luận**: Negative search thành công! Không có tài liệu nào trong workspace khớp đủ tốt với query cụ thể này để vượt qua ngưỡng 0.85.
+
+✅ Test negative search: PASSED
+
+
+================================================================================
+STDERR
+================================================================================

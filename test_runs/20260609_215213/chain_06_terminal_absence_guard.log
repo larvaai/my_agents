@@ -1,0 +1,72 @@
+CASE: chain_06_terminal_absence_guard
+GROUP: chain
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 13.27
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_chain_06_terminal_absence_guard.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260609_215531_f59b9aa0
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260609_215531_f59b9aa0\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "final",
+  "message": "CHAIN_TERMINAL_ABSENT_OK\n\n## KẾT QUẢ KIỂM TRA MCP TERMINAL/SHELL TOOL\n\n### 1. Danh sách các server/tool có tên terminal, shell, powershell, cmd, bash, run_command:\n\n| Tên | Có trong danh sách? |\n|-----|-------------------|\n| `terminal` | ❌ Không có |\n| `shell` | ❌ Không có |\n| `powershell` | ❌ Không có |\n| `cmd` | ❌ Không có |\n| `bash` | ❌ Không có |\n| `run_command` | ❌ Không có |\n\n### 2. Tool gần nhất hiện có:\n\n**`python.run_python`**\n- Chỉ chạy file `.py` trong workspace sandboxed\n- Không phải terminal tùy ý\n- Cần import Python thư viện để chạy shell command (ví dụ: `subprocess`, `shutil`, v.v.)\n\n### 3. Kết luận:\n\n**Chưa có MCP terminal/shell tong quat.**\n\nTool gan nhat hien co la `python.run_python`, nhung no chi chay file `.py` trong workspace, khong phai terminal tuy y.\n\n### 4. Nếu sau này cần terminal MCP, cần thiết kế:\n\n- **Sandbox/policy riêng**: Giới hạn quyền truy cập filesystem và network\n- **Whitelist command**: Chỉ cho phép các lệnh an toàn (ví dụ: `ls`, `cd`, `grep`, `cat`)\n- **Timeout**: Giới hạn thời gian chạy mỗi lệnh (ví dụ: 30s - 60s)\n- **CWD trong workspace**: Bắt buộc phải chạy từ thư mục workspace\n- **Chặn command nguy hiểm**: Lọc các lệnh có thể gây hại như `rm -rf`, `dd`, `wget` với tham số lớn, `nc` (netcat), v.v.\n- **Output limit**: Giới hạn kích thước output trả về"
+}
+```
+
+=== FINAL RESULT ===
+CHAIN_TERMINAL_ABSENT_OK
+
+## KẾT QUẢ KIỂM TRA MCP TERMINAL/SHELL TOOL
+
+### 1. Danh sách các server/tool có tên terminal, shell, powershell, cmd, bash, run_command:
+
+| Tên | Có trong danh sách? |
+|-----|-------------------|
+| `terminal` | ❌ Không có |
+| `shell` | ❌ Không có |
+| `powershell` | ❌ Không có |
+| `cmd` | ❌ Không có |
+| `bash` | ❌ Không có |
+| `run_command` | ❌ Không có |
+
+### 2. Tool gần nhất hiện có:
+
+**`python.run_python`**
+- Chỉ chạy file `.py` trong workspace sandboxed
+- Không phải terminal tùy ý
+- Cần import Python thư viện để chạy shell command (ví dụ: `subprocess`, `shutil`, v.v.)
+
+### 3. Kết luận:
+
+**Chưa có MCP terminal/shell tong quat.**
+
+Tool gan nhat hien co la `python.run_python`, nhung no chi chay file `.py` trong workspace, khong phai terminal tuy y.
+
+### 4. Nếu sau này cần terminal MCP, cần thiết kế:
+
+- **Sandbox/policy riêng**: Giới hạn quyền truy cập filesystem và network
+- **Whitelist command**: Chỉ cho phép các lệnh an toàn (ví dụ: `ls`, `cd`, `grep`, `cat`)
+- **Timeout**: Giới hạn thời gian chạy mỗi lệnh (ví dụ: 30s - 60s)
+- **CWD trong workspace**: Bắt buộc phải chạy từ thư mục workspace
+- **Chặn command nguy hiểm**: Lọc các lệnh có thể gây hại như `rm -rf`, `dd`, `wget` với tham số lớn, `nc` (netcat), v.v.
+- **Output limit**: Giới hạn kích thước output trả về
+
+
+================================================================================
+STDERR
+================================================================================

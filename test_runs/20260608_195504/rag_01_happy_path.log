@@ -1,0 +1,137 @@
+CASE: rag_01_happy_path
+GROUP: rag
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 35.77
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_rag_01_happy_path.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "notes/rag_test_basal_ganglia.md",
+    "content": "# RAG Test Basal Ganglia\n\nRAG_SENTINEL_BG_2026\n\nBasal ganglia là nhóm cấu trúc sâu trong não giúp chọn hành động, học thói quen, học chuỗi vận động và điều chỉnh hành vi dựa trên phần thưởng.\n\nTrong Ellumm, basal ganglia có thể được mô phỏng như module chọn hành động dựa trên reward, repetition, urgency và prediction_error."
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'notes/rag_test_basal_ganglia.md', 'content': '# RAG Test Basal Ganglia\n\nRAG_SENTINEL_BG_2026\n\nBasal ganglia là nhóm cấu trúc sâu trong não giúp chọn hành động, học thói quen, học chuỗi vận động và điều chỉnh hành vi dựa trên phần thưởng.\n\nTrong Ellumm, basal ganglia có thể được mô phỏng như module chọn hành động dựa trên reward, repetition, urgency và prediction_error.'}
+TOOL RESULT:
+{'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\notes\\rag_test_basal_ganglia.md', 'ok': True, 'server': 'filesystem', 'tool': 'write_file'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "rag.rag_ingest",
+  "args": {
+    "path": "notes/rag_test_basal_ganglia.md"
+  }
+}
+CALL TOOL: rag.rag_ingest
+ARGS: {'path': 'notes/rag_test_basal_ganglia.md'}
+TOOL RESULT:
+{'ok': True, 'tool': 'rag_ingest', 'path': 'notes/rag_test_basal_ganglia.md', 'files_count': 1, 'results': [{'ok': True, 'source': 'notes/rag_test_basal_ganglia.md', 'chunks': 1}], 'server': 'rag'}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "rag.rag_search",
+  "args": {
+    "query": "RAG_SENTINEL_BG_2026 basal ganglia chọn hành động",
+    "top_k": 5,
+    "score_threshold": 0.70
+  }
+}
+CALL TOOL: rag.rag_search
+ARGS: {'query': 'RAG_SENTINEL_BG_2026 basal ganglia chọn hành động', 'top_k': 5, 'score_threshold': 0.7}
+TOOL RESULT:
+{'ok': True, 'tool': 'rag_search', 'query': 'RAG_SENTINEL_BG_2026 basal ganglia chọn hành động', 'top_k': 5, 'score_threshold': 0.7, 'hits': [{'score': 0.909248, 'source': 'notes/rag_test_basal_ganglia.md', 'file_name': 'rag_test_basal_ganglia.md', 'chunk_index': 0, 'content': '# RAG Test Basal Ganglia\n\nRAG_SENTINEL_BG_2026\n\nBasal ganglia là nhóm cấu trúc sâu trong não giúp chọn hành động, học thói quen, học chuỗi vận động và điều chỉnh hành vi dựa trên phần thưởng.\n\nTrong Ellumm, basal ganglia có thể được mô phỏng như module chọn hành động dựa trên reward, repetition, urgency và prediction_error.'}, {'score': 0.8869258, 'source': 'notes/basal_ganglia.md', 'file_name': 'basal_ganglia.md', 'chunk_index': 1, 'content': 'c tế\n\n| Hoạt động | Vai trò của Basal Ganglia |\n|-----------|--------------------------|\n| Đi bộ | Điều phối nhịp điệu bước đi |\n| Viết chữ | Phối hợp các cử động tay nhỏ |\n| Chơi nhạc cụ | Chuyển từ có ý thức sang tự động |\n| Phản xạ | Hình thành phản xạ nhanh (ví dụ: rút tay khỏi vật nóng) |\n\n---\n\n## ⚠️ Khi basal ganglia bị rối loạn\n\nMột số bệnh lý ảnh hưởng đến basal ganglia:\n- **Parkinson**: Thiếu dopamine → run rẩy, cứng cơ\n- **Hội chứng Tourette**: Chấn động không tự chủ\n- **Chorea Huntington**: Cử động bất thường do thoái hóa tế bào thần kinh\n\n---\n\n## 📝 Tóm tắt nhanh (để nhớ)\n\n> "Basal ganglia = Bộ điều khiển chuyển động tự động trong não"\n\n**3 chức năng chính:**\n1. Điều phối vận động mượt mà\n2. Học tập thói quen tự động  \n3. Lựa chọn hành động phù hợp\n\n---\n\n*Ghi chú: Nội dung này được thiết kế để học sinh cấp 3 dễ hiểu, tránh các thuật ngữ phức tạp không cần thiết.*'}, {'score': 0.8801416, 'source': 'notes/basal_ganglia.md', 'file_name': 'basal_ganglia.md', 'chunk_index': 0, 'content': '# Basal Ganglia - Giải thích đơn giản cho học sinh cấp 3\n\n## 🧠 Basal Ganglia là gì?\n\n**Basal ganglia** (hay còn gọi là "hạch nền") là một nhóm các hạt nhân thần kinh nằm sâu trong não bộ, giống như những "công tắc điều khiển chuyển động" tự động.\n\n---\n\n## ⚙️ Chức năng chính (dành cho học sinh)\n\n### 1. **Điều khiển vận động**\n- Giúp bạn thực hiện các cử động mượt mà: đi lại, viết tay, chơi nhạc cụ\n- Giống như "người điều phối giao thông" trong não bộ\n\n### 2. **Học tập thói quen tự động**\n- Khi bạn học đánh đàn và dần trở nên thành thạo, basal ganglia giúp chuyển từ "tự ý thức từng nốt" sang "chơi tự động"\n- Giúp hình thành các phản xạ có điều kiện\n\n### 3. **Điều phối sự chú ý**\n- Giúp lựa chọn hành động nào cần thực hiện trước tiên\n\n---\n\n## 🔄 Cách hoạt động (giản đồ đơn giản)\n\n```\nTế bào thần kinh → Basal Ganglia → Điều chỉnh tín hiệu → Cơ bắp chuyển động\n```\n\nBasal ganglia nhận tín hiệu từ vỏ não, xử lý và gửi lại tín hiệu điều chỉnh để đảm bảo chuyển động mượt mà.\n\n---\n\n## 🎯 Ví dụ thực tế\n\n| Hoạt động | Vai trò của Basal Ganglia |\n|-----------|--------------------------|\n| Đi bộ | Điều phối nhịp điệu bước đi |\n| Viết chữ | Phối hợp các cử động tay nhỏ |\n| Chơi nhạc cụ | Chuyển từ'}, {'score': 0.86105216, 'source': 'neuroscience_modules/basal_ganglia.py', 'file_name': 'basal_ganglia.py', 'chunk_index': 0, 'content': '"""\nBasal Ganglia Module - Motor control and habit formation.\nThe basal ganglia are involved in motor learning, procedural memory,\nhabit formation, and action selection.\n"""\n\nimport random\n\nclass BasalGanglia:\n    def __init__(self):\n        self.name = "Basal Ganglia"\n        self.habit_strength = 0.5  # 0-1 scale of habit strength\n        self.connections = []\n        \n    def process_input(self, input_signal):\n        """\n        Process motor and procedural learning inputs.\n        Handles action selection and reinforcement learning aspects.\n        """\n        if not isinstance(input_signal, dict):\n            input_signal = {"signal": input_signal}\n            \n        signal_type = input_signal.get("type", "motor")\n        signal_strength = input_signal.get("strength", 0.5)\n        \n        # Basal ganglia shows habit-like behavior - performance improves with repetition\n        if signal_type == "procedural":\n            # Procedural learning: performance increases over time (simulated by strength)\n            procedural_efficiency = min(signal_strength * 1.4, 1.0)\n            return {\n                "module": self.name,\n                "output_type": "procedural_memory",'}, {'score': 0.85887724, 'source': 'notes/rag_test_update.md', 'file_name': 'rag_test_update.md', 'chunk_index': 0, 'content': '# RAG Update Test V2\n\nRAG_UPDATE_NEW_2026\n\nNội dung mới nói rằng Ellumm có urgency, control_ratio, leap_risk và predicted_reward_proximity.'}], 'server': 'rag'}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "# ✅ RAG MCP Happy Path Test Results\n\n## 1. File Written? **YES** ✓\n- Tool: `filesystem.write_file`\n- Result: `{\"ok\": true}`\n- Location: `D:\\Agent PRJ\\my_agents\\workspace\\notes\\rag_test_basal_ganglia.md`\n- Content includes sentinel: `RAG_SENTINEL_BG_2026`\n\n---\n\n## 2. Ingest OK? **YES** ✓\n- Tool: `rag.rag_ingest`\n- Result: `{\"ok\": true, \"files_count\": 1}`\n- Chunks created: **1 chunk** from our test file\n- Status: Successfully processed and stored in Qdrant\n\n---\n\n## 3. Search Returns Correct Source? **YES** ✓\n- Tool: `rag.rag_search`\n- Query: \"RAG_SENTINEL_BG_2026 basal ganglia chọn hành động\"\n- First hit source: **`notes/rag_test_basal_ganglia.md`** (exact match!)\n- Content includes sentinel and full description of basal ganglia\n\n---\n\n## 4. Highest Score? **0.909248** 📊\n| Rank | Score | Source |\n|------|-------|--------|\n| #1 | **0.909248** | `notes/rag_test_basal_ganglia.md` (our test file) |\n| #2 | 0.8869258 | `notes/basal_ganglia.md` |\n| #3 | 0.8801416 | `notes/basal_ganglia.md` |\n| #4 | 0.86105216 | `neuroscience_modules/basal_ganglia.py` |\n| #5 | 0.85887724 | `notes/rag_test_update.md` |\n\n---\n\n## 5. Content Correct About Basal Ganglia? **YES** ✓\nReturned content accurately describes:\n- ✅ \"Basal ganglia là nhóm cấu trúc sâu trong não giúp chọn hành động, học thói quen, học chuỗi vận động và điều chỉnh hành vi dựa trên phần thưởng.\" (Deep brain structures for action selection, habit learning, motor sequence learning, reward-based adjustment)\n- ✅ \"Trong Ellumm, basal ganglia có thể được mô phỏng như module chọn hành động dựa trên reward, repetition, urgency và prediction_error.\"\n\n---\n\n## 🎯 Summary: All Tests Passed!\n| Check | Status |\n|-------|--------|\n| File written? | ✅ YES |\n| Ingest OK? | ✅ YES |\n| Correct source returned? | ✅ YES (`notes/rag_test_basal_ganglia.md`) |\n| Highest score? | ✅ 0.909248 |\n| Content accurate? | ✅ YES |\n\n**RAG MCP is working perfectly!** 🚀"
+}
+
+=== FINAL RESULT ===
+# ✅ RAG MCP Happy Path Test Results
+
+## 1. File Written? **YES** ✓
+- Tool: `filesystem.write_file`
+- Result: `{"ok": true}`
+- Location: `D:\Agent PRJ\my_agents\workspace\notes\rag_test_basal_ganglia.md`
+- Content includes sentinel: `RAG_SENTINEL_BG_2026`
+
+---
+
+## 2. Ingest OK? **YES** ✓
+- Tool: `rag.rag_ingest`
+- Result: `{"ok": true, "files_count": 1}`
+- Chunks created: **1 chunk** from our test file
+- Status: Successfully processed and stored in Qdrant
+
+---
+
+## 3. Search Returns Correct Source? **YES** ✓
+- Tool: `rag.rag_search`
+- Query: "RAG_SENTINEL_BG_2026 basal ganglia chọn hành động"
+- First hit source: **`notes/rag_test_basal_ganglia.md`** (exact match!)
+- Content includes sentinel and full description of basal ganglia
+
+---
+
+## 4. Highest Score? **0.909248** 📊
+| Rank | Score | Source |
+|------|-------|--------|
+| #1 | **0.909248** | `notes/rag_test_basal_ganglia.md` (our test file) |
+| #2 | 0.8869258 | `notes/basal_ganglia.md` |
+| #3 | 0.8801416 | `notes/basal_ganglia.md` |
+| #4 | 0.86105216 | `neuroscience_modules/basal_ganglia.py` |
+| #5 | 0.85887724 | `notes/rag_test_update.md` |
+
+---
+
+## 5. Content Correct About Basal Ganglia? **YES** ✓
+Returned content accurately describes:
+- ✅ "Basal ganglia là nhóm cấu trúc sâu trong não giúp chọn hành động, học thói quen, học chuỗi vận động và điều chỉnh hành vi dựa trên phần thưởng." (Deep brain structures for action selection, habit learning, motor sequence learning, reward-based adjustment)
+- ✅ "Trong Ellumm, basal ganglia có thể được mô phỏng như module chọn hành động dựa trên reward, repetition, urgency và prediction_error."
+
+---
+
+## 🎯 Summary: All Tests Passed!
+| Check | Status |
+|-------|--------|
+| File written? | ✅ YES |
+| Ingest OK? | ✅ YES |
+| Correct source returned? | ✅ YES (`notes/rag_test_basal_ganglia.md`) |
+| Highest score? | ✅ 0.909248 |
+| Content accurate? | ✅ YES |
+
+**RAG MCP is working perfectly!** 🚀
+
+
+================================================================================
+STDERR
+================================================================================

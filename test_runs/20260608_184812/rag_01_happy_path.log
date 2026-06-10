@@ -1,0 +1,39 @@
+CASE: rag_01_happy_path
+GROUP: rag
+STATUS: FAIL
+RETURNCODE: 1
+DURATION_SECONDS: 7.04
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_rag_01_happy_path.md
+
+MISSING_EXPECTED:
+[
+  "rag_test_basal_ganglia.md",
+  "RAG_SENTINEL_BG_2026"
+]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+================================================================================
+STDERR
+================================================================================
+Traceback (most recent call last):
+  File "D:\Agent PRJ\my_agents\main.py", line 18, in <module>
+    main()
+  File "D:\Agent PRJ\my_agents\main.py", line 11, in main
+    result = run_orchestrator(task)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agent PRJ\my_agents\orchestrator.py", line 93, in run_orchestrator
+    print(agent_output)
+  File "C:\Users\namso\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u1ea5' in position 216: character maps to <undefined>

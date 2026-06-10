@@ -1,0 +1,29 @@
+CASE: langgraph_01_json_gate_smoke
+GROUP: langgraph
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 0.07
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe run_json_gate_smoke.py
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+PASS fenced_trailing_comma stage=pass repaired_by_code=True
+PASS unquoted_keys stage=pass repaired_by_code=True
+PASS safe_aliases stage=pass repaired_by_code=False
+PASS unsafe_path stage=dry_run repaired_by_code=False
+PASS terminal_command_string_blocked stage=tool_args repaired_by_code=False
+PASS git_mutation_policy_blocked stage=dry_run repaired_by_code=False
+PASS final_message stage=pass repaired_by_code=False
+JSON_GATE_SMOKE_OK
+
+
+================================================================================
+STDERR
+================================================================================

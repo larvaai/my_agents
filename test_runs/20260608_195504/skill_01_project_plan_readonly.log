@@ -1,0 +1,241 @@
+CASE: skill_01_project_plan_readonly
+GROUP: skill
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 40.13
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_skill_01_project_plan_readonly.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.list_directory",
+  "args": {
+    "path": "."
+  }
+}
+CALL TOOL: filesystem.list_directory
+ARGS: {'path': '.'}
+TOOL RESULT:
+{'content': '[DIR] code\n[DIR] neuroscience_modules\n[FILE] neuroscience_system.py\n[DIR] notes', 'ok': True, 'server': 'filesystem', 'tool': 'list_directory'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.list_directory",
+  "args": {
+    "path": "code"
+  }
+}
+CALL TOOL: filesystem.list_directory
+ARGS: {'path': 'code'}
+TOOL RESULT:
+{'content': '[FILE] buggy_add.py\n[FILE] hello.py\n[FILE] project_smoke_test.py\n[FILE] scope_test.py\n[FILE] test.py\n[FILE] test_neuroscience.py', 'ok': True, 'server': 'filesystem', 'tool': 'list_directory'}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.list_directory",
+  "args": {
+    "path": "notes"
+  }
+}
+CALL TOOL: filesystem.list_directory
+ARGS: {'path': 'notes'}
+TOOL RESULT:
+{'content': '[FILE] basal_ganglia.md\n[FILE] brain.md\n[FILE] hello.md\n[FILE] mcp_test.md\n[FILE] not_python.txt\n[FILE] prefrontal_cortex.md\n[FILE] rag_test_basal_ganglia.md\n[FILE] rag_test_update.md', 'ok': True, 'server': 'filesystem', 'tool': 'list_directory'}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "# Project Plan: Thêm RAG Quality Gate\n\n## Mục tiêu\nThêm một chất lượng kiểm tra (quality gate) để lọc context có score thấp trước khi trả về, tránh trả kết quả \"rác\" cho người dùng.\n\n---\n\n## Files Cần Inspect\n\n### 1. Tìm và đọc hiện tại RAG implementation:\n- `code/` directory - tìm file chứa logic RAG chính (có thể là `test.py`, `hello.py`, hoặc file khác)\n- `neuroscience_modules/` - kiểm tra module neuroscience có liên quan đến RAG\n- `notes/*.md` - đặc biệt chú ý `rag_test_basal_ganglia.md`, `rag_test_update.md`\n\n### 2. Test files để hiểu flow hiện tại:\n- `code/test_neuroscience.py` - test chính cho module neuroscience (bao gồm RAG)\n- `code/project_smoke_test.py` - test smoke/basic sanity checks\n- Các file test khác trong `code/`\n\n---\n\n## Task Breakdown (Ordered Steps)\n\n### Step 1: Research & Analysis (Read-only)\n1. Tìm và đọc current RAG implementation code\n2. Xác định scoring mechanism hiện tại (Qdrant integration)\n3. Đọc test cases để hiểu expected behavior\n4. Phân tích `rag_test_*.md` documents cho context về current flow\n\n### Step 2: Design Quality Gate Logic\n1. Xác định threshold strategy:\n   - Hard threshold (ví dụ: score < 0.7 = filter)\n   - Soft threshold với fallback behavior\n   - Configurable via environment/parameter\n2. Quyết định fallback khi score thấp:\n   - Trả về empty response?\n   - Trả về message cảnh báo?\n   - Try alternative search?\n3. Xác định điểm tích hợp (after scoring, before returning)\n\n### Step 3: Implementation Planning\n1. Tạo module mới hoặc mở rộng existing RAG code\n2. Thêm quality gate với:\n   - Configurable threshold parameter\n   - Logging for debugging\n   - Metrics collection (how many filtered out)\n3. Viết unit tests cho quality gate logic riêng biệt\n4. Viết integration test cases:\n   - Case 1: High score → normal flow\n   - Case 2: Medium/Low score → filter behavior\n   - Case 3: Edge cases (exact threshold, negative scores)\n\n### Step 4: Integration & Testing\n1. Integrate quality gate vào existing RAG flow\n2. Update existing tests để verify new behavior\n3. Run full test suite để đảm bảo không regression\n\n---\n\n## Risks & Edge Cases\n\n| Risk | Impact | Mitigation |\n|------|--------|------------|\n| Breaking existing RAG flow | Medium | Keep backward compatible, use optional flag |\n| Threshold tuning needed | Low-Medium | Make configurable, document defaults |\n| Performance impact | Low | Minimal (just a comparison), but monitor |\n| Edge cases (exact threshold) | Low | Define clear behavior for `== threshold` |\n| Empty response UX | Medium | Consider fallback message or alternative search |\n\n### Key Questions to Resolve:\n1. **Threshold value**: Default 0.7-0.8 cho RAG thường là hợp lý, nhưng cần tune theo domain\n2. **Fallback strategy**: Trả về empty hay message cảnh báo?\n3. **Config location**: Environment variable, config file, hoặc parameter?\n4. **Metrics**: Cần track số lượng filtered contexts để monitoring\n\n---\n\n## Tests to Run (After Implementation)\n\n### Unit Tests:\n```bash\n# Test quality gate logic isolation\npytest -k \"quality_gate\" \n\n# Test specific scenarios\npytest code/test_neuroscience.py::test_rag_quality_gate_high_score\npytest code/test_neuroscience.py::test_rag_quality_gate_low_score\npytest code/test_neuroscience.py::test_rag_quality_gate_edge_cases\n```\n\n### Integration Tests:\n```bash\n# Full RAG flow with quality gate\npytest -k \"rag\" \n\n# Smoke test to ensure basic functionality\npython code/project_smoke_test.py\n\n# Regression tests for existing behavior\npytest code/test_neuroscience.py  # full suite\n```\n\n### Manual Verification:\n1. Test với query có answer rõ ràng (score cao) → normal response\n2. Test với query mơ hồ/low info (score thấp) → filtered or fallback\n3. Check logs để verify gate hoạt động đúng\n4. Measure latency impact\n\n---\n\n## Suggested Implementation Structure\n\n```\n# New module: rag_quality_gate.py\n\nclass QualityGate:\n    def __init__(self, threshold=0.75):\n        self.threshold = threshold\n        self.filtered_count = 0\n    \n    def check(self, score, context):\n        if score < self.threshold:\n            self.filtered_count += 1\n            return \"filtered\"  # or fallback behavior\n        return \"passed\"\n```\n\n---\n\n## Estimated Effort\n- **Research**: 30-60 min (read existing code + docs)\n- **Design**: 20-30 min (decide thresholds, fallbacks)\n- **Implementation**: 1-2 hours (code + tests)\n- **Integration & QA**: 1 hour\n- **Total**: ~4-5 hours\n",
+  "files_to_inspect": [
+    "code/test_neuroscience.py",
+    "code/project_smoke_test.py",
+    "code/*.py (search for RAG implementation)",
+    "neuroscience_modules/* (check for RAG-related code)",
+    "notes/rag_test_basal_ganglia.md",
+    "notes/rag_test_update.md"
+  ],
+  "task_breakdown": [
+    "Step 1: Research & Analysis - Find and read current RAG implementation, understand scoring mechanism, review test cases",
+    "Step 2: Design Quality Gate Logic - Decide threshold strategy (hard/soft), fallback behavior when score is low",
+    "Step 3: Implementation Planning - Create module with configurable threshold, logging, metrics collection, write unit and integration tests",
+    "Step 4: Integration & Testing - Integrate into existing flow, update tests, run full suite to verify no regression"
+  ],
+  "risks": [
+    {"risk": "Breaking existing RAG flow if not properly integrated", "impact": "Medium", "mitigation": "Keep backward compatible with optional flag"},
+    {"risk": "Threshold tuning needed for different use cases", "impact": "Low-Medium", "mitigation": "Make configurable, document defaults"},
+    {"risk": "Performance impact of additional filtering step", "impact": "Low", "mitigation": "Minimal overhead (just comparison), but monitor"}
+  ],
+  "tests_to_run": [
+    "pytest -k \"quality_gate\" (unit tests for gate logic)",
+    "pytest -k \"rag\" (integration tests with quality gate)",
+    "python code/project_smoke_test.py (smoke test)",
+    "pytest code/test_neuroscience.py (full regression suite)"
+  ]
+}
+
+=== FINAL RESULT ===
+# Project Plan: Thêm RAG Quality Gate
+
+## Mục tiêu
+Thêm một chất lượng kiểm tra (quality gate) để lọc context có score thấp trước khi trả về, tránh trả kết quả "rác" cho người dùng.
+
+---
+
+## Files Cần Inspect
+
+### 1. Tìm và đọc hiện tại RAG implementation:
+- `code/` directory - tìm file chứa logic RAG chính (có thể là `test.py`, `hello.py`, hoặc file khác)
+- `neuroscience_modules/` - kiểm tra module neuroscience có liên quan đến RAG
+- `notes/*.md` - đặc biệt chú ý `rag_test_basal_ganglia.md`, `rag_test_update.md`
+
+### 2. Test files để hiểu flow hiện tại:
+- `code/test_neuroscience.py` - test chính cho module neuroscience (bao gồm RAG)
+- `code/project_smoke_test.py` - test smoke/basic sanity checks
+- Các file test khác trong `code/`
+
+---
+
+## Task Breakdown (Ordered Steps)
+
+### Step 1: Research & Analysis (Read-only)
+1. Tìm và đọc current RAG implementation code
+2. Xác định scoring mechanism hiện tại (Qdrant integration)
+3. Đọc test cases để hiểu expected behavior
+4. Phân tích `rag_test_*.md` documents cho context về current flow
+
+### Step 2: Design Quality Gate Logic
+1. Xác định threshold strategy:
+   - Hard threshold (ví dụ: score < 0.7 = filter)
+   - Soft threshold với fallback behavior
+   - Configurable via environment/parameter
+2. Quyết định fallback khi score thấp:
+   - Trả về empty response?
+   - Trả về message cảnh báo?
+   - Try alternative search?
+3. Xác định điểm tích hợp (after scoring, before returning)
+
+### Step 3: Implementation Planning
+1. Tạo module mới hoặc mở rộng existing RAG code
+2. Thêm quality gate với:
+   - Configurable threshold parameter
+   - Logging for debugging
+   - Metrics collection (how many filtered out)
+3. Viết unit tests cho quality gate logic riêng biệt
+4. Viết integration test cases:
+   - Case 1: High score → normal flow
+   - Case 2: Medium/Low score → filter behavior
+   - Case 3: Edge cases (exact threshold, negative scores)
+
+### Step 4: Integration & Testing
+1. Integrate quality gate vào existing RAG flow
+2. Update existing tests để verify new behavior
+3. Run full test suite để đảm bảo không regression
+
+---
+
+## Risks & Edge Cases
+
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| Breaking existing RAG flow | Medium | Keep backward compatible, use optional flag |
+| Threshold tuning needed | Low-Medium | Make configurable, document defaults |
+| Performance impact | Low | Minimal (just a comparison), but monitor |
+| Edge cases (exact threshold) | Low | Define clear behavior for `== threshold` |
+| Empty response UX | Medium | Consider fallback message or alternative search |
+
+### Key Questions to Resolve:
+1. **Threshold value**: Default 0.7-0.8 cho RAG thường là hợp lý, nhưng cần tune theo domain
+2. **Fallback strategy**: Trả về empty hay message cảnh báo?
+3. **Config location**: Environment variable, config file, hoặc parameter?
+4. **Metrics**: Cần track số lượng filtered contexts để monitoring
+
+---
+
+## Tests to Run (After Implementation)
+
+### Unit Tests:
+```bash
+# Test quality gate logic isolation
+pytest -k "quality_gate" 
+
+# Test specific scenarios
+pytest code/test_neuroscience.py::test_rag_quality_gate_high_score
+pytest code/test_neuroscience.py::test_rag_quality_gate_low_score
+pytest code/test_neuroscience.py::test_rag_quality_gate_edge_cases
+```
+
+### Integration Tests:
+```bash
+# Full RAG flow with quality gate
+pytest -k "rag" 
+
+# Smoke test to ensure basic functionality
+python code/project_smoke_test.py
+
+# Regression tests for existing behavior
+pytest code/test_neuroscience.py  # full suite
+```
+
+### Manual Verification:
+1. Test với query có answer rõ ràng (score cao) → normal response
+2. Test với query mơ hồ/low info (score thấp) → filtered or fallback
+3. Check logs để verify gate hoạt động đúng
+4. Measure latency impact
+
+---
+
+## Suggested Implementation Structure
+
+```
+# New module: rag_quality_gate.py
+
+class QualityGate:
+    def __init__(self, threshold=0.75):
+        self.threshold = threshold
+        self.filtered_count = 0
+    
+    def check(self, score, context):
+        if score < self.threshold:
+            self.filtered_count += 1
+            return "filtered"  # or fallback behavior
+        return "passed"
+```
+
+---
+
+## Estimated Effort
+- **Research**: 30-60 min (read existing code + docs)
+- **Design**: 20-30 min (decide thresholds, fallbacks)
+- **Implementation**: 1-2 hours (code + tests)
+- **Integration & QA**: 1 hour
+- **Total**: ~4-5 hours
+
+
+
+================================================================================
+STDERR
+================================================================================

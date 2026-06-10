@@ -1,0 +1,12 @@
+[
+  {
+    "name": "project_01_filesystem_python",
+    "group": "project",
+    "status": "FAIL",
+    "returncode": 1,
+    "duration_seconds": 33.4,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_192608\\project_01_filesystem_python.log"
+  }
+]

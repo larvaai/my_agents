@@ -1,0 +1,68 @@
+CASE: rag_04_code_file_retrieval
+GROUP: rag
+STATUS: FAIL
+RETURNCODE: 1
+DURATION_SECONDS: 16.48
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_rag_04_code_file_retrieval.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[
+  "Traceback"
+]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "rag.rag_ingest",
+  "args": {
+    "path": "neuroscience_modules/basal_ganglia.py"
+  }
+}
+CALL TOOL: rag.rag_ingest
+ARGS: {'path': 'neuroscience_modules/basal_ganglia.py'}
+TOOL RESULT:
+{'ok': True, 'server': 'rag', 'tool': 'rag_ingest', 'text': '{\n  "ok": true,\n  "tool": "rag_ingest",\n  "path": "neuroscience_modules/basal_ganglia.py",\n  "files_count": 1,\n  "results": [\n    {\n      "ok": true,\n      "source": "neuroscience_modules/basal_ganglia.py",\n      "chunks": 3\n    }\n  ]\n}', 'content': [{'type': 'text', 'text': '{\n  "ok": true,\n  "tool": "rag_ingest",\n  "path": "neuroscience_modules/basal_ganglia.py",\n  "files_count": 1,\n  "results": [\n    {\n      "ok": true,\n      "source": "neuroscience_modules/basal_ganglia.py",\n      "chunks": 3\n    }\n  ]\n}', 'annotations': None, 'meta': None}], 'structured_content': {'ok': True, 'tool': 'rag_ingest', 'path': 'neuroscience_modules/basal_ganglia.py', 'files_count': 1, 'results': [{'ok': True, 'source': 'neuroscience_modules/basal_ganglia.py', 'chunks': 3}]}}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "rag.rag_search",
+  "args": {
+    "query": "basal ganglia class function reward action prediction",
+    "top_k": 5,
+    "score_threshold": 0.65
+  }
+}
+CALL TOOL: rag.rag_search
+ARGS: {'query': 'basal ganglia class function reward action prediction', 'top_k': 5, 'score_threshold': 0.65}
+TOOL RESULT:
+
+
+================================================================================
+STDERR
+================================================================================
+Traceback (most recent call last):
+  File "D:\Agent PRJ\my_agents\main.py", line 18, in <module>
+    main()
+  File "D:\Agent PRJ\my_agents\main.py", line 11, in main
+    result = run_orchestrator(task)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agent PRJ\my_agents\orchestrator.py", line 126, in run_orchestrator
+    print(tool_result)
+  File "C:\Users\namso\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u1ea5' in position 1993: character maps to <undefined>

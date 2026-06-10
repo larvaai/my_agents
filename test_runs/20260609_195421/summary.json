@@ -1,0 +1,12 @@
+[
+  {
+    "name": "orchestrator_01_json_only",
+    "group": "orchestrator",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 20.64,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260609_195421\\orchestrator_01_json_only.log"
+  }
+]

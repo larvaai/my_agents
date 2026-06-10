@@ -1,0 +1,94 @@
+CASE: project_03_python_reject_non_py
+GROUP: project
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 14.25
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_project_03_python_reject_non_py.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.create_directory",
+  "args": {
+    "path": "notes"
+  }
+}
+CALL TOOL: filesystem.create_directory
+ARGS: {'path': 'notes'}
+TOOL RESULT:
+{'content': 'Successfully created directory D:\\Agent PRJ\\my_agents\\workspace\\notes', 'ok': True, 'server': 'filesystem', 'tool': 'create_directory'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "notes/not_python.txt",
+    "content": "hello"
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'notes/not_python.txt', 'content': 'hello'}
+TOOL RESULT:
+{'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt', 'ok': True, 'server': 'filesystem', 'tool': 'write_file'}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "notes/not_python.txt",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'notes/not_python.txt', 'timeout': 10}
+TOOL RESULT:
+{'ok': False, 'error': 'Only .py files can be executed.', 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt', 'stdout': '', 'stderr': '', 'returncode': None, 'server': 'python', 'tool': 'run_python'}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "Kết quả test:\n\n1. **File txt có được tạo không:** CÓ - filesystem.write_file trả về ok: true, file notes/not_python.txt đã được viết thành công với nội dung \"hello\".\n\n2. **python.run_python có chặn không:** CÓ - python.run_python trả về ok: false, nghĩa là nó đã chặn việc thực thi file không phải Python.\n\n3. **Error message có nói chỉ file .py được chạy không:** CÓ - thông báo lỗi rõ ràng ghi \"Only .py files can be executed.\" (Chỉ các file .py mới có thể được thực thi).\n\n**Tóm tắt:**\n- File txt: ✅ Tạo thành công\n- Python chặn: ✅ Chặn với ok=false\n- Error message: ✅ Rõ ràng chỉ định chỉ chạy file .py"
+}
+
+=== FINAL RESULT ===
+Kết quả test:
+
+1. **File txt có được tạo không:** CÓ - filesystem.write_file trả về ok: true, file notes/not_python.txt đã được viết thành công với nội dung "hello".
+
+2. **python.run_python có chặn không:** CÓ - python.run_python trả về ok: false, nghĩa là nó đã chặn việc thực thi file không phải Python.
+
+3. **Error message có nói chỉ file .py được chạy không:** CÓ - thông báo lỗi rõ ràng ghi "Only .py files can be executed." (Chỉ các file .py mới có thể được thực thi).
+
+**Tóm tắt:**
+- File txt: ✅ Tạo thành công
+- Python chặn: ✅ Chặn với ok=false
+- Error message: ✅ Rõ ràng chỉ định chỉ chạy file .py
+
+
+================================================================================
+STDERR
+================================================================================

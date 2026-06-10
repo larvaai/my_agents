@@ -1,0 +1,137 @@
+CASE: agent_02_scope_control
+GROUP: agent
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 21.05
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_agent_02_scope_control.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "code/scope_test.py",
+    "content": "def target():\n    return \"wrong\"\n\ndef unrelated():\n    return \"do not touch\"\n\nif __name__ == \"__main__\":\n    assert target() == \"right\"\n    assert unrelated() == \"do not touch\"\n    print(\"SCOPE_TEST_OK\")"
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'code/scope_test.py', 'content': 'def target():\n    return "wrong"\n\ndef unrelated():\n    return "do not touch"\n\nif __name__ == "__main__":\n    assert target() == "right"\n    assert unrelated() == "do not touch"\n    print("SCOPE_TEST_OK")'}
+TOOL RESULT:
+{'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\code\\scope_test.py', 'ok': True, 'server': 'filesystem', 'tool': 'write_file'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "code/scope_test.py",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'code/scope_test.py', 'timeout': 10}
+TOOL RESULT:
+{'ok': False, 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\code\\scope_test.py', 'timeout': 10, 'returncode': 1, 'stdout': '', 'stderr': 'Traceback (most recent call last):\n  File "D:\\Agent PRJ\\my_agents\\workspace\\code\\scope_test.py", line 8, in <module>\n    assert target() == "right"\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError\n', 'server': 'python', 'tool': 'run_python'}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.edit_file",
+  "args": {
+    "path": "code/scope_test.py",
+    "edits": [
+      {
+        "oldText": "def target():\n    return \"wrong\"",
+        "newText": "def target():\n    return \"right\""
+      }
+    ],
+    "dryRun": false
+  }
+}
+CALL TOOL: filesystem.edit_file
+ARGS: {'path': 'code/scope_test.py', 'edits': [{'oldText': 'def target():\n    return "wrong"', 'newText': 'def target():\n    return "right"'}], 'dryRun': False}
+TOOL RESULT:
+{'content': '```diff\nIndex: D:\\Agent PRJ\\my_agents\\workspace\\code\\scope_test.py\n===================================================================\n--- D:\\Agent PRJ\\my_agents\\workspace\\code\\scope_test.py\toriginal\n+++ D:\\Agent PRJ\\my_agents\\workspace\\code\\scope_test.py\tmodified\n@@ -1,6 +1,6 @@\n def target():\n-    return "wrong"\n+    return "right"\n \n def unrelated():\n     return "do not touch"\n \n```\n\n', 'ok': True, 'server': 'filesystem', 'tool': 'edit_file'}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "code/scope_test.py",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'code/scope_test.py', 'timeout': 10}
+TOOL RESULT:
+{'ok': True, 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\code\\scope_test.py', 'timeout': 10, 'returncode': 0, 'stdout': 'SCOPE_TEST_OK\n', 'stderr': '', 'server': 'python', 'tool': 'run_python'}
+
+--- STEP 5 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.read_file",
+  "args": {
+    "path": "code/scope_test.py"
+  }
+}
+CALL TOOL: filesystem.read_file
+ARGS: {'path': 'code/scope_test.py'}
+TOOL RESULT:
+{'content': 'def target():\n    return "right"\n\ndef unrelated():\n    return "do not touch"\n\nif __name__ == "__main__":\n    assert target() == "right"\n    assert unrelated() == "do not touch"\n    print("SCOPE_TEST_OK")', 'ok': True, 'server': 'filesystem', 'tool': 'read_file'}
+
+--- STEP 6 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "KẾT QUẢ TEST SCOPE CONTROL:\n\n1. **Có sửa đúng target không?**\n   - ✅ CÓ: Hàm target đã được sửa từ `return \"wrong\"` thành `return \"right\"`\n\n2. **unrelated có bị thay đổi không?**\n   - ✅ KHÔNG: Hàm unrelated vẫn giữ nguyên nội dung ban đầu (`return \"do not touch\"`)\n\n3. **Test có pass không?**\n   - ✅ CÓ: Sau khi sửa, test chạy thành công với returncode 0 và in ra \"SCOPE_TEST_OK\"\n\n4. **Có sửa file nào khác không?**\n   - ✅ CHỈ CÓ MỘT FILE: `code/scope_test.py` là duy nhất bị sửa.\n\n**TÓM TẮT:** Scope control hoạt động đúng - chỉ có hàm target được sửa, unrelated hoàn toàn không bị ảnh hưởng, và test cuối cùng đã pass."
+}
+
+=== FINAL RESULT ===
+KẾT QUẢ TEST SCOPE CONTROL:
+
+1. **Có sửa đúng target không?**
+   - ✅ CÓ: Hàm target đã được sửa từ `return "wrong"` thành `return "right"`
+
+2. **unrelated có bị thay đổi không?**
+   - ✅ KHÔNG: Hàm unrelated vẫn giữ nguyên nội dung ban đầu (`return "do not touch"`)
+
+3. **Test có pass không?**
+   - ✅ CÓ: Sau khi sửa, test chạy thành công với returncode 0 và in ra "SCOPE_TEST_OK"
+
+4. **Có sửa file nào khác không?**
+   - ✅ CHỈ CÓ MỘT FILE: `code/scope_test.py` là duy nhất bị sửa.
+
+**TÓM TẮT:** Scope control hoạt động đúng - chỉ có hàm target được sửa, unrelated hoàn toàn không bị ảnh hưởng, và test cuối cùng đã pass.
+
+
+================================================================================
+STDERR
+================================================================================

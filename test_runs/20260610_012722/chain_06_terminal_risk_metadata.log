@@ -1,0 +1,146 @@
+CASE: chain_06_terminal_risk_metadata
+GROUP: chain
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 21.36
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_chain_06_terminal_risk_metadata.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260610_012723_0e9c4fef
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260610_012723_0e9c4fef\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Run safe Python probe to verify terminal works and capture metadata",
+  "tool": "terminal.terminal_run",
+  "args": {
+    "argv": ["python", "-c", "print('CHAIN_TERMINAL_RISK_METADATA_OK')"],
+    "timeout": 10,
+    "cwd": ".",
+    "purpose": "safe small debug probe"
+  }
+}
+CALL TOOL: terminal.terminal_run
+ARGS: {'argv': ['python', '-c', "print('CHAIN_TERMINAL_RISK_METADATA_OK')"], 'timeout': 10, 'cwd': '.', 'purpose': 'safe small debug probe'}
+TOOL RESULT:
+{'ok': True, 'tool': 'terminal_run', 'argv': ['python', '-c', "print('CHAIN_TERMINAL_RISK_METADATA_OK')"], 'cwd': 'D:\\Agent PRJ\\my_agents', 'timeout': 10, 'returncode': 0, 'stdout': 'CHAIN_TERMINAL_RISK_METADATA_OK\n', 'stderr': '', 'duration_seconds': 0.656, 'command_metadata': {'allowed': True, 'security_risk': 'medium', 'summary': 'Run small Python probe', 'reasons': ['small Python probe'], 'purpose': 'safe small debug probe'}, 'server': 'terminal', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'argv': {'type': 'list', 'required': True, 'description': 'Command argv list; no shell string'}, 'timeout': {'type': 'int', 'required': False, 'description': '1-120 seconds'}, 'cwd': {'type': 'str', 'required': False, 'description': 'Project-relative cwd'}, 'purpose': {'type': 'str', 'required': False, 'description': 'Short reason for audit log'}}, 'output_schema': {'ok': 'bool', 'stdout': 'str', 'stderr': 'str', 'returncode': 'int|null', 'command_metadata': 'dict'}, 'errors': ['error', 'blocked', 'command_metadata'], 'category': 'terminal', 'risk': 'dynamic', 'shell': False}}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Run shell command that should be blocked by default (no shell string allowed)",
+  "tool": "terminal.terminal_run",
+  "args": {
+    "argv": ["cmd", "/c", "echo", "should_not_run"],
+    "timeout": 10,
+    "cwd": ".",
+    "purpose": "ensure shell execution is blocked"
+  }
+}
+CALL TOOL: terminal.terminal_run
+ARGS: {'argv': ['cmd', '/c', 'echo', 'should_not_run'], 'timeout': 10, 'cwd': '.', 'purpose': 'ensure shell execution is blocked'}
+TOOL RESULT:
+{'ok': False, 'tool': 'terminal_run', 'blocked': True, 'error': 'Terminal command blocked by risk policy.', 'argv': ['cmd', '/c', 'echo', 'should_not_run'], 'cwd': 'D:\\Agent PRJ\\my_agents', 'command_metadata': {'allowed': False, 'security_risk': 'blocked', 'summary': 'Run non-interactive command', 'reasons': ['shell executables are not allowed; pass argv directly'], 'purpose': 'ensure shell execution is blocked'}, 'server': 'terminal', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'argv': {'type': 'list', 'required': True, 'description': 'Command argv list; no shell string'}, 'timeout': {'type': 'int', 'required': False, 'description': '1-120 seconds'}, 'cwd': {'type': 'str', 'required': False, 'description': 'Project-relative cwd'}, 'purpose': {'type': 'str', 'required': False, 'description': 'Short reason for audit log'}}, 'output_schema': {'ok': 'bool', 'stdout': 'str', 'stderr': 'str', 'returncode': 'int|null', 'command_metadata': 'dict'}, 'errors': ['error', 'blocked', 'command_metadata'], 'category': 'terminal', 'risk': 'dynamic', 'shell': False}, 'duration_seconds': 0.594}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "finish_reason": "validated",
+  "message": "# KẾT QUẢ KIỂM TRA NGHỊM TỤC TERMINAL MCP RISK METADATA\n\n## Sentinel: ✅ CHAIN_TERMINAL_RISK_METADATA_OK đã xuất hiện trong stdout của probe an toàn.\n\n---\n\n### 1. Safe Probe (Python)\n**Command:** `python -c \"print('CHAIN_TERMINAL_RISK_METADATA_OK')\"`\n\n| Field | Value |\n|-------|-------|\n| **ok** | `true` |\n| **returncode** | `0` |\n| **stdout** | `CHAIN_TERMINAL_RISK_METADATA_OK\\n` |\n| **stderr** | `` (rỗng) |\n| **duration** | 0.656s |\n\n#### command_metadata:\n- **allowed:** `true`\n- **security_risk:** `\"medium\"`\n- **summary:** `\"Run small Python probe\"`\n- **reasons:** `[\"small Python probe\"]`\n- **purpose:** `\"safe small debug probe\"`\n\n---\n\n### 2. Shell Command (cmd) - Expected Blocked\n**Command:** `cmd /c echo should_not_run`\n\n| Field | Value |\n|-------|-------|\n| **ok** | `false` |\n| **blocked** | `true` |\n| **returncode** | null |\n| **duration** | 0.594s |\n\n#### command_metadata:\n- **allowed:** `false`\n- **security_risk:** `\"blocked\"` ✅\n- **summary:** `\"Run non-interactive command\"`\n- **reasons:** `[\"shell executables are not allowed; pass argv directly\"]`\n- **purpose:** `\"ensure shell execution is blocked\"`\n\n---\n\n### 3. Xác nhận Agent không gọi PowerShell/cmd trực tiếp\n✅ Agent chỉ gọi `terminal.terminal_run` với argv list, không dùng shell string.\n\n**Probe 1 (Python):**\n```json\n\"argv\": [\"python\", \"-c\", \"print('CHAIN_TERMINAL_RISK_METADATA_OK')\"]\n```\n\n**Probe 2 (cmd - bị blocked):**\n```json\n\"argv\": [\"cmd\", \"/c\", \"echo\", \"should_not_run\"]\n```\n\n---\n\n### 4. Tổng kết metadata:\n| Probe | security_risk | allowed | ok |\n|-------|---------------|---------|-----|\n| Python safe probe | `\"medium\"` | `true` | `true` |\n| Shell cmd probe | `\"blocked\"` | `false` | `false` |\n\n✅ **Tất cả yêu cầu đã được xác nhận:**\n1. ✅ Sentinel xuất hiện trong stdout\n2. ✅ Safe probe có summary/security_risk metadata\n3. ✅ Shell command bị blocked với security_risk=\"blocked\"\n4. ✅ Agent chỉ dùng terminal.terminal_run, không gọi cmd/powershell trực tiếp"
+}
+
+=== FINAL RESULT ===
+# KẾT QUẢ KIỂM TRA NGHỊM TỤC TERMINAL MCP RISK METADATA
+
+## Sentinel: ✅ CHAIN_TERMINAL_RISK_METADATA_OK đã xuất hiện trong stdout của probe an toàn.
+
+---
+
+### 1. Safe Probe (Python)
+**Command:** `python -c "print('CHAIN_TERMINAL_RISK_METADATA_OK')"`
+
+| Field | Value |
+|-------|-------|
+| **ok** | `true` |
+| **returncode** | `0` |
+| **stdout** | `CHAIN_TERMINAL_RISK_METADATA_OK\n` |
+| **stderr** | `` (rỗng) |
+| **duration** | 0.656s |
+
+#### command_metadata:
+- **allowed:** `true`
+- **security_risk:** `"medium"`
+- **summary:** `"Run small Python probe"`
+- **reasons:** `["small Python probe"]`
+- **purpose:** `"safe small debug probe"`
+
+---
+
+### 2. Shell Command (cmd) - Expected Blocked
+**Command:** `cmd /c echo should_not_run`
+
+| Field | Value |
+|-------|-------|
+| **ok** | `false` |
+| **blocked** | `true` |
+| **returncode** | null |
+| **duration** | 0.594s |
+
+#### command_metadata:
+- **allowed:** `false`
+- **security_risk:** `"blocked"` ✅
+- **summary:** `"Run non-interactive command"`
+- **reasons:** `["shell executables are not allowed; pass argv directly"]`
+- **purpose:** `"ensure shell execution is blocked"`
+
+---
+
+### 3. Xác nhận Agent không gọi PowerShell/cmd trực tiếp
+✅ Agent chỉ gọi `terminal.terminal_run` với argv list, không dùng shell string.
+
+**Probe 1 (Python):**
+```json
+"argv": ["python", "-c", "print('CHAIN_TERMINAL_RISK_METADATA_OK')"]
+```
+
+**Probe 2 (cmd - bị blocked):**
+```json
+"argv": ["cmd", "/c", "echo", "should_not_run"]
+```
+
+---
+
+### 4. Tổng kết metadata:
+| Probe | security_risk | allowed | ok |
+|-------|---------------|---------|-----|
+| Python safe probe | `"medium"` | `true` | `true` |
+| Shell cmd probe | `"blocked"` | `false` | `false` |
+
+✅ **Tất cả yêu cầu đã được xác nhận:**
+1. ✅ Sentinel xuất hiện trong stdout
+2. ✅ Safe probe có summary/security_risk metadata
+3. ✅ Shell command bị blocked với security_risk="blocked"
+4. ✅ Agent chỉ dùng terminal.terminal_run, không gọi cmd/powershell trực tiếp
+
+
+================================================================================
+STDERR
+================================================================================

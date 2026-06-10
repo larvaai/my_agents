@@ -1,0 +1,99 @@
+CASE: mcp_ext_02_lint_test
+GROUP: mcp_ext
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 16.43
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_mcp_ext_02_lint_test.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260610_015518_6c37eac1
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260610_015518_6c37eac1\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Run lint_test.lint_compile on mcp_servers directory with timeout 60 to check if files compile correctly.",
+  "tool": "lint_test.lint_compile",
+  "args": {"path": "mcp_servers", "timeout": 60}
+}
+CALL TOOL: lint_test.lint_compile
+ARGS: {'path': 'mcp_servers', 'timeout': 60}
+TOOL RESULT:
+{'ok': True, 'tool': 'lint_compile', 'path': 'mcp_servers', 'checked_files': 15, 'truncated': False, 'failures': [], 'duration_seconds': 0.61, 'metadata': {'summary': 'Compile Python files', 'security_risk': 'low', 'validation': True}, 'server': 'lint_test', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'path': {'type': 'str', 'required': False, 'description': 'Project-relative file or folder path'}, 'timeout': {'type': 'int', 'required': False, 'description': '1-120 seconds'}}, 'output_schema': {'ok': 'bool', 'checked_files': 'int', 'failures': 'list', 'metadata': 'dict'}, 'errors': ['error'], 'category': 'validation', 'risk': 'low', 'validation': True}}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Run lint_test.test_python_file on workspace/code/project_smoke_test.py with timeout 30 to check if the smoke test file runs correctly.",
+  "tool": "lint_test.test_python_file",
+  "args": {"path": "workspace/code/project_smoke_test.py", "timeout": 30}
+}
+CALL TOOL: lint_test.test_python_file
+ARGS: {'path': 'workspace/code/project_smoke_test.py', 'timeout': 30}
+TOOL RESULT:
+{'ok': True, 'command': ['C:\\Users\\namso\\AppData\\Local\\Programs\\Python\\Python311\\python.EXE', '-u', 'D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py'], 'stdout': 'PROJECT_SMOKE_TEST_OK\n', 'stderr': '', 'returncode': 0, 'duration_seconds': 0.609, 'tool': 'test_python_file', 'path': 'workspace/code/project_smoke_test.py', 'metadata': {'summary': 'Run Python file workspace/code/project_smoke_test.py', 'security_risk': 'medium', 'validation': True}, 'server': 'lint_test', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'path': {'type': 'str', 'required': True, 'description': 'Project-relative .py file path'}, 'timeout': {'type': 'int', 'required': False, 'description': '1-120 seconds'}}, 'output_schema': {'ok': 'bool', 'stdout': 'str', 'stderr': 'str', 'returncode': 'int|null', 'metadata': 'dict'}, 'errors': ['error'], 'category': 'validation', 'risk': 'medium', 'validation': True}}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Run lint_test.test_smoke_suite with timeout 60 to check if the full smoke suite runs correctly.",
+  "tool": "lint_test.test_smoke_suite",
+  "args": {"timeout": 60}
+}
+CALL TOOL: lint_test.test_smoke_suite
+ARGS: {'timeout': 60}
+TOOL RESULT:
+{'ok': True, 'tool': 'test_smoke_suite', 'results': [{'ok': True, 'tool': 'lint_compile', 'path': 'agents', 'checked_files': 2, 'truncated': False, 'failures': [], 'duration_seconds': 0.0, 'metadata': {'summary': 'Compile Python files', 'security_risk': 'low', 'validation': True}}, {'ok': True, 'tool': 'lint_compile', 'path': 'mcp_servers', 'checked_files': 15, 'truncated': False, 'failures': [], 'duration_seconds': 0.031, 'metadata': {'summary': 'Compile Python files', 'security_risk': 'low', 'validation': True}}, {'ok': True, 'tool': 'lint_compile', 'path': 'tools', 'checked_files': 10, 'truncated': False, 'failures': [], 'duration_seconds': 0.0, 'metadata': {'summary': 'Compile Python files', 'security_risk': 'low', 'validation': True}}, {'ok': True, 'tool': 'lint_compile', 'path': 'main.py', 'checked_files': 1, 'truncated': False, 'failures': [], 'duration_seconds': 0.0, 'metadata': {'summary': 'Compile Python files', 'security_risk': 'low', 'validation': True}}, {'ok': True, 'tool': 'lint_compile', 'path': 'orchestrator.py', 'checked_files': 1, 'truncated': False, 'failures': [], 'duration_seconds': 0.016, 'metadata': {'summary': 'Compile Python files', 'security_risk': 'low', 'validation': True}}, {'ok': True, 'tool': 'lint_compile', 'path': 'run_mcp_chain_smoke.py', 'checked_files': 1, 'truncated': False, 'failures': [], 'duration_seconds': 0.0, 'metadata': {'summary': 'Compile Python files', 'security_risk': 'low', 'validation': True}}, {'ok': True, 'command': ['C:\\Users\\namso\\AppData\\Local\\Programs\\Python\\Python311\\python.EXE', '-u', 'D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py'], 'stdout': 'PROJECT_SMOKE_TEST_OK\n', 'stderr': '', 'returncode': 0, 'duration_seconds': 0.031, 'tool': 'test_python_file', 'path': 'workspace/code/project_smoke_test.py', 'metadata': {'summary': 'Run Python file workspace/code/project_smoke_test.py', 'security_risk': 'medium', 'validation': True}}], 'metadata': {'summary': 'Run project smoke validation suite', 'security_risk': 'medium', 'validation': True}, 'server': 'lint_test', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'timeout': {'type': 'int', 'required': False, 'description': '1-120 seconds'}}, 'output_schema': {'ok': 'bool', 'results': 'list', 'metadata': 'dict'}, 'errors': ['error'], 'category': 'validation', 'risk': 'medium', 'validation': True}, 'duration_seconds': 0.656}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "finish_reason": "validated",
+  "message": "LINT_TEST_MCP_OK = true\n\n=== BÁO CÁO CHI TIẾT ===\n\n1. COMPILATION (lint_compile on mcp_servers):\n   - ok: true\n   - checked_files: 15\n   - failures: 0\n\n2. TEST PYTHON FILE:\n   - path: workspace/code/project_smoke_test.py\n   - ok: true\n   - stdout contains PROJECT_SMOKE_TEST_OK: YES (found \"PROJECT_SMOKE_TEST_OK\\n\")\n   - returncode: 0\n\n3. SMOKE SUITE:\n   - ok: true\n   - results count: 7 items\n   - All sub-tests passed including lint_compile on agents, mcp_servers, tools, main.py, and orchestrator.py"
+}
+
+=== FINAL RESULT ===
+LINT_TEST_MCP_OK = true
+
+=== BÁO CÁO CHI TIẾT ===
+
+1. COMPILATION (lint_compile on mcp_servers):
+   - ok: true
+   - checked_files: 15
+   - failures: 0
+
+2. TEST PYTHON FILE:
+   - path: workspace/code/project_smoke_test.py
+   - ok: true
+   - stdout contains PROJECT_SMOKE_TEST_OK: YES (found "PROJECT_SMOKE_TEST_OK\n")
+   - returncode: 0
+
+3. SMOKE SUITE:
+   - ok: true
+   - results count: 7 items
+   - All sub-tests passed including lint_compile on agents, mcp_servers, tools, main.py, and orchestrator.py
+
+
+================================================================================
+STDERR
+================================================================================

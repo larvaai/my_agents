@@ -1,0 +1,3 @@
+# Extended MCP Smoke
+
+CHAIN_EXTENDED_MCP_CORE_OK

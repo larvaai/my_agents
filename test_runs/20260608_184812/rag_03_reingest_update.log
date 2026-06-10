@@ -1,0 +1,40 @@
+CASE: rag_03_reingest_update
+GROUP: rag
+STATUS: FAIL
+RETURNCODE: 1
+DURATION_SECONDS: 6.41
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_rag_03_reingest_update.md
+
+MISSING_EXPECTED:
+[
+  "RAG_UPDATE_NEW_2026"
+]
+
+FORBIDDEN_FOUND:
+[
+  "Traceback"
+]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+================================================================================
+STDERR
+================================================================================
+Traceback (most recent call last):
+  File "D:\Agent PRJ\my_agents\main.py", line 18, in <module>
+    main()
+  File "D:\Agent PRJ\my_agents\main.py", line 11, in main
+    result = run_orchestrator(task)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agent PRJ\my_agents\orchestrator.py", line 93, in run_orchestrator
+    print(agent_output)
+  File "C:\Users\namso\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u1ed9' in position 182: character maps to <undefined>

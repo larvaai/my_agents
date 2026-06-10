@@ -1,0 +1,90 @@
+CASE: project_01_filesystem_python
+GROUP: project
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 13.75
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_project_01_filesystem_python.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "code/project_smoke_test.py",
+    "content": "print(\"PROJECT_SMOKE_TEST_OK\")"
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'code/project_smoke_test.py', 'content': 'print("PROJECT_SMOKE_TEST_OK")'}
+TOOL RESULT:
+{'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py', 'ok': True, 'server': 'filesystem', 'tool': 'write_file'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.read_file",
+  "args": {
+    "path": "code/project_smoke_test.py"
+  }
+}
+CALL TOOL: filesystem.read_file
+ARGS: {'path': 'code/project_smoke_test.py'}
+TOOL RESULT:
+{'content': 'print("PROJECT_SMOKE_TEST_OK")', 'ok': True, 'server': 'filesystem', 'tool': 'read_file'}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "code/project_smoke_test.py",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'code/project_smoke_test.py', 'timeout': 10}
+TOOL RESULT:
+{'ok': True, 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\code\\project_smoke_test.py', 'timeout': 10, 'returncode': 0, 'stdout': 'PROJECT_SMOKE_TEST_OK\n', 'stderr': '', 'server': 'python', 'tool': 'run_python'}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "KẾT QUẢ TEST THÀNH CÔNG:\n\n1. write_file có ok không: **CÓ** (ok: true)\n2. read_file có đúng nội dung không: **CÓ** (content khớp chính xác: `print(\"PROJECT_SMOKE_TEST_OK\")`)\n3. run_python có returncode 0 không: **CÓ** (returncode: 0)\n4. stdout có PROJECT_SMOKE_TEST_OK không: **CÓ** (stdout: `PROJECT_SMOKE_TEST_OK\\n`)\n\nTất cả các bước đều thực thi thành công!"
+}
+
+=== FINAL RESULT ===
+KẾT QUẢ TEST THÀNH CÔNG:
+
+1. write_file có ok không: **CÓ** (ok: true)
+2. read_file có đúng nội dung không: **CÓ** (content khớp chính xác: `print("PROJECT_SMOKE_TEST_OK")`)
+3. run_python có returncode 0 không: **CÓ** (returncode: 0)
+4. stdout có PROJECT_SMOKE_TEST_OK không: **CÓ** (stdout: `PROJECT_SMOKE_TEST_OK\n`)
+
+Tất cả các bước đều thực thi thành công!
+
+
+================================================================================
+STDERR
+================================================================================

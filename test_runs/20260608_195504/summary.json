@@ -1,0 +1,152 @@
+[
+  {
+    "name": "rag_01_happy_path",
+    "group": "rag",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 35.77,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\rag_01_happy_path.log"
+  },
+  {
+    "name": "rag_02_negative_search",
+    "group": "rag",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 14.9,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\rag_02_negative_search.log"
+  },
+  {
+    "name": "rag_03_reingest_update",
+    "group": "rag",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 50.38,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\rag_03_reingest_update.log"
+  },
+  {
+    "name": "rag_04_code_file_retrieval",
+    "group": "rag",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 28.42,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\rag_04_code_file_retrieval.log"
+  },
+  {
+    "name": "rag_05_sandbox_block",
+    "group": "rag",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 13.35,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\rag_05_sandbox_block.log"
+  },
+  {
+    "name": "project_01_filesystem_python",
+    "group": "project",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 13.75,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\project_01_filesystem_python.log"
+  },
+  {
+    "name": "project_02_python_missing_file",
+    "group": "project",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 8.97,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\project_02_python_missing_file.log"
+  },
+  {
+    "name": "project_03_python_reject_non_py",
+    "group": "project",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 11.56,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\project_03_python_reject_non_py.log"
+  },
+  {
+    "name": "project_04_git_readonly",
+    "group": "project",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 27.89,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\project_04_git_readonly.log"
+  },
+  {
+    "name": "agent_01_fix_small_bug",
+    "group": "agent",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 22.89,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\agent_01_fix_small_bug.log"
+  },
+  {
+    "name": "agent_02_scope_control",
+    "group": "agent",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 21.05,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\agent_02_scope_control.log"
+  },
+  {
+    "name": "skill_01_project_plan_readonly",
+    "group": "skill",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 40.13,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\skill_01_project_plan_readonly.log"
+  },
+  {
+    "name": "skill_02_debug_traceback",
+    "group": "skill",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 23.65,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\skill_02_debug_traceback.log"
+  },
+  {
+    "name": "e2e_01_rag_guided_code",
+    "group": "e2e",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 39.73,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\e2e_01_rag_guided_code.log"
+  },
+  {
+    "name": "orchestrator_01_json_only",
+    "group": "orchestrator",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 8.03,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_195504\\orchestrator_01_json_only.log"
+  }
+]

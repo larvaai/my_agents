@@ -1,0 +1,94 @@
+CASE: project_03_python_reject_non_py
+GROUP: project
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 14.79
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_project_03_python_reject_non_py.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.create_directory",
+  "args": {
+    "path": "notes"
+  }
+}
+CALL TOOL: filesystem.create_directory
+ARGS: {'path': 'notes'}
+TOOL RESULT:
+{'content': 'Successfully created directory D:\\Agent PRJ\\my_agents\\workspace\\notes', 'ok': True, 'server': 'filesystem', 'tool': 'create_directory'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "notes/not_python.txt",
+    "content": "hello"
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'notes/not_python.txt', 'content': 'hello'}
+TOOL RESULT:
+{'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt', 'ok': True, 'server': 'filesystem', 'tool': 'write_file'}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "notes/not_python.txt",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'notes/not_python.txt', 'timeout': 10}
+TOOL RESULT:
+{'ok': False, 'error': 'Only .py files can be executed.', 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt', 'stdout': '', 'stderr': '', 'returncode': None, 'server': 'python', 'tool': 'run_python'}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "Kết quả test Python MCP với file không phải Python:\n\n1. **File txt có được tạo không**: CÓ ✓\n   - Xác nhận từ kết quả write_file: \"Successfully wrote to D:\\\\Agent PRJ\\\\my_agents\\\\workspace\\\\notes\\\\not_python.txt\"\n\n2. **Python.run_python có chặn không**: CÓ ✓\n   - Kết quả trả về ok: false, nghĩa là đã chặn việc thực thi\n\n3. **Error message có nói chỉ file .py được chạy không**: CÓ ✓\n   - Thông báo lỗi chính xác: \"Only .py files can be executed.\"\n\n**Tóm tắt**: Python MCP hoạt động đúng như thiết kế - nó chấp nhận bất kỳ file nào để gọi (thông qua filesystem.write_file), nhưng khi thực thi, nó kiểm tra mở rộng đuôi file và chỉ cho phép chạy các file có đuôi .py."
+}
+
+=== FINAL RESULT ===
+Kết quả test Python MCP với file không phải Python:
+
+1. **File txt có được tạo không**: CÓ ✓
+   - Xác nhận từ kết quả write_file: "Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt"
+
+2. **Python.run_python có chặn không**: CÓ ✓
+   - Kết quả trả về ok: false, nghĩa là đã chặn việc thực thi
+
+3. **Error message có nói chỉ file .py được chạy không**: CÓ ✓
+   - Thông báo lỗi chính xác: "Only .py files can be executed."
+
+**Tóm tắt**: Python MCP hoạt động đúng như thiết kế - nó chấp nhận bất kỳ file nào để gọi (thông qua filesystem.write_file), nhưng khi thực thi, nó kiểm tra mở rộng đuôi file và chỉ cho phép chạy các file có đuôi .py.
+
+
+================================================================================
+STDERR
+================================================================================

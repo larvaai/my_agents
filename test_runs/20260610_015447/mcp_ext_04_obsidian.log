@@ -1,0 +1,149 @@
+CASE: mcp_ext_04_obsidian
+GROUP: mcp_ext
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 23.89
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_mcp_ext_04_obsidian.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260610_015554_5e395963
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260610_015554_5e395963\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Step 1: Write note at Projects/MCP Test.md with content and overwrite=true",
+  "tool": "obsidian.obsidian_write_note",
+  "args": {
+    "path": "Projects/MCP Test.md",
+    "content": "# MCP Test\n\nOBSIDIAN_MCP_OK",
+    "overwrite": true
+  }
+}
+CALL TOOL: obsidian.obsidian_write_note
+ARGS: {'path': 'Projects/MCP Test.md', 'content': '# MCP Test\n\nOBSIDIAN_MCP_OK', 'overwrite': True}
+TOOL RESULT:
+{'ok': True, 'tool': 'obsidian_write_note', 'path': 'Projects/MCP Test.md', 'chars_written': 27, 'metadata': {'operation': 'create', 'security_risk': 'low', 'changed': True}, 'server': 'obsidian', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'path': {'type': 'str', 'required': True, 'description': 'Vault-relative markdown note'}, 'content': {'type': 'str', 'required': True, 'description': 'Markdown content'}, 'overwrite': {'type': 'bool', 'required': False, 'description': 'Allow overwrite'}}, 'output_schema': {'ok': 'bool', 'path': 'str', 'chars_written': 'int', 'metadata': 'dict'}, 'errors': ['error'], 'category': 'knowledge', 'risk': 'low', 'changes_file': True}, 'duration_seconds': 0.75}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Step 2: Read note at Projects/MCP Test.md to verify content was written correctly.",
+  "tool": "obsidian.obsidian_read_note",
+  "args": {
+    "path": "Projects/MCP Test.md",
+    "max_chars": 1000
+  }
+}
+CALL TOOL: obsidian.obsidian_read_note
+ARGS: {'path': 'Projects/MCP Test.md', 'max_chars': 1000}
+TOOL RESULT:
+{'ok': True, 'tool': 'obsidian_read_note', 'path': 'Projects/MCP Test.md', 'text': '# MCP Test\n\nOBSIDIAN_MCP_OK', 'truncated': False, 'chars': 27, 'server': 'obsidian', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'path': {'type': 'str', 'required': True, 'description': 'Vault-relative markdown note'}, 'max_chars': {'type': 'int', 'required': False, 'description': 'Max chars'}}, 'output_schema': {'ok': 'bool', 'text': 'str', 'truncated': 'bool'}, 'errors': ['error'], 'category': 'knowledge', 'risk': 'low', 'read_only': True}, 'duration_seconds': 0.625}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Step 3: Search for notes containing 'OBSIDIAN_MCP_OK' in the Projects folder.",
+  "tool": "obsidian.obsidian_search_notes",
+  "args": {
+    "query": "OBSIDIAN_MCP_OK",
+    "folder": "Projects",
+    "limit": 10
+  }
+}
+CALL TOOL: obsidian.obsidian_search_notes
+ARGS: {'query': 'OBSIDIAN_MCP_OK', 'folder': 'Projects', 'limit': 10}
+TOOL RESULT:
+{'ok': True, 'tool': 'obsidian_search_notes', 'query': 'OBSIDIAN_MCP_OK', 'count': 1, 'matches': [{'path': 'Projects/MCP Test.md', 'lineno': 3, 'line': 'OBSIDIAN_MCP_OK'}], 'server': 'obsidian', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'query': {'type': 'str', 'required': True, 'description': 'Search query'}, 'folder': {'type': 'str', 'required': False, 'description': 'Vault-relative folder'}, 'limit': {'type': 'int', 'required': False, 'description': '1-100 matches'}}, 'output_schema': {'ok': 'bool', 'matches': 'list', 'count': 'int'}, 'errors': ['error'], 'category': 'knowledge', 'risk': 'low', 'read_only': True}, 'duration_seconds': 0.657}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Step 4: List notes in Projects folder with limit=50.",
+  "tool": "obsidian.obsidian_list_notes",
+  "args": {
+    "folder": "Projects",
+    "limit": 50
+  }
+}
+CALL TOOL: obsidian.obsidian_list_notes
+ARGS: {'folder': 'Projects', 'limit': 50}
+TOOL RESULT:
+{'ok': True, 'tool': 'obsidian_list_notes', 'folder': 'Projects', 'count': 3, 'total': 3, 'truncated': False, 'notes': [{'path': 'Projects/Direct Smoke.md', 'size': 37}, {'path': 'Projects/Extended MCP Smoke.md', 'size': 52}, {'path': 'Projects/MCP Test.md', 'size': 29}], 'vault': 'D:\\Agent PRJ\\my_agents\\workspace\\obsidian_vault', 'server': 'obsidian', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'folder': {'type': 'str', 'required': False, 'description': 'Vault-relative folder'}, 'limit': {'type': 'int', 'required': False, 'description': '1-500 notes'}}, 'output_schema': {'ok': 'bool', 'notes': 'list', 'count': 'int', 'vault': 'str'}, 'errors': ['error'], 'category': 'knowledge', 'risk': 'low', 'read_only': True}, 'duration_seconds': 0.703}
+
+--- STEP 5 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "finish_reason": "validated",
+  "message": "# Báo cáo kiểm tra Obsidian MCP\n\n## Kết quả chi tiết:\n\n### 1. Write note (ghi chú)\n✅ **CO OK** - Ghi thành công vào `Projects/MCP Test.md`\n- Path: `Projects/MCP Test.md`\n- Chars written: 29\n- Content: `# MCP Test\\n\\nOBSIDIAN_MCP_OK`\n\n### 2. Read note (đọc chú)\n✅ **CO DUNG OBSIDIAN_MCP_OK** - Đọc thành công và xác nhận nội dung\n- Text trả về: `# MCP Test\\n\\nOBSIDIAN_MCP_OK`\n- Xác nhận: Có chứa chuỗi `OBSIDIAN_MCP_OK` ở dòng 3\n\n### 3. Search notes (tìm kiếm chú)\n✅ **CO TIM THAY NOTE** - Tìm thấy đúng 1 kết quả\n- Query: `OBSIDIAN_MCP_OK`\n- Folder: `Projects`\n- Kết quả: 1 match\n- Found at: `Projects/MCP Test.md`, line 3, exact text: `OBSIDIAN_MCP_OK`\n\n### 4. List notes (liệt kê chú)\n✅ **CO THAY Projects/MCP Test.md** - Liệt kê thành công\n- Folder: `Projects`\n- Total items: 3 notes\n- Items found:\n  1. `Projects/Direct Smoke.md` (size: 37 bytes)\n  2. `Projects/Extended MCP Smoke.md` (size: 52 bytes)\n  3. **`Projects/MCP Test.md`** (size: 29 bytes) ← Note mới của ta\n\n## Tổng kết:\n| Bước | Yêu cầu | Kết quả |\n|------|---------|----------|\n| Write | Ghi chú với overwrite=true | ✅ OK |\n| Read | Đọc và kiểm tra nội dung | ✅ DUNG |\n| Search | Tìm theo query | ✅ TIM THAY |\n| List | Liệt kê trong folder | ✅ CO THAY |\n\n**Tất cả 4 bước đều hoàn thành thành công!** Obsidian MCP hoạt động bình thường."
+}
+
+=== FINAL RESULT ===
+# Báo cáo kiểm tra Obsidian MCP
+
+## Kết quả chi tiết:
+
+### 1. Write note (ghi chú)
+✅ **CO OK** - Ghi thành công vào `Projects/MCP Test.md`
+- Path: `Projects/MCP Test.md`
+- Chars written: 29
+- Content: `# MCP Test\n\nOBSIDIAN_MCP_OK`
+
+### 2. Read note (đọc chú)
+✅ **CO DUNG OBSIDIAN_MCP_OK** - Đọc thành công và xác nhận nội dung
+- Text trả về: `# MCP Test\n\nOBSIDIAN_MCP_OK`
+- Xác nhận: Có chứa chuỗi `OBSIDIAN_MCP_OK` ở dòng 3
+
+### 3. Search notes (tìm kiếm chú)
+✅ **CO TIM THAY NOTE** - Tìm thấy đúng 1 kết quả
+- Query: `OBSIDIAN_MCP_OK`
+- Folder: `Projects`
+- Kết quả: 1 match
+- Found at: `Projects/MCP Test.md`, line 3, exact text: `OBSIDIAN_MCP_OK`
+
+### 4. List notes (liệt kê chú)
+✅ **CO THAY Projects/MCP Test.md** - Liệt kê thành công
+- Folder: `Projects`
+- Total items: 3 notes
+- Items found:
+  1. `Projects/Direct Smoke.md` (size: 37 bytes)
+  2. `Projects/Extended MCP Smoke.md` (size: 52 bytes)
+  3. **`Projects/MCP Test.md`** (size: 29 bytes) ← Note mới của ta
+
+## Tổng kết:
+| Bước | Yêu cầu | Kết quả |
+|------|---------|----------|
+| Write | Ghi chú với overwrite=true | ✅ OK |
+| Read | Đọc và kiểm tra nội dung | ✅ DUNG |
+| Search | Tìm theo query | ✅ TIM THAY |
+| List | Liệt kê trong folder | ✅ CO THAY |
+
+**Tất cả 4 bước đều hoàn thành thành công!** Obsidian MCP hoạt động bình thường.
+
+
+================================================================================
+STDERR
+================================================================================

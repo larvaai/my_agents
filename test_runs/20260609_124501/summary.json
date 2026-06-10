@@ -1,0 +1,12 @@
+[
+  {
+    "name": "skill_00_skills_loaded",
+    "group": "skill",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 14.74,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260609_124501\\skill_00_skills_loaded.log"
+  }
+]

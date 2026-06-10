@@ -1,0 +1,1 @@
+print('FINISH_GATE_VALIDATE_OK')

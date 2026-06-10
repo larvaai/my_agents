@@ -1,0 +1,62 @@
+CASE: rag_02_negative_search
+GROUP: rag
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 14.9
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_rag_02_negative_search.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "rag.rag_search",
+  "args": {
+    "query": "công thức pha hồng trà 12k bán kiosk",
+    "top_k": 5,
+    "score_threshold": 0.85
+  }
+}
+CALL TOOL: rag.rag_search
+ARGS: {'query': 'công thức pha hồng trà 12k bán kiosk', 'top_k': 5, 'score_threshold': 0.85}
+TOOL RESULT:
+{'ok': True, 'tool': 'rag_search', 'query': 'công thức pha hồng trà 12k bán kiosk', 'top_k': 5, 'score_threshold': 0.85, 'hits': [], 'server': 'rag'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "RAG Negative Search Test Results:\n\n1. **Search executed:** Yes (ok: true)\n\n2. **Hits returned:** 0 (empty array [])\n\n3. **Analysis of results:**\n   - The `score_threshold` of 0.85 is working correctly as a negative filter\n   - No chunks scored above the threshold, or no matching text exists in the current Qdrant index for \"công thức pha hồng trà 12k bán kiosk\"\n   - Since hits are empty, the threshold successfully prevented low-confidence matches from appearing (or filtered them out)\n\n4. **Conclusion:** The negative search test passed - the `score_threshold` parameter is functioning as intended by either filtering out sub-threshold results or finding no relevant content in the current knowledge base."
+}
+
+=== FINAL RESULT ===
+RAG Negative Search Test Results:
+
+1. **Search executed:** Yes (ok: true)
+
+2. **Hits returned:** 0 (empty array [])
+
+3. **Analysis of results:**
+   - The `score_threshold` of 0.85 is working correctly as a negative filter
+   - No chunks scored above the threshold, or no matching text exists in the current Qdrant index for "công thức pha hồng trà 12k bán kiosk"
+   - Since hits are empty, the threshold successfully prevented low-confidence matches from appearing (or filtered them out)
+
+4. **Conclusion:** The negative search test passed - the `score_threshold` parameter is functioning as intended by either filtering out sub-threshold results or finding no relevant content in the current knowledge base.
+
+
+================================================================================
+STDERR
+================================================================================

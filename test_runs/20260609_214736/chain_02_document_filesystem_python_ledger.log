@@ -1,0 +1,227 @@
+CASE: chain_02_document_filesystem_python_ledger
+GROUP: chain
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 29.28
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_chain_02_document_filesystem_python_ledger.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260609_214808_e5d49b42
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260609_214808_e5d49b42\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "document.document_write_markdown",
+  "args": {
+    "path": "chain_tests/calc_spec.md",
+    "title": "Calc Spec",
+    "content": "# CHAIN_CALC_RULE_2026\n\nHam net_score(base, bonus, penalty) phai return base + bonus - penalty.",
+    "overwrite": true
+  }
+}
+CALL TOOL: document.document_write_markdown
+ARGS: {'path': 'chain_tests/calc_spec.md', 'title': 'Calc Spec', 'content': '# CHAIN_CALC_RULE_2026\n\nHam net_score(base, bonus, penalty) phai return base + bonus - penalty.', 'overwrite': True}
+TOOL RESULT:
+{'ok': True, 'tool': 'document_write_markdown', 'path': 'chain_tests/calc_spec.md', 'chars': 109, 'server': 'document', 'duration_seconds': 0.563}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "document.document_extract_text",
+  "args": {
+    "path": "chain_tests/calc_spec.md"
+  }
+}
+CALL TOOL: document.document_extract_text
+ARGS: {'path': 'chain_tests/calc_spec.md'}
+TOOL RESULT:
+{'ok': True, 'tool': 'document_extract_text', 'path': 'chain_tests/calc_spec.md', 'document_type': 'text', 'chars': 109, 'text': '# Calc Spec\n\n# CHAIN_CALC_RULE_2026\n\nHam net_score(base, bonus, penalty) phai return base + bonus - penalty.\n', 'truncated': False, 'server': 'document', 'duration_seconds': 0.562}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "code/chain_calc.py",
+    "content": "def net_score(base, bonus, penalty):\n    return base + bonus + penalty\n\nif __name__ == \"__main__\":\n    assert net_score(10, 5, 3) == 12\n    print(\"CHAIN_DOC_FS_PY_LEDGER_OK\")"
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'code/chain_calc.py', 'content': 'def net_score(base, bonus, penalty):\n    return base + bonus + penalty\n\nif __name__ == "__main__":\n    assert net_score(10, 5, 3) == 12\n    print("CHAIN_DOC_FS_PY_LEDGER_OK")'}
+TOOL RESULT:
+{'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\code\\chain_calc.py', 'ok': True, 'server': 'filesystem', 'tool': 'write_file', 'duration_seconds': 0.953}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "code/chain_calc.py",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'code/chain_calc.py', 'timeout': 10}
+TOOL RESULT:
+{'ok': False, 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\code\\chain_calc.py', 'timeout': 10, 'returncode': 1, 'stdout': '', 'stderr': 'Traceback (most recent call last):\n  File "D:\\Agent PRJ\\my_agents\\workspace\\code\\chain_calc.py", line 5, in <module>\n    assert net_score(10, 5, 3) == 12\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n', 'server': 'python', 'tool': 'run_python', 'duration_seconds': 0.594}
+
+--- STEP 5 ---
+AGENT RAW OUTPUT:
+
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.read_file",
+  "args": {
+    "path": "code/chain_calc.py"
+  }
+}
+CALL TOOL: filesystem.read_file
+ARGS: {'path': 'code/chain_calc.py'}
+TOOL RESULT:
+{'content': 'def net_score(base, bonus, penalty):\n    return base + bonus + penalty\n\nif __name__ == "__main__":\n    assert net_score(10, 5, 3) == 12\n    print("CHAIN_DOC_FS_PY_LEDGER_OK")', 'ok': True, 'server': 'filesystem', 'tool': 'read_file', 'duration_seconds': 0.922}
+
+--- STEP 6 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "code/chain_calc.py",
+    "content": "def net_score(base, bonus, penalty):\n    return base + bonus - penalty\n\nif __name__ == \"__main__\":\n    assert net_score(10, 5, 3) == 12\n    print(\"CHAIN_DOC_FS_PY_LEDGER_OK\")"
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'code/chain_calc.py', 'content': 'def net_score(base, bonus, penalty):\n    return base + bonus - penalty\n\nif __name__ == "__main__":\n    assert net_score(10, 5, 3) == 12\n    print("CHAIN_DOC_FS_PY_LEDGER_OK")'}
+TOOL RESULT:
+{'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\code\\chain_calc.py', 'ok': True, 'server': 'filesystem', 'tool': 'write_file', 'duration_seconds': 0.985}
+
+--- STEP 7 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "code/chain_calc.py",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'code/chain_calc.py', 'timeout': 10}
+TOOL RESULT:
+{'ok': True, 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\code\\chain_calc.py', 'timeout': 10, 'returncode': 0, 'stdout': 'CHAIN_DOC_FS_PY_LEDGER_OK\n', 'stderr': '', 'server': 'python', 'tool': 'run_python', 'duration_seconds': 0.593}
+
+--- STEP 8 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "ledger.ledger_append",
+  "args": {
+    "entry_type": "chain_test",
+    "title": "CHAIN_DOC_FS_PY_LEDGER_OK",
+    "data": {},
+    "tags": ["chain", "document", "python"]
+  }
+}
+CALL TOOL: ledger.ledger_append
+ARGS: {'entry_type': 'chain_test', 'title': 'CHAIN_DOC_FS_PY_LEDGER_OK', 'data': {}, 'tags': ['chain', 'document', 'python']}
+TOOL RESULT:
+{'ok': True, 'tool': 'ledger_append', 'entry': {'id': 'c81d7359dac5443d98e7b21e71682c53', 'timestamp': '2026-06-09T14:48:29.474049+00:00', 'entry_type': 'chain_test', 'title': 'CHAIN_DOC_FS_PY_LEDGER_OK', 'tags': ['chain', 'document', 'python'], 'data': {}}, 'ledger_path': 'D:\\Agent PRJ\\my_agents\\workspace\\ledger\\ledger.jsonl', 'server': 'ledger', 'duration_seconds': 0.578}
+
+--- STEP 9 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "# Ket qua test chain: Document -> Filesystem -> Python -> Filesystem -> Python -> Ledger\n\n## 1. Spec da doc tu document MCP ✅\nDocuement_extract_text doc lai chain_tests/calc_spec.md:\n```\n# Calc Spec\n\n# CHAIN_CALC_RULE_2026\n\nHam net_score(base, bonus, penalty) phai return base + bonus - penalty.\n```\n\n## 2. Loi test ban dau ✅\nBan dau test chay FAIL voi loi:\n```\nTraceback (most recent call last):\n  File \"D:\\Agent PRJ\\my_agents\\workspace\\code\\chain_calc.py\", line 5, in <module>\n    assert net_score(10, 5, 3) == 12\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n```\n**Goc:** Ham `return base + bonus + penalty` (cong thay vi tru penalty), nen ket qua la 18 thay vi 12.\n\n## 3. File da sua ✅\nDoc file truoc khi sua:\n```python\ndef net_score(base, bonus, penalty):\n    return base + bonus + penalty\n```\n\nSua dung thanh:\n```python\ndef net_score(base, bonus, penalty):\n    return base + bonus - penalty\n```\n**Thay doi:** `+` -> `-` trong return statement.\n\n## 4. Stdout sau sua ✅\nSau khi sua va chay lai:\n```\nCHAIN_DOC_FS_PY_LEDGER_OK\n```\nTest PASS (returncode: 0).\n\n## 5. Ledger append ok ✅\nLedger entry them thanh cong:\n- ID: `c81d7359dac5443d98e7b21e71682c53`\n- Entry type: `chain_test`\n- Title: `CHAIN_DOC_FS_PY_LEDGER_OK`\n- Tags: `[\"chain\", \"document\", \"python\"]`\n\n---\n**Sentinel:** `CHAIN_DOC_FS_PY_LEDGER_OK` da xuat hien trong stdout sau khi sua.\n"
+}
+
+=== FINAL RESULT ===
+# Ket qua test chain: Document -> Filesystem -> Python -> Filesystem -> Python -> Ledger
+
+## 1. Spec da doc tu document MCP ✅
+Docuement_extract_text doc lai chain_tests/calc_spec.md:
+```
+# Calc Spec
+
+# CHAIN_CALC_RULE_2026
+
+Ham net_score(base, bonus, penalty) phai return base + bonus - penalty.
+```
+
+## 2. Loi test ban dau ✅
+Ban dau test chay FAIL voi loi:
+```
+Traceback (most recent call last):
+  File "D:\Agent PRJ\my_agents\workspace\code\chain_calc.py", line 5, in <module>
+    assert net_score(10, 5, 3) == 12
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+```
+**Goc:** Ham `return base + bonus + penalty` (cong thay vi tru penalty), nen ket qua la 18 thay vi 12.
+
+## 3. File da sua ✅
+Doc file truoc khi sua:
+```python
+def net_score(base, bonus, penalty):
+    return base + bonus + penalty
+```
+
+Sua dung thanh:
+```python
+def net_score(base, bonus, penalty):
+    return base + bonus - penalty
+```
+**Thay doi:** `+` -> `-` trong return statement.
+
+## 4. Stdout sau sua ✅
+Sau khi sua va chay lai:
+```
+CHAIN_DOC_FS_PY_LEDGER_OK
+```
+Test PASS (returncode: 0).
+
+## 5. Ledger append ok ✅
+Ledger entry them thanh cong:
+- ID: `c81d7359dac5443d98e7b21e71682c53`
+- Entry type: `chain_test`
+- Title: `CHAIN_DOC_FS_PY_LEDGER_OK`
+- Tags: `["chain", "document", "python"]`
+
+---
+**Sentinel:** `CHAIN_DOC_FS_PY_LEDGER_OK` da xuat hien trong stdout sau khi sua.
+
+
+
+================================================================================
+STDERR
+================================================================================

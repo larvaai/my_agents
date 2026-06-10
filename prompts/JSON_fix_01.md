@@ -1,0 +1,1 @@
+Kiểm tra các thay đổi quan trọng trong project của tôi từ lần commit trước.

@@ -1,0 +1,52 @@
+[
+  {
+    "name": "mcp_ext_01_code_index",
+    "group": "mcp_ext",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 29.81,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260610_015447\\mcp_ext_01_code_index.log"
+  },
+  {
+    "name": "mcp_ext_02_lint_test",
+    "group": "mcp_ext",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 16.43,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260610_015447\\mcp_ext_02_lint_test.log"
+  },
+  {
+    "name": "mcp_ext_03_docker",
+    "group": "mcp_ext",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 19.84,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260610_015447\\mcp_ext_03_docker.log"
+  },
+  {
+    "name": "mcp_ext_04_obsidian",
+    "group": "mcp_ext",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 23.89,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260610_015447\\mcp_ext_04_obsidian.log"
+  },
+  {
+    "name": "mcp_ext_05_issue",
+    "group": "mcp_ext",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 28.83,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260610_015447\\mcp_ext_05_issue.log"
+  }
+]

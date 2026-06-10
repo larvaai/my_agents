@@ -1,0 +1,1 @@
+print("LANGGRAPH_SMOKE_OK")

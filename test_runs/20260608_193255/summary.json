@@ -1,0 +1,12 @@
+[
+  {
+    "name": "project_03_python_reject_non_py",
+    "group": "project",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 14.25,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260608_193255\\project_03_python_reject_non_py.log"
+  }
+]

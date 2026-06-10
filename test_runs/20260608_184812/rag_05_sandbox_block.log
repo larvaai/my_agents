@@ -1,0 +1,54 @@
+CASE: rag_05_sandbox_block
+GROUP: rag
+STATUS: FAIL
+RETURNCODE: 1
+DURATION_SECONDS: 12.44
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_rag_05_sandbox_block.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[
+  "Traceback"
+]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "rag.rag_ingest",
+  "args": {
+    "path": "../"
+  }
+}
+CALL TOOL: rag.rag_ingest
+ARGS: {'path': '../'}
+TOOL RESULT:
+{'ok': True, 'server': 'rag', 'tool': 'rag_ingest', 'text': '{\n  "ok": false,\n  "tool": "rag_ingest",\n  "path": "../",\n  "error": "Path is outside workspace: ../",\n  "files_count": 0,\n  "results": []\n}', 'content': [{'type': 'text', 'text': '{\n  "ok": false,\n  "tool": "rag_ingest",\n  "path": "../",\n  "error": "Path is outside workspace: ../",\n  "files_count": 0,\n  "results": []\n}', 'annotations': None, 'meta': None}], 'structured_content': {'ok': False, 'tool': 'rag_ingest', 'path': '../', 'error': 'Path is outside workspace: ../', 'files_count': 0, 'results': []}}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+================================================================================
+STDERR
+================================================================================
+Traceback (most recent call last):
+  File "D:\Agent PRJ\my_agents\main.py", line 18, in <module>
+    main()
+  File "D:\Agent PRJ\my_agents\main.py", line 11, in main
+    result = run_orchestrator(task)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agent PRJ\my_agents\orchestrator.py", line 93, in run_orchestrator
+    print(agent_output)
+  File "C:\Users\namso\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u1ebf' in position 47: character maps to <undefined>

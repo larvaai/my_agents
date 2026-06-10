@@ -1,0 +1,12 @@
+[
+  {
+    "name": "rag_02_negative_search",
+    "group": "rag",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 15.92,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260609_124524\\rag_02_negative_search.log"
+  }
+]

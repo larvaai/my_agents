@@ -1,0 +1,78 @@
+[
+  {
+    "name": "chain_01_web_fetch_document_ledger",
+    "status": "PASS",
+    "duration_seconds": 5.269,
+    "details": {
+      "sentinel": "CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK",
+      "provider": [
+        "duckduckgo"
+      ],
+      "result_count": 3,
+      "fetched_title": "Example Domain",
+      "report_path": "_mcp_chain_smoke/web_fetch_report.md"
+    },
+    "error": ""
+  },
+  {
+    "name": "chain_02_document_filesystem_python_ledger",
+    "status": "PASS",
+    "duration_seconds": 6.522,
+    "details": {
+      "sentinel": "CHAIN_DOC_FS_PY_LEDGER_OK",
+      "first_returncode": 1,
+      "second_stdout": "CHAIN_DOC_FS_PY_LEDGER_OK\n"
+    },
+    "error": ""
+  },
+  {
+    "name": "chain_03_playwright_fetch_document_ledger",
+    "status": "PASS",
+    "duration_seconds": 7.04,
+    "details": {
+      "sentinel": "CHAIN_PLAYWRIGHT_FETCH_DOCUMENT_OK",
+      "title": "Example Domain",
+      "screenshot": "_mcp_chain_smoke\\example_playwright.png"
+    },
+    "error": ""
+  },
+  {
+    "name": "chain_04_git_document_ledger_readonly",
+    "status": "PASS",
+    "duration_seconds": 3.456,
+    "details": {
+      "sentinel": "CHAIN_GIT_DOCUMENT_LEDGER_READONLY_OK",
+      "status_ok": true,
+      "diff_ok": true
+    },
+    "error": ""
+  },
+  {
+    "name": "chain_05_rag_health_gate_document_ledger",
+    "status": "PASS",
+    "duration_seconds": 21.795,
+    "details": {
+      "sentinel": "CHAIN_RAG_HEALTH_GATE_RESULT",
+      "status": "ok",
+      "hits": 5
+    },
+    "error": ""
+  },
+  {
+    "name": "chain_06_terminal_absence_guard",
+    "status": "PASS",
+    "duration_seconds": 0.0,
+    "details": {
+      "sentinel": "CHAIN_TERMINAL_ABSENT_OK",
+      "present": {
+        "terminal": false,
+        "shell": false,
+        "powershell": false,
+        "cmd": false,
+        "bash": false,
+        "run_command": false
+      }
+    },
+    "error": ""
+  }
+]

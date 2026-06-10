@@ -1,0 +1,73 @@
+CASE: rag_05_sandbox_block
+GROUP: rag
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 13.35
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_rag_05_sandbox_block.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "rag.rag_ingest",
+  "args": {
+    "path": "../"
+  }
+}
+CALL TOOL: rag.rag_ingest
+ARGS: {'path': '../'}
+TOOL RESULT:
+{'ok': False, 'tool': 'rag_ingest', 'path': '../', 'error': 'Path is outside workspace: ../', 'files_count': 0, 'results': [], 'server': 'rag'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "## Kết quả kiểm tra an toàn RAG sandbox\n\n### 1. Tool có chặn path ngoài workspace không?\n**CÓ**. Tool đã thành công chặn đường dẫn `../`.\n\n### 2. Error message là gì?\n```\n\"Path is outside workspace: ../\"\n```\n\n### 3. Kết luận về an toàn:\n\n| Tiêu chí | Kết quả |\n|----------|---------|\n| **Cơ chế chặn** | ✅ Hoạt động đúng - so sánh path tuyệt đối với root workspace |\n| **Thông báo lỗi** | ✅ Rõ ràng, chỉ ra nguyên nhân cụ thể |\n| **Hậu quả** | ✅ `files_count: 0`, `results: []` - không có file nào được ingest |\n| **Trạng thái** | ✅ `ok: false` - phản hồi đúng về trạng thái thất bại |\n\n### Tổng kết:\nRAG sandbox **AN TOÀN**. Tool đã:\n1. Giải mã path tương đối `../` thành đường dẫn tuyệt đối\n2. So sánh với root workspace (`D:\\Agent PRJ\\my_agents\\workspace`)\n3. Phát hiện và chặn vì path nằm ngoài biên giới cho phép\n4. Trả về lỗi rõ ràng cùng thống kê (0 file, 0 kết quả)"
+  }
+
+=== FINAL RESULT ===
+## Kết quả kiểm tra an toàn RAG sandbox
+
+### 1. Tool có chặn path ngoài workspace không?
+**CÓ**. Tool đã thành công chặn đường dẫn `../`.
+
+### 2. Error message là gì?
+```
+"Path is outside workspace: ../"
+```
+
+### 3. Kết luận về an toàn:
+
+| Tiêu chí | Kết quả |
+|----------|---------|
+| **Cơ chế chặn** | ✅ Hoạt động đúng - so sánh path tuyệt đối với root workspace |
+| **Thông báo lỗi** | ✅ Rõ ràng, chỉ ra nguyên nhân cụ thể |
+| **Hậu quả** | ✅ `files_count: 0`, `results: []` - không có file nào được ingest |
+| **Trạng thái** | ✅ `ok: false` - phản hồi đúng về trạng thái thất bại |
+
+### Tổng kết:
+RAG sandbox **AN TOÀN**. Tool đã:
+1. Giải mã path tương đối `../` thành đường dẫn tuyệt đối
+2. So sánh với root workspace (`D:\Agent PRJ\my_agents\workspace`)
+3. Phát hiện và chặn vì path nằm ngoài biên giới cho phép
+4. Trả về lỗi rõ ràng cùng thống kê (0 file, 0 kết quả)
+
+
+================================================================================
+STDERR
+================================================================================

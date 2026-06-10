@@ -1,0 +1,86 @@
+CASE: project_03_python_reject_non_py
+GROUP: project
+STATUS: FAIL
+RETURNCODE: 1
+DURATION_SECONDS: 14.69
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_project_03_python_reject_non_py.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.create_directory",
+  "args": {
+    "path": "notes"
+  }
+}
+CALL TOOL: filesystem.create_directory
+ARGS: {'path': 'notes'}
+TOOL RESULT:
+{'content': 'Successfully created directory D:\\Agent PRJ\\my_agents\\workspace\\notes', 'ok': True, 'server': 'filesystem', 'tool': 'create_directory'}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "filesystem.write_file",
+  "args": {
+    "path": "notes/not_python.txt",
+    "content": "hello"
+  }
+}
+CALL TOOL: filesystem.write_file
+ARGS: {'path': 'notes/not_python.txt', 'content': 'hello'}
+TOOL RESULT:
+{'content': 'Successfully wrote to D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt', 'ok': True, 'server': 'filesystem', 'tool': 'write_file'}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "python.run_python",
+  "args": {
+    "path": "notes/not_python.txt",
+    "timeout": 10
+  }
+}
+CALL TOOL: python.run_python
+ARGS: {'path': 'notes/not_python.txt', 'timeout': 10}
+TOOL RESULT:
+{'ok': False, 'error': 'Only .py files can be executed.', 'path': 'D:\\Agent PRJ\\my_agents\\workspace\\notes\\not_python.txt', 'stdout': '', 'stderr': '', 'returncode': None, 'server': 'python', 'tool': 'run_python'}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+================================================================================
+STDERR
+================================================================================
+Traceback (most recent call last):
+  File "D:\Agent PRJ\my_agents\main.py", line 24, in <module>
+    main()
+  File "D:\Agent PRJ\my_agents\main.py", line 14, in main
+    result = run_orchestrator(
+             ^^^^^^^^^^^^^^^^^
+  File "D:\Agent PRJ\my_agents\orchestrator.py", line 94, in run_orchestrator
+    print(agent_output)
+  File "C:\Users\namso\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u1ebf' in position 44: character maps to <undefined>

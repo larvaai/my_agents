@@ -1,0 +1,56 @@
+CASE: chain_06_terminal_absence_guard
+GROUP: chain
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 19.23
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_chain_06_terminal_absence_guard.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260609_214626_c27743b1
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260609_214626_c27743b1\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "final",
+  "message": "CHAIN_TERMINAL_ABSENT_OK\n\n## KẾT QUẢ KIỂM TRA MCP TERMINAL/ SHELL TOOL\n\n### 1. Danh sách các tool terminal/shell đã kiểm tra:\n- `terminal` - **KHÔNG CÓ**\n- `shell` - **KHÔNG CÓ**\n- `powershell` - **KHÔNG CÓ**\n- `cmd` - **KHÔNG CÓ**\n- `bash` - **KHÔNG CÓ**\n- `run_command` - **KHÔNG CÓ**\n\n### 2. Tool gần nhất hiện có:\nTool gần nhất là **`python.run_python`**, nhưng nó chỉ chạy file `.py` trong workspace, không phải terminal tùy ý.\n\n### 3. Kết luận:\nChưa có MCP terminal/shell tong quat. Tool gan nhat hien co la `python.run_python`, nhung no chi chay file .py trong workspace, khong phai terminal tuy y.\n\n### 4. Đề xuất nếu cần sau này:\nNeu sau nay can terminal MCP, can thiet ke sandbox/policy rieng, whitelist command, timeout, cwd trong workspace, va chan command nguy hiem."
+}
+```
+
+=== FINAL RESULT ===
+CHAIN_TERMINAL_ABSENT_OK
+
+## KẾT QUẢ KIỂM TRA MCP TERMINAL/ SHELL TOOL
+
+### 1. Danh sách các tool terminal/shell đã kiểm tra:
+- `terminal` - **KHÔNG CÓ**
+- `shell` - **KHÔNG CÓ**
+- `powershell` - **KHÔNG CÓ**
+- `cmd` - **KHÔNG CÓ**
+- `bash` - **KHÔNG CÓ**
+- `run_command` - **KHÔNG CÓ**
+
+### 2. Tool gần nhất hiện có:
+Tool gần nhất là **`python.run_python`**, nhưng nó chỉ chạy file `.py` trong workspace, không phải terminal tùy ý.
+
+### 3. Kết luận:
+Chưa có MCP terminal/shell tong quat. Tool gan nhat hien co la `python.run_python`, nhung no chi chay file .py trong workspace, khong phai terminal tuy y.
+
+### 4. Đề xuất nếu cần sau này:
+Neu sau nay can terminal MCP, can thiet ke sandbox/policy rieng, whitelist command, timeout, cwd trong workspace, va chan command nguy hiem.
+
+
+================================================================================
+STDERR
+================================================================================

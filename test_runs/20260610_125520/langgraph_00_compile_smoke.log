@@ -1,0 +1,23 @@
+CASE: langgraph_00_compile_smoke
+GROUP: langgraph
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 1.99
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe run_langgraph_smoke.py
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+LANGGRAPH_COMPILE_OK graph=CompiledStateGraph
+{"state_keys": ["errors", "files_modified", "json_retries", "last_failure", "max_steps", "messages", "missing_files", "next_agent", "repair_attempts", "repeated_tool_calls", "required_files", "role_outputs", "role_visits", "step_count", "subtask_visits", "tests_run", "user_task"]}
+
+
+================================================================================
+STDERR
+================================================================================

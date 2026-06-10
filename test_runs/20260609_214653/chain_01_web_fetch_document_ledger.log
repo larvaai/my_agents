@@ -1,0 +1,210 @@
+CASE: chain_01_web_fetch_document_ledger
+GROUP: chain
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 30.99
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_chain_01_web_fetch_document_ledger.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260609_214654_cd92ee35
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260609_214654_cd92ee35\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "search.search_health",
+  "args": {}
+}
+CALL TOOL: search.search_health
+ARGS: {}
+TOOL RESULT:
+{'ok': True, 'tool': 'search_health', 'providers': ['duckduckgo'], 'has_brave_key': False, 'has_tavily_key': False, 'fallback': 'duckduckgo_lite_html', 'server': 'search', 'duration_seconds': 0.547}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "search.web_search",
+  "args": {
+    "query": "Example Domain",
+    "limit": 3
+  }
+}
+CALL TOOL: search.web_search
+ARGS: {'query': 'Example Domain', 'limit': 3}
+TOOL RESULT:
+{'ok': True, 'tool': 'web_search', 'provider': 'duckduckgo', 'query': 'Example Domain', 'limit': 3, 'results': [{'title': 'Example Domain', 'url': 'http://www.example.com/', 'snippet': 'This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more.'}, {'title': 'Example domains and names - Google Developers', 'url': 'https://developers.google.com/style/examples', 'snippet': 'When you need a generic domain name in an example, use example.com, example.org, or example.net. These domains are reserved by the Internet Assigned Numbers Authority for use in documentation.'}, {'title': 'example.com - Wikipedia', 'url': 'https://en.wikipedia.org/wiki/Example.com', 'snippet': 'The domains example.com, example.net, example.org and example.edu are intended for general use in any kind of documentation, such as technical and software documentation, manuals, and sample software configurations.'}], 'best_effort': True, 'server': 'search', 'duration_seconds': 1.531}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "fetch.fetch_url",
+  "args": {
+    "url": "http://www.example.com/",
+    "max_chars": 2000,
+    "timeout": 10
+  }
+}
+CALL TOOL: fetch.fetch_url
+ARGS: {'url': 'http://www.example.com/', 'max_chars': 2000, 'timeout': 10}
+TOOL RESULT:
+{'ok': True, 'url': 'http://www.example.com/', 'final_url': 'http://www.example.com/', 'status': 200, 'content_type': 'text/html', 'title': 'Example Domain', 'text': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more', 'truncated': False, 'max_chars': 2000, 'server': 'fetch', 'tool': 'fetch_url', 'duration_seconds': 0.672}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "document.document_write_markdown",
+  "args": {
+    "path": "chain_tests/web_fetch_report.md",
+    "title": "Web Fetch Chain Report",
+    "content": "# Web Fetch Chain Report\n\n## Sentinel\n**CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK**\n\n## Source Information\n- **URL**: http://www.example.com/\n- **Fetch Status**: 200 OK\n- **Title**: Example Domain\n\n## Summary\nSuccessfully fetched the Example Domain page. The content is a simple HTML page designed for documentation examples, containing basic text about the domain's purpose in technical documentation.\n\n---\n\n## Full Content\n```\nExample Domain\n\nThis domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more\n```",
+    "overwrite": true
+  }
+}
+CALL TOOL: document.document_write_markdown
+ARGS: {'path': 'chain_tests/web_fetch_report.md', 'title': 'Web Fetch Chain Report', 'content': "# Web Fetch Chain Report\n\n## Sentinel\n**CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK**\n\n## Source Information\n- **URL**: http://www.example.com/\n- **Fetch Status**: 200 OK\n- **Title**: Example Domain\n\n## Summary\nSuccessfully fetched the Example Domain page. The content is a simple HTML page designed for documentation examples, containing basic text about the domain's purpose in technical documentation.\n\n---\n\n## Full Content\n```\nExample Domain\n\nThis domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more\n```", 'overwrite': True}
+TOOL RESULT:
+{'ok': True, 'tool': 'document_write_markdown', 'path': 'chain_tests/web_fetch_report.md', 'chars': 581, 'server': 'document', 'duration_seconds': 0.563}
+
+--- STEP 5 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "document.document_extract_text",
+  "args": {
+    "path": "chain_tests/web_fetch_report.md",
+    "max_chars": 20000
+  }
+}
+CALL TOOL: document.document_extract_text
+ARGS: {'path': 'chain_tests/web_fetch_report.md', 'max_chars': 20000}
+TOOL RESULT:
+{'ok': True, 'tool': 'document_extract_text', 'path': 'chain_tests/web_fetch_report.md', 'document_type': 'text', 'chars': 581, 'text': "# Web Fetch Chain Report\n\n# Web Fetch Chain Report\n\n## Sentinel\n**CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK**\n\n## Source Information\n- **URL**: http://www.example.com/\n- **Fetch Status**: 200 OK\n- **Title**: Example Domain\n\n## Summary\nSuccessfully fetched the Example Domain page. The content is a simple HTML page designed for documentation examples, containing basic text about the domain's purpose in technical documentation.\n\n---\n\n## Full Content\n```\nExample Domain\n\nThis domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more\n```\n", 'truncated': False, 'server': 'document', 'duration_seconds': 0.563}
+
+--- STEP 6 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "ledger.ledger_append",
+  "args": {
+    "entry_type": "chain_test",
+    "title": "CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK",
+    "data": {
+      "url": "http://www.example.com/",
+      "fetch_status": 200,
+      "document_path": "chain_tests/web_fetch_report.md"
+    },
+    "tags": ["chain", "web", "document"]
+  }
+}
+CALL TOOL: ledger.ledger_append
+ARGS: {'entry_type': 'chain_test', 'title': 'CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK', 'data': {'url': 'http://www.example.com/', 'fetch_status': 200, 'document_path': 'chain_tests/web_fetch_report.md'}, 'tags': ['chain', 'web', 'document']}
+TOOL RESULT:
+{'ok': True, 'tool': 'ledger_append', 'entry': {'id': 'e2f7b6a39e89455eb6f3a3286cb77fa9', 'timestamp': '2026-06-09T14:47:12.224539+00:00', 'entry_type': 'chain_test', 'title': 'CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK', 'tags': ['chain', 'web', 'document'], 'data': {'url': 'http://www.example.com/', 'fetch_status': 200, 'document_path': 'chain_tests/web_fetch_report.md'}}, 'ledger_path': 'D:\\Agent PRJ\\my_agents\\workspace\\ledger\\ledger.jsonl', 'server': 'ledger', 'duration_seconds': 0.578}
+
+--- STEP 7 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "ledger.ledger_search",
+  "args": {
+    "text": "CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK",
+    "limit": 5
+  }
+}
+CALL TOOL: ledger.ledger_search
+ARGS: {'text': 'CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK', 'limit': 5}
+TOOL RESULT:
+{'ok': True, 'tool': 'ledger_search', 'results': [{'id': 'e2f7b6a39e89455eb6f3a3286cb77fa9', 'timestamp': '2026-06-09T14:47:12.224539+00:00', 'entry_type': 'chain_test', 'title': 'CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK', 'tags': ['chain', 'web', 'document'], 'data': {'url': 'http://www.example.com/', 'fetch_status': 200, 'document_path': 'chain_tests/web_fetch_report.md'}}], 'total_matches': 1, 'server': 'ledger', 'duration_seconds': 0.562}
+
+--- STEP 8 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "final",
+  "message": "# Báo cáo Chain Nghiem Tuc: Search -> Fetch -> Document -> Ledger\n\n## 1. Search Health Check\n- **Provider**: duckduckgo (fallback)\n- **Duration**: 0.547s\n\n## 2. Web Search Results\n- **Query**: \"Example Domain\"\n- **Limit**: 3\n- **Results Count**: 3\n- **Best URL Selected**: http://www.example.com/\n\n## 3. Fetch Result\n- **URL Fetched**: http://www.example.com/\n- **Status Code**: 200 OK\n- **Title**: Example Domain\n- **Content Type**: text/html\n- **Duration**: 0.672s\n\n## 4. Document Write/Read\n- **Write Path**: chain_tests/web_fetch_report.md\n- **Write Status**: OK (581 chars)\n- **Read Status**: OK (581 chars extracted successfully)\n- **Sentinel Present**: CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK ✓\n\n## 5. Ledger Operations\n- **Append Status**: OK (Entry ID: e2f7b6a39e89455eb6f3a3286cb77fa9)\n- **Search Status**: OK (Found 1 matching entry with sentinel text)\n- **Tags Applied**: [\"chain\", \"web\", \"document\"]\n\n---\n\n## Tổng kết:\n✅ **CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK** - Tất cả các bước trong chain đã chạy thành công theo đúng thứ tự.\n\n### Chi tiết báo cáo:\n| Bước | Provider/Tool | Kết quả |\n|------|---------------|---------|\n| Search Health | search_health | duckduckgo, 3 results |\n| Web Search | web_search | http://www.example.com/ selected |\n| Fetch URL | fetch_url | 200 OK, \"Example Domain\" |\n| Document Write | document_write_markdown | chain_tests/web_fetch_report.md (581 chars) |\n| Document Read | document_extract_text | 581 chars extracted successfully |\n| Ledger Append | ledger_append | Entry ID: e2f7b6a39e89455eb6f3a3286cb77fa9 |\n| Ledger Search | ledger_search | Found 1 match with sentinel text |\n\n**URL đã fetch**: http://www.example.com/\n**Fetch status/title**: 200 OK, \"Example Domain\"\n**Document write/read**: Cả hai đều thành công (581 chars mỗi lần)\n**Ledger append/search**: Thành công, tìm thấy 1 entry khớp với sentinel text\n"
+}
+
+=== FINAL RESULT ===
+# Báo cáo Chain Nghiem Tuc: Search -> Fetch -> Document -> Ledger
+
+## 1. Search Health Check
+- **Provider**: duckduckgo (fallback)
+- **Duration**: 0.547s
+
+## 2. Web Search Results
+- **Query**: "Example Domain"
+- **Limit**: 3
+- **Results Count**: 3
+- **Best URL Selected**: http://www.example.com/
+
+## 3. Fetch Result
+- **URL Fetched**: http://www.example.com/
+- **Status Code**: 200 OK
+- **Title**: Example Domain
+- **Content Type**: text/html
+- **Duration**: 0.672s
+
+## 4. Document Write/Read
+- **Write Path**: chain_tests/web_fetch_report.md
+- **Write Status**: OK (581 chars)
+- **Read Status**: OK (581 chars extracted successfully)
+- **Sentinel Present**: CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK ✓
+
+## 5. Ledger Operations
+- **Append Status**: OK (Entry ID: e2f7b6a39e89455eb6f3a3286cb77fa9)
+- **Search Status**: OK (Found 1 matching entry with sentinel text)
+- **Tags Applied**: ["chain", "web", "document"]
+
+---
+
+## Tổng kết:
+✅ **CHAIN_WEB_FETCH_DOCUMENT_LEDGER_OK** - Tất cả các bước trong chain đã chạy thành công theo đúng thứ tự.
+
+### Chi tiết báo cáo:
+| Bước | Provider/Tool | Kết quả |
+|------|---------------|---------|
+| Search Health | search_health | duckduckgo, 3 results |
+| Web Search | web_search | http://www.example.com/ selected |
+| Fetch URL | fetch_url | 200 OK, "Example Domain" |
+| Document Write | document_write_markdown | chain_tests/web_fetch_report.md (581 chars) |
+| Document Read | document_extract_text | 581 chars extracted successfully |
+| Ledger Append | ledger_append | Entry ID: e2f7b6a39e89455eb6f3a3286cb77fa9 |
+| Ledger Search | ledger_search | Found 1 match with sentinel text |
+
+**URL đã fetch**: http://www.example.com/
+**Fetch status/title**: 200 OK, "Example Domain"
+**Document write/read**: Cả hai đều thành công (581 chars mỗi lần)
+**Ledger append/search**: Thành công, tìm thấy 1 entry khớp với sentinel text
+
+
+
+================================================================================
+STDERR
+================================================================================

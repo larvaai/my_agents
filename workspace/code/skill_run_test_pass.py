@@ -1,0 +1,1 @@
+print("RUN_TEST_PASS_OK")

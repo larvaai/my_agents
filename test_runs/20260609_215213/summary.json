@@ -1,0 +1,62 @@
+[
+  {
+    "name": "chain_01_web_fetch_document_ledger",
+    "group": "chain",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 35.06,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260609_215213\\chain_01_web_fetch_document_ledger.log"
+  },
+  {
+    "name": "chain_02_document_filesystem_python_ledger",
+    "group": "chain",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 38.42,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260609_215213\\chain_02_document_filesystem_python_ledger.log"
+  },
+  {
+    "name": "chain_03_playwright_fetch_document_ledger",
+    "group": "chain",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 43.47,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260609_215213\\chain_03_playwright_fetch_document_ledger.log"
+  },
+  {
+    "name": "chain_04_git_document_ledger_readonly",
+    "group": "chain",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 39.55,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260609_215213\\chain_04_git_document_ledger_readonly.log"
+  },
+  {
+    "name": "chain_05_rag_health_gate_document_ledger",
+    "group": "chain",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 39.98,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260609_215213\\chain_05_rag_health_gate_document_ledger.log"
+  },
+  {
+    "name": "chain_06_terminal_absence_guard",
+    "group": "chain",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 13.27,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260609_215213\\chain_06_terminal_absence_guard.log"
+  }
+]

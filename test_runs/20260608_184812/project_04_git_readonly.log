@@ -1,0 +1,62 @@
+CASE: project_04_git_readonly
+GROUP: project
+STATUS: FAIL
+RETURNCODE: 1
+DURATION_SECONDS: 7.9
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_project_04_git_readonly.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[
+  "Traceback"
+]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "git.git_status",
+  "args": {}
+}
+CALL TOOL: git.git_status
+ARGS: {}
+TOOL RESULT:
+{'ok': True, 'server': 'git', 'tool': 'git_status', 'text': 'Repository status:\nOn branch master\nChanges not staged for commit:\n  (use "git add <file>..." to update what will be committed)\n  (use "git restore <file>..." to discard changes in working directory)\n\tmodified:   requirements.txt\n\tmodified:   tools/mcp_client.py\n\tmodified:   tools/mcp_config.py\n\tmodified:   workspace/code/test_neuroscience.py\n\tmodified:   workspace/notes/brain.md\n\tmodified:   workspace/notes/prefrontal_cortex.md\n\nUntracked files:\n  (use "git add <file>..." to include in what will be committed)\n\tdocker-compose.yml\n\tmcp_servers/\n\tproject_context.txt\n\tprompts/auto_cases/\n\tprompts/test_rag_01_happy_path.md\n\tprompts/test_rag_02_negative_search.md\n\tprompts/test_rag_03_reingest_update.md\n\tprompts/test_rag_mcp_prompt.md\n\tqdrant_storage/\n\tread_file_and_list.py\n\trun_all_cases.py\n\ttest_runs/\n\tworkspace/code/project_smoke_test.py\n\tworkspace/notes/not_python.txt\n\tworkspace/notes/rag_test_basal_ganglia.md\n\tworkspace/notes/rag_test_update.md\n\nno changes added to commit (use "git add" and/or "git commit -a")', 'content': [{'type': 'text', 'text': 'Repository status:\nOn branch master\nChanges not staged for commit:\n  (use "git add <file>..." to update what will be committed)\n  (use "git restore <file>..." to discard changes in working directory)\n\tmodified:   requirements.txt\n\tmodified:   tools/mcp_client.py\n\tmodified:   tools/mcp_config.py\n\tmodified:   workspace/code/test_neuroscience.py\n\tmodified:   workspace/notes/brain.md\n\tmodified:   workspace/notes/prefrontal_cortex.md\n\nUntracked files:\n  (use "git add <file>..." to include in what will be committed)\n\tdocker-compose.yml\n\tmcp_servers/\n\tproject_context.txt\n\tprompts/auto_cases/\n\tprompts/test_rag_01_happy_path.md\n\tprompts/test_rag_02_negative_search.md\n\tprompts/test_rag_03_reingest_update.md\n\tprompts/test_rag_mcp_prompt.md\n\tqdrant_storage/\n\tread_file_and_list.py\n\trun_all_cases.py\n\ttest_runs/\n\tworkspace/code/project_smoke_test.py\n\tworkspace/notes/not_python.txt\n\tworkspace/notes/rag_test_basal_ganglia.md\n\tworkspace/notes/rag_test_update.md\n\nno changes added to commit (use "git add" and/or "git commit -a")', 'annotations': None, 'meta': None}], 'structured_content': None}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "tool": "git.git_diff_unstaged",
+  "args": {}
+}
+CALL TOOL: git.git_diff_unstaged
+ARGS: {}
+TOOL RESULT:
+
+
+================================================================================
+STDERR
+================================================================================
+Traceback (most recent call last):
+  File "D:\Agent PRJ\my_agents\main.py", line 18, in <module>
+    main()
+  File "D:\Agent PRJ\my_agents\main.py", line 11, in main
+    result = run_orchestrator(task)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agent PRJ\my_agents\orchestrator.py", line 126, in run_orchestrator
+    print(tool_result)
+  File "C:\Users\namso\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2713' in position 3457: character maps to <undefined>

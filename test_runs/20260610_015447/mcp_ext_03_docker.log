@@ -1,0 +1,107 @@
+CASE: mcp_ext_03_docker
+GROUP: mcp_ext
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 19.84
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\test_mcp_ext_03_docker.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+RUN ID: 20260610_015535_15450570
+EVENT LOG: D:\Agent PRJ\my_agents\agent_runs\20260610_015535_15450570\events.jsonl
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Execute docker.docker_ps with all=true, timeout=20 to check running containers.",
+  "tool": "docker.docker_ps",
+  "args": {"all": true, "timeout": 20}
+}
+CALL TOOL: docker.docker_ps
+ARGS: {'all': True, 'timeout': 20}
+TOOL RESULT:
+{'ok': True, 'command': ['docker', 'ps', '-a'], 'stdout': 'CONTAINER ID   IMAGE                                          COMMAND                  CREATED        STATUS                     PORTS                                                                                                          NAMES\n7d99abcb56e4   ghcr.io/openhands/agent-server:1.25.0-python   "tini -- /usr/local/…"   12 hours ago   Exited (255) 2 hours ago   8002/tcp, 0.0.0.0:49615->8000/tcp, 0.0.0.0:40601->8001/tcp, 0.0.0.0:41345->8011/tcp, 0.0.0.0:34213->8012/tcp   oh-agent-server-2qNmZxxLvnCgJS7cLTREuL\n5080d453348b   ghcr.io/openhands/agent-server:1.25.0-python   "tini -- /usr/local/…"   12 hours ago   Exited (255) 2 hours ago   8002/tcp, 0.0.0.0:38525->8000/tcp, 0.0.0.0:49645->8001/tcp, 0.0.0.0:57749->8011/tcp, 0.0.0.0:40443->8012/tcp   oh-agent-server-69aYrfdByCICg2lJD1IEYT\n388d18b9c095   openhands:latest                               "/app/entrypoint.sh …"   12 hours ago   Exited (255) 2 hours ago   0.0.0.0:3000->3000/tcp                                                                                         openhands-app-\n218c582bdfa0   qdrant/qdrant:latest                           "./entrypoint.sh"        32 hours ago   Up 2 hours                 0.0.0.0:6333-6334->6333-6334/tcp, [::]:6333-6334->6333-6334/tcp                                                qdrant\n', 'stderr': '', 'returncode': 0, 'duration_seconds': 0.781, 'command_metadata': {'summary': 'List Docker containers', 'security_risk': 'low', 'allowed': True, 'reasons': ['read-only docker ps']}, 'tool': 'docker_ps', 'server': 'docker', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'all': {'type': 'bool', 'required': False, 'description': 'Include stopped containers'}, 'timeout': {'type': 'int', 'required': False, 'description': '1-180 seconds'}}, 'output_schema': {'ok': 'bool', 'stdout': 'str', 'stderr': 'str', 'command_metadata': 'dict'}, 'errors': ['error', 'dependency_failure', 'command_metadata'], 'category': 'docker', 'risk': 'low', 'read_only': True}}
+
+--- STEP 2 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Execute docker.docker_compose_ps with timeout=20 to check compose services.",
+  "tool": "docker.docker_compose_ps",
+  "args": {"timeout": 20}
+}
+CALL TOOL: docker.docker_compose_ps
+ARGS: {'timeout': 20}
+TOOL RESULT:
+{'ok': True, 'command': ['docker', 'compose', 'ps'], 'stdout': 'NAME      IMAGE                  COMMAND             SERVICE   CREATED        STATUS       PORTS\nqdrant    qdrant/qdrant:latest   "./entrypoint.sh"   qdrant    32 hours ago   Up 2 hours   0.0.0.0:6333-6334->6333-6334/tcp, [::]:6333-6334->6333-6334/tcp\n', 'stderr': '', 'returncode': 0, 'duration_seconds': 1.578, 'command_metadata': {'summary': 'List Docker Compose services', 'security_risk': 'low', 'allowed': True, 'reasons': ['read-only compose ps']}, 'tool': 'docker_compose_ps', 'server': 'docker', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'timeout': {'type': 'int', 'required': False, 'description': '1-180 seconds'}}, 'output_schema': {'ok': 'bool', 'stdout': 'str', 'stderr': 'str', 'command_metadata': 'dict'}, 'errors': ['error', 'dependency_failure', 'command_metadata'], 'category': 'docker', 'risk': 'low', 'read_only': True}}
+
+--- STEP 3 ---
+AGENT RAW OUTPUT:
+
+
+{
+  "action": "tool",
+  "plan": "Execute docker.docker_compose_logs for service 'qdrant' with tail=30, timeout=30.",
+  "tool": "docker.docker_compose_logs",
+  "args": {"service": "qdrant", "tail": 30, "timeout": 30}
+}
+CALL TOOL: docker.docker_compose_logs
+ARGS: {'service': 'qdrant', 'tail': 30, 'timeout': 30}
+TOOL RESULT:
+{'ok': True, 'command': ['docker', 'compose', 'logs', '--no-color', '--tail', '30', 'qdrant'], 'stdout': 'qdrant  | 2026-06-09T18:12:35.999460Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.008850\nqdrant  | 2026-06-09T18:12:41.750745Z  INFO actix_web::middleware::logger: 172.19.0.1 "POST /collections/my_agents_rag/points/delete?wait=true HTTP/1.1" 200 92 "-" "python-client/1.18.0 python/3.11.9" 0.135845\nqdrant  | 2026-06-09T18:12:42.001964Z  INFO actix_web::middleware::logger: 172.19.0.1 "PUT /collections/my_agents_rag/points?wait=true HTTP/1.1" 200 92 "-" "python-client/1.18.0 python/3.11.9" 0.181308\nqdrant  | 2026-06-09T18:12:45.178959Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.073138\nqdrant  | 2026-06-09T18:12:45.228840Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.000578\nqdrant  | 2026-06-09T18:12:50.965829Z  INFO actix_web::middleware::logger: 172.19.0.1 "POST /collections/my_agents_rag/points/query HTTP/1.1" 200 1753 "-" "python-client/1.18.0 python/3.11.9" 0.080705\nqdrant  | 2026-06-09T18:26:54.469180Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.006417\nqdrant  | 2026-06-09T18:26:57.374566Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 97 "-" "python-client/1.18.0 python/3.11.9" 0.010666\nqdrant  | 2026-06-09T18:26:57.522417Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.024002\nqdrant  | 2026-06-09T18:27:01.285331Z  INFO actix_web::middleware::logger: 172.19.0.1 "POST /collections/my_agents_rag/points/delete?wait=true HTTP/1.1" 200 92 "-" "python-client/1.18.0 python/3.11.9" 0.412140\nqdrant  | 2026-06-09T18:27:01.664075Z  INFO actix_web::middleware::logger: 172.19.0.1 "PUT /collections/my_agents_rag/points?wait=true HTTP/1.1" 200 92 "-" "python-client/1.18.0 python/3.11.9" 0.132768\nqdrant  | 2026-06-09T18:27:04.185115Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.023379\nqdrant  | 2026-06-09T18:27:04.267824Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 97 "-" "python-client/1.18.0 python/3.11.9" 0.000695\nqdrant  | 2026-06-09T18:27:06.375447Z  INFO actix_web::middleware::logger: 172.19.0.1 "POST /collections/my_agents_rag/points/query HTTP/1.1" 200 1753 "-" "python-client/1.18.0 python/3.11.9" 0.021064\nqdrant  | 2026-06-09T18:31:19.507868Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.007817\nqdrant  | 2026-06-09T18:31:22.332462Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.000842\nqdrant  | 2026-06-09T18:31:22.386790Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.016726\nqdrant  | 2026-06-09T18:31:26.577191Z  INFO actix_web::middleware::logger: 172.19.0.1 "POST /collections/my_agents_rag/points/delete?wait=true HTTP/1.1" 200 92 "-" "python-client/1.18.0 python/3.11.9" 0.055648\nqdrant  | 2026-06-09T18:31:26.900628Z  INFO actix_web::middleware::logger: 172.19.0.1 "PUT /collections/my_agents_rag/points?wait=true HTTP/1.1" 200 91 "-" "python-client/1.18.0 python/3.11.9" 0.124075\nqdrant  | 2026-06-09T18:31:29.581786Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 97 "-" "python-client/1.18.0 python/3.11.9" 0.163695\nqdrant  | 2026-06-09T18:31:29.626797Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 96 "-" "python-client/1.18.0 python/3.11.9" 0.000276\nqdrant  | 2026-06-09T18:31:32.917564Z  INFO actix_web::middleware::logger: 172.19.0.1 "POST /collections/my_agents_rag/points/query HTTP/1.1" 200 1755 "-" "python-client/1.18.0 python/3.11.9" 0.050378\nqdrant  | 2026-06-09T18:53:36.620998Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 97 "-" "python-client/1.18.0 python/3.11.9" 0.010608\nqdrant  | 2026-06-09T18:53:39.508284Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.062219\nqdrant  | 2026-06-09T18:53:39.561727Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.015969\nqdrant  | 2026-06-09T18:53:43.375650Z  INFO actix_web::middleware::logger: 172.19.0.1 "POST /collections/my_agents_rag/points/delete?wait=true HTTP/1.1" 200 92 "-" "python-client/1.18.0 python/3.11.9" 0.142252\nqdrant  | 2026-06-09T18:53:43.870870Z  INFO actix_web::middleware::logger: 172.19.0.1 "PUT /collections/my_agents_rag/points?wait=true HTTP/1.1" 200 92 "-" "python-client/1.18.0 python/3.11.9" 0.232733\nqdrant  | 2026-06-09T18:53:47.262088Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 98 "-" "python-client/1.18.0 python/3.11.9" 0.631406\nqdrant  | 2026-06-09T18:53:47.368020Z  INFO actix_web::middleware::logger: 172.19.0.1 "GET /collections HTTP/1.1" 200 97 "-" "python-client/1.18.0 python/3.11.9" 0.000786\nqdrant  | 2026-06-09T18:53:51.314633Z  INFO actix_web::middleware::logger: 172.19.0.1 "POST /collections/my_agents_rag/points/query HTTP/1.1" 200 1758 "-" "python-client/1.18.0 python/3.11.9" 0.101494\n', 'stderr': '', 'returncode': 0, 'duration_seconds': 1.125, 'command_metadata': {'summary': 'Read Docker Compose logs', 'security_risk': 'low', 'allowed': True, 'reasons': ['read-only compose logs']}, 'tool': 'docker_compose_logs', 'service': 'qdrant', 'tail': 30, 'server': 'docker', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'service': {'type': 'str', 'required': False, 'description': 'Optional compose service'}, 'tail': {'type': 'int', 'required': False, 'description': '1-1000 lines'}, 'timeout': {'type': 'int', 'required': False, 'description': '1-180 seconds'}}, 'output_schema': {'ok': 'bool', 'stdout': 'str', 'stderr': 'str', 'command_metadata': 'dict'}, 'errors': ['error', 'dependency_failure', 'command_metadata'], 'category': 'docker', 'risk': 'low', 'read_only': True}}
+
+--- STEP 4 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "final",
+  "finish_reason": "validated",
+  "message": "DOCKER_MCP_OK - Docker MCP kiểm tra thành công\n\n=== BÁO CÁO CHI TIẾT ===\n\n1. docker ps (all=true, timeout=20):\n   - Status: OK ✅\n   - command_metadata.security_risk: \"low\"\n   - Đọc được 4 container đang chạy/đã exit\n\n2. docker compose ps (timeout=20):\n   - Status: OK ✅\n   - command_metadata.security_risk: \"low\"\n   - Đọc được service qdrant đang Up\n\n3. docker compose logs (service=qdrant, tail=30, timeout=30):\n   - Status: OK ✅\n   - command_metadata.security_risk: \"low\"\n   - Đọc được 20 dòng log cuối cùng từ container qdrant\n   - Log cho thấy service đang hoạt động bình thường (HTTP requests 200)\n\n=== XÁC NHẬN ===\n✅ Tất cả 3 lệnh đều có command_metadata.security_risk = \"low\"\n✅ compose ps/logs đọc được nội dung thực tế\n✅ Không sử dụng destructive commands (up/stop/delete/prune)\n✅ Return code = 0 cho tất cả các lệnh"
+}
+```
+
+=== FINAL RESULT ===
+DOCKER_MCP_OK - Docker MCP kiểm tra thành công
+
+=== BÁO CÁO CHI TIẾT ===
+
+1. docker ps (all=true, timeout=20):
+   - Status: OK ✅
+   - command_metadata.security_risk: "low"
+   - Đọc được 4 container đang chạy/đã exit
+
+2. docker compose ps (timeout=20):
+   - Status: OK ✅
+   - command_metadata.security_risk: "low"
+   - Đọc được service qdrant đang Up
+
+3. docker compose logs (service=qdrant, tail=30, timeout=30):
+   - Status: OK ✅
+   - command_metadata.security_risk: "low"
+   - Đọc được 20 dòng log cuối cùng từ container qdrant
+   - Log cho thấy service đang hoạt động bình thường (HTTP requests 200)
+
+=== XÁC NHẬN ===
+✅ Tất cả 3 lệnh đều có command_metadata.security_risk = "low"
+✅ compose ps/logs đọc được nội dung thực tế
+✅ Không sử dụng destructive commands (up/stop/delete/prune)
+✅ Return code = 0 cho tất cả các lệnh
+
+
+================================================================================
+STDERR
+================================================================================

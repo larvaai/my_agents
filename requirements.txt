@@ -2,3 +2,10 @@ openai
 mcp
 mcp-server-git
 PyYAML
+qdrant-client
+fastembed
+pypdf
+python-docx
+playwright
+ruff
+langgraph

@@ -1,0 +1,63 @@
+CASE: skill_00_skills_loaded
+GROUP: skill
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 15.13
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe main.py prompts\auto_cases\extra_skill_00_skills_loaded.md
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+
+--- STEP 1 ---
+AGENT RAW OUTPUT:
+
+
+```json
+{
+  "action": "final",
+  "message": "{\n  \"skills\": [\n    {\n      \"alias\": \"project_plan\",\n      \"dang_dung_khi_nao\": \"Khi cần lập kế hoạch đọc file, phân tích tác động, hoặc chia nhỏ task trước khi sửa code (mode read-only).\",\n      \"dieu_cem_quan_trong_nhat\": \"KHÔNG được sửa đổi bất kỳ file nào trong quá trình sử dụng skill này.\"\n    },\n    {\n      \"alias\": \"code_edit\",\n      \"dang_dung_khi_nao\": \"Khi cần thay đổi nhỏ, hẹp sau khi đã đọc các file liên quan (bug fix, implement change, viết file mới).\",\n      \"dieu_cem_quan_trong_nhat\": \"Phải làm thay đổi NHỎ NHẤT có thể; tránh refactor rộng, cleanup không liên quan, formatting churn hay di chuyển file.\"\n    },\n    {\n      \"alias\": \"debug_traceback\",\n      \"dang_dung_khi_nao\": \"Khi có traceback/exception/error và cần tìm nguyên nhân gốc từ stack trace cụ thể.\",\n      \"dieu_cem_quan_trong_nhat\": \"Bắt đầu từ lỗi cụ thể (concrete failure), không được viết lại toàn bộ code một cách suy đoán.\"\n    },\n    {\n      \"alias\": \"run_test\",\n      \"dang_dung_khi_nao\": \"Khi cần chạy lệnh validate an toàn như pytest, npm test/lint/typecheck, hoặc git status/diff.\",\n      \"dieu_cem_quan_trong_nhat\": \"CHỈ được chạy các lệnh nằm trong whitelist đã cho phép của project/skill này.\"\n    },\n    {\n      \"alias\": \"git_review\",\n      \"dang_dung_khi_nao\": \"Khi cần xem diff, status hoặc đề xuất commit message mà chưa muốn commit ngay.\",\n      \"dieu_cem_quan_trong_nhat\": \"KHÔNG được commit trong khi đang dùng skill này (chưa đến bước git add/commit/push).\"\n    }\n  ]\n}"
+}
+```
+
+=== FINAL RESULT ===
+{
+  "skills": [
+    {
+      "alias": "project_plan",
+      "dang_dung_khi_nao": "Khi cần lập kế hoạch đọc file, phân tích tác động, hoặc chia nhỏ task trước khi sửa code (mode read-only).",
+      "dieu_cem_quan_trong_nhat": "KHÔNG được sửa đổi bất kỳ file nào trong quá trình sử dụng skill này."
+    },
+    {
+      "alias": "code_edit",
+      "dang_dung_khi_nao": "Khi cần thay đổi nhỏ, hẹp sau khi đã đọc các file liên quan (bug fix, implement change, viết file mới).",
+      "dieu_cem_quan_trong_nhat": "Phải làm thay đổi NHỎ NHẤT có thể; tránh refactor rộng, cleanup không liên quan, formatting churn hay di chuyển file."
+    },
+    {
+      "alias": "debug_traceback",
+      "dang_dung_khi_nao": "Khi có traceback/exception/error và cần tìm nguyên nhân gốc từ stack trace cụ thể.",
+      "dieu_cem_quan_trong_nhat": "Bắt đầu từ lỗi cụ thể (concrete failure), không được viết lại toàn bộ code một cách suy đoán."
+    },
+    {
+      "alias": "run_test",
+      "dang_dung_khi_nao": "Khi cần chạy lệnh validate an toàn như pytest, npm test/lint/typecheck, hoặc git status/diff.",
+      "dieu_cem_quan_trong_nhat": "CHỈ được chạy các lệnh nằm trong whitelist đã cho phép của project/skill này."
+    },
+    {
+      "alias": "git_review",
+      "dang_dung_khi_nao": "Khi cần xem diff, status hoặc đề xuất commit message mà chưa muốn commit ngay.",
+      "dieu_cem_quan_trong_nhat": "KHÔNG được commit trong khi đang dùng skill này (chưa đến bước git add/commit/push)."
+    }
+  ]
+}
+
+
+================================================================================
+STDERR
+================================================================================
