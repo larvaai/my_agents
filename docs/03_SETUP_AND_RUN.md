@@ -1,166 +1,178 @@
 # Setup And Run
 
-## Requirements
+This page is the supported setup path for a fresh clone on macOS Apple Silicon
+(MacBook M1/M2/M3). Windows commands are still listed where they differ.
 
-- Windows PowerShell hoặc terminal tương đương.
-- Python 3.11+.
-- Node.js/npx cho Filesystem MCP và Context7 MCP.
-- Docker Desktop nếu dùng Qdrant/RAG hoặc Docker MCP.
-- LM Studio hoặc endpoint OpenAI-compatible.
+## Mac Quick Start
 
-## Install
+```bash
+git clone <repo-url> my_agents
+cd my_agents
 
-```powershell
+brew bundle
+make bootstrap
+make doctor
+make quick
+```
+
+`make bootstrap` creates `.venv`, installs Python dependencies, installs
+Playwright Chromium, creates `.env` from `.env.example` when missing, creates
+`var/*`, and runs `python run_dev_checks.py --quick`.
+
+If you do not want Make:
+
+```bash
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip setuptools wheel
 python -m pip install -r requirements.txt
-```
-
-Nếu dùng Playwright screenshot/browser:
-
-```powershell
 python -m playwright install chromium
+mkdir -p var/workspace var/agent_runs var/test_runs var/qdrant_storage
+cp .env.example .env
+python run_dev_checks.py --quick
 ```
 
-## LLM Configuration
+## Required Tools
 
-Project dùng `llm.py` để gọi LM Studio/OpenAI-compatible API.
+- Python 3.11+.
+- Node.js/npx for Filesystem MCP and Context7 MCP.
+- LM Studio or another OpenAI-compatible endpoint for LLM runs.
+- Docker Desktop if you use Qdrant/RAG or Docker MCP.
+- Homebrew is optional but recommended on macOS.
 
-Env thường dùng:
+The repo includes a `Brewfile` for macOS:
 
-```powershell
-$env:LLM_BASE_URL="http://localhost:1234/v1"
-$env:LLM_API_KEY="lm-studio"
-$env:LLM_MODEL="ten-model-trong-lm-studio"
+```bash
+brew bundle
 ```
 
-LM Studio thường không cần API key thật. `lm-studio` chỉ là placeholder để client OpenAI-compatible chấp nhận.
+The Brewfile installs command-line tools plus Docker Desktop and LM Studio.
+Open Docker Desktop and LM Studio once after installation to finish their
+first-run setup.
 
-## Run Single-Agent Orchestrator
+## Environment
 
-Prompt mặc định:
+Copy the example file once:
 
-```powershell
-python main.py
+```bash
+cp .env.example .env
 ```
 
-Prompt file:
+The most common values:
 
-```powershell
+```text
+LLM_BASE_URL=http://localhost:1234/v1
+LLM_API_KEY=lm-studio
+LLM_MODEL=qwen3.5-9b-claude-4.6-opus-uncensored-distilled
+QDRANT_URL=http://localhost:6333
+SEARCH_PROVIDER=duckduckgo
+```
+
+`.env` is loaded by `core.runtime_paths` and `llm.py`. Runtime paths default to
+`var/*`, so generated data stays outside source code:
+
+| Path | Purpose |
+|---|---|
+| `var/workspace/` | Sandbox workspace for filesystem, Python, documents, browser, RAG |
+| `var/agent_runs/` | Agent event logs and run summaries |
+| `var/test_runs/` | Test runner logs and summaries |
+| `var/qdrant_storage/` | Local Qdrant storage mounted by Docker Compose |
+
+## Dev Gate
+
+Use one entrypoint for local and CI checks:
+
+```bash
+python run_dev_checks.py --quick
+python run_dev_checks.py --full
+```
+
+Equivalent Make targets on macOS:
+
+```bash
+make quick
+make full
+```
+
+`--quick` runs compile, unit tests, feature tests, kernel smoke, JsonGate smoke,
+role smoke, and LangGraph smoke. `--full` adds the MCP chain smoke and the
+capability suite.
+
+## Run Agents
+
+Single-agent orchestrator:
+
+```bash
+source .venv/bin/activate
 python main.py prompts/auto_cases/test_project_00_python_probe.md
 ```
 
-## Run LangGraph Orchestrator
+LangGraph role orchestrator:
 
-```powershell
-python main_langgraph.py prompts/the_sims_prompt.md
+```bash
+source .venv/bin/activate
+python main_langgraph.py prompts/auto_cases/test_langgraph_01_smoke.md
 ```
 
-Giới hạn step:
+For longer LangGraph runs:
 
-```powershell
-$env:LANGGRAPH_MAX_STEPS="80"
-python main_langgraph.py prompts/the_sims_prompt.md
+```bash
+LANGGRAPH_MAX_STEPS=80 python main_langgraph.py prompts/the_sims_prompt.md
 ```
 
-## Run Qdrant For RAG
+## Qdrant/RAG
+
+Start Qdrant:
+
+```bash
+docker compose up -d qdrant
+curl -fsS http://localhost:6333/collections
+```
+
+Stop it:
+
+```bash
+docker compose down
+```
+
+The compose file mounts `./var/qdrant_storage` into the container.
+
+## MCP Portability Notes
+
+- Python MCP servers are launched with `sys.executable`, so a Mac clone uses
+  `.venv/bin/python` after activation instead of a random system interpreter.
+- Node MCP servers use `npx` directly on macOS/Linux. On Windows the same config
+  still wraps `npx` with `cmd /c`.
+- Override `NPX_COMMAND` in `.env` only if your Node install exposes `npx` in a
+  non-standard location.
+
+## Windows Notes
+
+PowerShell install path:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -r requirements.txt
+python -m playwright install chromium
+Copy-Item .env.example .env
+python run_dev_checks.py --quick
+```
+
+Health checks:
 
 ```powershell
 docker compose up -d qdrant
-```
-
-Health check:
-
-```powershell
 Invoke-RestMethod http://localhost:6333/collections
 ```
 
-RAG MCP cũng có tool health:
+## Troubleshooting
 
-```text
-rag.rag_health
-```
-
-## Smoke Checks
-
-Chạy sau khi setup:
-
-```powershell
-python run_json_gate_smoke.py
-python run_agent_role_smoke.py
-python run_langgraph_smoke.py
-python run_mcp_chain_smoke.py
-```
-
-Chạy group LangGraph:
-
-```powershell
-python run_all_cases.py --group langgraph --timeout 180 --fail-fast
-```
-
-Chạy một case:
-
-```powershell
-python run_all_cases.py --case agent_01_fix_small_bug --fail-fast
-```
-
-List case:
-
-```powershell
-python run_all_cases.py --list
-```
-
-## Important Env Vars
-
-| Env | Ý nghĩa |
-|---|---|
-| `ORCH_MAX_STEPS` | Max step cho single-agent orchestrator |
-| `LANGGRAPH_MAX_STEPS` | Max step cho LangGraph orchestrator |
-| `ORCH_MAX_OBSERVATION_CHARS` | Giới hạn condenser tool result |
-| `AGENT_ALLOW_GIT_MUTATIONS` | Cho phép Git mutation khi user yêu cầu rõ |
-| `AGENT_ALLOW_HIGH_RISK_TERMINAL` | Cho phép terminal high-risk command |
-| `DOCKER_MCP_ALLOW_MUTATION` | Cho Docker compose up/stop |
-| `OBSIDIAN_VAULT_DIR` | Vault Obsidian local |
-| `ISSUE_DB_PATH` | SQLite issue DB path |
-| `QDRANT_URL` | Qdrant URL |
-| `QDRANT_COLLECTION` | Qdrant collection |
-| `SEARCH_PROVIDER` | `brave`, `tavily`, hoặc fallback |
-| `BRAVE_SEARCH_API_KEY` | Brave Search key |
-| `TAVILY_API_KEY` | Tavily key |
-
-## Generated Data
-
-| Path | Nội dung |
-|---|---|
-| `var/agent_runs/` | Event logs và summary của agent runs |
-| `var/test_runs/` | Logs và summary của test runner |
-| `var/workspace/` | Workspace sandbox cho agent |
-| `var/workspace/ledger/` | Append-only ledger |
-| `var/workspace/issues/` | Issue tracker local |
-| `var/workspace/obsidian_vault/` | Markdown vault |
-| `var/qdrant_storage/` | Qdrant local data |
-
-## Clean Mental Model
-
-Không cần chạy tất cả ngay. Thứ tự tốt nhất:
-
-1. LM Studio lên.
-2. `python run_json_gate_smoke.py`.
-3. `python run_agent_role_smoke.py`.
-4. `python run_langgraph_smoke.py`.
-5. Một prompt nhỏ qua `main.py`.
-6. Một prompt role-based qua `main_langgraph.py`.
-
-## Run Code/Test Department v0.5
-
-The direct v0.5 Code/Test runner is deterministic by default and does not need
-LLM unless `--use-llm` is provided.
-
-```powershell
-python run_code_test_agents_smoke.py
-python run_code_test_agents_demo.py --version v0.5 --agent orchestrator --max-cycles 2
-```
-
-For model-backed lens experimentation:
-
-```powershell
-python run_code_test_agents_demo.py --version v0.5 --agent orchestrator --use-llm
-```
+- `npx not found`: install Node with `brew install node`, then open a new shell.
+- `docker not found`: install/start Docker Desktop, then rerun the Qdrant command.
+- `LLM request failed`: start LM Studio's local server and verify
+  `curl http://localhost:1234/v1/models`.
+- Playwright errors: run `python -m playwright install chromium` inside `.venv`.
+- Import errors after clone: rerun `make bootstrap` or reinstall with
+  `python -m pip install -r requirements.txt`.

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -15,188 +16,101 @@ class MCPServerConfig:
     env: dict[str, str] | None = None
 
 
-def _context7_env() -> dict[str, str] | None:
-    api_key = os.getenv("CONTEXT7_API_KEY")
-    if not api_key:
-        return None
+def _optional_values(keys: tuple[str, ...]) -> dict[str, str]:
+    return {key: value for key in keys if (value := os.getenv(key)) is not None}
 
+
+def _merged_env(values: dict[str, str] | None = None) -> dict[str, str]:
     env = os.environ.copy()
-    env["CONTEXT7_API_KEY"] = api_key
+    env.setdefault("PYTHONUTF8", "1")
+    env.setdefault("PYTHONIOENCODING", "utf-8")
+    if values:
+        env.update(values)
     return env
 
 
 def _optional_env(keys: tuple[str, ...]) -> dict[str, str] | None:
-    values = {
-        key: value
-        for key in keys
-        if (value := os.getenv(key)) is not None
-    }
+    values = _optional_values(keys)
 
     if not values:
         return None
 
-    env = os.environ.copy()
-    env.update(values)
+    return _merged_env(values)
+
+
+def _python_env(keys: tuple[str, ...] = ()) -> dict[str, str]:
+    env = _merged_env(_optional_values(keys))
+    current_pythonpath = env.get("PYTHONPATH", "")
+    pythonpath_parts = [str(PROJECT_DIR)]
+    if current_pythonpath:
+        pythonpath_parts.append(current_pythonpath)
+    env["PYTHONPATH"] = os.pathsep.join(pythonpath_parts)
     return env
 
 
+def _python_module_config(module: str, *extra_args: str, env_keys: tuple[str, ...] = ()) -> MCPServerConfig:
+    return MCPServerConfig(
+        command=sys.executable,
+        args=["-m", module, *extra_args],
+        env=_python_env(env_keys),
+    )
+
+
+def _npx_config(package: str, *extra_args: str, env_keys: tuple[str, ...] = ()) -> MCPServerConfig:
+    npx_command = os.getenv("NPX_COMMAND", "npx")
+    args = ["-y", package, *extra_args]
+    env = _optional_env(env_keys)
+
+    if os.name == "nt" and npx_command.lower() in {"npx", "npx.cmd"}:
+        return MCPServerConfig(command="cmd", args=["/c", npx_command, *args], env=env)
+
+    return MCPServerConfig(command=npx_command, args=args, env=env)
+
+
 MCP_SERVERS: dict[str, MCPServerConfig] = {
-    "filesystem": MCPServerConfig(
-        command="cmd",
-        args=[
-            "/c",
-            "npx",
-            "-y",
-            "@modelcontextprotocol/server-filesystem",
-            str(WORKSPACE_DIR),
-        ],
+    "filesystem": _npx_config("@modelcontextprotocol/server-filesystem", str(WORKSPACE_DIR)),
+    "git": _python_module_config("mcp_server_git", "--repository", str(PROJECT_DIR)),
+    "context7": _npx_config("@upstash/context7-mcp", env_keys=("CONTEXT7_API_KEY",)),
+    "python": _python_module_config("mcp_servers.python_sandbox"),
+    "file_editor": _python_module_config("mcp_servers.file_editor_server"),
+    "terminal": _python_module_config(
+        "mcp_servers.terminal_server",
+        env_keys=("AGENT_ALLOW_HIGH_RISK_TERMINAL",),
     ),
-    "git": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_server_git",
-            "--repository",
-            str(PROJECT_DIR),
-        ],
+    "code_index": _python_module_config("mcp_servers.code_index_server"),
+    "lint_test": _python_module_config("mcp_servers.lint_test_server"),
+    "docker": _python_module_config(
+        "mcp_servers.docker_server",
+        env_keys=("DOCKER_MCP_ALLOW_MUTATION",),
     ),
-    "context7": MCPServerConfig(
-        command="cmd",
-        args=[
-            "/c",
-            "npx",
-            "-y",
-            "@upstash/context7-mcp",
-        ],
-        env=_context7_env(),
-    ),
-    "python": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.python_sandbox",
-        ],
-    ),
-    "file_editor": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.file_editor_server",
-        ],
-    ),
-    "terminal": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.terminal_server",
-        ],
-        env=_optional_env(("AGENT_ALLOW_HIGH_RISK_TERMINAL",)),
-    ),
-    "code_index": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.code_index_server",
-        ],
-    ),
-    "lint_test": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.lint_test_server",
-        ],
-    ),
-    "docker": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.docker_server",
-        ],
-        env=_optional_env(("DOCKER_MCP_ALLOW_MUTATION",)),
-    ),
-    "obsidian": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.obsidian_server",
-        ],
-        env=_optional_env(("OBSIDIAN_VAULT_DIR",)),
-    ),
-    "issue": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.issue_server",
-        ],
-        env=_optional_env(("ISSUE_DB_PATH",)),
-    ),
-    "rag": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.rag_server",
-        ],
-        env=_optional_env(
-            (
-                "QDRANT_URL",
-                "QDRANT_API_KEY",
-                "QDRANT_COLLECTION",
-                "EMBEDDING_MODEL",
-                "RAG_CHUNK_SIZE",
-                "RAG_CHUNK_OVERLAP",
-            )
+    "obsidian": _python_module_config("mcp_servers.obsidian_server", env_keys=("OBSIDIAN_VAULT_DIR",)),
+    "issue": _python_module_config("mcp_servers.issue_server", env_keys=("ISSUE_DB_PATH",)),
+    "rag": _python_module_config(
+        "mcp_servers.rag_server",
+        env_keys=(
+            "QDRANT_URL",
+            "QDRANT_API_KEY",
+            "QDRANT_COLLECTION",
+            "EMBEDDING_MODEL",
+            "RAG_CHUNK_SIZE",
+            "RAG_CHUNK_OVERLAP",
         ),
     ),
-    "fetch": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.fetch_server",
-        ],
-    ),
-    "search": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.search_server",
-        ],
-        env=_optional_env(
-            (
-                "SEARCH_PROVIDER",
-                "BRAVE_SEARCH_API_KEY",
-                "TAVILY_API_KEY",
-            )
+    "fetch": _python_module_config("mcp_servers.fetch_server"),
+    "search": _python_module_config(
+        "mcp_servers.search_server",
+        env_keys=(
+            "SEARCH_PROVIDER",
+            "BRAVE_SEARCH_API_KEY",
+            "TAVILY_API_KEY",
         ),
     ),
-    "document": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.document_server",
-        ],
-    ),
-    "pdf_text_extraction": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.pdf_text_extraction_server",
-        ],
-    ),
-    "ledger": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.ledger_server",
-        ],
-        env=_optional_env(("LEDGER_PATH",)),
-    ),
-    "playwright": MCPServerConfig(
-        command="python",
-        args=[
-            "-m",
-            "mcp_servers.playwright_server",
-        ],
-        env=_optional_env(("PLAYWRIGHT_BROWSERS_PATH",)),
+    "document": _python_module_config("mcp_servers.document_server"),
+    "pdf_text_extraction": _python_module_config("mcp_servers.pdf_text_extraction_server"),
+    "ledger": _python_module_config("mcp_servers.ledger_server", env_keys=("LEDGER_PATH",)),
+    "playwright": _python_module_config(
+        "mcp_servers.playwright_server",
+        env_keys=("PLAYWRIGHT_BROWSERS_PATH",),
     ),
 }
 

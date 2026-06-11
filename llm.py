@@ -3,6 +3,10 @@ from typing import Any
 
 from openai import OpenAI
 
+from tools.env_loader import load_project_env
+
+
+load_project_env()
 
 DEFAULT_BASE_URL = "http://localhost:1234/v1"
 DEFAULT_API_KEY = "lm-studio"

@@ -1,6 +1,7 @@
 openai
 mcp
 mcp-server-git
+python-dotenv
 PyYAML
 qdrant-client
 fastembed

@@ -27,6 +27,19 @@ Muc tieu cua project khong phai lam chatbot chung chung, ma la xay mot coding-ag
 - Muon kiem tra dev nhanh: `python run_dev_checks.py --quick`; truoc milestone lon chay `python run_dev_checks.py --full`.
 - Muon kiem tra tong hop nang luc hien tai: `python run_capability_suite.py`.
 
+## MacBook M1 Quick Start
+
+```bash
+git clone <repo-url> my_agents
+cd my_agents
+brew bundle
+make bootstrap
+make doctor
+make quick
+```
+
+Chi tiet setup Mac, Windows, Qdrant, LLM va troubleshooting nam trong `docs/03_SETUP_AND_RUN.md`.
+
 ## Kien truc ngan gon
 
 ```text
@@ -458,7 +471,7 @@ File:
 mcp_servers/obsidian_server.py
 ```
 
-Vault markdown local. Mac dinh ghi vao `workspace/obsidian_vault`, hoac dat `OBSIDIAN_VAULT_DIR` de tro toi vault rieng. Tool chi lam viec voi `.md` va chan noi dung giong secret/token.
+Vault markdown local. Mac dinh ghi vao `var/workspace/obsidian_vault`, hoac dat `OBSIDIAN_VAULT_DIR` de tro toi vault rieng. Tool chi lam viec voi `.md` va chan noi dung giong secret/token.
 
 Tools:
 
