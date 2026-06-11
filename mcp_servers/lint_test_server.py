@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import os
 import py_compile
@@ -8,11 +8,11 @@ import time
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import PROJECT_DIR, WORKSPACE_DIR
+
 from mcp.server.fastmcp import FastMCP
 
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-WORKSPACE_DIR = PROJECT_DIR / "workspace"
 MAX_FILES = 1000
 MAX_TIMEOUT_SECONDS = 120
 EXCLUDED_DIRS = {
@@ -25,6 +25,7 @@ EXCLUDED_DIRS = {
     "openhands-workspace",
     "qdrant_storage",
     "test_runs",
+    "var",
     "workspace",
 }
 
@@ -277,13 +278,15 @@ def test_smoke_suite(timeout: int = 60) -> dict[str, Any]:
     for path in ("agents", "mcp_servers", "tools"):
         results.append(lint_compile(path=path, timeout=timeout))
 
-    for path in ("main.py", "orchestrator.py", "run_mcp_chain_smoke.py", "workspace/code/project_smoke_test.py"):
-        target = PROJECT_DIR / path
+    for path in ("main.py", "orchestrator.py", "run_mcp_chain_smoke.py", str(WORKSPACE_DIR / "code" / "project_smoke_test.py")):
+        target = Path(path)
+        if not target.is_absolute():
+            target = PROJECT_DIR / target
         if target.exists():
-            if target.suffix == ".py" and path.startswith("workspace/"):
-                results.append(test_python_file(path=path, timeout=timeout))
+            if target.suffix == ".py" and target.resolve().is_relative_to(WORKSPACE_DIR.resolve()):
+                results.append(test_python_file(path=str(target), timeout=timeout))
             else:
-                results.append(lint_compile(path=path, timeout=timeout))
+                results.append(lint_compile(path=str(target), timeout=timeout))
 
     passed = all(item.get("ok") for item in results)
     return {
@@ -300,3 +303,4 @@ def test_smoke_suite(timeout: int = 60) -> dict[str, Any]:
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+

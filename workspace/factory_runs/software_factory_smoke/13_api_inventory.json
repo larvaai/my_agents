@@ -1169,6 +1169,47 @@
           "args": [],
           "async": false,
           "doc": null,
+          "name": "_configure_stdout",
+          "returns": "None",
+          "side_effect_hints": []
+        },
+        {
+          "args": [
+            {
+              "annotation": "list[str]",
+              "name": "module_names"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "_suite_from_modules",
+          "returns": "unittest.TestSuite",
+          "side_effect_hints": []
+        },
+        {
+          "args": [],
+          "async": false,
+          "doc": null,
+          "name": "main",
+          "returns": "int",
+          "side_effect_hints": []
+        }
+      ],
+      "functions": [
+        "_configure_stdout",
+        "_suite_from_modules",
+        "main"
+      ],
+      "path": "run_feature_tests.py"
+    },
+    {
+      "class_details": [],
+      "classes": [],
+      "function_details": [
+        {
+          "args": [],
+          "async": false,
+          "doc": null,
           "name": "configure_console_encoding",
           "returns": "None",
           "side_effect_hints": []
@@ -1294,6 +1335,44 @@
         "main"
       ],
       "path": "run_json_gate_smoke.py"
+    },
+    {
+      "class_details": [],
+      "classes": [],
+      "function_details": [
+        {
+          "args": [
+            {
+              "annotation": "bool",
+              "name": "condition"
+            },
+            {
+              "annotation": "object",
+              "name": "message"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "_require",
+          "returns": "None",
+          "side_effect_hints": []
+        },
+        {
+          "args": [],
+          "async": false,
+          "doc": null,
+          "name": "main",
+          "returns": "int",
+          "side_effect_hints": [
+            "write_text"
+          ]
+        }
+      ],
+      "functions": [
+        "_require",
+        "main"
+      ],
+      "path": "run_kernel_smoke.py"
     },
     {
       "class_details": [],
@@ -5618,6 +5697,1331 @@
       "path": "agents/safety/tool_scope_agent.py"
     },
     {
+      "class_details": [],
+      "classes": [],
+      "function_details": [
+        {
+          "args": [
+            {
+              "annotation": "str | Path | None",
+              "name": "config_path"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "_load_config",
+          "returns": "dict[str, Any]",
+          "side_effect_hints": [
+            "open"
+          ]
+        },
+        {
+          "args": [
+            {
+              "annotation": "str | Path | None",
+              "name": "config_path"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "create_kernel",
+          "returns": "AgentKernel",
+          "side_effect_hints": []
+        },
+        {
+          "args": [],
+          "async": false,
+          "doc": null,
+          "name": "get_default_kernel",
+          "returns": "AgentKernel",
+          "side_effect_hints": []
+        }
+      ],
+      "functions": [
+        "_load_config",
+        "create_kernel",
+        "get_default_kernel"
+      ],
+      "path": "core/bootstrap.py"
+    },
+    {
+      "class_details": [],
+      "classes": [],
+      "function_details": [
+        {
+          "args": [
+            {
+              "annotation": "str",
+              "name": "tool_name"
+            },
+            {
+              "annotation": "dict[str, Any] | None",
+              "name": "args"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "call_tool",
+          "returns": "dict[str, Any]",
+          "side_effect_hints": []
+        },
+        {
+          "args": [],
+          "async": false,
+          "doc": null,
+          "name": "describe_capabilities",
+          "returns": "dict[str, Any]",
+          "side_effect_hints": []
+        }
+      ],
+      "functions": [
+        "call_tool",
+        "describe_capabilities"
+      ],
+      "path": "core/capabilities.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": "Base error raised by the core kernel layer.",
+          "methods": [],
+          "name": "KernelError"
+        },
+        {
+          "doc": "Raised when kernel configuration cannot be loaded or applied.",
+          "methods": [],
+          "name": "KernelConfigurationError"
+        },
+        {
+          "doc": "Raised when a required capability is not registered.",
+          "methods": [],
+          "name": "CapabilityNotFoundError"
+        },
+        {
+          "doc": "Raised when a requested feature is disabled by configuration.",
+          "methods": [],
+          "name": "FeatureDisabledError"
+        },
+        {
+          "doc": "Raised when a port or adapter returns a value outside its contract.",
+          "methods": [],
+          "name": "PortContractError"
+        }
+      ],
+      "classes": [
+        "KernelError",
+        "KernelConfigurationError",
+        "CapabilityNotFoundError",
+        "FeatureDisabledError",
+        "PortContractError"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/errors.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [],
+          "name": "KernelEvent"
+        },
+        {
+          "doc": "In-process pub/sub bus for kernel events.\n\nListeners are intentionally best-effort. A broken optional subscriber should\nnot crash tool execution or task routing.",
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "__init__",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "event_type"
+                },
+                {
+                  "annotation": "EventListener",
+                  "name": "listener"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "subscribe",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "event_type"
+                },
+                {
+                  "annotation": "dict[str, Any] | None",
+                  "name": "payload"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "publish",
+              "returns": "KernelEvent",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "history",
+              "returns": "list[KernelEvent]",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "clear",
+              "returns": "None",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "EventBus"
+        }
+      ],
+      "classes": [
+        "KernelEvent",
+        "EventBus"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/events.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": "Minimal living core.\n\nThe kernel owns state, events, and capability lookup. Concrete behavior\nlives behind ports/adapters registered in the capability registry.",
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "user_request"
+                },
+                {
+                  "annotation": "dict[str, Any] | None",
+                  "name": "context"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "accept_task",
+              "returns": "TaskEnvelope",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "tool_name"
+                },
+                {
+                  "annotation": "dict[str, Any] | None",
+                  "name": "args"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "execute_tool",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "describe_capabilities",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "AgentKernel"
+        }
+      ],
+      "classes": [
+        "AgentKernel"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/kernel.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "as_dict",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "LedgerEntry"
+        },
+        {
+          "doc": "Small append-only ledger for kernel-level records.",
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str | Path",
+                  "name": "path"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "__init__",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "LedgerEntry",
+                  "name": "entry"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "append",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": [
+                "mkdir",
+                "open"
+              ]
+            }
+          ],
+          "name": "JsonlLedger"
+        }
+      ],
+      "classes": [
+        "LedgerEntry",
+        "JsonlLedger"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/ledger.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "ToolRequest",
+                  "name": "request"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "execute",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "NullToolPort"
+        },
+        {
+          "doc": "Runtime registry for detachable capabilities.\n\nExact tool registrations win. If no exact tool is found, the optional\nfallback executor can decide whether it can resolve aliases or dynamic MCP\ntools. If no fallback exi...",
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "__init__",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "FeatureDescriptor",
+                  "name": "descriptor"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "register_feature",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "name"
+                },
+                {
+                  "annotation": "ToolPort",
+                  "name": "executor"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "register_tool",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "list[str] | tuple[str, ...] | set[str]",
+                  "name": "names"
+                },
+                {
+                  "annotation": "ToolPort",
+                  "name": "executor"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "register_tools",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "ToolPort | None",
+                  "name": "executor"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "set_fallback_tool_executor",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "name"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "get_tool_executor",
+              "returns": "ToolPort",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "name"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "has_tool",
+              "returns": "bool",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "list_tools",
+              "returns": "list[dict[str, Any]]",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "list_features",
+              "returns": "list[dict[str, Any]]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "CapabilityRegistry"
+        }
+      ],
+      "classes": [
+        "NullToolPort",
+        "CapabilityRegistry"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/registry.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [],
+          "name": "TaskEnvelope"
+        },
+        {
+          "doc": null,
+          "methods": [],
+          "name": "ToolRequest"
+        },
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "as_dict",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "FeatureDescriptor"
+        }
+      ],
+      "classes": [
+        "TaskEnvelope",
+        "ToolRequest",
+        "FeatureDescriptor"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/schemas.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": "Small in-memory state manager owned by the kernel.",
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "dict[str, Any] | None",
+                  "name": "initial"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "__init__",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "key"
+                },
+                {
+                  "annotation": "Any",
+                  "name": "default"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "get",
+              "returns": "Any",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "key"
+                },
+                {
+                  "annotation": "Any",
+                  "name": "value"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "set",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "dict[str, Any]",
+                  "name": "values"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "update",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "key"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "delete",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "snapshot",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "StateStore"
+        }
+      ],
+      "classes": [
+        "StateStore"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/state.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "url"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "get_text",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "url"
+                },
+                {
+                  "annotation": "str",
+                  "name": "path"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "screenshot",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "BrowserPort"
+        }
+      ],
+      "classes": [
+        "BrowserPort"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/ports/browser_port.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "path"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "view",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "path"
+                },
+                {
+                  "annotation": "str",
+                  "name": "old_text"
+                },
+                {
+                  "annotation": "str",
+                  "name": "new_text"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "replace",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "path"
+                },
+                {
+                  "annotation": "int",
+                  "name": "line"
+                },
+                {
+                  "annotation": "str",
+                  "name": "content"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "insert",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "CodeEditPort"
+        }
+      ],
+      "classes": [
+        "CodeEditPort"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/ports/code_port.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "title"
+                },
+                {
+                  "annotation": "str",
+                  "name": "description"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "create",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "list",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "IssuePort"
+        }
+      ],
+      "classes": [
+        "IssuePort"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/ports/issue_port.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "query"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "retrieve",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "title"
+                },
+                {
+                  "annotation": "dict[str, Any]",
+                  "name": "data"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "store",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "MemoryPort"
+        }
+      ],
+      "classes": [
+        "MemoryPort"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/ports/memory_port.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "query"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "search",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "SearchPort"
+        }
+      ],
+      "classes": [
+        "SearchPort"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/ports/search_port.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "target"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "run",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "TestRunPort"
+        }
+      ],
+      "classes": [
+        "TestRunPort"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/ports/test_port.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "ToolRequest",
+                  "name": "request"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "execute",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "ToolPort"
+        }
+      ],
+      "classes": [
+        "ToolPort"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "core/ports/tool_port.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "AgentKernel",
+                  "name": "kernel"
+                },
+                {
+                  "annotation": "dict[str, Any]",
+                  "name": "settings"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "install",
+              "returns": "None",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "FeatureModule"
+        }
+      ],
+      "classes": [
+        "FeatureModule"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "features/contracts.py"
+    },
+    {
+      "class_details": [],
+      "classes": [],
+      "function_details": [
+        {
+          "args": [
+            {
+              "annotation": "dict[str, Any]",
+              "name": "config"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "_feature_items",
+          "returns": "dict[str, dict[str, Any]]",
+          "side_effect_hints": []
+        },
+        {
+          "args": [
+            {
+              "annotation": "AgentKernel",
+              "name": "kernel"
+            },
+            {
+              "annotation": "dict[str, Any]",
+              "name": "config"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "install_configured_features",
+          "returns": "None",
+          "side_effect_hints": []
+        },
+        {
+          "args": [
+            {
+              "annotation": "dict[str, Any]",
+              "name": "config"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "configured_feature_tests",
+          "returns": "list[str]",
+          "side_effect_hints": []
+        }
+      ],
+      "functions": [
+        "_feature_items",
+        "install_configured_features",
+        "configured_feature_tests"
+      ],
+      "path": "features/loader.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "ToolRequest",
+                  "name": "request"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "execute",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "NullToolFeature"
+        },
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "query"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "search",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "NullSearchFeature"
+        },
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "query"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "retrieve",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "str",
+                  "name": "title"
+                },
+                {
+                  "annotation": "dict[str, Any]",
+                  "name": "data"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "store",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "NullMemoryFeature"
+        }
+      ],
+      "classes": [
+        "NullToolFeature",
+        "NullSearchFeature",
+        "NullMemoryFeature"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "features/nulls.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                },
+                {
+                  "annotation": "ToolRequest",
+                  "name": "request"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "execute",
+              "returns": "dict[str, Any]",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "MCPToolAdapter"
+        }
+      ],
+      "classes": [
+        "MCPToolAdapter"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "features/mcp_tools/adapter.py"
+    },
+    {
+      "class_details": [],
+      "classes": [],
+      "function_details": [
+        {
+          "args": [],
+          "async": false,
+          "doc": null,
+          "name": "_canonical_mcp_tool_names",
+          "returns": "tuple[str, ...]",
+          "side_effect_hints": []
+        },
+        {
+          "args": [
+            {
+              "annotation": "AgentKernel",
+              "name": "kernel"
+            },
+            {
+              "annotation": "dict[str, Any]",
+              "name": "settings"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "install",
+          "returns": "None",
+          "side_effect_hints": []
+        }
+      ],
+      "functions": [
+        "_canonical_mcp_tool_names",
+        "install"
+      ],
+      "path": "features/mcp_tools/feature.py"
+    },
+    {
       "class_details": [
         {
           "doc": null,
@@ -9812,7 +11216,7 @@
           ],
           "async": false,
           "doc": null,
-          "name": "_infer_required_file_scope",
+          "name": "_required_file_candidate_text",
           "returns": "str",
           "side_effect_hints": []
         },
@@ -9995,130 +11399,14 @@
         {
           "args": [
             {
-              "annotation": "AgentState",
-              "name": "state"
+              "annotation": "str",
+              "name": "task"
             }
           ],
           "async": false,
           "doc": null,
-          "name": "_first_missing_test_file",
+          "name": "_extract_inline_file_content",
           "returns": "str | None",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            },
-            {
-              "annotation": "str",
-              "name": "target_path"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_project_relative_required_files",
-          "returns": "list[str]",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            },
-            {
-              "annotation": "str",
-              "name": "target_path"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_fallback_test_file_lines",
-          "returns": "list[str]",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            },
-            {
-              "annotation": "str",
-              "name": "target_path"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_fallback_test_file_action",
-          "returns": "dict[str, Any]",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_fallback_test_file_action_for_first_missing",
-          "returns": "dict[str, Any] | None",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_test_file_from_failure",
-          "returns": "str | None",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "str",
-              "name": "path"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_is_deterministic_test_file",
-          "returns": "bool",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_fallback_test_file_action_after_validation_failure",
-          "returns": "dict[str, Any] | None",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_fallback_test_file_action_after_json_failures",
-          "returns": "dict[str, Any] | None",
           "side_effect_hints": []
         },
         {
@@ -10130,8 +11418,34 @@
           ],
           "async": false,
           "doc": null,
-          "name": "_extract_inline_file_content",
-          "returns": "str | None",
+          "name": "_validation_marker_from_task",
+          "returns": "str",
+          "side_effect_hints": []
+        },
+        {
+          "args": [
+            {
+              "annotation": "AgentState",
+              "name": "state"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "_fallback_test_file_action",
+          "returns": "dict[str, Any] | None",
+          "side_effect_hints": []
+        },
+        {
+          "args": [
+            {
+              "annotation": "AgentState",
+              "name": "state"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "_fallback_test_repair_action",
+          "returns": "dict[str, Any] | None",
           "side_effect_hints": []
         },
         {
@@ -10202,27 +11516,6 @@
             },
             {
               "annotation": "str",
-              "name": "target"
-            },
-            {
-              "annotation": "str",
-              "name": "failing_file"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_is_allowed_deterministic_test_rewrite",
-          "returns": "bool",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            },
-            {
-              "annotation": "str",
               "name": "tool_name"
             },
             {
@@ -10233,48 +11526,6 @@
           "async": false,
           "doc": null,
           "name": "_should_block_whole_file_repair",
-          "returns": "bool",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            },
-            {
-              "annotation": "str",
-              "name": "tool_name"
-            },
-            {
-              "annotation": "dict[str, Any]",
-              "name": "tool_args"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_scope_file_write_to_first_missing",
-          "returns": "dict[str, Any]",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            },
-            {
-              "annotation": "str",
-              "name": "tool_name"
-            },
-            {
-              "annotation": "dict[str, Any]",
-              "name": "tool_args"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_is_out_of_order_required_file_write",
           "returns": "bool",
           "side_effect_hints": []
         },
@@ -10314,6 +11565,23 @@
           "doc": null,
           "name": "_record_tool_files",
           "returns": "list[str]",
+          "side_effect_hints": []
+        },
+        {
+          "args": [
+            {
+              "annotation": "AgentState",
+              "name": "state"
+            },
+            {
+              "annotation": "dict[str, Any]",
+              "name": "tool_args"
+            }
+          ],
+          "async": false,
+          "doc": null,
+          "name": "_scope_tool_args_to_required_file",
+          "returns": "dict[str, Any]",
           "side_effect_hints": []
         },
         {
@@ -10406,55 +11674,8 @@
           ],
           "async": false,
           "doc": null,
-          "name": "_required_validation_markers",
-          "returns": "list[str]",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_required_demo_markers",
-          "returns": "list[str]",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            }
-          ],
-          "async": false,
-          "doc": null,
           "name": "_required_cli_demo_path",
           "returns": "str",
-          "side_effect_hints": []
-        },
-        {
-          "args": [
-            {
-              "annotation": "AgentState",
-              "name": "state"
-            },
-            {
-              "annotation": "str",
-              "name": "path"
-            },
-            {
-              "annotation": "list[str]",
-              "name": "markers"
-            }
-          ],
-          "async": false,
-          "doc": null,
-          "name": "_has_run_path_with_markers",
-          "returns": "bool",
           "side_effect_hints": []
         },
         {
@@ -10679,7 +11900,7 @@
         "_truncate",
         "_fold_text",
         "_normalize_project_path",
-        "_infer_required_file_scope",
+        "_required_file_candidate_text",
         "_extract_required_files",
         "_known_existing_files",
         "_missing_required_files",
@@ -10692,35 +11913,24 @@
         "_synthetic_invalid_json_action",
         "_compact_action_for_log",
         "_extract_simple_file_create_action",
-        "_first_missing_test_file",
-        "_project_relative_required_files",
-        "_fallback_test_file_lines",
-        "_fallback_test_file_action",
-        "_fallback_test_file_action_for_first_missing",
-        "_test_file_from_failure",
-        "_is_deterministic_test_file",
-        "_fallback_test_file_action_after_validation_failure",
-        "_fallback_test_file_action_after_json_failures",
         "_extract_inline_file_content",
+        "_validation_marker_from_task",
+        "_fallback_test_file_action",
+        "_fallback_test_repair_action",
         "_extract_files",
         "_extract_tests",
         "_is_file_change_tool",
         "_is_whole_file_write_tool",
-        "_is_allowed_deterministic_test_rewrite",
         "_should_block_whole_file_repair",
-        "_scope_file_write_to_first_missing",
-        "_is_out_of_order_required_file_write",
         "_is_validation_tool",
         "_record_tool_files",
+        "_scope_tool_args_to_required_file",
         "_record_tool_tests",
         "_requires_validation",
         "_has_passing_validation",
         "_has_run_path",
         "_requires_cli_demo",
-        "_required_validation_markers",
-        "_required_demo_markers",
         "_required_cli_demo_path",
-        "_has_run_path_with_markers",
         "_validation_complete",
         "_forced_test_action",
         "_finish_gate_message",
@@ -11637,6 +12847,177 @@
     {
       "class_details": [
         {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "test_enabled_features_declare_importable_tests",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "test_configured_feature_tests_are_discoverable",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "test_every_tool_reports_feature_owner",
+              "returns": "None",
+              "side_effect_hints": []
+            }
+          ],
+          "name": "FeatureContractTests"
+        }
+      ],
+      "classes": [
+        "FeatureContractTests"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "tests/test_feature_contracts.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "test_kernel_accepts_task_and_records_events",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "test_disabled_feature_uses_null_tool_result",
+              "returns": "None",
+              "side_effect_hints": [
+                "write_text"
+              ]
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "test_unknown_feature_module_fails_at_bootstrap",
+              "returns": "None",
+              "side_effect_hints": [
+                "write_text"
+              ]
+            }
+          ],
+          "name": "KernelContractTests"
+        }
+      ],
+      "classes": [
+        "KernelContractTests"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "tests/test_kernel_contracts.py"
+    },
+    {
+      "class_details": [
+        {
+          "doc": null,
+          "methods": [
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "test_feature_registers_canonical_tools_and_aliases",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "test_adapter_execution_is_called_through_kernel",
+              "returns": "None",
+              "side_effect_hints": []
+            },
+            {
+              "args": [
+                {
+                  "annotation": null,
+                  "name": "self"
+                }
+              ],
+              "async": false,
+              "doc": null,
+              "name": "test_feature_can_disable_alias_registration",
+              "returns": "None",
+              "side_effect_hints": [
+                "write_text"
+              ]
+            }
+          ],
+          "name": "MCPToolsFeatureTests"
+        }
+      ],
+      "classes": [
+        "MCPToolsFeatureTests"
+      ],
+      "function_details": [],
+      "functions": [],
+      "path": "tests/test_mcp_tools_feature.py"
+    },
+    {
+      "class_details": [
+        {
           "doc": "Append-only JSONL event log for a single agent run.\n\nThe goal is intentionally close to OpenHands' event model, but smaller:\nevery user message, action, observation, and state update is persisted so a\nrun can be repla...",
           "methods": [
             {
@@ -12376,33 +13757,6 @@
       "path": "tools/tool_policy.py"
     },
     {
-      "class_details": [],
-      "classes": [],
-      "function_details": [
-        {
-          "args": [
-            {
-              "annotation": "str",
-              "name": "tool_name"
-            },
-            {
-              "annotation": "dict",
-              "name": "args"
-            }
-          ],
-          "async": false,
-          "doc": "Orchestrator calls tools through MCP servers.",
-          "name": "call_tool",
-          "returns": "dict",
-          "side_effect_hints": []
-        }
-      ],
-      "functions": [
-        "call_tool"
-      ],
-      "path": "tools/tool_registry.py"
-    },
-    {
       "class_details": [
         {
           "doc": null,
@@ -12800,24 +14154,6 @@
       "function_details": [],
       "functions": [],
       "path": "workspace/neuroscience_system.py"
-    },
-    {
-      "class_details": [],
-      "classes": [],
-      "function_details": [
-        {
-          "args": [],
-          "async": false,
-          "doc": null,
-          "name": "main",
-          "returns": "None",
-          "side_effect_hints": []
-        }
-      ],
-      "functions": [
-        "main"
-      ],
-      "path": "workspace/__init__.py"
     },
     {
       "class_details": [],
@@ -15033,5 +16369,5 @@
       "path": "workspace/society_sim_failed_20260610_191525/rules.py"
     }
   ],
-  "python_file_count": 134
+  "python_file_count": 158
 }

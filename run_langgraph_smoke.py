@@ -13,8 +13,9 @@ from orchestration.langgraph_orchestrator import (
     build_graph,
     make_tool_node,
 )
-from tools.mcp_config import WORKSPACE_DIR
-from tools.tool_registry import call_tool
+from core.runtime_paths import WORKSPACE_DIR
+from core.capabilities import call_tool
+from core.schemas import capability_get
 
 
 SMOKE_NAME = f"_langgraph_smoke_{os.getpid()}"
@@ -80,7 +81,7 @@ def _exercise_failure_capture_and_repair_guard() -> None:
     }
     repair_out = make_tool_node()(repair_state)
     _assert(
-        repair_out["tool_result"].get("policy_code") == "repair_requires_patch_tool",
+        capability_get(repair_out["tool_result"], "policy_code") == "repair_requires_patch_tool",
         f"Whole-file repair rewrite was not blocked: {repair_out['tool_result']}",
     )
     _assert(repair_out.get("next_agent") == "code", f"Repair guard routed incorrectly: {repair_out}")
@@ -321,7 +322,7 @@ def _exercise_json_retry_test_file_fallback() -> None:
         {"path": f"{FALLBACK_SMOKE_NAME}/test_generated.py", "timeout": 30},
     )
     _assert(run_result.get("ok") is True, run_result)
-    _assert("FALLBACK_TESTS_OK" in run_result.get("stdout", ""), run_result)
+    _assert("FALLBACK_TESTS_OK" in capability_get(run_result, "stdout", ""), run_result)
 
     broken = call_tool(
         "file_editor.file_editor_write_lines",
@@ -378,7 +379,7 @@ def _exercise_json_retry_test_file_fallback() -> None:
         {"path": f"{FALLBACK_SMOKE_NAME}/test_generated.py", "timeout": 30},
     )
     _assert(repaired_run.get("ok") is True, repaired_run)
-    _assert("FALLBACK_TESTS_OK" in repaired_run.get("stdout", ""), repaired_run)
+    _assert("FALLBACK_TESTS_OK" in capability_get(repaired_run, "stdout", ""), repaired_run)
     _cleanup(FALLBACK_SMOKE_DIR)
     print("LANGGRAPH_TEST_FILE_FALLBACK_OK")
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from typing import Callable
 
-from agents.role_agents import get_agent, list_agents
+from agents.role_agents import get_agent, list_agent_configs, list_agents
 
 
 class AgentRoleSmokeFailure(AssertionError):
@@ -37,7 +37,9 @@ def main() -> int:
         "tool",
     }
     roles = {item["key"] for item in list_agents()}
+    role_configs = {item["key"]: item for item in list_agent_configs()}
     _require(expected_roles <= roles, f"Missing roles: {sorted(expected_roles - roles)}")
+    _require(expected_roles <= set(role_configs), f"Missing role configs: {sorted(expected_roles - set(role_configs))}")
 
     checks: list[tuple[str, Callable[[], bool]]] = [
         ("research_read_search", lambda: _allowed("research", "search.web_search")),
@@ -57,6 +59,22 @@ def main() -> int:
         ("final_can_read_issue", lambda: _allowed("final", "issue.issue_get")),
         ("final_no_edit", lambda: not _allowed("final", "file_editor.file_editor_create")),
         ("tool_agent_backcompat_allows_edit", lambda: _allowed("tool", "file_editor.file_editor_create")),
+        (
+            "role_configs_define_route_permissions",
+            lambda: all(isinstance(item.get("route_permissions"), dict) for item in role_configs.values()),
+        ),
+        (
+            "role_configs_define_test_ownership",
+            lambda: all(isinstance(item.get("test_ownership"), dict) for item in role_configs.values()),
+        ),
+        (
+            "code_config_hands_validation_to_test",
+            lambda: role_configs["code"]["test_ownership"].get("must_handoff_to") == "test",
+        ),
+        (
+            "test_config_owns_validation",
+            lambda: role_configs["test"]["test_ownership"].get("owns_validation") is True,
+        ),
         (
             "research_department_lenses",
             lambda: _has_lenses(

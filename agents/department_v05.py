@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from agents.lenses.base_lens import LensResult, LensSpec, lens_results_to_dict, run_prompt_lens
-from tools.tool_registry import call_tool
+from core.capabilities import call_tool
 
 
 VERSION = "v0.5"

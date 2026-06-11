@@ -8,10 +8,10 @@ import time
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import PROJECT_DIR
 from mcp.server.fastmcp import FastMCP
 
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
 MAX_TIMEOUT_SECONDS = 180
 SERVICE_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$")
 

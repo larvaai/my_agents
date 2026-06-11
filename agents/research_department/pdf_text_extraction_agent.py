@@ -3,7 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from tools.tool_registry import call_tool
+from core.capabilities import call_tool
+from core.schemas import capability_data
 
 
 @dataclass
@@ -29,13 +30,14 @@ class PDFTextExtractionAgent:
                 "pdf_text_extraction.extract_text",
                 {"path": path, "max_chars": self.max_chars},
             )
+            data = capability_data(result)
             return {
                 "agent": "pdf_text_extraction_agent",
                 "ok": result.get("ok") is True,
                 "path": path,
-                "text": result.get("text", ""),
-                "document_type": result.get("document_type"),
-                "truncated": result.get("truncated"),
+                "text": data.get("text", ""),
+                "document_type": data.get("document_type"),
+                "truncated": data.get("truncated"),
                 "error": result.get("error"),
                 "used_tool": "pdf_text_extraction.extract_text",
             }

@@ -1,0 +1,9 @@
+features:
+  mcp_tools:
+    enabled: true
+    module: features.mcp_tools.feature
+    register_aliases: true
+    fallback_for_unregistered: true
+    tests:
+      - tests.test_feature_contracts
+      - tests.test_mcp_tools_feature

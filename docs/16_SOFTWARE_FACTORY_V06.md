@@ -7,7 +7,7 @@ It exists because strict JSON tool calls are excellent for coding actions, but
 they are a poor container for long business analysis. v0.7 separates the two:
 
 - Long business, product, domain, architecture, and docs analysis is written as
-  artifacts under `workspace/factory_runs/<run_id>/`.
+  artifacts under `var/workspace/factory_runs/<run_id>/`.
 - Agent protocol JSON stays small and only contains decisions, route metadata,
   and artifact references.
 - A compact handoff packet tells Code Agent which artifacts to read and what
@@ -101,7 +101,7 @@ python run_software_factory_demo.py --task-file prompts/the_sims_prompt.md --ful
 Then hand the generated implementation spec to the real coding pipeline:
 
 ```powershell
-python run_company_agents_demo.py --real --task-file workspace/factory_runs/<run_id>/10_implementation_spec.md --real-max-steps 260
+python run_company_agents_demo.py --real --task-file var/workspace/factory_runs/<run_id>/10_implementation_spec.md --real-max-steps 260
 ```
 
 ## Artifact Protocol
@@ -117,7 +117,7 @@ Each stage returns a compact envelope:
   "decision": "pattern_decision_has_hotspot_evidence",
   "artifact_refs": [
     {
-      "path": "workspace/factory_runs/.../09_pattern_decision.md",
+      "path": "var/workspace/factory_runs/.../09_pattern_decision.md",
       "kind": "pattern_decision",
       "producer": "Pattern Decision Agent",
       "title": "Pattern Decision",
@@ -140,7 +140,7 @@ The envelope never carries the full analysis. It carries the path and hash.
 Typical run output:
 
 ```text
-workspace/factory_runs/<run_id>/
+var/workspace/factory_runs/<run_id>/
   00_protocol_strategy.json
   00_vision.md
   01_brd.md

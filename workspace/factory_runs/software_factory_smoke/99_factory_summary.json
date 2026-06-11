@@ -295,12 +295,12 @@
       "title": "ADR Candidates"
     },
     "api_inventory": {
-      "bytes": 396414,
+      "bytes": 431548,
       "kind": "api_inventory",
       "path": "workspace\\factory_runs\\software_factory_smoke\\13_api_inventory.json",
       "producer": "API Extractor Agent",
-      "sha256": "f25e6ac84bcd27d1613c8dbd6c5796bef9d96d571173863a6251c00fbff79446",
-      "summary": "Extracted API inventory from 134 Python files.",
+      "sha256": "83c38b2dba59ff1ad314715a0a15ae48c743b725f0a5209d1f09956e99d3f0b2",
+      "summary": "Extracted API inventory from 158 Python files.",
       "title": "API Inventory"
     },
     "brd": {
@@ -439,11 +439,11 @@
       "title": "Protocol Strategy"
     },
     "repo_scan": {
-      "bytes": 16993,
+      "bytes": 16242,
       "kind": "repo_scan",
       "path": "workspace\\factory_runs\\software_factory_smoke\\12_repo_scan.json",
       "producer": "Repo Scanner Agent",
-      "sha256": "6257e9db625c398f668344b8141d498027dea8e312820f95e0d49416a51d62d6",
+      "sha256": "edfcca4ee153e7c8b57cd91d373d3cd07a8c1da0fe64fce80c7e514911e8ebf9",
       "summary": "Scanned 250 files for documentation evidence.",
       "title": "Repository Scan"
     },
@@ -943,11 +943,11 @@
       "agent": "Repo Scanner Agent",
       "artifact_refs": [
         {
-          "bytes": 16993,
+          "bytes": 16242,
           "kind": "repo_scan",
           "path": "workspace\\factory_runs\\software_factory_smoke\\12_repo_scan.json",
           "producer": "Repo Scanner Agent",
-          "sha256": "6257e9db625c398f668344b8141d498027dea8e312820f95e0d49416a51d62d6",
+          "sha256": "edfcca4ee153e7c8b57cd91d373d3cd07a8c1da0fe64fce80c7e514911e8ebf9",
           "summary": "Scanned 250 files for documentation evidence.",
           "title": "Repository Scan"
         }
@@ -972,23 +972,23 @@
       "agent": "API Extractor Agent",
       "artifact_refs": [
         {
-          "bytes": 396414,
+          "bytes": 431548,
           "kind": "api_inventory",
           "path": "workspace\\factory_runs\\software_factory_smoke\\13_api_inventory.json",
           "producer": "API Extractor Agent",
-          "sha256": "f25e6ac84bcd27d1613c8dbd6c5796bef9d96d571173863a6251c00fbff79446",
-          "summary": "Extracted API inventory from 134 Python files.",
+          "sha256": "83c38b2dba59ff1ad314715a0a15ae48c743b725f0a5209d1f09956e99d3f0b2",
+          "summary": "Extracted API inventory from 158 Python files.",
           "title": "API Inventory"
         }
       ],
       "decision": "api_inventory_complete",
       "department": "Documentation Department",
       "metadata": {
-        "python_file_count": 134
+        "python_file_count": 158
       },
       "missing_inputs": [],
       "notes": [
-        "Extracted classes/functions from 134 Python files."
+        "Extracted classes/functions from 158 Python files."
       ],
       "ok": true,
       "route": {

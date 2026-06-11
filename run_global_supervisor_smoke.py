@@ -5,7 +5,7 @@ from pathlib import Path
 
 from orchestration.global_supervisor import run_global_supervisor
 from orchestration.intent_router import classify_intent
-from tools.mcp_config import WORKSPACE_DIR
+from core.runtime_paths import WORKSPACE_DIR
 
 
 def _assert(condition: bool, message: object) -> None:

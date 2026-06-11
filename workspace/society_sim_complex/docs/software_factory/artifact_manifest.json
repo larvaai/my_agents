@@ -28,7 +28,7 @@
       "title": "API Inventory",
       "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\13_api_inventory.json",
       "path": "workspace\\society_sim_complex\\docs\\software_factory\\13_api_inventory.json",
-      "sha256": "f25e6ac84bcd27d1613c8dbd6c5796bef9d96d571173863a6251c00fbff79446"
+      "sha256": "83c38b2dba59ff1ad314715a0a15ae48c743b725f0a5209d1f09956e99d3f0b2"
     },
     {
       "artifact_key": "brd",
@@ -156,7 +156,7 @@
       "title": "Repository Scan",
       "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\12_repo_scan.json",
       "path": "workspace\\society_sim_complex\\docs\\software_factory\\12_repo_scan.json",
-      "sha256": "6257e9db625c398f668344b8141d498027dea8e312820f95e0d49416a51d62d6"
+      "sha256": "edfcca4ee153e7c8b57cd91d373d3cd07a8c1da0fe64fce80c7e514911e8ebf9"
     },
     {
       "artifact_key": "stories",

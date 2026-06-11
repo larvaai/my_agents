@@ -25,7 +25,7 @@ docker compose up -d qdrant
 3. Đặt source vào workspace, ví dụ:
 
 ```text
-workspace/notes/my-note.md
+var/workspace/notes/my-note.md
 ```
 
 4. Ingest:
@@ -60,4 +60,3 @@ workspace/notes/my-note.md
 - Score đủ cao chưa?
 - Hit có chứa nội dung thật không?
 - Có cần ingest lại sau khi sửa note không?
-

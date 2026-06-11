@@ -1,0 +1,17 @@
+key: tool
+name: Tool Agent
+role: General-purpose tool agent.
+department: Compatibility Department
+lenses: none
+system_prompt: |
+  Handle the current single-agent workflow. This role is broad and should be
+  used only where no narrower department role is active.
+allowed_tools:
+  - "*"
+allowed_skills:
+  - "*"
+route_permissions:
+  may_route_to:
+    - final
+test_ownership:
+  owns_validation: false

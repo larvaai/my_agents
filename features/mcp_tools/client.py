@@ -10,7 +10,7 @@ from typing import Any
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
-from tools.mcp_config import (
+from features.mcp_tools.config import (
     MCP_SERVERS,
     MCP_TOOL_NAMES,
     PROJECT_DIR,
@@ -18,8 +18,8 @@ from tools.mcp_config import (
     WORKSPACE_DIR,
     MCPServerConfig,
 )
-from tools.tool_policy import check_tool_policy
-from tools.tool_schemas import (
+from features.mcp_tools.policy import check_tool_policy
+from features.mcp_tools.schemas import (
     build_tool_protocol_prompt,
     get_tool_metadata,
     validate_tool_args,
@@ -314,7 +314,7 @@ TOOL_EXAMPLES: dict[str, str] = {
     "file_editor.file_editor_write_lines": '- file_editor.file_editor_write_lines: {"path": "code/example.py", "lines": ["def main():", "    print(\'OK\')", "", "main()"], "overwrite": true}',
     "file_editor.file_editor_str_replace": '- file_editor.file_editor_str_replace: {"path": "code/example.py", "old_text": "...", "new_text": "...", "expected_replacements": 1}',
     "file_editor.file_editor_insert": '- file_editor.file_editor_insert: {"path": "code/example.py", "line": 10, "content": "..."}',
-    "lint_test.test_python_file": '- lint_test.test_python_file: {"path": "workspace/code/project_smoke_test.py", "timeout": 30}',
+    "lint_test.test_python_file": '- lint_test.test_python_file: {"path": "run_json_gate_smoke.py", "timeout": 30}',
     "lint_test.lint_compile": '- lint_test.lint_compile: {"path": ".", "timeout": 30}',
     "lint_test.lint_ruff_check": '- lint_test.lint_ruff_check: {"path": ".", "timeout": 30}',
     "lint_test.lint_ruff_format_check": '- lint_test.lint_ruff_format_check: {"path": ".", "timeout": 30}',
@@ -451,7 +451,7 @@ Lint/Test MCP (structured validation, no arbitrary shell):
 - lint_test.lint_compile: {{"path": ".", "timeout": 30}}
 - lint_test.lint_ruff_check: {{"path": ".", "timeout": 30}}
 - lint_test.lint_ruff_format_check: {{"path": ".", "timeout": 30}}
-- lint_test.test_python_file: {{"path": "workspace/code/project_smoke_test.py", "timeout": 30}}
+- lint_test.test_python_file: {{"path": "run_json_gate_smoke.py", "timeout": 30}}
 - lint_test.test_smoke_suite: {{"timeout": 60}}
   Use Lint/Test MCP as the preferred validation path after code changes.
 

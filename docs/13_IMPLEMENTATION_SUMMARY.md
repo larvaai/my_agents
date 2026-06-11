@@ -37,10 +37,10 @@ Các điểm đã học và đưa vào project:
 Các MCP đều đi qua:
 
 ```text
-tools/mcp_config.py
-tools/mcp_client.py
-tools/tool_schemas.py
-tools/tool_policy.py
+features/mcp_tools/config.py
+features/mcp_tools/client.py
+features/mcp_tools/schemas.py
+features/mcp_tools/policy.py
 ```
 
 ## 3. Tool Protocol And Schema
@@ -279,8 +279,8 @@ Mục tiêu:
 
 Đã có:
 
-- Event logs trong `agent_runs/`.
-- Test logs trong `test_runs/`.
+- Event logs trong `var/agent_runs/`.
+- Test logs trong `var/test_runs/`.
 - `inspect_runs.py`.
 - Tool result condenser.
 - Compact state brief trong LangGraph.

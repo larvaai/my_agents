@@ -4,9 +4,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-WORKSPACE_DIR = PROJECT_DIR / "workspace"
+from core.runtime_paths import PROJECT_DIR, WORKSPACE_DIR
 
 
 @dataclass(frozen=True)

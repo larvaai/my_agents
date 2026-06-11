@@ -18,7 +18,7 @@ Roadmap này ưu tiên làm project thành coding-agent ổn định trước kh
 ### MCP System
 
 - MCP stdio client.
-- Hard schemas in `tools/tool_schemas.py`.
+- Hard schemas in `features/mcp_tools/schemas.py`.
 - Filesystem MCP.
 - File Editor MCP.
 - Python Sandbox MCP.

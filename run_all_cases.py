@@ -11,11 +11,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
+from core.runtime_paths import PROJECT_DIR, TEST_RUNS_DIR
 
-PROJECT_DIR = Path(__file__).resolve().parent
 PROMPTS_DIR = PROJECT_DIR / "prompts" / "auto_cases"
 SKILL_CASES_DIR = PROJECT_DIR / "prompts" / "skill_cases"
-RUNS_DIR = PROJECT_DIR / "test_runs"
+RUNS_DIR = TEST_RUNS_DIR
 GROUP_ORDER = ["capability", "rag", "project", "agent", "chain", "mcp_ext", "langgraph", "skill", "e2e", "orchestrator"]
 
 
@@ -832,7 +832,7 @@ Test Lint/Test MCP.
 
 Yeu cau:
 1. Goi lint_test.lint_compile voi path "mcp_servers" timeout 60.
-2. Goi lint_test.test_python_file voi path "workspace/code/project_smoke_test.py" timeout 30.
+2. Goi lint_test.test_python_file voi path "run_json_gate_smoke.py" timeout 30.
 3. Goi lint_test.test_smoke_suite voi timeout 60.
 4. Khong goi terminal de validation trong case nay.
 5. Final bang tieng Viet, bat buoc co LINT_TEST_MCP_OK va bao cao:

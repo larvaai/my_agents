@@ -14,8 +14,9 @@ from agents.research_department import ResearchDepartment
 from agents.safety import SafetyDepartment
 from orchestration.global_supervisor import run_global_supervisor
 from orchestration.intent_router import classify_intent
-from tools.mcp_config import MCP_SERVERS, MCP_TOOL_NAMES, TOOL_ALIASES, WORKSPACE_DIR
-from tools.tool_registry import call_tool
+from features.mcp_tools.config import MCP_SERVERS, MCP_TOOL_NAMES, TOOL_ALIASES, WORKSPACE_DIR
+from core.schemas import capability_get
+from core.capabilities import call_tool
 
 
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -349,8 +350,8 @@ def check_pdf_text_extraction_mcp() -> dict[str, Any]:
             {"path": fixture_rel_path, "max_chars": 500},
         )
         _require(result.get("ok") is True, result)
-        _require(result.get("document_type") == "text", result)
-        _require("PDF_TEXT_EXTRACTION_CAPABILITY_OK" in result.get("text", ""), result)
+        _require(capability_get(result, "document_type") == "text", result)
+        _require("PDF_TEXT_EXTRACTION_CAPABILITY_OK" in capability_get(result, "text", ""), result)
 
         alias_result = call_tool(
             "pdf_extract_text",
@@ -386,6 +387,16 @@ def check_mcp_registration() -> dict[str, Any]:
 
 def check_existing_smoke_scripts() -> dict[str, Any]:
     scripts = [
+        _run_script(
+            "run_kernel_smoke.py",
+            marker="KERNEL_SMOKE_OK",
+            timeout=120,
+        ),
+        _run_script(
+            "run_feature_tests.py",
+            marker="FEATURE_TESTS_OK",
+            timeout=120,
+        ),
         _run_script(
             "run_json_gate_smoke.py",
             marker="JSON_GATE_SMOKE_OK",

@@ -6,7 +6,7 @@ from typing import Any
 
 from agents.lenses import CODE_LENSES
 from agents.lenses.base_lens import LensResult, lens_results_to_dict, run_prompt_lens, safe_json_dumps
-from tools.tool_registry import call_tool
+from core.capabilities import call_tool
 
 
 VERSION = "v0.5"

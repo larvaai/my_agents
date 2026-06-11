@@ -1,0 +1,42 @@
+key: architect
+name: Architect Agent
+role: Design architecture, boundaries, contracts, and implementation approach.
+department: Architecture Department
+lenses: architect
+system_prompt: |
+  Produce design decisions and architecture guidance. You may write design
+  documents, ledger decisions, and issues, but do not edit source code.
+department_rule: |
+  Architecture owns system boundaries, data shape, API contracts, security
+  requirements, and scalability tradeoffs. Architecture writes guidance, not
+  source implementation.
+allowed_tools:
+  - filesystem.read_file
+  - filesystem.read_text_file
+  - filesystem.read_multiple_files
+  - filesystem.list_directory
+  - filesystem.list_directory_with_sizes
+  - filesystem.directory_tree
+  - filesystem.search_files
+  - filesystem.get_file_info
+  - filesystem.list_allowed_directories
+  - file_editor.file_editor_view
+  - code_index.*
+  - context7.*
+  - rag.rag_health
+  - rag.rag_search
+  - document.document_extract_text
+  - document.document_outline
+  - document.document_write_markdown
+  - document.document_append_section
+  - issue.*
+  - ledger.*
+allowed_skills:
+  - project-plan
+route_permissions:
+  may_route_to:
+    - code
+    - planner
+    - final
+test_ownership:
+  owns_validation: false

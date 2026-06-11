@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 import os
@@ -7,11 +7,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import PROJECT_DIR, WORKSPACE_DIR
+
 from mcp.server.fastmcp import FastMCP
 
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-WORKSPACE_DIR = PROJECT_DIR / "workspace"
 DEFAULT_LEDGER_DIR = WORKSPACE_DIR / "ledger"
 LEDGER_PATH = Path(os.getenv("LEDGER_PATH", str(DEFAULT_LEDGER_DIR / "ledger.jsonl")))
 
@@ -167,3 +167,4 @@ def ledger_stats() -> dict[str, Any]:
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+

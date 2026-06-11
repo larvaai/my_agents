@@ -24,7 +24,7 @@ File này gom các MCP mở rộng đã có và hướng cho MCP tương lai. C�
 - Một MCP chỉ nên có một trách nhiệm chính.
 - Có sandbox path nếu chạm filesystem.
 - Có timeout/max size.
-- Có schema trong `tools/tool_schemas.py`.
+- Có schema trong `features/mcp_tools/schemas.py`.
 - Có prompt examples.
 - Có deterministic smoke nếu tool là core path.
 - Có test prompt nếu agent cần học cách dùng.
@@ -45,4 +45,3 @@ Chỉ thêm khi permission matrix đã rõ:
 - Secret manager tự ghi/xuất secret vào prompt.
 - Docker destructive tools.
 - Cloud deployment mutation không có approval flow.
-

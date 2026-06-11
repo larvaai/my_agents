@@ -1,5 +1,48 @@
 ﻿# Architecture
 
+## Agent Kernel Architecture
+
+Project now has an explicit core boundary:
+
+```text
+User / Orchestrator / Agent
+  -> core.capabilities.call_tool()
+  -> core.AgentKernel
+  -> core.CapabilityRegistry
+  -> feature adapter
+  -> concrete tool backend
+```
+
+The current concrete adapter is `features/mcp_tools.MCPToolAdapter`, which routes to
+the existing MCP client and MCP servers.
+
+```text
+core/
+  kernel.py       minimal living core
+  registry.py     capability/feature registry
+  events.py       in-process event bus
+  state.py        in-memory state manager
+  schemas.py      task/tool/feature contracts
+  ports/          stable capability interfaces
+
+features/
+  mcp_tools/      adapter feature for existing MCP servers
+  nulls.py        null fallback implementations
+
+config/
+  features.yaml
+```
+
+Design rule: core may know ports and feature descriptors, but it should not know
+browser/RAG/Docker/PDF implementation details. Those stay behind adapters.
+
+Smoke:
+
+```powershell
+python run_kernel_smoke.py
+python run_feature_tests.py
+```
+
 ## General Multi-Agent Path
 
 Stage 1-6 is implemented. The tracking doc is
@@ -29,8 +72,10 @@ main.py
   -> agents/tool_agent.py
   -> llm.py
   -> JsonGate
-  -> tools/tool_registry.py
-  -> tools/mcp_client.py
+  -> core.capabilities.call_tool()
+  -> core.AgentKernel
+  -> features/mcp_tools.MCPToolAdapter
+  -> features/mcp_tools/client.py
   -> MCP server
   -> tool result
   -> orchestrator loop
@@ -102,7 +147,7 @@ Nhiệm vụ:
 - Repair deterministic lỗi phổ biến.
 - Validate action schema.
 - Resolve tool name và alias.
-- Validate tool args theo `tools/tool_schemas.py`.
+- Validate tool args theo `features/mcp_tools/schemas.py`.
 - Dry-run safety: path, terminal argv, git policy, content size.
 
 Nếu fail, JsonGate trả lỗi có stage:
@@ -123,6 +168,9 @@ Files:
 
 - `agents/base_agent.py`
 - `agents/role_agents.py`
+- `agents/role_config.py`
+- `config/agents.yaml`
+- `config/roles/*.yaml`
 - `agents/tool_agent.py`
 - `agents/lenses/`
 
@@ -133,7 +181,11 @@ Files:
 - Gắn allowed tools và skills.
 - Guard output ngoài allowlist.
 
-`role_agents.py` khai báo:
+`role_agents.py` chỉ load config. Role permissions, allowed tools, allowed
+skills, route permissions, test ownership, và lens group nằm trong
+`config/roles/*.yaml`.
+
+Các role hiện có:
 
 - Research
 - Planner
@@ -215,14 +267,40 @@ Lens hiện là prompt/spec layer. Chúng không tự chạy tool, không tự l
 
 Files:
 
-- `tools/mcp_config.py`
-- `tools/mcp_client.py`
-- `tools/tool_registry.py`
-- `tools/tool_schemas.py`
-- `tools/tool_policy.py`
+- `core/`
+- `features/mcp_tools/`
+- `features/mcp_tools/config.py`
+- `features/mcp_tools/client.py`
+- `features/mcp_tools/schemas.py`
+- `features/mcp_tools/policy.py`
 - `mcp_servers/`
 
-MCP client làm:
+Kernel/tool path lam:
+
+1. `core.capabilities.call_tool()` asks the default kernel to execute a tool.
+2. `core.AgentKernel.execute_tool()` emits events and asks the registry for an
+   executor.
+3. `core.CapabilityRegistry` returns an exact capability, fallback adapter, or
+   null tool.
+4. `features.mcp_tools.MCPToolAdapter` delegates to the existing MCP client.
+5. Kernel returns a pure `CapabilityResult` envelope.
+
+Capability result schema:
+
+```text
+ok: bool
+capability: str
+feature: str | None
+data: dict
+error: str | None
+metadata: dict
+```
+
+Tool-specific payload such as stdout, text, hits, results, or path lives under
+`data`. Request ids, executor names, and adapter metadata live under
+`metadata`.
+
+MCP client sau do lam:
 
 1. Resolve alias hoặc `server.tool`.
 2. Validate args theo schema cứng.
@@ -242,9 +320,9 @@ Files:
 Logs:
 
 ```text
-agent_runs/<run_id>/events.jsonl
-agent_runs/<run_id>/summary.json
-test_runs/<timestamp>/
+var/agent_runs/<run_id>/events.jsonl
+var/agent_runs/<run_id>/summary.json
+var/test_runs/<timestamp>/
 ```
 
 Event types:
@@ -348,7 +426,7 @@ run_code_test_agents_demo.py
   -> orchestration/code_test_orchestrator.py
   -> agents/code_agent.py
   -> agents/test_agent.py
-  -> tools/tool_registry.py
+  -> core.capabilities.call_tool()
   -> MCP tools
 ```
 
@@ -433,8 +511,8 @@ Intake Protocol -> Vision -> BRD -> PRD -> Epic/Story -> Acceptance Criteria
 The important protocol change is that long analysis is stored in artifacts:
 
 ```text
-workspace/factory_runs/<run_id>/*.md
-workspace/factory_runs/<run_id>/*.json
+var/workspace/factory_runs/<run_id>/*.md
+var/workspace/factory_runs/<run_id>/*.json
 ```
 
 The JSON envelope stays small:

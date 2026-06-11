@@ -8,6 +8,12 @@ external reference deu co gia tri lich su/rag/debug rieng.
 
 | Path | Vai tro |
 |---|---|
+| `core/` | Agent Kernel: state, events, registry, schemas, ports. Day la core boundary moi. |
+| `core/ports/` | Stable interfaces cho detachable capabilities: tool, search, memory, browser, code edit, test, issue. |
+| `features/` | Removable feature modules. Hien co `features/mcp_tools/` boc MCP layer cu va `features/nulls.py` cho null fallback. |
+| `config/features.yaml` | Kernel feature config. Mac dinh bat `mcp_tools`, aliases, va tests bat buoc. |
+| `config/agents.yaml` | Agent role registry and aliases. |
+| `config/roles/*.yaml` | Role permissions, skills, route permissions, test ownership, and lens group. |
 | `agents/` | Agent runtime, department agents, lenses, artifact protocol. |
 | `agents/knowledge/` | Read-only Knowledge Department agents. |
 | `agents/research_department/` | Research Department search/fetch/PDF/citation wrappers. |
@@ -15,7 +21,7 @@ external reference deu co gia tri lich su/rag/debug rieng.
 | `orchestration/` | Cac runner/orchestrator noi agent theo workflow. |
 | `orchestration/global_supervisor.py` | Global Supervisor stage 1-6 wrapper. |
 | `orchestration/intent_router.py` | Intent Router stage 1-6. |
-| `tools/` | MCP client/config, tool schemas, prompt/skill loader, event reader/logger. |
+| `tools/` | Compatibility helpers: prompt/skill loader, event reader/logger. MCP adapter code lives in `features/mcp_tools/`. |
 | `mcp_servers/` | MCP servers noi bo cho filesystem-like workflow, validation, RAG, document, ledger, browser, issue, docker. |
 | `mcp_servers/pdf_text_extraction_server.py` | Read-only PDF/Text Extraction MCP. |
 | `output_gate/` | JsonGate va repair loop cho JSON action/output. |
@@ -29,6 +35,8 @@ external reference deu co gia tri lich su/rag/debug rieng.
 | Path | Vai tro |
 |---|---|
 | `run_capability_suite.py` | Smoke tong hop nang luc hien tai cua project. |
+| `run_kernel_smoke.py` | Smoke Agent Kernel registry/events/null fallback. |
+| `run_feature_tests.py` | Chay tests bat buoc cua cac feature dang bat trong `config/features.yaml`. |
 | `run_json_gate_smoke.py` | Smoke JsonGate. |
 | `run_agent_role_smoke.py` | Smoke role permission va lenses. |
 | `run_langgraph_smoke.py` | Smoke compile/runtime LangGraph nho. |
@@ -39,7 +47,7 @@ external reference deu co gia tri lich su/rag/debug rieng.
 | `run_global_supervisor_smoke.py` | Smoke Global Supervisor stage 1-6 router/knowledge/research/final flow. |
 | `run_global_supervisor_demo.py` | Run a task or task file through Global Supervisor and write a JSON log. |
 | `run_all_cases.py` | Prompt-based case runner. |
-| `inspect_runs.py` | Doc/search event logs trong `agent_runs/`. |
+| `inspect_runs.py` | Doc/search event logs trong `var/agent_runs/`. |
 
 ## Product Inputs Va Test Prompts
 
@@ -87,17 +95,17 @@ so sanh output va khoi phuc ket qua.
 
 | Path | Vai tro |
 |---|---|
-| `workspace/` | Sandbox chinh cho filesystem/python/RAG/document/ledger/issue artifacts. Nhieu MCP hard-code boundary nay. |
-| `workspace/factory_runs/` | Software Factory artifacts theo tung run. |
-| `workspace/society_sim*` | Generated product/output/backups tu prompt simulation. |
-| `workspace/code/` | Workspace code fixtures, smoke files, generated test artifacts. |
-| `workspace/notes/` | Notes/RAG sample knowledge. |
-| `workspace/ledger/` | Append-only ledger output. |
-| `workspace/issues/` | SQLite issue tracker local. |
-| `workspace/obsidian_vault/` | Local markdown vault sample/output. |
-| `agent_runs/` | Event log va summary cua agent runs. |
-| `test_runs/` | Logs va summaries cua prompt/smoke test runs. |
-| `qdrant_storage/` | Local Qdrant data. |
+| `var/workspace/` | Sandbox chinh cho filesystem/python/RAG/document/ledger/issue artifacts. Runtime boundary duoc dinh nghia trong `core/runtime_paths.py`. |
+| `var/workspace/factory_runs/` | Software Factory artifacts theo tung run. |
+| `var/workspace/society_sim*` | Generated product/output/backups tu prompt simulation. |
+| `var/workspace/code/` | Workspace code fixtures, smoke files, generated test artifacts. |
+| `var/workspace/notes/` | Notes/RAG sample knowledge. |
+| `var/workspace/ledger/` | Append-only ledger output. |
+| `var/workspace/issues/` | SQLite issue tracker local. |
+| `var/workspace/obsidian_vault/` | Local markdown vault sample/output. |
+| `var/agent_runs/` | Event log va summary cua agent runs. |
+| `var/test_runs/` | Logs va summaries cua prompt/smoke test runs. |
+| `var/qdrant_storage/` | Local Qdrant data. |
 | `project_context.txt` | Snapshot context lon cua repo tai mot thoi diem. |
 | `skills_test_logs.txt` | Historical skill/test logs. |
 | `savegame.json`, `test_save.json`, `test_savegame.json` | Historical/generated save artifacts. |
@@ -112,12 +120,15 @@ so sanh output va khoi phuc ket qua.
 
 ## Quy Uoc Khi Phat Trien Tiep
 
-- Khi sua code runtime, bat dau tu `agents/`, `orchestration/`, `tools/`,
-  `mcp_servers/`, hoac `output_gate/`.
+- Khi sua code runtime, bat dau tu `core/`, `agents/`, `orchestration/`,
+  `tools/`, `mcp_servers/`, hoac `output_gate/`.
+- Khi them integration moi, uu tien tao port/contract trong `core/ports/`,
+  feature trong `features/`, va tests trong `tests/` thay vi cho orchestrator
+  goi tool cu the truc tiep.
 - Khi them behavior moi, cap nhat docs tuong ung trong `docs/` va prompt/test
   case lien quan trong `prompts/`.
-- Khi can inspect lich su hay output cu, doc `agent_runs/`, `test_runs/`,
-  `workspace/`, `qdrant_storage/`, `project_context.txt`, va
+- Khi can inspect lich su hay output cu, doc `var/agent_runs/`, `var/test_runs/`,
+  `var/workspace/`, `var/qdrant_storage/`, `project_context.txt`, va
   `skills_test_logs.txt` thay vi xoa chung.
-- Khong move `workspace/`, `agent_runs/`, `test_runs/`, hoac `qdrant_storage/`
-  neu chua co ke hoach cap nhat path/runtime tuong ung.
+- Khong hard-code `workspace/`, `agent_runs/`, `test_runs/`, hoac
+  `qdrant_storage/`; dung `core.runtime_paths`.

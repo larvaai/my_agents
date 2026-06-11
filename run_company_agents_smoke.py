@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from core.schemas import capability_get
 from orchestration.company_orchestrator import CompanyOrchestratorV05
 
 
@@ -42,7 +43,7 @@ def main() -> int:
     _assert(review_result["route"]["next_agent"] == "ledger_agent", "Review did not route to Ledger")
     _assert(test_result["execution"]["ok"] is True, "Test execution failed")
 
-    stdout = test_result["execution"]["test_results"][0].get("stdout", "")
+    stdout = capability_get(test_result["execution"]["test_results"][0], "stdout", "")
     _assert("COMPANY_AGENTS_V05_OK" in stdout, "sentinel missing from test stdout")
 
     print("COMPANY_AGENTS_V05_SMOKE_OK")

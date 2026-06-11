@@ -112,8 +112,8 @@ Nếu bạn muốn đóng góp kiến trúc:
 | `agents/role_agents.py` | Khai báo role agents và quyền tool |
 | `agents/lenses/` | Department lens specs |
 | `output_gate/` | JsonGate và JSON repair sandbox |
-| `tools/mcp_client.py` | MCP client/router |
-| `tools/tool_schemas.py` | Tool schema cứng |
+| `features/mcp_tools/client.py` | MCP client/router |
+| `features/mcp_tools/schemas.py` | Tool schema cứng |
 | `mcp_servers/` | MCP servers nội bộ |
 | `run_all_cases.py` | Prompt-based test runner |
 
@@ -122,8 +122,8 @@ Nếu bạn muốn đóng góp kiến trúc:
 Đọc theo thứ tự:
 
 1. Terminal output của lệnh vừa chạy.
-2. `test_runs/<timestamp>/<case>.log`.
-3. `agent_runs/<run_id>/events.jsonl`.
+2. `var/test_runs/<timestamp>/<case>.log`.
+3. `var/agent_runs/<run_id>/events.jsonl`.
 4. `docs/09_DEBUGGING_GUIDE.md`.
 
 Lệnh hữu ích:
@@ -201,7 +201,7 @@ python run_software_factory_demo.py --task-file prompts/the_sims_prompt.md
 Then hand the generated implementation spec to the real company runner:
 
 ```powershell
-python run_company_agents_demo.py --real --task-file workspace/factory_runs/<run_id>/10_implementation_spec.md --real-max-steps 260
+python run_company_agents_demo.py --real --task-file var/workspace/factory_runs/<run_id>/10_implementation_spec.md --real-max-steps 260
 ```
 
 Read the full guide:

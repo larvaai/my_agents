@@ -19,10 +19,12 @@ Muc tieu cua project khong phai lam chatbot chung chung, ma la xay mot coding-ag
 - Muon them MCP/skill/agent: `docs/workflows/`.
 - Muon debug/test: `docs/08_TESTING_GUIDE.md` va `docs/09_DEBUGGING_GUIDE.md`.
 - Muon thu LangGraph role orchestration: `python run_langgraph_smoke.py` de compile smoke nhanh, hoac `python main_langgraph.py prompts/auto_cases/test_langgraph_01_smoke.md` de chay LLM smoke that qua MCP.
+- Muon thu Agent Kernel core boundary: `python run_kernel_smoke.py`.
 - Muon thu Code/Test Department v0.5: `python run_code_test_agents_smoke.py`, hoac doc `docs/14_CODE_TEST_V05.md`.
 - Muon thu full Company Agents v0.5: `python run_company_agents_smoke.py`, hoac doc `docs/15_COMPANY_AGENTS_V05.md`.
 - Muon thu Software Factory v0.7 cho prompt business/product lon: `python run_software_factory_smoke.py`, hoac doc `docs/16_SOFTWARE_FACTORY_V06.md`.
 - Muon thu Global Supervisor stage 1-6: `python run_global_supervisor_smoke.py`, hoac doc `docs/17_GENERAL_MULTI_AGENT_ROADMAP.md`.
+- Muon kiem tra dev nhanh: `python run_dev_checks.py --quick`; truoc milestone lon chay `python run_dev_checks.py --full`.
 - Muon kiem tra tong hop nang luc hien tai: `python run_capability_suite.py`.
 
 ## Kien truc ngan gon
@@ -34,8 +36,11 @@ User prompt
   -> agents/tool_agent.py
   -> llm.py -> LM Studio
   -> JSON action
-     -> tools/tool_registry.py
-     -> tools/mcp_client.py
+     -> core.capabilities.call_tool()
+     -> core.AgentKernel
+     -> core.CapabilityRegistry
+     -> features/mcp_tools.MCPToolAdapter
+     -> features/mcp_tools/client.py
      -> MCP server
         -> filesystem / git / context7 / python / file_editor / terminal
            / code_index / lint_test / docker / obsidian / issue
@@ -51,22 +56,34 @@ User prompt
 agents/              LLM-facing agent wrapper.
 agents/code_agent.py Code Agent v0.5 runtime rieng.
 agents/test_agent.py Test Agent v0.5 runtime rieng.
+core/                Agent Kernel: state, events, registry, schemas, ports.
+features/            Removable feature modules; mcp_tools boc MCP layer cu.
+config/              Feature va agent role config: features.yaml, agents.yaml, roles/*.yaml.
 orchestration/global_supervisor.py Global Supervisor stage 1-6 wrapper.
 orchestration/intent_router.py Intent Router stage 1-6.
 orchestration/company_orchestrator.py Full Company Agents v0.5 runtime.
 orchestration/software_factory_orchestrator.py Software Factory v0.7 spec pipeline.
 docs/17_GENERAL_MULTI_AGENT_ROADMAP.md Roadmap Global Supervisor / Intent Router.
-tools/               MCP client, MCP config, prompt loader, skill loader.
+tools/               Prompt/skill loader va event reader/logger compatibility helpers.
 mcp_servers/         MCP servers noi bo: python, file_editor, terminal, code_index, lint_test, docker, obsidian, issue, RAG, fetch, search, document, ledger, playwright.
 skills/              Project skills: plan, edit, debug, test, review.
 prompts/             System prompt, user prompt, auto test prompts.
-workspace/           Sandbox workspace cho filesystem, python, RAG.
-agent_runs/          Event log va summary cua tung lan chay agent.
-test_runs/           Log va summary moi lan chay bo test.
-qdrant_storage/      Du lieu Qdrant local.
+var/workspace/       Sandbox workspace cho filesystem, python, RAG.
+var/agent_runs/      Event log va summary cua tung lan chay agent.
+var/test_runs/       Log va summary moi lan chay bo test.
+var/qdrant_storage/  Du lieu Qdrant local.
 OpenHands/           Repo OpenHands clone de so sanh, khong phai core project.
 openhands-workspace/ Workspace copy/trao doi voi OpenHands.
 ```
+
+Core tool calls always return a pure `CapabilityResult` envelope:
+
+```text
+ok, capability, feature, data, error, metadata
+```
+
+Payload from concrete tools lives under `data`; orchestrators should not read
+tool-specific fields from the top level.
 
 ## Yeu cau chay
 
@@ -135,6 +152,9 @@ python main.py
 Chay capability suite deterministic, khong can LLM/network:
 
 ```powershell
+python run_kernel_smoke.py
+python run_feature_tests.py
+python run_dev_checks.py --quick
 python run_capability_suite.py
 python run_all_cases.py --group capability --fail-fast
 ```
@@ -178,7 +198,7 @@ python run_global_supervisor_demo.py --task-file prompts/the_sims_complex_prompt
 Sau do dua implementation spec sinh ra cho real Company Agents:
 
 ```powershell
-python run_company_agents_demo.py --real --task-file workspace/factory_runs/<run_id>/10_implementation_spec.md --real-max-steps 260
+python run_company_agents_demo.py --real --task-file var/workspace/factory_runs/<run_id>/10_implementation_spec.md --real-max-steps 260
 ```
 
 Gioi han so buoc orchestrator:
@@ -191,9 +211,9 @@ python main.py prompts/test_mcp_prompt.md
 Moi run se tao event log:
 
 ```text
-agent_runs/<run_id>/events.jsonl
-agent_runs/<run_id>/summary.json
-agent_runs/index.jsonl
+var/agent_runs/<run_id>/events.jsonl
+var/agent_runs/<run_id>/summary.json
+var/agent_runs/index.jsonl
 ```
 
 Tat event log neu can:
@@ -220,14 +240,35 @@ python inspect_runs.py events latest --text "policy_blocked" --json
 
 ## Tool/MCP hien co
 
-Project expose tools cho agent qua `tools/mcp_config.py` va prompt sinh tu `tools/mcp_client.py`.
+Project expose tools cho agent qua Agent Kernel:
+
+```text
+core.capabilities.call_tool()
+  -> core.bootstrap.get_default_kernel()
+  -> AgentKernel.execute_tool()
+  -> CapabilityRegistry
+  -> features/mcp_tools.MCPToolAdapter
+  -> features.mcp_tools.client.call_mcp_tool()
+```
+
+MCP server config, client, schema, va policy nam trong `features/mcp_tools/`.
+Day la removable feature, khong con la core kien truc.
+
+Moi feature bat trong `config/features.yaml` phai khai bao tests. Chay:
+
+```powershell
+python run_feature_tests.py
+```
+
+Neu mot feature bi tat hoac rut khoi config, kernel van boot va tool thieu tra
+structured result `ok=false` voi `missing_capability=true`.
 
 ### Filesystem MCP
 
 Sandboxed vao:
 
 ```text
-D:\Agent PRJ\my_agents\workspace
+D:\Agent PRJ\my_agents\var\workspace
 ```
 
 Tools chinh:
@@ -339,7 +380,7 @@ Vi du:
 
 ```powershell
 @'
-from tools.mcp_client import call_mcp_tool
+from features.mcp_tools.client import call_mcp_tool
 print(call_mcp_tool("terminal.terminal_run", {
     "argv": ["python", "-m", "py_compile", "main.py"],
     "timeout": 10,
@@ -357,7 +398,7 @@ File:
 mcp_servers/code_index_server.py
 ```
 
-Read-only project index de agent tim symbol/import/reference ma khong can doc ca repo. Tool nay scan project root nhung exclude thu muc nang nhu `OpenHands`, `qdrant_storage`, `test_runs`, `.git`.
+Read-only project index de agent tim symbol/import/reference ma khong can doc ca repo. Tool nay scan project root nhung exclude thu muc nang nhu `OpenHands`, `var`, `qdrant_storage`, `test_runs`, `.git`.
 
 Tools:
 
@@ -572,7 +613,7 @@ ledger.ledger_stats
 Env tuy chon:
 
 ```powershell
-$env:LEDGER_PATH="D:\Agent PRJ\my_agents\workspace\ledger\ledger.jsonl"
+$env:LEDGER_PATH="D:\Agent PRJ\my_agents\var\workspace\ledger\ledger.jsonl"
 ```
 
 ### Playwright MCP
@@ -704,9 +745,9 @@ python run_all_cases.py --group mcp_ext --fail-fast
 Ket qua nam trong:
 
 ```text
-test_runs/<timestamp>/summary.md
-test_runs/<timestamp>/summary.json
-test_runs/<timestamp>/<case>.log
+var/test_runs/<timestamp>/summary.md
+var/test_runs/<timestamp>/summary.json
+var/test_runs/<timestamp>/<case>.log
 ```
 
 ## Workflow phat trien
@@ -714,10 +755,10 @@ test_runs/<timestamp>/<case>.log
 ### Them MCP tool moi
 
 1. Tao MCP server hoac chon external MCP server.
-2. Them vao `MCP_SERVERS` trong `tools/mcp_config.py`.
+2. Them vao `MCP_SERVERS` trong `features/mcp_tools/config.py`.
 3. Them tool names vao `MCP_TOOL_NAMES`.
 4. Them alias vao `TOOL_ALIASES` neu can.
-5. Them schema vao `tools/tool_schemas.py` de client validate input/output/error/metadata.
+5. Them schema vao `features/mcp_tools/schemas.py` de client validate input/output/error/metadata.
 6. Cap nhat `build_tool_prompt()` neu muon agent thay huong dan ro hon.
 7. Tao prompt test trong `prompts/auto_cases`.
 8. Them deterministic smoke vao `run_mcp_chain_smoke.py` neu tool la core path.
@@ -741,7 +782,7 @@ test_runs/<timestamp>/<case>.log
 ## Guardrails hien co
 
 - Agent phai tra JSON object duy nhat.
-- Tool call phai dung protocol `{"action":"tool","tool":"server.tool","args":{...}}`; nhieu local tool co schema input/output/error/metadata trong `tools/tool_schemas.py`.
+- Tool call phai dung protocol `{"action":"tool","tool":"server.tool","args":{...}}`; nhieu local tool co schema input/output/error/metadata trong `features/mcp_tools/schemas.py`.
 - Orchestrator retry khi JSON invalid.
 - Neu cung mot tool call fail 2 lan, orchestrator ep agent final va phan loai loi.
 - Neu cung mot tool call lap lai qua `ORCH_MAX_SAME_TOOL_CALLS`, orchestrator chan tiep de tranh loop.

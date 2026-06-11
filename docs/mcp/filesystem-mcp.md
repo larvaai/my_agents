@@ -9,8 +9,8 @@ Filesystem MCP đọc/ghi/list/search file trong workspace sandbox.
 - Server name: `filesystem`
 - Package: `@modelcontextprotocol/server-filesystem`
 - Transport: stdio
-- Sandbox: `workspace/`
-- Config: `tools/mcp_config.py`
+- Sandbox: `var/workspace/`
+- Config: `features/mcp_tools/config.py`
 
 ## Common Tools
 
@@ -24,7 +24,7 @@ Filesystem MCP đọc/ghi/list/search file trong workspace sandbox.
 
 ## Safety
 
-- Path được normalize về `workspace/`.
+- Path được normalize về `var/workspace/`.
 - Không dùng Filesystem MCP cho edit tinh vi nếu có thể dùng File Editor MCP.
 - Khi sửa code, ưu tiên `file_editor.*` để audit rõ hơn.
 
@@ -40,4 +40,3 @@ python run_mcp_chain_smoke.py
 - Không dùng để chạy command.
 - Không dùng để đọc ngoài workspace.
 - Không dùng thay Git MCP để xem diff.
-

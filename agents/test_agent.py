@@ -4,7 +4,8 @@ from typing import Any
 
 from agents.lenses import TEST_LENSES
 from agents.lenses.base_lens import LensResult, lens_results_to_dict, run_prompt_lens, safe_json_dumps
-from tools.tool_registry import call_tool
+from core.capabilities import call_tool
+from core.schemas import capability_get
 
 
 VERSION = "v0.5"
@@ -214,7 +215,7 @@ class TestAgent:
 
             result = _safe_tool_call(str(tool), args)
             expected = test.get("expected_stdout")
-            if result.get("ok") and isinstance(expected, str) and expected not in str(result.get("stdout", "")):
+            if result.get("ok") and isinstance(expected, str) and expected not in str(capability_get(result, "stdout", "")):
                 result = {
                     **result,
                     "ok": False,

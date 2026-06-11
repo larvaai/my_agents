@@ -35,7 +35,7 @@ Checklist:
 - Server nhỏ, một trách nhiệm.
 - Sandbox rõ.
 - Output có `ok`, `tool`, `error` khi fail.
-- Schema trong `tools/tool_schemas.py`.
+- Schema trong `features/mcp_tools/schemas.py`.
 - Prompt example.
 - Test case.
 - Docs.
@@ -75,4 +75,3 @@ Một thay đổi được xem là xong khi:
 - Không phá guardrails.
 - Docs cập nhật nếu behavior thay đổi.
 - Final report nói rõ đã test gì.
-

@@ -7,9 +7,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import WORKSPACE_DIR
+
 
 FACTORY_VERSION = "v0.7"
-DEFAULT_ARTIFACT_ROOT = Path("workspace") / "factory_runs"
+DEFAULT_ARTIFACT_ROOT = WORKSPACE_DIR / "factory_runs"
 MAX_INLINE_FIELD_CHARS = 480
 
 

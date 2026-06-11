@@ -36,9 +36,9 @@ llm.py
 prompts/system_prompt.md
 tools/prompt_loader.py
 tools/skill_loader.py
-tools/mcp_config.py
-tools/mcp_client.py
-tools/tool_policy.py
+features/mcp_tools/config.py
+features/mcp_tools/client.py
+features/mcp_tools/policy.py
 mcp_servers/python_sandbox.py
 mcp_servers/rag_server.py
 inspect_runs.py
@@ -124,9 +124,9 @@ for step:
 Moi run ghi:
 
 ```text
-agent_runs/<run_id>/events.jsonl
-agent_runs/<run_id>/summary.json
-agent_runs/index.jsonl
+var/agent_runs/<run_id>/events.jsonl
+var/agent_runs/<run_id>/summary.json
+var/agent_runs/index.jsonl
 ```
 
 Event types hien co:
@@ -217,10 +217,10 @@ Y tuong can nam: bat ky model OpenAI-compatible nao cung co the thay vao, mien l
 Doc:
 
 ```text
-tools/mcp_config.py
-tools/mcp_client.py
-tools/tool_registry.py
-tools/tool_policy.py
+features/mcp_tools/config.py
+features/mcp_tools/client.py
+core/capabilities.py
+features/mcp_tools/policy.py
 ```
 
 `mcp_config.py` dinh nghia:
@@ -246,7 +246,7 @@ ledger      -> python -m mcp_servers.ledger_server
 playwright  -> python -m mcp_servers.playwright_server
 ```
 
-`mcp_client.py` lam viec nang:
+`features/mcp_tools/client.py` lam viec nang:
 
 - Resolve alias hoac `server.tool`.
 - Check hard policy truoc khi goi MCP.
@@ -279,7 +279,7 @@ Y tuong can nam: agent khong goi shell truc tiep; agent goi JSON tool request, P
 Doc:
 
 ```text
-tools/mcp_client.py
+features/mcp_tools/client.py
 mcp_servers/python_sandbox.py
 mcp_servers/rag_server.py
 mcp_servers/document_server.py
@@ -290,12 +290,12 @@ mcp_servers/playwright_server.py
 Workspace mac dinh:
 
 ```text
-D:\Agent PRJ\my_agents\workspace
+D:\Agent PRJ\my_agents\var\workspace
 ```
 
 Ba lop path guard:
 
-- Filesystem args duoc resolve trong `mcp_client.py`.
+- Filesystem args duoc resolve trong `features/mcp_tools/client.py`.
 - Python MCP dung `_safe_workspace_path`.
 - RAG MCP dung `_safe_workspace_path`.
 - Document MCP dung `_safe_workspace_path`.
@@ -485,7 +485,7 @@ Doc:
 ```text
 run_all_cases.py
 write_skill_cases.py
-test_runs/
+var/test_runs/
 ```
 
 `run_all_cases.py` lam:
@@ -529,11 +529,12 @@ Hay tu ve 14 buoc:
 7. llm.py goi LM Studio
 8. LLM tra JSON action
 9. orchestrator parse JSON
-10. Neu action=tool, tool_registry goi mcp_client
-11. mcp_client goi MCP server
-12. Tool result quay ve orchestrator
-13. Tool result duoc append vao messages
-14. Lap lai den action=final
+10. Neu action=tool, core.capabilities goi AgentKernel
+11. AgentKernel goi feature adapter, hien tai la features/mcp_tools
+12. mcp_client goi MCP server
+13. Tool result quay ve orchestrator
+14. Tool result duoc append vao messages
+15. Lap lai den action=final
 ```
 
 Neu ban noi duoc file/function cho tung buoc, ban da hieu project.
@@ -590,7 +591,7 @@ Hits co `source` va `chunk_index`, nhung chua co line start/end. Neu dung de sua
 Hien da co event JSONL va CLI inspect/search, nhung chua co viewer web/API. Co the xay tiep:
 
 ```text
-agent_runs/<run_id>/events.jsonl -> local viewer web / API search
+var/agent_runs/<run_id>/events.jsonl -> local viewer web / API search
 ```
 
 Day la cau noi de sau nay lam UI hoac multi-agent.
@@ -608,7 +609,7 @@ Khi sua:
 - Sua nho.
 - Khong dung vao `OpenHands/` neu task khong lien quan.
 - Khong sua file trong `workspace/` neu do chi la test fixture, tru khi task yeu cau.
-- Khong xoa `qdrant_storage/` neu khong co ly do.
+- Khong xoa `var/qdrant_storage/` neu khong co ly do.
 
 Sau khi sua:
 

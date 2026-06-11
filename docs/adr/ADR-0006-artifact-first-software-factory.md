@@ -26,7 +26,7 @@ Add Software Factory v0.7 as an artifact-first specification pipeline.
 Long content is written to Markdown or JSON artifacts under:
 
 ```text
-workspace/factory_runs/<run_id>/
+var/workspace/factory_runs/<run_id>/
 ```
 
 The agent control envelope stays compact:

@@ -10,7 +10,7 @@ RAG giúp agent tìm lại tri thức trong workspace: notes, docs, code, quyế
 - Vector DB: Qdrant
 - Embedding: FastEmbed
 - Collection mặc định: `my_agents_rag`
-- Workspace sandbox: `workspace/`
+- Workspace sandbox: `var/workspace/`
 
 ## Tools
 
@@ -20,7 +20,7 @@ RAG giúp agent tìm lại tri thức trong workspace: notes, docs, code, quyế
 
 ## Quy Trình Đúng
 
-1. Đặt source vào `workspace/notes`, `workspace/code`, hoặc docs phù hợp.
+1. Đặt source vào `var/workspace/notes`, `var/workspace/code`, hoặc docs phù hợp.
 2. Gọi `rag.rag_health`.
 3. Nếu health fail, dừng và báo dependency failure.
 4. Gọi `rag.rag_ingest` với path cụ thể.
@@ -74,4 +74,3 @@ python run_mcp_chain_smoke.py
 - Dùng RAG hit không đọc source.
 - Ingest cả `.env`, secret, data rác.
 - Dùng threshold quá thấp rồi coi mọi hit là đúng.
-

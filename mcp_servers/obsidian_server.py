@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import os
 import re
@@ -6,11 +6,11 @@ from datetime import date as date_cls, datetime
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import PROJECT_DIR, WORKSPACE_DIR
+
 from mcp.server.fastmcp import FastMCP
 
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-WORKSPACE_DIR = PROJECT_DIR / "workspace"
 DEFAULT_VAULT_DIR = WORKSPACE_DIR / "obsidian_vault"
 MAX_NOTE_CHARS = 1_000_000
 MAX_SEARCH_RESULTS = 100
@@ -242,3 +242,4 @@ def obsidian_create_daily_note(date: str = "", content: str = "") -> dict[str, A
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+

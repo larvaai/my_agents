@@ -6,8 +6,8 @@ from typing import Any
 
 import yaml
 
+from core.runtime_paths import PROJECT_DIR
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
 SKILLS_DIR = PROJECT_DIR / "skills"
 
 

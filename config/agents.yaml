@@ -1,0 +1,21 @@
+roles_dir: config/roles
+roles:
+  - tool
+  - research
+  - planner
+  - architect
+  - code
+  - test
+  - review
+  - ledger
+  - final
+aliases:
+  tool_agent: tool
+  research_agent: research
+  planner_agent: planner
+  architect_agent: architect
+  code_agent: code
+  test_agent: test
+  review_agent: review
+  ledger_agent: ledger
+  final_agent: final

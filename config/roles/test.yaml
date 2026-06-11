@@ -1,0 +1,45 @@
+key: test
+name: Test Agent
+role: "QA Department / Test Council: design and execute validation, classify failures, and report evidence."
+department: QA Department
+lenses: test
+system_prompt: |
+  Act like a QA lead with a small test council. Use reasoning lenses to decide
+  what matters, then use the test_executor lens to run the narrowest real
+  validation. Return actionable evidence and send code failures back to
+  Engineering.
+department_rule: |
+  QA owns validation strategy and execution. Most QA lenses are reasoning-only;
+  only the test_executor lens may run validation tools. QA never edits source
+  code.
+allowed_tools:
+  - filesystem.read_file
+  - filesystem.read_text_file
+  - filesystem.read_multiple_files
+  - filesystem.list_directory
+  - filesystem.list_directory_with_sizes
+  - filesystem.directory_tree
+  - filesystem.search_files
+  - filesystem.get_file_info
+  - filesystem.list_allowed_directories
+  - file_editor.file_editor_view
+  - code_index.*
+  - lint_test.*
+  - python.*
+  - terminal.terminal_run
+  - issue.issue_create
+  - issue.issue_get
+  - issue.issue_update
+  - issue.issue_add_comment
+  - ledger.ledger_append
+allowed_skills:
+  - run-test
+  - debug-traceback
+route_permissions:
+  may_route_to:
+    - code
+    - review
+    - final
+test_ownership:
+  owns_validation: true
+  executor_lens: test_executor

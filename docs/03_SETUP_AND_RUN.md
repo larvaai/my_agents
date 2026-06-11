@@ -130,13 +130,13 @@ python run_all_cases.py --list
 
 | Path | Nội dung |
 |---|---|
-| `agent_runs/` | Event logs và summary của agent runs |
-| `test_runs/` | Logs và summary của test runner |
-| `workspace/` | Workspace sandbox cho agent |
-| `workspace/ledger/` | Append-only ledger |
-| `workspace/issues/` | Issue tracker local |
-| `workspace/obsidian_vault/` | Markdown vault |
-| `qdrant_storage/` | Qdrant local data |
+| `var/agent_runs/` | Event logs và summary của agent runs |
+| `var/test_runs/` | Logs và summary của test runner |
+| `var/workspace/` | Workspace sandbox cho agent |
+| `var/workspace/ledger/` | Append-only ledger |
+| `var/workspace/issues/` | Issue tracker local |
+| `var/workspace/obsidian_vault/` | Markdown vault |
+| `var/qdrant_storage/` | Qdrant local data |
 
 ## Clean Mental Model
 

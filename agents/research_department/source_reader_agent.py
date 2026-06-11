@@ -3,7 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from tools.tool_registry import call_tool
+from core.capabilities import call_tool
+from core.schemas import capability_data
 
 
 @dataclass
@@ -21,12 +22,13 @@ class SourceReaderAgent:
                 if not isinstance(url, str) or not url.startswith(("http://", "https://")):
                     continue
                 result = call_tool("fetch.fetch_url", {"url": url, "max_chars": self.max_chars})
+                data = capability_data(result)
                 read_items.append(
                     {
                         "url": url,
                         "ok": result.get("ok") is True,
-                        "title": result.get("title") or source.get("title", ""),
-                        "text_excerpt": (result.get("text") or "")[:1200],
+                        "title": data.get("title") or source.get("title", ""),
+                        "text_excerpt": (data.get("text") or "")[:1200],
                         "error": result.get("error"),
                     }
                 )

@@ -9,7 +9,7 @@ Git MCP dùng để audit repo: status, diff, log, show. Mutating tools bị pol
 - Server name: `git`
 - Package: `mcp_server_git`
 - Repository: project root
-- Config: `tools/mcp_config.py`
+- Config: `features/mcp_tools/config.py`
 
 ## Read-only Tools
 
@@ -40,4 +40,3 @@ Agent không được commit/push/reset/checkout trừ khi user yêu cầu rõ. 
 ```powershell
 python run_all_cases.py --case chain_04_git_document_ledger_readonly --fail-fast
 ```
-

@@ -6,16 +6,16 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable
 
+from core.runtime_paths import PROJECT_DIR, TEST_RUNS_DIR, WORKSPACE_DIR
 
-PROJECT_DIR = Path(__file__).resolve().parent
-WORKSPACE_DIR = PROJECT_DIR / "workspace"
 SMOKE_DIR = "_mcp_chain_smoke"
-RUNS_DIR = PROJECT_DIR / "test_runs"
+RUNS_DIR = TEST_RUNS_DIR
 
 os.environ["LEDGER_PATH"] = str(WORKSPACE_DIR / SMOKE_DIR / "ledger.jsonl")
 
-from tools.mcp_client import call_mcp_tool  # noqa: E402
-from tools.mcp_config import MCP_SERVERS, MCP_TOOL_NAMES  # noqa: E402
+from core.capabilities import call_tool  # noqa: E402
+from core.schemas import capability_data  # noqa: E402
+from features.mcp_tools.config import MCP_SERVERS, MCP_TOOL_NAMES  # noqa: E402
 
 
 class ChainFailure(AssertionError):
@@ -28,10 +28,15 @@ def _require(condition: bool, message: str) -> None:
 
 
 def _call(tool: str, args: dict[str, Any] | None = None, *, require_ok: bool = True) -> dict[str, Any]:
-    result = call_mcp_tool(tool, args or {})
+    result = call_tool(tool, args or {})
     if require_ok:
         _require(bool(result.get("ok")), f"{tool} failed: {json.dumps(result, ensure_ascii=False)}")
-    return result
+    payload = dict(capability_data(result))
+    payload["ok"] = result.get("ok")
+    payload["error"] = result.get("error")
+    payload["_capability"] = result.get("capability")
+    payload["_feature"] = result.get("feature")
+    return payload
 
 
 def _write_report(path: str, title: str, content: str) -> dict[str, Any]:
@@ -252,6 +257,7 @@ def chain_rag_health_gate_document_ledger() -> dict[str, Any]:
         return {"sentinel": sentinel, "status": "dependency_failure", "error": health.get("error")}
 
     note_path = "notes/chain_rag_note.md"
+    _call("filesystem.create_directory", {"path": "notes"})
     _call(
         "filesystem.write_file",
         {
@@ -344,8 +350,8 @@ def chain_extended_mcp_core() -> dict[str, Any]:
 
     index = _call("code_index.code_index", {"path": "mcp_servers", "max_files": 80})
     _require(index.get("files_count", 0) > 0, "code_index did not scan mcp_servers")
-    symbol = _call("code_index.code_find_symbol", {"name": "terminal_run", "path": "mcp_servers", "max_results": 20})
-    _require(symbol.get("count", 0) >= 1, "code_find_symbol did not find terminal_run")
+    symbol = _call("code_index.code_find_symbol", {"name": "code_index", "path": "mcp_servers", "max_results": 20})
+    _require(symbol.get("count", 0) >= 1, "code_find_symbol did not find code_index")
     refs = _call("code_index.code_find_references", {"name": "FastMCP", "path": "mcp_servers", "max_results": 50})
     _require(refs.get("count", 0) >= 1, "code_find_references did not find FastMCP")
     graph = _call("code_index.code_dependency_graph", {"path": "mcp_servers", "max_files": 80})
@@ -396,7 +402,7 @@ def chain_extended_mcp_core() -> dict[str, Any]:
     return {
         "sentinel": sentinel,
         "indexed_files": index.get("files_count"),
-        "terminal_symbol_matches": symbol.get("count"),
+        "code_index_symbol_matches": symbol.get("count"),
         "lint_checked_files": compile_result.get("checked_files"),
         "docker_ok": docker_result.get("ok"),
         "note_path": note_path,

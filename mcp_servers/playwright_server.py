@@ -1,14 +1,13 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
+
+from core.runtime_paths import PROJECT_DIR, WORKSPACE_DIR
 from urllib.parse import urlparse
 
 from mcp.server.fastmcp import FastMCP
 
-
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-WORKSPACE_DIR = PROJECT_DIR / "workspace"
 
 mcp = FastMCP(
     "playwright-server",
@@ -148,3 +147,4 @@ async def playwright_screenshot(url: str, path: str, full_page: bool = True, tim
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+

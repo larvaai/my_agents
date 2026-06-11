@@ -6,7 +6,8 @@ from typing import Any
 from agents.tool_agent import tool_agent
 from output_gate import JsonGateError, build_json_gate_retry_message, parse_json_action
 from tools.event_log import EventLogger
-from tools.tool_registry import call_tool
+from core.capabilities import call_tool
+from core.schemas import CapabilityResult, capability_data, capability_get, capability_metadata
 
 
 CODE_EXTENSIONS = {
@@ -39,6 +40,19 @@ VALIDATION_TOOLS = {
     "lint_test.test_python_file",
     "lint_test.test_smoke_suite",
 }
+
+
+def _local_capability_failure(tool_name: str, error: str, data: dict[str, Any]) -> dict[str, Any]:
+    payload = dict(data)
+    payload.setdefault("tool", tool_name)
+    return CapabilityResult(
+        ok=False,
+        capability=tool_name,
+        feature=None,
+        data=payload,
+        error=error,
+        metadata={"source": "orchestrator"},
+    ).as_dict()
 
 
 def parse_json(text: str) -> dict:
@@ -141,7 +155,16 @@ def _condense_tool_result(tool_result: dict[str, Any]) -> dict[str, Any]:
     back into the prompt. Full results still stay in the event log.
     """
     max_chars = int(os.getenv("ORCH_MAX_OBSERVATION_CHARS", "6000"))
-    condensed: dict[str, Any] = {}
+    data = capability_data(tool_result)
+    result_metadata = capability_metadata(tool_result)
+    condensed: dict[str, Any] = {
+        "ok": tool_result.get("ok"),
+        "capability": tool_result.get("capability"),
+        "feature": tool_result.get("feature"),
+        "error": tool_result.get("error"),
+    }
+    if result_metadata:
+        condensed["metadata"] = _compact_dict(result_metadata)
 
     keep_keys = {
         "ok",
@@ -175,16 +198,16 @@ def _condense_tool_result(tool_result: dict[str, Any]) -> dict[str, Any]:
     }
 
     for key in keep_keys:
-        if key in tool_result:
-            condensed[key] = tool_result[key]
+        if key in data:
+            condensed[key] = data[key]
 
     for key in ("stdout", "stderr"):
-        value = tool_result.get(key)
+        value = data.get(key)
         if isinstance(value, str):
             condensed[key] = _tail_text(value, max_chars // 3)
 
     for key in ("text", "content"):
-        value = tool_result.get(key)
+        value = data.get(key)
         if isinstance(value, str):
             condensed[key] = _truncate_text(value, max_chars // 2)
         elif isinstance(value, list):
@@ -204,16 +227,16 @@ def _condense_tool_result(tool_result: dict[str, Any]) -> dict[str, Any]:
         "notes",
         "failures",
     ):
-        value = tool_result.get(key)
+        value = data.get(key)
         if isinstance(value, list):
             condensed[key] = _compact_list(value)
 
     for key in ("graph", "by_status", "by_kind"):
-        value = tool_result.get(key)
+        value = data.get(key)
         if isinstance(value, dict):
             condensed[key] = _compact_dict(value)
 
-    entry = tool_result.get("entry")
+    entry = data.get("entry")
     if isinstance(entry, dict):
         condensed["entry"] = {
             item_key: entry.get(item_key)
@@ -259,7 +282,7 @@ def _is_validation_tool(tool_name: str, args: dict[str, Any]) -> bool:
 def _validation_passed(tool_result: dict[str, Any]) -> bool:
     if not tool_result.get("ok"):
         return False
-    returncode = tool_result.get("returncode")
+    returncode = capability_get(tool_result, "returncode")
     return returncode in (None, 0)
 
 
@@ -518,28 +541,23 @@ def run_orchestrator(
 
             if seen_tool_call_count[tool_call_key] > max_same_tool_calls:
                 metrics["stuck_events"] += 1
-                tool_result = {
-                    "ok": False,
-                    "tool": tool_name,
-                    "args": args,
-                    "stuck": True,
-                    "failure_class": "agent_stuck",
-                    "error": (
-                        "The exact same tool call repeated more than "
-                        f"{max_same_tool_calls} times. The orchestrator blocked "
-                        "another retry to prevent a loop."
-                    ),
-                }
+                error = (
+                    "The exact same tool call repeated more than "
+                    f"{max_same_tool_calls} times. The orchestrator blocked "
+                    "another retry to prevent a loop."
+                )
+                tool_result = _local_capability_failure(
+                    tool_name,
+                    error,
+                    {"args": args, "stuck": True, "failure_class": "agent_stuck"},
+                )
             else:
                 metrics["tool_calls"] += 1
                 tool_started = time.monotonic()
                 tool_result = call_tool(tool_name, args)
-                tool_result["duration_seconds"] = round(
-                    time.monotonic() - tool_started,
-                    3,
-                )
+                tool_result.setdefault("metadata", {})["duration_seconds"] = round(time.monotonic() - tool_started, 3)
 
-            if tool_result.get("policy_blocked"):
+            if capability_get(tool_result, "policy_blocked"):
                 metrics["policy_blocks"] += 1
 
             if not tool_result.get("ok", True):
@@ -560,7 +578,7 @@ def run_orchestrator(
                     "step": step + 1,
                     "tool": tool_name,
                     "ok": tool_result.get("ok"),
-                    "returncode": tool_result.get("returncode"),
+                    "returncode": capability_get(tool_result, "returncode"),
                     "error": tool_result.get("error"),
                 }
                 if pending_code_validation and _validation_passed(tool_result):

@@ -5,9 +5,9 @@
 Khi một run lỗi, đọc theo thứ tự:
 
 1. Terminal output.
-2. `test_runs/<timestamp>/<case>.log`.
-3. `agent_runs/<run_id>/events.jsonl`.
-4. `agent_runs/<run_id>/summary.json`.
+2. `var/test_runs/<timestamp>/<case>.log`.
+3. `var/agent_runs/<run_id>/events.jsonl`.
+4. `var/agent_runs/<run_id>/summary.json`.
 5. Source code của tool/orchestrator liên quan.
 
 Useful commands:
@@ -41,7 +41,7 @@ Cách xử lý:
 1. Xem `AGENT RAW OUTPUT`.
 2. Xem `Sandbox error`.
 3. Nếu lỗi do schema thiếu, sửa prompt/tool example.
-4. Nếu lỗi do tool unknown, thêm tool vào `tools/mcp_config.py` hoặc sửa agent prompt.
+4. Nếu lỗi do tool unknown, thêm tool vào `features/mcp_tools/config.py` hoặc sửa agent prompt.
 5. Nếu lỗi do dry-run, kiểm tra path, terminal argv, git policy.
 
 Smoke:
@@ -63,8 +63,8 @@ Unexpected argument
 
 Cách xử lý:
 
-- Đọc schema trong `tools/tool_schemas.py`.
-- Đọc examples trong `tools/mcp_client.py`.
+- Đọc schema trong `features/mcp_tools/schemas.py`.
+- Đọc examples trong `features/mcp_tools/client.py`.
 - Đảm bảo agent dùng `server.tool_name`.
 - Nếu MCP mới chưa có schema, thêm schema.
 

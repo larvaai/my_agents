@@ -1,5 +1,13 @@
 # Testing Guide
 
+## Dev Checks
+
+```powershell
+python run_dev_checks.py --quick
+```
+
+Use `--full` before larger milestones.
+
 ## Current Capability Suite
 
 Chay test tong hop cho nang luc hien tai:
@@ -39,7 +47,7 @@ Project có nhiều lớp test, từ deterministic đến LLM-driven.
 | LangGraph compile | `run_langgraph_smoke.py` | Không | Build graph, repair guard, failure capture |
 | MCP chain | `run_mcp_chain_smoke.py` | Không | Test tool chain thật không qua LLM |
 | Prompt cases | `run_all_cases.py` | Có | Test agent thật qua prompt |
-| Generated artifact | `workspace/society_sim/test_society_sim.py` | Không | Test artifact sinh từ prompt lớn |
+| Generated artifact | `var/workspace/society_sim/test_society_sim.py` | Không | Test artifact sinh từ prompt lớn |
 
 ## Quick Smoke
 
@@ -67,7 +75,7 @@ python run_mcp_chain_smoke.py
 Nếu sửa artifact `society_sim`:
 
 ```powershell
-python .\workspace\society_sim\test_society_sim.py
+python .\var\workspace\society_sim\test_society_sim.py
 ```
 
 ## JsonGate Tests
@@ -183,9 +191,9 @@ python run_all_cases.py --case agent_01_fix_small_bug --fail-fast
 Logs:
 
 ```text
-test_runs/<timestamp>/<case>.log
-test_runs/<timestamp>/summary.md
-test_runs/<timestamp>/summary.json
+var/test_runs/<timestamp>/<case>.log
+var/test_runs/<timestamp>/summary.md
+var/test_runs/<timestamp>/summary.json
 ```
 
 ## How To Test A User Prompt Manually
@@ -221,12 +229,12 @@ python inspect_runs.py events latest --limit 50
 |---|---|
 | `output_gate/*` | `run_json_gate_smoke.py` |
 | `agents/base_agent.py` | `run_agent_role_smoke.py` |
-| `agents/role_agents.py` | `run_agent_role_smoke.py` |
+| `agents/role_agents.py`, `agents/role_config.py`, `config/roles/*.yaml` | `run_agent_role_smoke.py` |
 | `agents/lenses/*` | `run_agent_role_smoke.py` |
 | `orchestrator.py` | Prompt case nhỏ + JsonGate smoke |
 | `orchestration/langgraph_orchestrator.py` | `run_langgraph_smoke.py`, `--group langgraph` |
-| `tools/tool_schemas.py` | `run_json_gate_smoke.py`, affected MCP case |
-| `tools/mcp_client.py` | `run_mcp_chain_smoke.py` |
+| `features/mcp_tools/schemas.py` | `run_json_gate_smoke.py`, affected MCP case |
+| `features/mcp_tools/client.py` | `run_mcp_chain_smoke.py` |
 | `mcp_servers/file_editor_server.py` | direct tool smoke + role smoke |
 | `mcp_servers/lint_test_server.py` | `--group mcp_ext`, `run_langgraph_smoke.py` |
 | `mcp_servers/rag_server.py` | `--group rag` |
@@ -261,11 +269,7 @@ Một run tốt phải có:
 Tối thiểu:
 
 ```powershell
-python -m py_compile agents\base_agent.py agents\role_agents.py orchestration\langgraph_orchestrator.py output_gate\json_gate.py tools\tool_schemas.py
-python run_json_gate_smoke.py
-python run_agent_role_smoke.py
-python run_company_agents_smoke.py
-python run_langgraph_smoke.py
+python run_dev_checks.py --quick
 ```
 
 Nếu change động tới MCP:

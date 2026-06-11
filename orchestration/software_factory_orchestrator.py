@@ -18,6 +18,7 @@ from agents.software_factory_agents import (
     compact_stage_results,
     final_factory_payload,
 )
+from core.runtime_paths import WORKSPACE_DIR
 
 
 DOC_EXPORT_SUBDIR = Path("docs") / "software_factory"
@@ -25,12 +26,12 @@ DOC_EXPORT_SUBDIR = Path("docs") / "software_factory"
 
 def infer_project_export_dir(task: str) -> Path | None:
     """
-    Infer workspace/<project> from required Python file paths in a product prompt.
+    Infer the runtime workspace project directory from required Python file paths.
     """
     counts: dict[str, int] = {}
     for match in re.finditer(r"(?<![A-Za-z0-9_./\\-])([A-Za-z0-9_-]+)[/\\][A-Za-z0-9_./\\-]+\.py", task):
         folder = match.group(1)
-        if folder in {"agent_runs", "docs", "prompts", "test_runs", "workspace"}:
+        if folder in {"agent_runs", "docs", "prompts", "test_runs", "var", "workspace"}:
             continue
         counts[folder] = counts.get(folder, 0) + 1
 
@@ -38,7 +39,7 @@ def infer_project_export_dir(task: str) -> Path | None:
         return None
 
     project_name = max(counts.items(), key=lambda item: item[1])[0]
-    return Path("workspace") / project_name
+    return WORKSPACE_DIR / project_name
 
 
 class SoftwareFactoryOrchestrator:
@@ -53,7 +54,7 @@ class SoftwareFactoryOrchestrator:
     def __init__(
         self,
         *,
-        artifact_root: str | Path = Path("workspace") / "factory_runs",
+        artifact_root: str | Path = WORKSPACE_DIR / "factory_runs",
         repo_root: str | Path = ".",
     ) -> None:
         self.version = FACTORY_VERSION

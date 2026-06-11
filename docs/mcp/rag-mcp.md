@@ -10,7 +10,7 @@ RAG MCP ingest và search knowledge local trong workspace qua Qdrant.
 - File: `mcp_servers/rag_server.py`
 - Transport: stdio
 - Storage: Qdrant
-- Sandbox: `workspace/`
+- Sandbox: `var/workspace/`
 
 ## Tools
 
@@ -48,4 +48,3 @@ python run_all_cases.py --case chain_05_rag_health_gate_document_ledger --fail-f
 docker compose up -d qdrant
 Invoke-RestMethod http://localhost:6333/collections
 ```
-

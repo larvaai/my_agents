@@ -3,6 +3,7 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
+from core.runtime_paths import WORKSPACE_DIR
 from orchestration.software_factory_orchestrator import SoftwareFactoryOrchestrator
 
 
@@ -12,7 +13,7 @@ def _assert(condition: bool, message: str) -> None:
 
 
 def main() -> int:
-    export_dir = Path("workspace") / "_software_factory_smoke_export"
+    export_dir = WORKSPACE_DIR / "_software_factory_smoke_export"
     if export_dir.exists():
         shutil.rmtree(export_dir)
 

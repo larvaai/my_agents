@@ -5,10 +5,10 @@ import re
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import PROJECT_DIR
 from mcp.server.fastmcp import FastMCP
 
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
 MAX_FILES = 1000
 MAX_RESULTS = 500
 CODE_EXTENSIONS = {".py", ".js", ".jsx", ".ts", ".tsx"}
@@ -22,6 +22,7 @@ EXCLUDED_DIRS = {
     "openhands-workspace",
     "qdrant_storage",
     "test_runs",
+    "var",
 }
 
 mcp = FastMCP(

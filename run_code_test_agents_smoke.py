@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from core.schemas import capability_get
 from orchestration.code_test_orchestrator import CodeTestOrchestrator
 
 
@@ -27,7 +28,7 @@ def main() -> int:
     _assert(code_result["execution"]["ok"] is True, "code execution failed")
     _assert(test_result["execution"]["ok"] is True, "test execution failed")
 
-    stdout = test_result["execution"]["test_results"][0].get("stdout", "")
+    stdout = capability_get(test_result["execution"]["test_results"][0], "stdout", "")
     _assert("CODE_TEST_LENS_OK" in stdout, "sentinel missing from test stdout")
 
     print("CODE_TEST_AGENTS_V05_SMOKE_OK")

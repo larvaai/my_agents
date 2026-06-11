@@ -9,7 +9,7 @@ from typing import Any
 from llm import call_llm
 from agents.lenses.base_lens import LensSpec, lens_names, render_department_lens_prompt
 from output_gate import JsonGateError, parse_json_action
-from tools.mcp_client import (
+from features.mcp_tools.client import (
     MCPToolError,
     build_tool_prompt,
     canonicalize_tool_name,
@@ -37,6 +37,8 @@ class BaseAgent:
     lenses: tuple[LensSpec, ...] = ()
     allowed_tools: tuple[str, ...] | None = None
     allowed_skills: tuple[str, ...] | None = None
+    route_permissions: dict[str, Any] | None = None
+    test_ownership: dict[str, Any] | None = None
     model: str | None = None
     temperature: float = 0.2
 
@@ -278,4 +280,6 @@ class BaseAgent:
             "lens_names": list(lens_names(self.lenses)),
             "allowed_tools": sorted(self.canonical_allowed_tools or []),
             "allowed_skills": list(self.allowed_skills or []),
+            "route_permissions": dict(self.route_permissions or {}),
+            "test_ownership": dict(self.test_ownership or {}),
         }

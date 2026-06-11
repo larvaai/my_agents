@@ -1,9 +1,11 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import os
 import uuid
 from pathlib import Path
 from typing import Any
+
+from core.runtime_paths import PROJECT_DIR, WORKSPACE_DIR
 
 from fastembed import TextEmbedding
 from mcp.server.fastmcp import FastMCP
@@ -17,9 +19,6 @@ from qdrant_client.models import (
     VectorParams,
 )
 
-
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-WORKSPACE_DIR = PROJECT_DIR / "workspace"
 
 QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY") or None
@@ -438,3 +437,4 @@ def rag_search(query: str, top_k: int = 5, score_threshold: float = 0.80) -> dic
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+

@@ -12,9 +12,9 @@ from output_gate.repair_rules import (
     strip_markdown_fence,
     try_literal_eval,
 )
-from tools.mcp_config import MCP_TOOL_NAMES, TOOL_ALIASES, WORKSPACE_DIR
-from tools.tool_policy import check_tool_policy
-from tools.tool_schemas import JSON_TYPE_NAMES, TOOL_SCHEMAS, ToolSchema
+from features.mcp_tools.config import MCP_TOOL_NAMES, TOOL_ALIASES, WORKSPACE_DIR
+from features.mcp_tools.policy import check_tool_policy
+from features.mcp_tools.schemas import JSON_TYPE_NAMES, TOOL_SCHEMAS, ToolSchema
 
 
 MAX_ERROR_CANDIDATE_CHARS = 2000

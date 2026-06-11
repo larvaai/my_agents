@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import WORKSPACE_DIR
 from orchestration.software_factory_orchestrator import SoftwareFactoryOrchestrator
 
 
@@ -68,7 +69,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run the v0.7 artifact-first software factory.")
     parser.add_argument("--task", default=None)
     parser.add_argument("--task-file", default=None)
-    parser.add_argument("--artifact-root", default=str(Path("workspace") / "factory_runs"))
+    parser.add_argument("--artifact-root", default=str(WORKSPACE_DIR / "factory_runs"))
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--export-project-dir", default=None)
     parser.add_argument("--full-json", action="store_true", help="Print the full compact JSON envelope.")

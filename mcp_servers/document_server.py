@@ -1,15 +1,15 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 import re
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import PROJECT_DIR, WORKSPACE_DIR
+
 from mcp.server.fastmcp import FastMCP
 
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-WORKSPACE_DIR = PROJECT_DIR / "workspace"
 MAX_DOCUMENT_CHARS = 300_000
 
 mcp = FastMCP(
@@ -196,3 +196,4 @@ def document_outline(path: str, max_items: int = 100) -> dict[str, Any]:
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+

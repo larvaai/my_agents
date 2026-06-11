@@ -8,6 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import TEST_RUNS_DIR, WORKSPACE_DIR
 from orchestration.global_supervisor import run_global_supervisor
 
 
@@ -66,8 +67,8 @@ def main() -> int:
     parser.add_argument("--task", default=None)
     parser.add_argument("--task-file", default=None)
     parser.add_argument("--run-id", default=None)
-    parser.add_argument("--artifact-root", default=str(Path("workspace") / "factory_runs"))
-    parser.add_argument("--log-dir", default=str(Path("test_runs") / "global_supervisor"))
+    parser.add_argument("--artifact-root", default=str(WORKSPACE_DIR / "factory_runs"))
+    parser.add_argument("--log-dir", default=str(TEST_RUNS_DIR / "global_supervisor"))
     parser.add_argument("--run-coding", action="store_true")
     parser.add_argument("--research-use-tools", action="store_true")
     parser.add_argument("--full-json", action="store_true")

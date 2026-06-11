@@ -7,6 +7,7 @@ from agents.final_synthesis_agent import FinalSynthesisAgent
 from agents.knowledge import GeneralKnowledgeAgent, PhilosophyAgent
 from agents.research_department import ResearchDepartment
 from agents.safety import SafetyDepartment
+from core.runtime_paths import WORKSPACE_DIR
 from orchestration.intent_router import IntentRouter, IntentType, RouteDecision
 
 
@@ -204,15 +205,13 @@ class GlobalSupervisor:
         return GeneralKnowledgeAgent().run(user_request, context)
 
     def _run_software_factory(self, user_request: str, context: dict[str, Any]) -> dict[str, Any]:
-        from pathlib import Path
-
         from orchestration.software_factory_orchestrator import (
             SoftwareFactoryOrchestrator,
             infer_project_export_dir,
         )
 
         run_id = context.get("run_id")
-        artifact_root = context.get("artifact_root") or Path("workspace") / "factory_runs"
+        artifact_root = context.get("artifact_root") or WORKSPACE_DIR / "factory_runs"
         export_project_dir = context.get("export_project_dir") or infer_project_export_dir(user_request)
         result = SoftwareFactoryOrchestrator(artifact_root=artifact_root).run(
             user_request,

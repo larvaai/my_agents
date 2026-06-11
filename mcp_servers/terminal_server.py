@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import os
 import subprocess
@@ -7,11 +7,11 @@ import time
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import PROJECT_DIR, WORKSPACE_DIR
+
 from mcp.server.fastmcp import FastMCP
 
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-WORKSPACE_DIR = PROJECT_DIR / "workspace"
 MAX_TIMEOUT_SECONDS = 120
 
 mcp = FastMCP(
@@ -255,3 +255,4 @@ def terminal_run(
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+

@@ -8,9 +8,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from core.runtime_paths import AGENT_RUNS_DIR, PROJECT_DIR
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-DEFAULT_RUNS_DIR = PROJECT_DIR / "agent_runs"
+DEFAULT_RUNS_DIR = AGENT_RUNS_DIR
 
 
 def _utc_now() -> str:

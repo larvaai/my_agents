@@ -23,7 +23,7 @@ MCP này dùng để làm gì?
 Định nghĩa trong:
 
 ```text
-tools/tool_schemas.py
+features/mcp_tools/schemas.py
 ```
 
 ## Safety Rules
@@ -51,4 +51,3 @@ python run_all_cases.py --case <case> --fail-fast
 ## When Not To Use
 
 - ...
-

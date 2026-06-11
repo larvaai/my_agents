@@ -222,7 +222,7 @@ deterministic contract-smoke mode.
 The smoke asks the company chain to create:
 
 ```text
-workspace/code/company_v05_smoke.py
+var/workspace/code/company_v05_smoke.py
 ```
 
 The generated file prints:

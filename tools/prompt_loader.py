@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from core.runtime_paths import PROJECT_DIR
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
 PROMPTS_DIR = PROJECT_DIR / "prompts"
 SYSTEM_PROMPT_PATH = PROMPTS_DIR / "system_prompt.md"
 USER_PROMPT_PATH = PROMPTS_DIR / "user_prompt.md"

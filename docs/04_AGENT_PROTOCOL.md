@@ -48,7 +48,7 @@ small JSON-compatible envelope:
   "decision": "artifact_created",
   "artifact_refs": [
     {
-      "path": "workspace/factory_runs/<run_id>/08_business_logic_model.md",
+      "path": "var/workspace/factory_runs/<run_id>/08_business_logic_model.md",
       "kind": "business_logic_model",
       "sha256": "..."
     }
@@ -106,7 +106,7 @@ Return ONLY one corrected JSON object.
 
 ## Tool Schema
 
-Tool args được validate trong `tools/tool_schemas.py`.
+Tool args được validate trong `features/mcp_tools/schemas.py`.
 
 Ví dụ:
 

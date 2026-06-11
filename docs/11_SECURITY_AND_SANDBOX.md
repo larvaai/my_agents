@@ -20,7 +20,7 @@ Không lớp nào hoàn hảo một mình. Các lớp phải cùng tồn tại.
 Agent thao tác file trong:
 
 ```text
-workspace/
+var/workspace/
 ```
 
 Các MCP server local phải resolve path và chặn path escape.

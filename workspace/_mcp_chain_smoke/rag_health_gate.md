@@ -1,5 +1,4 @@
-# RAG Chain Report
+# RAG Health Gate
 
 CHAIN_RAG_HEALTH_GATE_RESULT
-Ingested: None
-Hits: 5
+RAG dependency failure: [WinError 10061] No connection could be made because the target machine actively refused it

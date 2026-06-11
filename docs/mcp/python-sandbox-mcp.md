@@ -9,7 +9,7 @@ Python Sandbox MCP chạy file `.py` trong workspace với timeout và stdout/st
 - Server name: `python`
 - File: `mcp_servers/python_sandbox.py`
 - Transport: stdio
-- Sandbox: `workspace/`
+- Sandbox: `var/workspace/`
 
 ## Tools
 
@@ -39,4 +39,3 @@ python run_all_cases.py --case project_01_filesystem_python --fail-fast
 | File does not exist | Path sai hoặc ngoài workspace | Dùng path workspace-relative |
 | Only .py files can be executed | File không phải Python | Chạy tool khác |
 | timed out | Script treo/chờ input | Dùng probe hoặc test hẹp hơn |
-

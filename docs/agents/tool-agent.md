@@ -11,7 +11,7 @@ Tool Agent là agent đang chạy thật trong project. Nó nhận message histo
 - Registry key: `tool` in `agents/role_agents.py`
 - LLM call: `llm.call_llm()`
 - System prompt: `prompts/system_prompt.md`
-- Tool prompt: `tools/mcp_client.build_tool_prompt()`
+- Tool prompt: `features/mcp_tools/client.py`
 - Skills prompt: `tools/skill_loader.build_skills_prompt()`
 
 ## Allowed Output

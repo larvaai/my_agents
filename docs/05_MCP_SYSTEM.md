@@ -7,8 +7,10 @@ MCP là lớp tool runtime. Agent không gọi Python function trực tiếp. Ag
 ```text
 agent JSON action
   -> JsonGate
-  -> tools/tool_registry.call_tool()
-  -> tools/mcp_client.call_mcp_tool()
+  -> core.capabilities.call_tool()
+  -> core.AgentKernel
+  -> features/mcp_tools.MCPToolAdapter
+  -> features.mcp_tools.client.call_mcp_tool()
   -> resolve tool
   -> validate schema
   -> policy check
@@ -20,11 +22,12 @@ agent JSON action
 
 | File | Vai trò |
 |---|---|
-| `tools/mcp_config.py` | MCP server config, tool names, aliases |
-| `tools/mcp_client.py` | Resolve, validate, start stdio, call tool |
-| `tools/tool_registry.py` | Orchestrator-facing call interface |
-| `tools/tool_schemas.py` | Hard schema, output, error, metadata |
-| `tools/tool_policy.py` | Hard policy như block git mutation |
+| `core/capabilities.py` | Kernel-facing capability call interface |
+| `features/mcp_tools/` | Removable MCP tool feature |
+| `features/mcp_tools/config.py` | MCP server config, tool names, aliases |
+| `features/mcp_tools/client.py` | Resolve, validate, start stdio, call tool |
+| `features/mcp_tools/schemas.py` | Hard schema, output, error, metadata |
+| `features/mcp_tools/policy.py` | Hard policy như block git mutation |
 | `mcp_servers/*.py` | Local MCP server implementations |
 
 ## Tool Protocol
@@ -128,7 +131,7 @@ Terminal result có metadata:
 
 ## Schema
 
-Mọi tool quan trọng có schema trong `tools/tool_schemas.py`.
+Mọi tool quan trọng có schema trong `features/mcp_tools/schemas.py`.
 
 Schema gồm:
 
@@ -149,7 +152,7 @@ Metadata nên có:
 
 ## Policy
 
-`tools/tool_policy.py` là hard boundary.
+`features/mcp_tools/policy.py` là hard boundary.
 
 Hiện có:
 
@@ -161,15 +164,17 @@ Hiện có:
 ## Add New MCP Checklist
 
 1. Tạo server trong `mcp_servers/` hoặc external MCP config.
-2. Thêm `MCP_SERVERS` trong `tools/mcp_config.py`.
+2. Thêm `MCP_SERVERS` trong `features/mcp_tools/config.py`.
 3. Thêm tool names vào `MCP_TOOL_NAMES`.
 4. Thêm alias nếu cần vào `TOOL_ALIASES`.
-5. Thêm schema vào `tools/tool_schemas.py`.
-6. Thêm examples/prompt trong `tools/mcp_client.py`.
+5. Thêm schema vào `features/mcp_tools/schemas.py`.
+6. Thêm examples/prompt trong `features/mcp_tools/client.py`.
 7. Thêm role allowlist trong `agents/role_agents.py`.
-8. Thêm smoke deterministic nếu core.
-9. Thêm prompt case trong `run_all_cases.py`.
-10. Cập nhật docs `docs/mcp/`.
+8. Them feature tests trong `tests/` va khai bao trong `config/features.yaml`
+   neu day la feature moi.
+9. Thêm smoke deterministic nếu core.
+10. Thêm prompt case trong `run_all_cases.py`.
+11. Cập nhật docs `docs/mcp/`.
 
 ## Current Design Rule
 
