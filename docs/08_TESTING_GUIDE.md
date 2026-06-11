@@ -1,5 +1,31 @@
 # Testing Guide
 
+## Current Capability Suite
+
+Chay test tong hop cho nang luc hien tai:
+
+```powershell
+python run_capability_suite.py
+```
+
+Expected marker:
+
+```text
+PROJECT_CAPABILITY_SUITE_OK
+```
+
+Suite nay khong goi LLM va khong can network. No kiem JsonGate, role
+permission/lenses, Intent Router, Global Supervisor stage 1-6, Safety
+Department, Final Synthesis, Knowledge/Research deterministic contracts, MCP
+registration, PDF/Text Extraction local MCP, LangGraph, Code/Test Department,
+Company Agents va Software Factory.
+
+Chay qua harness chung:
+
+```powershell
+python run_all_cases.py --group capability --fail-fast
+```
+
 ## Test Layers
 
 Project có nhiều lớp test, từ deterministic đến LLM-driven.

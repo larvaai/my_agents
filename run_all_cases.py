@@ -16,7 +16,7 @@ PROJECT_DIR = Path(__file__).resolve().parent
 PROMPTS_DIR = PROJECT_DIR / "prompts" / "auto_cases"
 SKILL_CASES_DIR = PROJECT_DIR / "prompts" / "skill_cases"
 RUNS_DIR = PROJECT_DIR / "test_runs"
-GROUP_ORDER = ["rag", "project", "agent", "chain", "mcp_ext", "langgraph", "skill", "e2e", "orchestrator"]
+GROUP_ORDER = ["capability", "rag", "project", "agent", "chain", "mcp_ext", "langgraph", "skill", "e2e", "orchestrator"]
 
 
 @dataclass
@@ -34,6 +34,30 @@ class TestCase:
 
 
 TEST_CASES: list[TestCase] = [
+    TestCase(
+        name="capability_00_project_suite",
+        group="capability",
+        prompt_file="test_capability_00_project_suite.md",
+        entrypoint="run_capability_suite.py",
+        success_marker="PROJECT_CAPABILITY_SUITE_OK",
+        pass_prompt_path=False,
+        expect_contains=[
+            "PROJECT_CAPABILITY_SUITE_OK",
+            "router_capability",
+            "global_supervisor_capability",
+            "pdf_text_extraction_mcp",
+            "existing_smoke_scripts",
+        ],
+        expect_not_contains=[
+            "Traceback",
+            "AssertionError",
+        ],
+        timeout=420,
+        prompt="""
+Deterministic project capability suite.
+This prompt is not passed to the smoke entrypoint.
+""".strip(),
+    ),
     TestCase(
         name="langgraph_00_compile_smoke",
         group="langgraph",

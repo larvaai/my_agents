@@ -1,0 +1,18 @@
+{
+  "checks": {
+    "has_decision_table": true,
+    "has_failure_modes": true,
+    "has_invariants": true,
+    "has_state_transitions": true,
+    "has_testable_examples": true
+  },
+  "gate": "business_logic",
+  "missing": [],
+  "required_artifacts": [
+    "domain_analysis",
+    "business_logic_model",
+    "acceptance_criteria"
+  ],
+  "rule": "No business logic contract -> no technical analysis or pattern decision.",
+  "status": "pass"
+}

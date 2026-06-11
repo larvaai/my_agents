@@ -1,0 +1,17 @@
+{
+  "gate": "product_spec",
+  "missing": [],
+  "required_artifacts": [
+    "vision",
+    "brd",
+    "prd",
+    "stories",
+    "acceptance_criteria"
+  ],
+  "rules": [
+    "No Vision -> no BRD.",
+    "No BRD -> no PRD.",
+    "No Story + AC -> no technical design."
+  ],
+  "status": "pass"
+}

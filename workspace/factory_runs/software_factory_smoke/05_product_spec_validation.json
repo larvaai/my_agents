@@ -1,0 +1,19 @@
+{
+  "gate": "product_spec",
+  "missing": [],
+  "required_artifacts": [
+    "protocol_strategy",
+    "vision",
+    "brd",
+    "prd",
+    "stories",
+    "acceptance_criteria"
+  ],
+  "rules": [
+    "No protocol strategy -> no long analysis handoff.",
+    "No Vision -> no BRD.",
+    "No BRD -> no PRD.",
+    "No Story + AC -> no technical design."
+  ],
+  "status": "pass"
+}

@@ -1,0 +1,186 @@
+{
+  "run_id": "global_supervisor_product_smoke",
+  "factory_version": "v0.7",
+  "source_artifact_dir": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke",
+  "project_dir": "workspace\\society_sim_complex",
+  "export_dir": "workspace\\society_sim_complex\\docs\\software_factory",
+  "artifact_count": 22,
+  "artifacts": [
+    {
+      "artifact_key": "acceptance_criteria",
+      "artifact_kind": "acceptance_criteria",
+      "title": "Acceptance Criteria",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\04_acceptance_criteria.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\04_acceptance_criteria.md",
+      "sha256": "53c09bbf998914cb7943a15fc2c8c2400f20dd16e9eccc9108d90438af0a50ce"
+    },
+    {
+      "artifact_key": "adr_candidates",
+      "artifact_kind": "adr_candidates",
+      "title": "ADR Candidates",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\14_adr_candidates.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\14_adr_candidates.md",
+      "sha256": "95c95c1fa2bc30f353f985130791135f9711a2574778f82f1a7e0b4b13c41baa"
+    },
+    {
+      "artifact_key": "api_inventory",
+      "artifact_kind": "api_inventory",
+      "title": "API Inventory",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\13_api_inventory.json",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\13_api_inventory.json",
+      "sha256": "f25e6ac84bcd27d1613c8dbd6c5796bef9d96d571173863a6251c00fbff79446"
+    },
+    {
+      "artifact_key": "brd",
+      "artifact_kind": "business_requirements",
+      "title": "Business Requirements Document",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\01_brd.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\01_brd.md",
+      "sha256": "1cc98b44e9aa5a6b81c172ac580798707bdfa63ceb3a8aa9ce1cdc24c60bfc13"
+    },
+    {
+      "artifact_key": "business_logic_model",
+      "artifact_kind": "business_logic_model",
+      "title": "Business Logic Model",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\08_business_logic_model.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\08_business_logic_model.md",
+      "sha256": "ff3b0fea038e7663de19df249f7d296eb2698e50d10fcc255a50607a31867607"
+    },
+    {
+      "artifact_key": "business_logic_validation",
+      "artifact_kind": "business_logic_validation",
+      "title": "Business Logic Validation",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\08_business_logic_validation.json",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\08_business_logic_validation.json",
+      "sha256": "1ad07d228f0c70ab33d4e1b089d4287a0e3ece4199c224835cc488f6f9c1c21b"
+    },
+    {
+      "artifact_key": "code_handoff_packet",
+      "artifact_kind": "code_handoff_packet",
+      "title": "Code Handoff Packet",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\11_code_handoff_packet.json",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\11_code_handoff_packet.json",
+      "sha256": "5d830b7fd9a33e5a78cef7075a5dacbe3516be54b8551efdc7bf48412dbdf8d5"
+    },
+    {
+      "artifact_key": "docs_package",
+      "artifact_kind": "docs_package",
+      "title": "Docs Package Draft",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\15_docs_package.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\15_docs_package.md",
+      "sha256": "9a30d2b441ac155508148bb4c2bb7c275b5aefdc6cc5a77febfa0f423aa5a3cd"
+    },
+    {
+      "artifact_key": "docs_plan",
+      "artifact_kind": "docs_plan",
+      "title": "Documentation Plan",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\11_docs_plan.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\11_docs_plan.md",
+      "sha256": "b4037f6f73bea593fe23e4b93542e2192b5aa6d7724f8c1462445ec31e75c490"
+    },
+    {
+      "artifact_key": "docs_verification",
+      "artifact_kind": "docs_verification",
+      "title": "Docs Verification",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\16_docs_verification.json",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\16_docs_verification.json",
+      "sha256": "8d2f2c266b0db0a1c4678033836c004e65c12b42039446d06de71de6071ed730"
+    },
+    {
+      "artifact_key": "domain_analysis",
+      "artifact_kind": "domain_analysis",
+      "title": "Domain Analysis and Change Hotspots",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\07_domain_analysis.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\07_domain_analysis.md",
+      "sha256": "7b626fcd70db0289ef4fe5a2ad9d065b53779d5c1012dc1a4feffdba9e62fb69"
+    },
+    {
+      "artifact_key": "factory_final",
+      "artifact_kind": "factory_final",
+      "title": "Factory Final Summary",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\17_factory_final.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\17_factory_final.md",
+      "sha256": "f0e906050987b28c6722aeb194092db7c7f70c700a11c2bc842f7f3bc5608b2b"
+    },
+    {
+      "artifact_key": "implementation_spec",
+      "artifact_kind": "implementation_spec",
+      "title": "Implementation Specification",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\10_implementation_spec.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\10_implementation_spec.md",
+      "sha256": "0efb8bad755b32ab1ce90af524d8ea85e55e76c61ff729cc029820eaef91e3a3"
+    },
+    {
+      "artifact_key": "pattern_decision",
+      "artifact_kind": "pattern_decision",
+      "title": "Pattern Decision",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\09_pattern_decision.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\09_pattern_decision.md",
+      "sha256": "a8e05e61bf4e81e6475dff7e19aaf631ca919c3ea4e4f8e4cb60f8aa545d019e"
+    },
+    {
+      "artifact_key": "prd",
+      "artifact_kind": "product_requirements",
+      "title": "Product Requirements Document",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\02_prd.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\02_prd.md",
+      "sha256": "d18a4dbce1dc9a0a3dcdaef38664b2d1f7c311c803f72d7ffde5351b7ad922d5"
+    },
+    {
+      "artifact_key": "product_critique",
+      "artifact_kind": "product_spec_critique",
+      "title": "Product Spec Critique",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\06_product_spec_critique.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\06_product_spec_critique.md",
+      "sha256": "5813efe9ef49d38b63f18105801ed321536f562affd5a213631231ec5ea1781e"
+    },
+    {
+      "artifact_key": "product_validation",
+      "artifact_kind": "product_spec_validation",
+      "title": "Product Spec Validation",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\05_product_spec_validation.json",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\05_product_spec_validation.json",
+      "sha256": "cf40091c8a2a7434e3f1b67aac67db54d7b204f778c3e3e44496632aa01faec9"
+    },
+    {
+      "artifact_key": "protocol_strategy",
+      "artifact_kind": "protocol_strategy",
+      "title": "Protocol Strategy",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\00_protocol_strategy.json",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\00_protocol_strategy.json",
+      "sha256": "4293ddc14d5682471566ff14d6331b668fcc91a25f007bd055e735ea2f410900"
+    },
+    {
+      "artifact_key": "repo_scan",
+      "artifact_kind": "repo_scan",
+      "title": "Repository Scan",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\12_repo_scan.json",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\12_repo_scan.json",
+      "sha256": "6257e9db625c398f668344b8141d498027dea8e312820f95e0d49416a51d62d6"
+    },
+    {
+      "artifact_key": "stories",
+      "artifact_kind": "epics_stories",
+      "title": "Epics and Stories",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\03_epics_stories.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\03_epics_stories.md",
+      "sha256": "9e8934f642788d7eb03b4db59d167d85ade236147cd021706c9f735a4c221b52"
+    },
+    {
+      "artifact_key": "technical_analysis",
+      "artifact_kind": "technical_analysis",
+      "title": "Technical Analysis",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\08_technical_analysis.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\08_technical_analysis.md",
+      "sha256": "06ba47fe2978ec2f7fd26b2be2224185b06a45abac6b6390eb7b8e432fd748c7"
+    },
+    {
+      "artifact_key": "vision",
+      "artifact_kind": "product_vision",
+      "title": "Product Vision",
+      "source": "D:\\Agent PRJ\\my_agents\\workspace\\_global_supervisor_smoke\\factory_runs\\global_supervisor_product_smoke\\00_vision.md",
+      "path": "workspace\\society_sim_complex\\docs\\software_factory\\00_vision.md",
+      "sha256": "42524775b938f625691e3597509795bc7db77672e0db90478878d0157c43856f"
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+CASE: capability_00_project_suite
+GROUP: capability
+STATUS: PASS
+RETURNCODE: 0
+DURATION_SECONDS: 23.61
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe run_capability_suite.py
+
+MISSING_EXPECTED:
+[]
+
+FORBIDDEN_FOUND:
+[]
+
+================================================================================
+STDOUT
+================================================================================
+{
+  "ok": true,
+  "checks": [
+    {
+      "name": "router_capability",
+      "status": "PASS",
+      "cases": [
+        {
+          "case": "general_knowledge",
+          "intent": "GENERAL_KNOWLEDGE",
+          "steps": [
+            {
+              "department": "knowledge",
+              "task": "Answer with general_knowledge_agent."
+            },
+            {
+              "department": "final_synthesis",
+              "task": "Produce final user-facing answer."
+            }
+          ]
+        },
+        {
+          "case": "philosophy",
+          "intent": "PHILOSOPHY_TASK",
+          "steps": [
+            {
+              "department": "knowledge",
+              "task": "Answer with philosophy_agent."
+            },
+            {
+              "department": "final_synthesis",
+              "task": "Produce final user-facing answer."
+            }
+          ]
+        },
+        {
+          "case": "research_not_code",
+          "intent": "RESEARCH_REQUIRED",
+          "steps": [
+            {
+              "department": "research",
+              "task": "Collect source-backed evidence."
+            },
+            {
+              "department": "final_synthesis",
+              "task": "Answer with citations and limits."
+            }
+          ]
+        },
+        {
+          "case": "repo_debug",
+          "intent": "DEBUG_TASK",
+          "steps": [
+            {
+              "department": "coding",
+              "task": "Use the existing coding department path."
+            },
+            {
+              "department": "final_synthesis",
+              "task": "Report outcome and validation evidence."
+            }
+          ]
+        },
+        {
+          "case": "mixed_plan",
+          "intent": "MIXED_TASK",
+          "steps": [
+            {
+              "department": "knowledge",
+              "task": "Explain the domain concept needed by downstream departments."
+            },
+            {
+              "department": "coding",
+              "task": "Use the existing coding department path after upstream context is prepared."
+            },
+            {
+              "department": "final_synthesis",
+              "task": "Merge department outputs into the final answer."
+            }
+          ]
+        },
+        {
+          "case": "agent_creation",
+          "intent": "AGENT_CREATION",
+          "steps": [
+            {
+              "department": "agent_factory",
+              "task": "Design or scaffold the requested agent capability."
+            },
+            {
+              "department": "final_synthesis",
+              "task": "Summarize the proposed or completed agent work."
+            }
+          ]
+        },
+        {
+          "case": "product_build",
+          "intent": "PRODUCT_BUILD_TASK",
+          "steps": [
+            {
+              "department": "software_factory",
+              "task": "Produce product, domain, business-logic, architecture, implementation, and handoff artifacts."
+            },
+            {
+              "department": "coding",
+              "task": "Use the generated implementation spec with the existing coding path when coding execution is enabled."
+            },
+            {
+              "department": "final_synthesis",
+              "task": "Report artifact locations, handoff command, safety limits, and validation status."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "global_supervisor_capability",
+      "status": "PASS",
+      "checked_intents": [
+        "GENERAL_KNOWLEDGE",
+        "RESEARCH_REQUIRED",
+        "MIXED_TASK",
+        "DEBUG_TASK",
+        "PRODUCT_BUILD_TASK"
+      ]
+    },
+    {
+      "name": "knowledge_research_contracts",
+      "status": "PASS",
+      "knowledge_agents": [
+        "general_knowledge_agent",
+        "philosophy_agent"
+      ],
+      "research_mode": "deterministic_no_network"
+    },
+    {
+      "name": "safety_department_contracts",
+      "status": "PASS",
+      "checks": [
+        "permission_gate",
+        "prompt_injection_block",
+        "tool_scope_block"
+      ]
+    },
+    {
+      "name": "final_synthesis_contract",
+      "status": "PASS"
+    },
+    {
+      "name": "mcp_registration",
+      "status": "PASS",
+      "servers": [
+        "search",
+        "fetch",
+        "pdf_text_extraction"
+      ]
+    },
+    {
+      "name": "pdf_text_extraction_mcp",
+      "status": "PASS",
+      "tool": "pdf_text_extraction.extract_text",
+      "alias": "pdf_extract_text"
+    },
+    {
+      "name": "existing_smoke_scripts",
+      "status": "PASS",
+      "scripts": [
+        {
+          "name": "run_json_gate_smoke.py",
+          "status": "PASS",
+          "marker": "JSON_GATE_SMOKE_OK"
+        },
+        {
+          "name": "run_agent_role_smoke.py",
+          "status": "PASS",
+          "marker": null
+        },
+        {
+          "name": "run_langgraph_smoke.py",
+          "status": "PASS",
+          "marker": "LANGGRAPH_COMPILE_OK"
+        },
+        {
+          "name": "run_code_test_agents_smoke.py",
+          "status": "PASS",
+          "marker": "CODE_TEST_AGENTS_V05_SMOKE_OK"
+        },
+        {
+          "name": "run_company_agents_smoke.py",
+          "status": "PASS",
+          "marker": "COMPANY_AGENTS_V05_SMOKE_OK"
+        },
+        {
+          "name": "run_software_factory_smoke.py",
+          "status": "PASS",
+          "marker": "SOFTWARE_FACTORY_SMOKE_OK"
+        },
+        {
+          "name": "run_global_supervisor_smoke.py",
+          "status": "PASS",
+          "marker": "GLOBAL_SUPERVISOR_STAGE_1_6_SMOKE_OK"
+        }
+      ]
+    }
+  ]
+}
+PROJECT_CAPABILITY_SUITE_OK
+
+
+================================================================================
+STDERR
+================================================================================

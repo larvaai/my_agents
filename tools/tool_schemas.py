@@ -681,6 +681,12 @@ TOOL_SCHEMAS: dict[str, ToolSchema] = {
         output={"ok": "bool", "items": "list"},
         metadata={"category": "document", "risk": "low", "changes_file": False},
     ),
+    "pdf_text_extraction.extract_text": _schema(
+        "pdf_text_extraction.extract_text",
+        {"path": ("str", True, "Workspace PDF/text path"), "max_chars": ("int", False, "Max chars")},
+        output={"ok": "bool", "text": "str", "document_type": "str", "truncated": "bool"},
+        metadata={"category": "research", "risk": "low", "read_only": True, "changes_file": False},
+    ),
     "ledger.ledger_append": _schema(
         "ledger.ledger_append",
         {

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "capability_00_project_suite",
+    "group": "capability",
+    "status": "PASS",
+    "returncode": 0,
+    "duration_seconds": 21.08,
+    "missing_expected": [],
+    "forbidden_found": [],
+    "log": "test_runs\\20260611_080140\\capability_00_project_suite.log"
+  }
+]

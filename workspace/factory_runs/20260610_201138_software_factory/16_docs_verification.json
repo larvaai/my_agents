@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "has_adr_candidates": true,
+    "has_api_inventory": true,
+    "has_docs_package": true,
+    "has_docs_plan": true,
+    "has_implementation_spec": true,
+    "has_repo_scan": true
+  },
+  "gate": "docs_verification",
+  "missing": [],
+  "overclaim_guard": "Docs package is artifact-based and must be reverified after code changes.",
+  "status": "pass"
+}

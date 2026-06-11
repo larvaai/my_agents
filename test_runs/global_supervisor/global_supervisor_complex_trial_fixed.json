@@ -1,0 +1,725 @@
+{
+  "ok": true,
+  "status": "completed",
+  "route_decision": {
+    "intent": "PRODUCT_BUILD_TASK",
+    "confidence": 0.92,
+    "needs_repo": true,
+    "needs_code": true,
+    "needs_web": false,
+    "needs_memory": true,
+    "target_department": "software_factory",
+    "reason": "Request describes a multi-file product build that needs product/domain/business-logic artifacts before coding.",
+    "sub_intents": [
+      "PRODUCT_BUILD_TASK",
+      "PLANNING_TASK",
+      "CODE_TASK"
+    ],
+    "execution_mode": "sequential",
+    "steps": [
+      {
+        "department": "software_factory",
+        "task": "Produce product, domain, business-logic, architecture, implementation, and handoff artifacts."
+      },
+      {
+        "department": "coding",
+        "task": "Use the generated implementation spec with the existing coding path when coding execution is enabled."
+      },
+      {
+        "department": "final_synthesis",
+        "task": "Report artifact locations, handoff command, safety limits, and validation status."
+      }
+    ]
+  },
+  "execution_plan": [
+    {
+      "department": "software_factory",
+      "task": "Produce product, domain, business-logic, architecture, implementation, and handoff artifacts."
+    },
+    {
+      "department": "coding",
+      "task": "Use the generated implementation spec with the existing coding path when coding execution is enabled."
+    },
+    {
+      "department": "final_synthesis",
+      "task": "Report artifact locations, handoff command, safety limits, and validation status."
+    }
+  ],
+  "safety_report": {
+    "department": "safety",
+    "status": "pass",
+    "risk": "medium",
+    "permission": {
+      "agent": "permission_agent",
+      "allowed": true,
+      "intent": "PRODUCT_BUILD_TASK",
+      "approvals_required": [
+        "coding_execution"
+      ],
+      "mode_notes": [
+        "Code execution will be delegated, not run, unless run_coding=True.",
+        "Network research mode is enabled or not needed."
+      ]
+    },
+    "risk_report": {
+      "agent": "risk_agent",
+      "risk": "medium",
+      "reasons": [
+        "Plan may use repo or code tools.",
+        "Plan may alter agent/runtime capability.",
+        "Plan may write Software Factory artifacts and prepare a code handoff."
+      ]
+    },
+    "prompt_injection": {
+      "agent": "prompt_injection_agent",
+      "status": "pass",
+      "hits": [],
+      "reason": "No prompt-injection indicators detected."
+    },
+    "tool_scope": {
+      "agent": "tool_scope_agent",
+      "status": "pass",
+      "violations": [],
+      "scopes": [
+        {
+          "department": "software_factory",
+          "can_write_files": true,
+          "can_run_code": false,
+          "can_use_network": false
+        },
+        {
+          "department": "coding",
+          "can_write_files": true,
+          "can_run_code": true,
+          "can_use_network": false
+        },
+        {
+          "department": "final_synthesis",
+          "can_write_files": false,
+          "can_run_code": false,
+          "can_use_network": false
+        }
+      ]
+    },
+    "notes": [
+      "Code execution will be delegated, not run, unless run_coding=True.",
+      "Network research mode is enabled or not needed.",
+      "Plan may use repo or code tools.",
+      "Plan may alter agent/runtime capability.",
+      "Plan may write Software Factory artifacts and prepare a code handoff."
+    ]
+  },
+  "department_outputs": {
+    "safety": {
+      "department": "safety",
+      "status": "pass",
+      "risk": "medium",
+      "permission": {
+        "agent": "permission_agent",
+        "allowed": true,
+        "intent": "PRODUCT_BUILD_TASK",
+        "approvals_required": [
+          "coding_execution"
+        ],
+        "mode_notes": [
+          "Code execution will be delegated, not run, unless run_coding=True.",
+          "Network research mode is enabled or not needed."
+        ]
+      },
+      "risk_report": {
+        "agent": "risk_agent",
+        "risk": "medium",
+        "reasons": [
+          "Plan may use repo or code tools.",
+          "Plan may alter agent/runtime capability.",
+          "Plan may write Software Factory artifacts and prepare a code handoff."
+        ]
+      },
+      "prompt_injection": {
+        "agent": "prompt_injection_agent",
+        "status": "pass",
+        "hits": [],
+        "reason": "No prompt-injection indicators detected."
+      },
+      "tool_scope": {
+        "agent": "tool_scope_agent",
+        "status": "pass",
+        "violations": [],
+        "scopes": [
+          {
+            "department": "software_factory",
+            "can_write_files": true,
+            "can_run_code": false,
+            "can_use_network": false
+          },
+          {
+            "department": "coding",
+            "can_write_files": true,
+            "can_run_code": true,
+            "can_use_network": false
+          },
+          {
+            "department": "final_synthesis",
+            "can_write_files": false,
+            "can_run_code": false,
+            "can_use_network": false
+          }
+        ]
+      },
+      "notes": [
+        "Code execution will be delegated, not run, unless run_coding=True.",
+        "Network research mode is enabled or not needed.",
+        "Plan may use repo or code tools.",
+        "Plan may alter agent/runtime capability.",
+        "Plan may write Software Factory artifacts and prepare a code handoff."
+      ]
+    },
+    "software_factory": {
+      "department": "software_factory",
+      "agent": "software_factory_orchestrator",
+      "ok": true,
+      "status": "ready_for_real_code_test_review",
+      "version": "v0.7",
+      "run_id": "global_supervisor_complex_trial_fixed",
+      "artifact_dir": "workspace\\factory_runs\\global_supervisor_complex_trial_fixed",
+      "implementation_spec": {
+        "path": "workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\10_implementation_spec.md",
+        "kind": "implementation_spec",
+        "producer": "Implementation Spec Agent",
+        "title": "Implementation Specification",
+        "summary": "Implementation Specification",
+        "bytes": 5112,
+        "sha256": "0b1221e5bdc77e81948a48ce88656eb98795ac904ff1d16b32a0f32356b96627"
+      },
+      "code_handoff_packet": {
+        "path": "workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\11_code_handoff_packet.json",
+        "kind": "code_handoff_packet",
+        "producer": "Code Handoff Packager Agent",
+        "title": "Code Handoff Packet",
+        "summary": "Compact artifact-reference packet for the Code Agent.",
+        "bytes": 6559,
+        "sha256": "26e412f170a0801239feda87e11496de3410df258bcaca8ab38dd5df65b93c1a"
+      },
+      "summary_artifact": {
+        "path": "workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\99_factory_summary.json",
+        "kind": "factory_summary",
+        "producer": "SoftwareFactoryOrchestrator",
+        "title": "Software Factory Summary",
+        "summary": "Software factory run global_supervisor_complex_trial_fixed ended with status ready_for_real_code_test_review.",
+        "bytes": 39729,
+        "sha256": "5eb19c9225cb6ca794fdfb44dabab5026f6d2f7a325b5690048eb164b4fc439f"
+      },
+      "next_recommended_command": "python run_company_agents_demo.py --real --task-file workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\10_implementation_spec.md --real-max-steps 260",
+      "stage_count": 22,
+      "agent_count": 22,
+      "stages": [
+        {
+          "agent": "Intake Protocol Agent",
+          "department": "Factory Operations Department",
+          "decision": "protocol_selected:business_to_logic",
+          "next_agent": "Product Vision Agent",
+          "ok": true
+        },
+        {
+          "agent": "Product Vision Agent",
+          "department": "Product Department",
+          "decision": "artifact_created",
+          "next_agent": "BRD Agent",
+          "ok": true
+        },
+        {
+          "agent": "BRD Agent",
+          "department": "Business Analysis Department",
+          "decision": "artifact_created",
+          "next_agent": "PRD Agent",
+          "ok": true
+        },
+        {
+          "agent": "PRD Agent",
+          "department": "Product Department",
+          "decision": "artifact_created",
+          "next_agent": "Epic Story Agent",
+          "ok": true
+        },
+        {
+          "agent": "Epic Story Agent",
+          "department": "Product Department",
+          "decision": "artifact_created",
+          "next_agent": "Acceptance Criteria Agent",
+          "ok": true
+        },
+        {
+          "agent": "Acceptance Criteria Agent",
+          "department": "Product Department",
+          "decision": "artifact_created",
+          "next_agent": "Product Spec Validator Agent",
+          "ok": true
+        },
+        {
+          "agent": "Product Spec Validator Agent",
+          "department": "Product Quality Department",
+          "decision": "product_spec_valid",
+          "next_agent": "Product Spec Critic Agent",
+          "ok": true
+        },
+        {
+          "agent": "Product Spec Critic Agent",
+          "department": "Product Review Department",
+          "decision": "artifact_created",
+          "next_agent": "Domain Analyst Agent",
+          "ok": true
+        },
+        {
+          "agent": "Domain Analyst Agent",
+          "department": "Domain Analysis Department",
+          "decision": "artifact_created",
+          "next_agent": "Business Logic Model Agent",
+          "ok": true
+        },
+        {
+          "agent": "Business Logic Model Agent",
+          "department": "Business Logic Department",
+          "decision": "business_logic_contract_created",
+          "next_agent": "Business Logic Validator Agent",
+          "ok": true
+        },
+        {
+          "agent": "Business Logic Validator Agent",
+          "department": "Business Logic Quality Department",
+          "decision": "business_logic_valid",
+          "next_agent": "Technical Analyst Agent",
+          "ok": true
+        },
+        {
+          "agent": "Technical Analyst Agent",
+          "department": "Technical Analysis Department",
+          "decision": "artifact_created",
+          "next_agent": "Pattern Decision Agent",
+          "ok": true
+        },
+        {
+          "agent": "Pattern Decision Agent",
+          "department": "Architecture Decision Department",
+          "decision": "pattern_decision_has_hotspot_evidence",
+          "next_agent": "Implementation Spec Agent",
+          "ok": true
+        },
+        {
+          "agent": "Implementation Spec Agent",
+          "department": "Architecture Department",
+          "decision": "ready_for_code_agent",
+          "next_agent": "Code Handoff Packager Agent",
+          "ok": true
+        },
+        {
+          "agent": "Code Handoff Packager Agent",
+          "department": "Engineering Operations Department",
+          "decision": "code_handoff_packet_ready",
+          "next_agent": "Docs Orchestrator Agent",
+          "ok": true
+        },
+        {
+          "agent": "Docs Orchestrator Agent",
+          "department": "Documentation Department",
+          "decision": "artifact_created",
+          "next_agent": "Repo Scanner Agent",
+          "ok": true
+        },
+        {
+          "agent": "Repo Scanner Agent",
+          "department": "Documentation Department",
+          "decision": "repo_scan_complete",
+          "next_agent": "API Extractor Agent",
+          "ok": true
+        },
+        {
+          "agent": "API Extractor Agent",
+          "department": "Documentation Department",
+          "decision": "api_inventory_complete",
+          "next_agent": "Architecture Decision Recorder Agent",
+          "ok": true
+        },
+        {
+          "agent": "Architecture Decision Recorder Agent",
+          "department": "Documentation Department",
+          "decision": "artifact_created",
+          "next_agent": "Docs Writer Agent",
+          "ok": true
+        },
+        {
+          "agent": "Docs Writer Agent",
+          "department": "Documentation Department",
+          "decision": "artifact_created",
+          "next_agent": "Docs Verifier Agent",
+          "ok": true
+        },
+        {
+          "agent": "Docs Verifier Agent",
+          "department": "Documentation Quality Department",
+          "decision": "docs_verified",
+          "next_agent": "Final Agent",
+          "ok": true
+        },
+        {
+          "agent": "Final Agent",
+          "department": "Communication Department",
+          "decision": "ready_for_real_code_test_review",
+          "next_agent": "done",
+          "ok": true
+        }
+      ],
+      "summary": "Software Factory produced product, business-logic, architecture, implementation, docs, and code-handoff artifacts.",
+      "limits": [
+        "Software Factory prepares artifacts and a code handoff; it does not execute the real coding runtime."
+      ]
+    },
+    "coding": {
+      "department": "coding",
+      "agent": "coding_department_delegate",
+      "final_message": "The request was classified as a code task. In deterministic global-supervisor mode, it is delegated to the existing Company/LangGraph coding path rather than run.",
+      "delegated": true,
+      "target_runtime": "CompanyOrchestratorV05 or LangGraph coding path",
+      "validation_evidence": [],
+      "limits": [
+        "Coding runtime was not executed because run_coding=False."
+      ]
+    }
+  },
+  "final": {
+    "agent": "final_synthesis_agent",
+    "department": "communication",
+    "decision": "final_answer_ready",
+    "route_decision": {
+      "intent": "PRODUCT_BUILD_TASK",
+      "confidence": 0.92,
+      "needs_repo": true,
+      "needs_code": true,
+      "needs_web": false,
+      "needs_memory": true,
+      "target_department": "software_factory",
+      "reason": "Request describes a multi-file product build that needs product/domain/business-logic artifacts before coding.",
+      "sub_intents": [
+        "PRODUCT_BUILD_TASK",
+        "PLANNING_TASK",
+        "CODE_TASK"
+      ],
+      "execution_mode": "sequential",
+      "steps": [
+        {
+          "department": "software_factory",
+          "task": "Produce product, domain, business-logic, architecture, implementation, and handoff artifacts."
+        },
+        {
+          "department": "coding",
+          "task": "Use the generated implementation spec with the existing coding path when coding execution is enabled."
+        },
+        {
+          "department": "final_synthesis",
+          "task": "Report artifact locations, handoff command, safety limits, and validation status."
+        }
+      ]
+    },
+    "execution_plan": [
+      {
+        "department": "software_factory",
+        "task": "Produce product, domain, business-logic, architecture, implementation, and handoff artifacts."
+      },
+      {
+        "department": "coding",
+        "task": "Use the generated implementation spec with the existing coding path when coding execution is enabled."
+      },
+      {
+        "department": "final_synthesis",
+        "task": "Report artifact locations, handoff command, safety limits, and validation status."
+      }
+    ],
+    "department_outputs": {
+      "safety": {
+        "department": "safety",
+        "status": "pass",
+        "risk": "medium",
+        "permission": {
+          "agent": "permission_agent",
+          "allowed": true,
+          "intent": "PRODUCT_BUILD_TASK",
+          "approvals_required": [
+            "coding_execution"
+          ],
+          "mode_notes": [
+            "Code execution will be delegated, not run, unless run_coding=True.",
+            "Network research mode is enabled or not needed."
+          ]
+        },
+        "risk_report": {
+          "agent": "risk_agent",
+          "risk": "medium",
+          "reasons": [
+            "Plan may use repo or code tools.",
+            "Plan may alter agent/runtime capability.",
+            "Plan may write Software Factory artifacts and prepare a code handoff."
+          ]
+        },
+        "prompt_injection": {
+          "agent": "prompt_injection_agent",
+          "status": "pass",
+          "hits": [],
+          "reason": "No prompt-injection indicators detected."
+        },
+        "tool_scope": {
+          "agent": "tool_scope_agent",
+          "status": "pass",
+          "violations": [],
+          "scopes": [
+            {
+              "department": "software_factory",
+              "can_write_files": true,
+              "can_run_code": false,
+              "can_use_network": false
+            },
+            {
+              "department": "coding",
+              "can_write_files": true,
+              "can_run_code": true,
+              "can_use_network": false
+            },
+            {
+              "department": "final_synthesis",
+              "can_write_files": false,
+              "can_run_code": false,
+              "can_use_network": false
+            }
+          ]
+        },
+        "notes": [
+          "Code execution will be delegated, not run, unless run_coding=True.",
+          "Network research mode is enabled or not needed.",
+          "Plan may use repo or code tools.",
+          "Plan may alter agent/runtime capability.",
+          "Plan may write Software Factory artifacts and prepare a code handoff."
+        ]
+      },
+      "software_factory": {
+        "department": "software_factory",
+        "agent": "software_factory_orchestrator",
+        "ok": true,
+        "status": "ready_for_real_code_test_review",
+        "version": "v0.7",
+        "run_id": "global_supervisor_complex_trial_fixed",
+        "artifact_dir": "workspace\\factory_runs\\global_supervisor_complex_trial_fixed",
+        "implementation_spec": {
+          "path": "workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\10_implementation_spec.md",
+          "kind": "implementation_spec",
+          "producer": "Implementation Spec Agent",
+          "title": "Implementation Specification",
+          "summary": "Implementation Specification",
+          "bytes": 5112,
+          "sha256": "0b1221e5bdc77e81948a48ce88656eb98795ac904ff1d16b32a0f32356b96627"
+        },
+        "code_handoff_packet": {
+          "path": "workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\11_code_handoff_packet.json",
+          "kind": "code_handoff_packet",
+          "producer": "Code Handoff Packager Agent",
+          "title": "Code Handoff Packet",
+          "summary": "Compact artifact-reference packet for the Code Agent.",
+          "bytes": 6559,
+          "sha256": "26e412f170a0801239feda87e11496de3410df258bcaca8ab38dd5df65b93c1a"
+        },
+        "summary_artifact": {
+          "path": "workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\99_factory_summary.json",
+          "kind": "factory_summary",
+          "producer": "SoftwareFactoryOrchestrator",
+          "title": "Software Factory Summary",
+          "summary": "Software factory run global_supervisor_complex_trial_fixed ended with status ready_for_real_code_test_review.",
+          "bytes": 39729,
+          "sha256": "5eb19c9225cb6ca794fdfb44dabab5026f6d2f7a325b5690048eb164b4fc439f"
+        },
+        "next_recommended_command": "python run_company_agents_demo.py --real --task-file workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\10_implementation_spec.md --real-max-steps 260",
+        "stage_count": 22,
+        "agent_count": 22,
+        "stages": [
+          {
+            "agent": "Intake Protocol Agent",
+            "department": "Factory Operations Department",
+            "decision": "protocol_selected:business_to_logic",
+            "next_agent": "Product Vision Agent",
+            "ok": true
+          },
+          {
+            "agent": "Product Vision Agent",
+            "department": "Product Department",
+            "decision": "artifact_created",
+            "next_agent": "BRD Agent",
+            "ok": true
+          },
+          {
+            "agent": "BRD Agent",
+            "department": "Business Analysis Department",
+            "decision": "artifact_created",
+            "next_agent": "PRD Agent",
+            "ok": true
+          },
+          {
+            "agent": "PRD Agent",
+            "department": "Product Department",
+            "decision": "artifact_created",
+            "next_agent": "Epic Story Agent",
+            "ok": true
+          },
+          {
+            "agent": "Epic Story Agent",
+            "department": "Product Department",
+            "decision": "artifact_created",
+            "next_agent": "Acceptance Criteria Agent",
+            "ok": true
+          },
+          {
+            "agent": "Acceptance Criteria Agent",
+            "department": "Product Department",
+            "decision": "artifact_created",
+            "next_agent": "Product Spec Validator Agent",
+            "ok": true
+          },
+          {
+            "agent": "Product Spec Validator Agent",
+            "department": "Product Quality Department",
+            "decision": "product_spec_valid",
+            "next_agent": "Product Spec Critic Agent",
+            "ok": true
+          },
+          {
+            "agent": "Product Spec Critic Agent",
+            "department": "Product Review Department",
+            "decision": "artifact_created",
+            "next_agent": "Domain Analyst Agent",
+            "ok": true
+          },
+          {
+            "agent": "Domain Analyst Agent",
+            "department": "Domain Analysis Department",
+            "decision": "artifact_created",
+            "next_agent": "Business Logic Model Agent",
+            "ok": true
+          },
+          {
+            "agent": "Business Logic Model Agent",
+            "department": "Business Logic Department",
+            "decision": "business_logic_contract_created",
+            "next_agent": "Business Logic Validator Agent",
+            "ok": true
+          },
+          {
+            "agent": "Business Logic Validator Agent",
+            "department": "Business Logic Quality Department",
+            "decision": "business_logic_valid",
+            "next_agent": "Technical Analyst Agent",
+            "ok": true
+          },
+          {
+            "agent": "Technical Analyst Agent",
+            "department": "Technical Analysis Department",
+            "decision": "artifact_created",
+            "next_agent": "Pattern Decision Agent",
+            "ok": true
+          },
+          {
+            "agent": "Pattern Decision Agent",
+            "department": "Architecture Decision Department",
+            "decision": "pattern_decision_has_hotspot_evidence",
+            "next_agent": "Implementation Spec Agent",
+            "ok": true
+          },
+          {
+            "agent": "Implementation Spec Agent",
+            "department": "Architecture Department",
+            "decision": "ready_for_code_agent",
+            "next_agent": "Code Handoff Packager Agent",
+            "ok": true
+          },
+          {
+            "agent": "Code Handoff Packager Agent",
+            "department": "Engineering Operations Department",
+            "decision": "code_handoff_packet_ready",
+            "next_agent": "Docs Orchestrator Agent",
+            "ok": true
+          },
+          {
+            "agent": "Docs Orchestrator Agent",
+            "department": "Documentation Department",
+            "decision": "artifact_created",
+            "next_agent": "Repo Scanner Agent",
+            "ok": true
+          },
+          {
+            "agent": "Repo Scanner Agent",
+            "department": "Documentation Department",
+            "decision": "repo_scan_complete",
+            "next_agent": "API Extractor Agent",
+            "ok": true
+          },
+          {
+            "agent": "API Extractor Agent",
+            "department": "Documentation Department",
+            "decision": "api_inventory_complete",
+            "next_agent": "Architecture Decision Recorder Agent",
+            "ok": true
+          },
+          {
+            "agent": "Architecture Decision Recorder Agent",
+            "department": "Documentation Department",
+            "decision": "artifact_created",
+            "next_agent": "Docs Writer Agent",
+            "ok": true
+          },
+          {
+            "agent": "Docs Writer Agent",
+            "department": "Documentation Department",
+            "decision": "artifact_created",
+            "next_agent": "Docs Verifier Agent",
+            "ok": true
+          },
+          {
+            "agent": "Docs Verifier Agent",
+            "department": "Documentation Quality Department",
+            "decision": "docs_verified",
+            "next_agent": "Final Agent",
+            "ok": true
+          },
+          {
+            "agent": "Final Agent",
+            "department": "Communication Department",
+            "decision": "ready_for_real_code_test_review",
+            "next_agent": "done",
+            "ok": true
+          }
+        ],
+        "summary": "Software Factory produced product, business-logic, architecture, implementation, docs, and code-handoff artifacts.",
+        "limits": [
+          "Software Factory prepares artifacts and a code handoff; it does not execute the real coding runtime."
+        ]
+      },
+      "coding": {
+        "department": "coding",
+        "agent": "coding_department_delegate",
+        "final_message": "The request was classified as a code task. In deterministic global-supervisor mode, it is delegated to the existing Company/LangGraph coding path rather than run.",
+        "delegated": true,
+        "target_runtime": "CompanyOrchestratorV05 or LangGraph coding path",
+        "validation_evidence": [],
+        "limits": [
+          "Coding runtime was not executed because run_coding=False."
+        ]
+      }
+    },
+    "validation_evidence": [
+      {
+        "name": "software_factory",
+        "status": "ready_for_real_code_test_review",
+        "artifact_dir": "workspace\\factory_runs\\global_supervisor_complex_trial_fixed",
+        "implementation_spec": "workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\10_implementation_spec.md"
+      }
+    ],
+    "citations": [],
+    "limits": [],
+    "final_answer": "Software Factory produced product, business-logic, architecture, implementation, docs, and code-handoff artifacts.\nValidation evidence: software_factory.\nImplementation spec: workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\10_implementation_spec.md.\nCode handoff packet: workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\11_code_handoff_packet.json.\nNext command: python run_company_agents_demo.py --real --task-file workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\10_implementation_spec.md --real-max-steps 260.\nSafety: pass risk=medium.\nLimits: Software Factory prepares artifacts and a code handoff; it does not execute the real coding runtime.; Coding runtime was not executed because run_coding=False..\nNo source implementation was executed in this global-supervisor stage."
+  },
+  "final_answer": "Software Factory produced product, business-logic, architecture, implementation, docs, and code-handoff artifacts.\nValidation evidence: software_factory.\nImplementation spec: workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\10_implementation_spec.md.\nCode handoff packet: workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\11_code_handoff_packet.json.\nNext command: python run_company_agents_demo.py --real --task-file workspace\\factory_runs\\global_supervisor_complex_trial_fixed\\10_implementation_spec.md --real-max-steps 260.\nSafety: pass risk=medium.\nLimits: Software Factory prepares artifacts and a code handoff; it does not execute the real coding runtime.; Coding runtime was not executed because run_coding=False..\nNo source implementation was executed in this global-supervisor stage."
+}

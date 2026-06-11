@@ -1,0 +1,160 @@
+{
+  "artifact_refs": [
+    {
+      "artifact_key": "protocol_strategy",
+      "bytes": 1148,
+      "kind": "protocol_strategy",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\00_protocol_strategy.json",
+      "producer": "Intake Protocol Agent",
+      "sha256": "2bdb9803532ef53659d89b135eb57874e71183d99caa35e0f62974c91cb70434",
+      "summary": "Selected coding_execution mode with artifact-first analysis.",
+      "title": "Protocol Strategy"
+    },
+    {
+      "artifact_key": "vision",
+      "bytes": 1432,
+      "kind": "product_vision",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\00_vision.md",
+      "producer": "Product Vision Agent",
+      "sha256": "e2fba1f228e90b2d64bfe40809ecf3d4c2cffb6881c9f326a0d3ed8f3844a6b0",
+      "summary": "Product Vision",
+      "title": "Product Vision"
+    },
+    {
+      "artifact_key": "brd",
+      "bytes": 1276,
+      "kind": "business_requirements",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\01_brd.md",
+      "producer": "BRD Agent",
+      "sha256": "7353af62bb9a09885ad62f5a1f364cc0d4c5a8ffa7dd94c708592296789960b5",
+      "summary": "Business Requirements Document",
+      "title": "Business Requirements Document"
+    },
+    {
+      "artifact_key": "prd",
+      "bytes": 1407,
+      "kind": "product_requirements",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\02_prd.md",
+      "producer": "PRD Agent",
+      "sha256": "d6994a7e26f3e826c12d586699802ec7f91abbf877a820d9613273fb898409f5",
+      "summary": "Product Requirements Document",
+      "title": "Product Requirements Document"
+    },
+    {
+      "artifact_key": "stories",
+      "bytes": 1638,
+      "kind": "epics_stories",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\03_epics_stories.md",
+      "producer": "Epic Story Agent",
+      "sha256": "9c607719e400849b48c0c2d3bcb0d15fc7012a3f23774c256d671b801443bb5f",
+      "summary": "Epics and Stories",
+      "title": "Epics and Stories"
+    },
+    {
+      "artifact_key": "acceptance_criteria",
+      "bytes": 1108,
+      "kind": "acceptance_criteria",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\04_acceptance_criteria.md",
+      "producer": "Acceptance Criteria Agent",
+      "sha256": "3d57863c275513122921a5cfe14f1a57cf027f6691565a74459f80b07c25bc62",
+      "summary": "Acceptance Criteria",
+      "title": "Acceptance Criteria"
+    },
+    {
+      "artifact_key": "domain_analysis",
+      "bytes": 1466,
+      "kind": "domain_analysis",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\07_domain_analysis.md",
+      "producer": "Domain Analyst Agent",
+      "sha256": "1c7271d690d5cddd762553c98eb5dafdf3644f1dfa3c01653a2cc25b834f447d",
+      "summary": "Domain Analysis and Change Hotspots",
+      "title": "Domain Analysis and Change Hotspots"
+    },
+    {
+      "artifact_key": "business_logic_model",
+      "bytes": 2574,
+      "kind": "business_logic_model",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\08_business_logic_model.md",
+      "producer": "Business Logic Model Agent",
+      "sha256": "f8b52907d22548d723892818f634e88e3e0e40cc6f0bb2b693070735d4c68c97",
+      "summary": "Business Logic Model",
+      "title": "Business Logic Model"
+    },
+    {
+      "artifact_key": "business_logic_validation",
+      "bytes": 459,
+      "kind": "business_logic_validation",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\08_business_logic_validation.json",
+      "producer": "Business Logic Validator Agent",
+      "sha256": "1ad07d228f0c70ab33d4e1b089d4287a0e3ece4199c224835cc488f6f9c1c21b",
+      "summary": "Business logic validation pass.",
+      "title": "Business Logic Validation"
+    },
+    {
+      "artifact_key": "technical_analysis",
+      "bytes": 1748,
+      "kind": "technical_analysis",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\08_technical_analysis.md",
+      "producer": "Technical Analyst Agent",
+      "sha256": "7383dd81ab701917c3f5c0475be6517fdc7baa3d299de5eb8384f74f2a3ff8e6",
+      "summary": "Technical Analysis",
+      "title": "Technical Analysis"
+    },
+    {
+      "artifact_key": "pattern_decision",
+      "bytes": 2673,
+      "kind": "pattern_decision",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\09_pattern_decision.md",
+      "producer": "Pattern Decision Agent",
+      "sha256": "d534b91e92366d6cb12e39f4fb9535ff8e101f09d9b5285f767a9963db81a058",
+      "summary": "Pattern Decision",
+      "title": "Pattern Decision"
+    },
+    {
+      "artifact_key": "implementation_spec",
+      "bytes": 3509,
+      "kind": "implementation_spec",
+      "path": "workspace\\factory_runs\\software_factory_smoke\\10_implementation_spec.md",
+      "producer": "Implementation Spec Agent",
+      "sha256": "7ddce06065461d964f6630cc5180d132191301c1af844d453346b827ff1a30dd",
+      "summary": "Implementation Specification",
+      "title": "Implementation Specification"
+    }
+  ],
+  "code_agent_must": [
+    "Read implementation_spec before writing files.",
+    "Preserve business_logic_model invariants and decision table.",
+    "Use strict JSON only for small control/tool actions.",
+    "Run validation commands and report observed stdout/stderr markers.",
+    "Return docs metadata or a docs metadata artifact reference."
+  ],
+  "code_agent_must_not": [
+    "Paste long business analysis into JSON tool arguments.",
+    "Choose new design patterns without routing back to Pattern Decision.",
+    "Claim test success without observed validation output."
+  ],
+  "completion_requires": [
+    "implemented files match implementation_spec",
+    "tests or checks exercise acceptance criteria and logic examples",
+    "docs metadata is available for Docs Department"
+  ],
+  "gate": "code_handoff",
+  "handoff_mode": "artifact_reference_first",
+  "max_inline_chars": 480,
+  "read_order": [
+    "protocol_strategy",
+    "vision",
+    "brd",
+    "prd",
+    "stories",
+    "acceptance_criteria",
+    "domain_analysis",
+    "business_logic_model",
+    "business_logic_validation",
+    "technical_analysis",
+    "pattern_decision",
+    "implementation_spec"
+  ],
+  "status": "ready_for_code_agent",
+  "task_mode": "coding_execution"
+}

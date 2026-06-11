@@ -1,4 +1,4 @@
-# Start Here
+﻿# Start Here
 
 Tài liệu này dành cho người mới muốn hiểu và chạy project trong khoảng 15 phút.
 
@@ -94,6 +94,7 @@ Nếu bạn muốn đóng góp kiến trúc:
 3. `docs/12_ROADMAP.md`
 4. `docs/adr/`
 5. `docs/13_IMPLEMENTATION_SUMMARY.md`
+6. `docs/17_GENERAL_MULTI_AGENT_ROADMAP.md`
 
 ## Các Entry Point Quan Trọng
 
@@ -103,7 +104,11 @@ Nếu bạn muốn đóng góp kiến trúc:
 | `main_langgraph.py` | Chạy LangGraph multi-agent pipeline |
 | `orchestrator.py` | ReAct loop cũ, vẫn còn dùng được |
 | `orchestration/langgraph_orchestrator.py` | Role pipeline mới |
+| `orchestration/global_supervisor.py` | Global Supervisor stage 1-6 wrapper |
+| `orchestration/intent_router.py` | Intent Router stage 1-6 |
 | `orchestration/company_orchestrator.py` | Full Company Agents v0.5 runner |
+| `orchestration/software_factory_orchestrator.py` | Software Factory v0.7 artifact-first spec runner |
+| `docs/17_GENERAL_MULTI_AGENT_ROADMAP.md` | Global Supervisor / Intent Router roadmap |
 | `agents/role_agents.py` | Khai báo role agents và quyền tool |
 | `agents/lenses/` | Department lens specs |
 | `output_gate/` | JsonGate và JSON repair sandbox |
@@ -170,4 +175,37 @@ Read the full guide:
 
 ```text
 docs/15_COMPANY_AGENTS_V05.md
+```
+
+## Software Factory v0.7 Quick Start
+
+Use this path before real coding when the prompt is a product/business problem,
+not just a direct code edit.
+
+```text
+Intake Protocol -> Vision -> BRD -> PRD -> Story -> AC -> Domain -> Business Logic -> Technical -> Pattern -> Implementation Spec -> Code Handoff -> Docs Verification
+```
+
+Run the smoke:
+
+```powershell
+python run_software_factory_smoke.py
+```
+
+Run it on a prompt file:
+
+```powershell
+python run_software_factory_demo.py --task-file prompts/the_sims_prompt.md
+```
+
+Then hand the generated implementation spec to the real company runner:
+
+```powershell
+python run_company_agents_demo.py --real --task-file workspace/factory_runs/<run_id>/10_implementation_spec.md --real-max-steps 260
+```
+
+Read the full guide:
+
+```text
+docs/16_SOFTWARE_FACTORY_V06.md
 ```

@@ -1,0 +1,1113 @@
+{
+  "agent_count": 22,
+  "agents": [
+    {
+      "artifact_key": "protocol_strategy",
+      "artifact_kind": "protocol_strategy",
+      "department": "Factory Operations Department",
+      "filename": "00_protocol_strategy.json",
+      "name": "Intake Protocol Agent",
+      "next_agent": "Product Vision Agent",
+      "required_inputs": []
+    },
+    {
+      "artifact_key": "vision",
+      "artifact_kind": "product_vision",
+      "department": "Product Department",
+      "filename": "00_vision.md",
+      "name": "Product Vision Agent",
+      "next_agent": "BRD Agent",
+      "required_inputs": [
+        "protocol_strategy"
+      ]
+    },
+    {
+      "artifact_key": "brd",
+      "artifact_kind": "business_requirements",
+      "department": "Business Analysis Department",
+      "filename": "01_brd.md",
+      "name": "BRD Agent",
+      "next_agent": "PRD Agent",
+      "required_inputs": [
+        "vision"
+      ]
+    },
+    {
+      "artifact_key": "prd",
+      "artifact_kind": "product_requirements",
+      "department": "Product Department",
+      "filename": "02_prd.md",
+      "name": "PRD Agent",
+      "next_agent": "Epic Story Agent",
+      "required_inputs": [
+        "vision",
+        "brd"
+      ]
+    },
+    {
+      "artifact_key": "stories",
+      "artifact_kind": "epics_stories",
+      "department": "Product Department",
+      "filename": "03_epics_stories.md",
+      "name": "Epic Story Agent",
+      "next_agent": "Acceptance Criteria Agent",
+      "required_inputs": [
+        "prd"
+      ]
+    },
+    {
+      "artifact_key": "acceptance_criteria",
+      "artifact_kind": "acceptance_criteria",
+      "department": "Product Department",
+      "filename": "04_acceptance_criteria.md",
+      "name": "Acceptance Criteria Agent",
+      "next_agent": "Product Spec Validator Agent",
+      "required_inputs": [
+        "stories"
+      ]
+    },
+    {
+      "artifact_key": "product_validation",
+      "artifact_kind": "product_spec_validation",
+      "department": "Product Quality Department",
+      "filename": "05_product_spec_validation.json",
+      "name": "Product Spec Validator Agent",
+      "next_agent": "Product Spec Critic Agent",
+      "required_inputs": [
+        "protocol_strategy",
+        "vision",
+        "brd",
+        "prd",
+        "stories",
+        "acceptance_criteria"
+      ]
+    },
+    {
+      "artifact_key": "product_critique",
+      "artifact_kind": "product_spec_critique",
+      "department": "Product Review Department",
+      "filename": "06_product_spec_critique.md",
+      "name": "Product Spec Critic Agent",
+      "next_agent": "Domain Analyst Agent",
+      "required_inputs": [
+        "product_validation"
+      ]
+    },
+    {
+      "artifact_key": "domain_analysis",
+      "artifact_kind": "domain_analysis",
+      "department": "Domain Analysis Department",
+      "filename": "07_domain_analysis.md",
+      "name": "Domain Analyst Agent",
+      "next_agent": "Business Logic Model Agent",
+      "required_inputs": [
+        "product_critique",
+        "acceptance_criteria"
+      ]
+    },
+    {
+      "artifact_key": "business_logic_model",
+      "artifact_kind": "business_logic_model",
+      "department": "Business Logic Department",
+      "filename": "08_business_logic_model.md",
+      "name": "Business Logic Model Agent",
+      "next_agent": "Business Logic Validator Agent",
+      "required_inputs": [
+        "domain_analysis",
+        "acceptance_criteria"
+      ]
+    },
+    {
+      "artifact_key": "business_logic_validation",
+      "artifact_kind": "business_logic_validation",
+      "department": "Business Logic Quality Department",
+      "filename": "08_business_logic_validation.json",
+      "name": "Business Logic Validator Agent",
+      "next_agent": "Technical Analyst Agent",
+      "required_inputs": [
+        "domain_analysis",
+        "business_logic_model",
+        "acceptance_criteria"
+      ]
+    },
+    {
+      "artifact_key": "technical_analysis",
+      "artifact_kind": "technical_analysis",
+      "department": "Technical Analysis Department",
+      "filename": "08_technical_analysis.md",
+      "name": "Technical Analyst Agent",
+      "next_agent": "Pattern Decision Agent",
+      "required_inputs": [
+        "domain_analysis",
+        "business_logic_validation"
+      ]
+    },
+    {
+      "artifact_key": "pattern_decision",
+      "artifact_kind": "pattern_decision",
+      "department": "Architecture Decision Department",
+      "filename": "09_pattern_decision.md",
+      "name": "Pattern Decision Agent",
+      "next_agent": "Implementation Spec Agent",
+      "required_inputs": [
+        "domain_analysis",
+        "business_logic_validation",
+        "technical_analysis"
+      ]
+    },
+    {
+      "artifact_key": "implementation_spec",
+      "artifact_kind": "implementation_spec",
+      "department": "Architecture Department",
+      "filename": "10_implementation_spec.md",
+      "name": "Implementation Spec Agent",
+      "next_agent": "Code Handoff Packager Agent",
+      "required_inputs": [
+        "business_logic_model",
+        "business_logic_validation",
+        "pattern_decision"
+      ]
+    },
+    {
+      "artifact_key": "code_handoff_packet",
+      "artifact_kind": "code_handoff_packet",
+      "department": "Engineering Operations Department",
+      "filename": "11_code_handoff_packet.json",
+      "name": "Code Handoff Packager Agent",
+      "next_agent": "Docs Orchestrator Agent",
+      "required_inputs": [
+        "implementation_spec",
+        "business_logic_model",
+        "business_logic_validation"
+      ]
+    },
+    {
+      "artifact_key": "docs_plan",
+      "artifact_kind": "docs_plan",
+      "department": "Documentation Department",
+      "filename": "11_docs_plan.md",
+      "name": "Docs Orchestrator Agent",
+      "next_agent": "Repo Scanner Agent",
+      "required_inputs": [
+        "implementation_spec",
+        "code_handoff_packet"
+      ]
+    },
+    {
+      "artifact_key": "repo_scan",
+      "artifact_kind": "repo_scan",
+      "department": "Documentation Department",
+      "filename": "12_repo_scan.json",
+      "name": "Repo Scanner Agent",
+      "next_agent": "API Extractor Agent",
+      "required_inputs": [
+        "docs_plan"
+      ]
+    },
+    {
+      "artifact_key": "api_inventory",
+      "artifact_kind": "api_inventory",
+      "department": "Documentation Department",
+      "filename": "13_api_inventory.json",
+      "name": "API Extractor Agent",
+      "next_agent": "Architecture Decision Recorder Agent",
+      "required_inputs": [
+        "repo_scan"
+      ]
+    },
+    {
+      "artifact_key": "adr_candidates",
+      "artifact_kind": "adr_candidates",
+      "department": "Documentation Department",
+      "filename": "14_adr_candidates.md",
+      "name": "Architecture Decision Recorder Agent",
+      "next_agent": "Docs Writer Agent",
+      "required_inputs": [
+        "pattern_decision",
+        "api_inventory"
+      ]
+    },
+    {
+      "artifact_key": "docs_package",
+      "artifact_kind": "docs_package",
+      "department": "Documentation Department",
+      "filename": "15_docs_package.md",
+      "name": "Docs Writer Agent",
+      "next_agent": "Docs Verifier Agent",
+      "required_inputs": [
+        "docs_plan",
+        "repo_scan",
+        "api_inventory",
+        "adr_candidates"
+      ]
+    },
+    {
+      "artifact_key": "docs_verification",
+      "artifact_kind": "docs_verification",
+      "department": "Documentation Quality Department",
+      "filename": "16_docs_verification.json",
+      "name": "Docs Verifier Agent",
+      "next_agent": "Final Agent",
+      "required_inputs": [
+        "protocol_strategy",
+        "business_logic_validation",
+        "docs_plan",
+        "repo_scan",
+        "api_inventory",
+        "adr_candidates",
+        "docs_package",
+        "implementation_spec",
+        "code_handoff_packet"
+      ]
+    },
+    {
+      "artifact_key": "factory_final",
+      "artifact_kind": "factory_final",
+      "department": "Communication Department",
+      "filename": "17_factory_final.md",
+      "name": "Final Agent",
+      "next_agent": "done",
+      "required_inputs": [
+        "docs_verification",
+        "implementation_spec",
+        "code_handoff_packet"
+      ]
+    }
+  ],
+  "artifact_dir": "workspace\\factory_runs\\software_factory_v07_demo",
+  "artifacts": {
+    "acceptance_criteria": {
+      "bytes": 1111,
+      "kind": "acceptance_criteria",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\04_acceptance_criteria.md",
+      "producer": "Acceptance Criteria Agent",
+      "sha256": "755ec6374e2129ae9595c24315e99f12c4b64c07fae27df779ff91bc9f2f36bc",
+      "summary": "Acceptance Criteria",
+      "title": "Acceptance Criteria"
+    },
+    "adr_candidates": {
+      "bytes": 4186,
+      "kind": "adr_candidates",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\14_adr_candidates.md",
+      "producer": "Architecture Decision Recorder Agent",
+      "sha256": "c9dd74aab0465e6ba7edb3800a4264e65a8278e920bb728da04ff64939fad801",
+      "summary": "ADR Candidates",
+      "title": "ADR Candidates"
+    },
+    "api_inventory": {
+      "bytes": 342148,
+      "kind": "api_inventory",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\13_api_inventory.json",
+      "producer": "API Extractor Agent",
+      "sha256": "3b231f0f5d862b1816b7cadeb445ace1fcafc01825a2cccd4cf249d283f0e663",
+      "summary": "Extracted API inventory from 112 Python files.",
+      "title": "API Inventory"
+    },
+    "brd": {
+      "bytes": 1279,
+      "kind": "business_requirements",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\01_brd.md",
+      "producer": "BRD Agent",
+      "sha256": "7a8e7134340e4d7e340b01b111e3bbf5defcaf7b4124df8d99588d8767299887",
+      "summary": "Business Requirements Document",
+      "title": "Business Requirements Document"
+    },
+    "business_logic_model": {
+      "bytes": 2580,
+      "kind": "business_logic_model",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\08_business_logic_model.md",
+      "producer": "Business Logic Model Agent",
+      "sha256": "36309d4683bf0a89666b270e35237a143c8f9567b0f3503261b060d3561cfa51",
+      "summary": "Business Logic Model",
+      "title": "Business Logic Model"
+    },
+    "business_logic_validation": {
+      "bytes": 459,
+      "kind": "business_logic_validation",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\08_business_logic_validation.json",
+      "producer": "Business Logic Validator Agent",
+      "sha256": "1ad07d228f0c70ab33d4e1b089d4287a0e3ece4199c224835cc488f6f9c1c21b",
+      "summary": "Business logic validation pass.",
+      "title": "Business Logic Validation"
+    },
+    "code_handoff_packet": {
+      "bytes": 6415,
+      "kind": "code_handoff_packet",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\11_code_handoff_packet.json",
+      "producer": "Code Handoff Packager Agent",
+      "sha256": "cf1fc17e6f990ecc7a1f1178928f9d167191615a9795eac93f475a08c19c0bbf",
+      "summary": "Compact artifact-reference packet for the Code Agent.",
+      "title": "Code Handoff Packet"
+    },
+    "docs_package": {
+      "bytes": 2428,
+      "kind": "docs_package",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\15_docs_package.md",
+      "producer": "Docs Writer Agent",
+      "sha256": "97ba9deff10f98a82be01bbbd6db21e565cb5e37e300fdd54028444b2db4d7b0",
+      "summary": "Docs Package Draft",
+      "title": "Docs Package Draft"
+    },
+    "docs_plan": {
+      "bytes": 940,
+      "kind": "docs_plan",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\11_docs_plan.md",
+      "producer": "Docs Orchestrator Agent",
+      "sha256": "1ffd474775ebaee2baf7c09e84e47f835084e85b18bb5743f9855a1ac42ba503",
+      "summary": "Documentation Plan",
+      "title": "Documentation Plan"
+    },
+    "docs_verification": {
+      "bytes": 503,
+      "kind": "docs_verification",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\16_docs_verification.json",
+      "producer": "Docs Verifier Agent",
+      "sha256": "8d2f2c266b0db0a1c4678033836c004e65c12b42039446d06de71de6071ed730",
+      "summary": "Docs verification pass.",
+      "title": "Docs Verification"
+    },
+    "domain_analysis": {
+      "bytes": 1478,
+      "kind": "domain_analysis",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\07_domain_analysis.md",
+      "producer": "Domain Analyst Agent",
+      "sha256": "410895826e5c2dbe401bc82055a9d4d5a7fb496af3dde020120d1c9ea5e3ee95",
+      "summary": "Domain Analysis and Change Hotspots",
+      "title": "Domain Analysis and Change Hotspots"
+    },
+    "factory_final": {
+      "bytes": 742,
+      "kind": "factory_final",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\17_factory_final.md",
+      "producer": "Final Agent",
+      "sha256": "8e72961b02f24a936088b3f3bfd7c93fec363bd7dad9688254095bce06c83efd",
+      "summary": "Factory Final Summary",
+      "title": "Factory Final Summary"
+    },
+    "implementation_spec": {
+      "bytes": 4875,
+      "kind": "implementation_spec",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\10_implementation_spec.md",
+      "producer": "Implementation Spec Agent",
+      "sha256": "d82939c02ee134cdc8e38ae66a2b4d32deaf66704777a1f002c1ae21247c5090",
+      "summary": "Implementation Specification",
+      "title": "Implementation Specification"
+    },
+    "pattern_decision": {
+      "bytes": 2685,
+      "kind": "pattern_decision",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\09_pattern_decision.md",
+      "producer": "Pattern Decision Agent",
+      "sha256": "4b3ce05517762a4b68f56e4f75a61c6bf59d47f95e1844e3c59be35e96447b99",
+      "summary": "Pattern Decision",
+      "title": "Pattern Decision"
+    },
+    "prd": {
+      "bytes": 1442,
+      "kind": "product_requirements",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\02_prd.md",
+      "producer": "PRD Agent",
+      "sha256": "f30b1810110878c4acadc8afc4271162aba46cd1881fd4f1aa4ab7fdeca686fe",
+      "summary": "Product Requirements Document",
+      "title": "Product Requirements Document"
+    },
+    "product_critique": {
+      "bytes": 1100,
+      "kind": "product_spec_critique",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\06_product_spec_critique.md",
+      "producer": "Product Spec Critic Agent",
+      "sha256": "5d6ca5499816716edd0fc60ec2d032ca407aab6ab0e825693e578b2f0b74fdb5",
+      "summary": "Product Spec Critique",
+      "title": "Product Spec Critique"
+    },
+    "product_validation": {
+      "bytes": 390,
+      "kind": "product_spec_validation",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\05_product_spec_validation.json",
+      "producer": "Product Spec Validator Agent",
+      "sha256": "cf40091c8a2a7434e3f1b67aac67db54d7b204f778c3e3e44496632aa01faec9",
+      "summary": "Product spec gate pass.",
+      "title": "Product Spec Validation"
+    },
+    "protocol_strategy": {
+      "bytes": 1153,
+      "kind": "protocol_strategy",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\00_protocol_strategy.json",
+      "producer": "Intake Protocol Agent",
+      "sha256": "03eee92058a3cbf6056fe6268ea8b5809cff68e03aac5234783bbd1592cbbfe9",
+      "summary": "Selected business_to_logic mode with artifact-first analysis.",
+      "title": "Protocol Strategy"
+    },
+    "repo_scan": {
+      "bytes": 15972,
+      "kind": "repo_scan",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\12_repo_scan.json",
+      "producer": "Repo Scanner Agent",
+      "sha256": "ef041990c8977f23e72dd696b18fe271c1bca70fc624a41f368cc6c61bec2a8e",
+      "summary": "Scanned 250 files for documentation evidence.",
+      "title": "Repository Scan"
+    },
+    "stories": {
+      "bytes": 1641,
+      "kind": "epics_stories",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\03_epics_stories.md",
+      "producer": "Epic Story Agent",
+      "sha256": "d5396b0de9233704f5f580838dc867bd2471b78a21e1a421a9d70751b3d2b818",
+      "summary": "Epics and Stories",
+      "title": "Epics and Stories"
+    },
+    "technical_analysis": {
+      "bytes": 1786,
+      "kind": "technical_analysis",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\08_technical_analysis.md",
+      "producer": "Technical Analyst Agent",
+      "sha256": "227a7d4f14e2df79cdeb30a9f63a4cef1053cdd5baf232c139219aade70a73a4",
+      "summary": "Technical Analysis",
+      "title": "Technical Analysis"
+    },
+    "vision": {
+      "bytes": 2740,
+      "kind": "product_vision",
+      "path": "workspace\\factory_runs\\software_factory_v07_demo\\00_vision.md",
+      "producer": "Product Vision Agent",
+      "sha256": "c1b0c702cc5327813e2341003c66b93b6738a04309adc7488eba06285f7d20de",
+      "summary": "Product Vision",
+      "title": "Product Vision"
+    }
+  },
+  "code_handoff_packet": {
+    "bytes": 6415,
+    "kind": "code_handoff_packet",
+    "path": "workspace\\factory_runs\\software_factory_v07_demo\\11_code_handoff_packet.json",
+    "producer": "Code Handoff Packager Agent",
+    "sha256": "cf1fc17e6f990ecc7a1f1178928f9d167191615a9795eac93f475a08c19c0bbf",
+    "summary": "Compact artifact-reference packet for the Code Agent.",
+    "title": "Code Handoff Packet"
+  },
+  "implementation_spec": {
+    "bytes": 4875,
+    "kind": "implementation_spec",
+    "path": "workspace\\factory_runs\\software_factory_v07_demo\\10_implementation_spec.md",
+    "producer": "Implementation Spec Agent",
+    "sha256": "d82939c02ee134cdc8e38ae66a2b4d32deaf66704777a1f002c1ae21247c5090",
+    "summary": "Implementation Specification",
+    "title": "Implementation Specification"
+  },
+  "ok": true,
+  "run_id": "software_factory_v07_demo",
+  "stage_count": 22,
+  "stage_results": [
+    {
+      "agent": "Intake Protocol Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1153,
+          "kind": "protocol_strategy",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\00_protocol_strategy.json",
+          "producer": "Intake Protocol Agent",
+          "sha256": "03eee92058a3cbf6056fe6268ea8b5809cff68e03aac5234783bbd1592cbbfe9",
+          "summary": "Selected business_to_logic mode with artifact-first analysis.",
+          "title": "Protocol Strategy"
+        }
+      ],
+      "decision": "protocol_selected:business_to_logic",
+      "department": "Factory Operations Department",
+      "metadata": {
+        "max_inline_chars": 480,
+        "task_mode": "business_to_logic"
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Long analysis will be passed by artifact reference, not inline JSON."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "Product Vision Agent",
+        "reason": "Protocol strategy selected before product analysis."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Product Vision Agent",
+      "artifact_refs": [
+        {
+          "bytes": 2740,
+          "kind": "product_vision",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\00_vision.md",
+          "producer": "Product Vision Agent",
+          "sha256": "c1b0c702cc5327813e2341003c66b93b6738a04309adc7488eba06285f7d20de",
+          "summary": "Product Vision",
+          "title": "Product Vision"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Product Department",
+      "metadata": {
+        "artifact_key": "vision"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "BRD Agent",
+        "reason": "Product Vision is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "BRD Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1279,
+          "kind": "business_requirements",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\01_brd.md",
+          "producer": "BRD Agent",
+          "sha256": "7a8e7134340e4d7e340b01b111e3bbf5defcaf7b4124df8d99588d8767299887",
+          "summary": "Business Requirements Document",
+          "title": "Business Requirements Document"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Business Analysis Department",
+      "metadata": {
+        "artifact_key": "brd"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "PRD Agent",
+        "reason": "Business Requirements Document is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "PRD Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1442,
+          "kind": "product_requirements",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\02_prd.md",
+          "producer": "PRD Agent",
+          "sha256": "f30b1810110878c4acadc8afc4271162aba46cd1881fd4f1aa4ab7fdeca686fe",
+          "summary": "Product Requirements Document",
+          "title": "Product Requirements Document"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Product Department",
+      "metadata": {
+        "artifact_key": "prd"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Epic Story Agent",
+        "reason": "Product Requirements Document is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Epic Story Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1641,
+          "kind": "epics_stories",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\03_epics_stories.md",
+          "producer": "Epic Story Agent",
+          "sha256": "d5396b0de9233704f5f580838dc867bd2471b78a21e1a421a9d70751b3d2b818",
+          "summary": "Epics and Stories",
+          "title": "Epics and Stories"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Product Department",
+      "metadata": {
+        "artifact_key": "stories"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Acceptance Criteria Agent",
+        "reason": "Epics and Stories is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Acceptance Criteria Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1111,
+          "kind": "acceptance_criteria",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\04_acceptance_criteria.md",
+          "producer": "Acceptance Criteria Agent",
+          "sha256": "755ec6374e2129ae9595c24315e99f12c4b64c07fae27df779ff91bc9f2f36bc",
+          "summary": "Acceptance Criteria",
+          "title": "Acceptance Criteria"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Product Department",
+      "metadata": {
+        "artifact_key": "acceptance_criteria"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Product Spec Validator Agent",
+        "reason": "Acceptance Criteria is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Product Spec Validator Agent",
+      "artifact_refs": [
+        {
+          "bytes": 390,
+          "kind": "product_spec_validation",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\05_product_spec_validation.json",
+          "producer": "Product Spec Validator Agent",
+          "sha256": "cf40091c8a2a7434e3f1b67aac67db54d7b204f778c3e3e44496632aa01faec9",
+          "summary": "Product spec gate pass.",
+          "title": "Product Spec Validation"
+        }
+      ],
+      "decision": "product_spec_valid",
+      "department": "Product Quality Department",
+      "metadata": {
+        "gate_status": "pass"
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Product spec chain is complete."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "Product Spec Critic Agent",
+        "reason": "Product spec validation completed."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Product Spec Critic Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1100,
+          "kind": "product_spec_critique",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\06_product_spec_critique.md",
+          "producer": "Product Spec Critic Agent",
+          "sha256": "5d6ca5499816716edd0fc60ec2d032ca407aab6ab0e825693e578b2f0b74fdb5",
+          "summary": "Product Spec Critique",
+          "title": "Product Spec Critique"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Product Review Department",
+      "metadata": {
+        "artifact_key": "product_critique"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Domain Analyst Agent",
+        "reason": "Product Spec Critique is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Domain Analyst Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1478,
+          "kind": "domain_analysis",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\07_domain_analysis.md",
+          "producer": "Domain Analyst Agent",
+          "sha256": "410895826e5c2dbe401bc82055a9d4d5a7fb496af3dde020120d1c9ea5e3ee95",
+          "summary": "Domain Analysis and Change Hotspots",
+          "title": "Domain Analysis and Change Hotspots"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Domain Analysis Department",
+      "metadata": {
+        "artifact_key": "domain_analysis"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Business Logic Model Agent",
+        "reason": "Domain Analysis and Change Hotspots is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Business Logic Model Agent",
+      "artifact_refs": [
+        {
+          "bytes": 2580,
+          "kind": "business_logic_model",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\08_business_logic_model.md",
+          "producer": "Business Logic Model Agent",
+          "sha256": "36309d4683bf0a89666b270e35237a143c8f9567b0f3503261b060d3561cfa51",
+          "summary": "Business Logic Model",
+          "title": "Business Logic Model"
+        }
+      ],
+      "decision": "business_logic_contract_created",
+      "department": "Business Logic Department",
+      "metadata": {
+        "artifact_key": "business_logic_model"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Business Logic Validator Agent",
+        "reason": "Business Logic Model is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Business Logic Validator Agent",
+      "artifact_refs": [
+        {
+          "bytes": 459,
+          "kind": "business_logic_validation",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\08_business_logic_validation.json",
+          "producer": "Business Logic Validator Agent",
+          "sha256": "1ad07d228f0c70ab33d4e1b089d4287a0e3ece4199c224835cc488f6f9c1c21b",
+          "summary": "Business logic validation pass.",
+          "title": "Business Logic Validation"
+        }
+      ],
+      "decision": "business_logic_valid",
+      "department": "Business Logic Quality Department",
+      "metadata": {
+        "gate_status": "pass"
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Business logic contract is ready for technical analysis."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "Technical Analyst Agent",
+        "reason": "Business logic validation completed."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Technical Analyst Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1786,
+          "kind": "technical_analysis",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\08_technical_analysis.md",
+          "producer": "Technical Analyst Agent",
+          "sha256": "227a7d4f14e2df79cdeb30a9f63a4cef1053cdd5baf232c139219aade70a73a4",
+          "summary": "Technical Analysis",
+          "title": "Technical Analysis"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Technical Analysis Department",
+      "metadata": {
+        "artifact_key": "technical_analysis"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Pattern Decision Agent",
+        "reason": "Technical Analysis is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Pattern Decision Agent",
+      "artifact_refs": [
+        {
+          "bytes": 2685,
+          "kind": "pattern_decision",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\09_pattern_decision.md",
+          "producer": "Pattern Decision Agent",
+          "sha256": "4b3ce05517762a4b68f56e4f75a61c6bf59d47f95e1844e3c59be35e96447b99",
+          "summary": "Pattern Decision",
+          "title": "Pattern Decision"
+        }
+      ],
+      "decision": "pattern_decision_has_hotspot_evidence",
+      "department": "Architecture Decision Department",
+      "metadata": {
+        "artifact_key": "pattern_decision"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Implementation Spec Agent",
+        "reason": "Pattern Decision is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Implementation Spec Agent",
+      "artifact_refs": [
+        {
+          "bytes": 4875,
+          "kind": "implementation_spec",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\10_implementation_spec.md",
+          "producer": "Implementation Spec Agent",
+          "sha256": "d82939c02ee134cdc8e38ae66a2b4d32deaf66704777a1f002c1ae21247c5090",
+          "summary": "Implementation Specification",
+          "title": "Implementation Specification"
+        }
+      ],
+      "decision": "ready_for_code_agent",
+      "department": "Architecture Department",
+      "metadata": {
+        "artifact_key": "implementation_spec"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Code Handoff Packager Agent",
+        "reason": "Implementation Specification is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Code Handoff Packager Agent",
+      "artifact_refs": [
+        {
+          "bytes": 6415,
+          "kind": "code_handoff_packet",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\11_code_handoff_packet.json",
+          "producer": "Code Handoff Packager Agent",
+          "sha256": "cf1fc17e6f990ecc7a1f1178928f9d167191615a9795eac93f475a08c19c0bbf",
+          "summary": "Compact artifact-reference packet for the Code Agent.",
+          "title": "Code Handoff Packet"
+        }
+      ],
+      "decision": "code_handoff_packet_ready",
+      "department": "Engineering Operations Department",
+      "metadata": {
+        "artifact_ref_count": 12,
+        "handoff_mode": "artifact_reference_first"
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Code Agent handoff is compact JSON with artifact references."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "Docs Orchestrator Agent",
+        "reason": "Implementation spec has been packaged for the coding pipeline."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Docs Orchestrator Agent",
+      "artifact_refs": [
+        {
+          "bytes": 940,
+          "kind": "docs_plan",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\11_docs_plan.md",
+          "producer": "Docs Orchestrator Agent",
+          "sha256": "1ffd474775ebaee2baf7c09e84e47f835084e85b18bb5743f9855a1ac42ba503",
+          "summary": "Documentation Plan",
+          "title": "Documentation Plan"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Documentation Department",
+      "metadata": {
+        "artifact_key": "docs_plan"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Repo Scanner Agent",
+        "reason": "Documentation Plan is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Repo Scanner Agent",
+      "artifact_refs": [
+        {
+          "bytes": 15972,
+          "kind": "repo_scan",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\12_repo_scan.json",
+          "producer": "Repo Scanner Agent",
+          "sha256": "ef041990c8977f23e72dd696b18fe271c1bca70fc624a41f368cc6c61bec2a8e",
+          "summary": "Scanned 250 files for documentation evidence.",
+          "title": "Repository Scan"
+        }
+      ],
+      "decision": "repo_scan_complete",
+      "department": "Documentation Department",
+      "metadata": {
+        "file_count": 250
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Scanned 250 files; excluded heavy runtime folders."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "API Extractor Agent",
+        "reason": "Repository evidence is available."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "API Extractor Agent",
+      "artifact_refs": [
+        {
+          "bytes": 342148,
+          "kind": "api_inventory",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\13_api_inventory.json",
+          "producer": "API Extractor Agent",
+          "sha256": "3b231f0f5d862b1816b7cadeb445ace1fcafc01825a2cccd4cf249d283f0e663",
+          "summary": "Extracted API inventory from 112 Python files.",
+          "title": "API Inventory"
+        }
+      ],
+      "decision": "api_inventory_complete",
+      "department": "Documentation Department",
+      "metadata": {
+        "python_file_count": 112
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Extracted classes/functions from 112 Python files."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "Architecture Decision Recorder Agent",
+        "reason": "API inventory is available."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Architecture Decision Recorder Agent",
+      "artifact_refs": [
+        {
+          "bytes": 4186,
+          "kind": "adr_candidates",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\14_adr_candidates.md",
+          "producer": "Architecture Decision Recorder Agent",
+          "sha256": "c9dd74aab0465e6ba7edb3800a4264e65a8278e920bb728da04ff64939fad801",
+          "summary": "ADR Candidates",
+          "title": "ADR Candidates"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Documentation Department",
+      "metadata": {
+        "artifact_key": "adr_candidates"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Docs Writer Agent",
+        "reason": "ADR Candidates is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Docs Writer Agent",
+      "artifact_refs": [
+        {
+          "bytes": 2428,
+          "kind": "docs_package",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\15_docs_package.md",
+          "producer": "Docs Writer Agent",
+          "sha256": "97ba9deff10f98a82be01bbbd6db21e565cb5e37e300fdd54028444b2db4d7b0",
+          "summary": "Docs Package Draft",
+          "title": "Docs Package Draft"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Documentation Department",
+      "metadata": {
+        "artifact_key": "docs_package"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Docs Verifier Agent",
+        "reason": "Docs Package Draft is available as an artifact reference."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Docs Verifier Agent",
+      "artifact_refs": [
+        {
+          "bytes": 503,
+          "kind": "docs_verification",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\16_docs_verification.json",
+          "producer": "Docs Verifier Agent",
+          "sha256": "8d2f2c266b0db0a1c4678033836c004e65c12b42039446d06de71de6071ed730",
+          "summary": "Docs verification pass.",
+          "title": "Docs Verification"
+        }
+      ],
+      "decision": "docs_verified",
+      "department": "Documentation Quality Department",
+      "metadata": {
+        "gate_status": "pass"
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Docs evidence gate passed."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "Final Agent",
+        "reason": "Docs verification completed."
+      },
+      "version": "v0.7"
+    },
+    {
+      "agent": "Final Agent",
+      "artifact_refs": [
+        {
+          "bytes": 742,
+          "kind": "factory_final",
+          "path": "workspace\\factory_runs\\software_factory_v07_demo\\17_factory_final.md",
+          "producer": "Final Agent",
+          "sha256": "8e72961b02f24a936088b3f3bfd7c93fec363bd7dad9688254095bce06c83efd",
+          "summary": "Factory Final Summary",
+          "title": "Factory Final Summary"
+        }
+      ],
+      "decision": "ready_for_real_code_test_review",
+      "department": "Communication Department",
+      "metadata": {
+        "artifact_key": "factory_final"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "done",
+        "reason": "Factory Final Summary is available as an artifact reference."
+      },
+      "version": "v0.7"
+    }
+  ],
+  "status": "ready_for_real_code_test_review",
+  "version": "v0.7"
+}

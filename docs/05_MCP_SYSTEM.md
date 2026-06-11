@@ -76,6 +76,7 @@ Nếu lỗi:
 | `fetch` | Fetch URL | Một URL mỗi call |
 | `search` | Web search | Brave/Tavily/fallback |
 | `document` | Extract/write/append/outline docs | Workspace documents |
+| `pdf_text_extraction` | Extract PDF/text content | Read-only, workspace-bound |
 | `ledger` | Append-only run memory | Audit and decisions |
 | `playwright` | Browser text/screenshot | UI/browser verification |
 | `docker` | Docker ps/logs/compose gated ops | Mutations opt-in |

@@ -1,0 +1,124 @@
+[
+  {
+    "name": "__Host-next-auth.csrf-token",
+    "value": "80c4e8d4fd8e5668f63d1a99895524188aea9cbf4599f11f459782eabf1521e0%7Ca7577c5378699f3afcd3a65c19f772e36c7743016942fcc2b49390e34182cc66",
+    "domain": "chatgpt.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "oai-did",
+    "value": "db2e7c05-7c66-4e36-87c9-f1ea308a11cc",
+    "domain": ".chatgpt.com",
+    "path": "/",
+    "expires": 1812245247.798424,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "oai-chat-web-route",
+    "value": "\"ChMxMC4xMzEuMjUxLjI1MTozMDAwENvJqAI=\"",
+    "domain": "chatgpt.com",
+    "path": "/",
+    "expires": 1781746047.798442,
+    "httpOnly": true,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__cflb",
+    "value": "04dTofELUVCxHqRn2XeT2wwLNeTKJAKidDuBh7DcBm",
+    "domain": "chatgpt.com",
+    "path": "/",
+    "expires": 1781144847.798483,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "_cfuvid",
+    "value": "YMQl15Y_8od0HgNCG.40rgkasIcFKiMPBuqAtyRYhvg-1781141247.6231961-1.0.1.1-8nbib9q.xWvpOGUzgY1wMNm_t63GFi96yBUz4akvAus",
+    "domain": ".chatgpt.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "__Secure-next-auth.callback-url",
+    "value": "https%3A%2F%2Fchatgpt.com%2F",
+    "domain": "chatgpt.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "cf_clearance",
+    "value": "mNeJo1296IYexKx9DjUVoqo4vCZnrhUga5PqZ2Rg4Gw-1781141249-1.2.1.1-RIfumq0PEbP61LPVZm3BzcANGPPUxwwqLCglD9pA6PAgvMOxQXgFNshbEhDiTQebVkdu6WmrUF4v4.yUrPoY_IGUBDbDtHzPK7NKLbYa7gfm5QeeOWSu.bMldUs_ldNZUhBmF7HIQL9AXQEVo82s9.vcBI1S.24EqgXZIM5gKpGA6.NZ8lhSeiRe7A8rHfccZjgnRhwXf1qOUxZq6wEU1rUglHpvG8auYLDOP3vmyTV48UmVxJL9WvqLuNJ6Hm5fyV2WS5okzmxIBcYEhP4YAYp3Iuk1a_pwC1xrXYaTZIIBWDRSZa1oBw6O8RVAuo2iZq._I7T.kyDq5KMbL6yWJA",
+    "domain": ".chatgpt.com",
+    "path": "/",
+    "expires": 1812677249.067829,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None",
+    "partitionKey": "https://chatgpt.com",
+    "_crHasCrossSiteAncestor": false
+  },
+  {
+    "name": "__cf_bm",
+    "value": "EgCjxR_QMomnZo_2298zYJlxmYmNuHLPTzMXA6VuYwE-1781141249.133508-1.0.1.1-22unM3Z27nwOovMAh9iKNoTSKrGJtcFJOa7ddcF7AIM5qh58UqXWDAgUCcWVQCLCfTCm6dwt4UmXyqFfw4WzUzxvpi9_psok.mhpt3j1ItF6j6nQnDR_v8iIeJLXz4MT",
+    "domain": ".chatgpt.com",
+    "path": "/",
+    "expires": 1781143049.0679,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "oai-sc",
+    "value": "0gAAAAABqKg8BC9LMsVg1WdZy94mlQEqE2d9y74_zWESh2z1cBBczXL0x0Vg26v-EOutOnbf2KZSrWYAxBDsFosFS0tRGuUSYeR0pfBbAzOyJ9mhRnYADIo1YLDvuK0ZJ9LTyAVQN4xQF3MsgdUuNR4Fy8N3e1s1jKHEfeWloRwSf7f8hOhuCb2CLYkWLHWN9fLJWD7UcbjoE1rnubbQq4NexYglhjqnZvkBxknSvHglo57q89bq1KIo",
+    "domain": ".chatgpt.com",
+    "path": "/",
+    "expires": 1812677249.453638,
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "g_state",
+    "value": "{\"i_l\":0,\"i_ll\":1781141249557,\"i_b\":\"CfPGCxvrlVC1czBFipgfnOn4VZQ7cvgB8oQfmoOha1E\",\"i_e\":{\"enable_itp_optimization\":0},\"i_et\":1781141249555}",
+    "domain": "chatgpt.com",
+    "path": "/",
+    "expires": 1796693249,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "oai-asli",
+    "value": "f0e57301-741d-4d91-adbe-99df788bf345",
+    "domain": "chatgpt.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_dd_s",
+    "value": "aid=8f912c66-6710-4689-abac-b29e2688b23f&rum=0&expire=1781142178476&logs=1&id=7abde145-c4e4-4ced-8a85-264c57691aec&created=1781141248992",
+    "domain": "chatgpt.com",
+    "path": "/",
+    "expires": 1812677278,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Strict"
+  }
+]

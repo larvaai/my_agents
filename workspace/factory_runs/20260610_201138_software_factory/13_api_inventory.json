@@ -1,0 +1,1307 @@
+{
+  "modules": [
+    {
+      "classes": [],
+      "functions": [
+        "_print_json",
+        "configure_console_encoding",
+        "cmd_list",
+        "cmd_summary",
+        "cmd_events",
+        "build_parser",
+        "main"
+      ],
+      "path": "inspect_runs.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_build_messages",
+        "call_llm"
+      ],
+      "path": "llm.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "configure_console_encoding",
+        "main"
+      ],
+      "path": "main.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "configure_console_encoding",
+        "main"
+      ],
+      "path": "main_langgraph.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "parse_json",
+        "_json_retry_message",
+        "_invalid_action_retry_message",
+        "_tool_call_key",
+        "_coerce_args",
+        "_truncate_text",
+        "_tail_text",
+        "_compact_list",
+        "_compact_dict",
+        "_condense_tool_result",
+        "_path_suffix",
+        "_is_code_change_tool",
+        "_is_validation_tool",
+        "_validation_passed",
+        "_final_reports_blocker",
+        "run_orchestrator"
+      ],
+      "path": "orchestrator.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "should_exclude_path",
+        "is_probably_text_file",
+        "safe_read_text",
+        "build_tree",
+        "collect_files",
+        "main"
+      ],
+      "path": "read_file_and_list.py"
+    },
+    {
+      "classes": [
+        "AgentRoleSmokeFailure"
+      ],
+      "functions": [
+        "_require",
+        "_allowed",
+        "_has_lenses",
+        "main"
+      ],
+      "path": "run_agent_role_smoke.py"
+    },
+    {
+      "classes": [
+        "TestCase"
+      ],
+      "functions": [
+        "_expect_contains_for_skill_case",
+        "_expect_not_contains_for_skill_case",
+        "load_skill_prompt_cases",
+        "all_test_cases",
+        "write_prompts",
+        "run_case",
+        "select_cases",
+        "print_case_list",
+        "write_summary",
+        "run_once",
+        "main"
+      ],
+      "path": "run_all_cases.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_read_task",
+        "_compact_for_exit",
+        "main"
+      ],
+      "path": "run_code_test_agents_demo.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_assert",
+        "main"
+      ],
+      "path": "run_code_test_agents_smoke.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_read_task",
+        "_ok",
+        "configure_console_encoding",
+        "main"
+      ],
+      "path": "run_company_agents_demo.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_assert",
+        "main"
+      ],
+      "path": "run_company_agents_smoke.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_assert",
+        "main"
+      ],
+      "path": "run_json_gate_smoke.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_cleanup",
+        "_assert",
+        "_exercise_failure_capture_and_repair_guard",
+        "main"
+      ],
+      "path": "run_langgraph_smoke.py"
+    },
+    {
+      "classes": [
+        "ChainFailure"
+      ],
+      "functions": [
+        "_require",
+        "_call",
+        "_write_report",
+        "chain_web_fetch_document_ledger",
+        "chain_document_filesystem_python_ledger",
+        "chain_playwright_fetch_document_ledger",
+        "chain_git_document_ledger_readonly",
+        "chain_rag_health_gate_document_ledger",
+        "chain_terminal_risk_metadata",
+        "chain_extended_mcp_core",
+        "main"
+      ],
+      "path": "run_mcp_chain_smoke.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "configure_console_encoding",
+        "_read_task",
+        "_compact_output",
+        "main"
+      ],
+      "path": "run_software_factory_demo.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_assert",
+        "main"
+      ],
+      "path": "run_software_factory_smoke.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "main"
+      ],
+      "path": "write_skill_cases.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "call_llm",
+        "plan_agent",
+        "code_agent",
+        "orchestrate"
+      ],
+      "path": "_draft_plan_code_orc_agent.py"
+    },
+    {
+      "classes": [
+        "ArchitectAgent"
+      ],
+      "functions": [],
+      "path": "agents/architect_agent.py"
+    },
+    {
+      "classes": [
+        "ArtifactRef",
+        "StageResult"
+      ],
+      "functions": [
+        "make_run_id",
+        "ensure_artifact_dir",
+        "brief_text",
+        "stable_json",
+        "_sha256",
+        "_compact_metadata",
+        "write_text_artifact",
+        "write_json_artifact",
+        "read_artifact_text",
+        "stage_blocked"
+      ],
+      "path": "agents/artifact_protocol.py"
+    },
+    {
+      "classes": [
+        "BaseAgent"
+      ],
+      "functions": [],
+      "path": "agents/base_agent.py"
+    },
+    {
+      "classes": [
+        "CodeTaskShape",
+        "CodeAgent"
+      ],
+      "functions": [
+        "_normalize_workspace_path",
+        "_extract_task_shape",
+        "_safe_tool_call"
+      ],
+      "path": "agents/code_agent.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "safe_tool_call",
+        "run_lenses",
+        "compact_history",
+        "changed_files_from_code_result",
+        "test_commands_from_test_result",
+        "execution_ok",
+        "append_ledger",
+        "route",
+        "result_payload"
+      ],
+      "path": "agents/department_v05.py"
+    },
+    {
+      "classes": [
+        "FinalAgent"
+      ],
+      "functions": [],
+      "path": "agents/final_agent.py"
+    },
+    {
+      "classes": [
+        "LedgerAgent"
+      ],
+      "functions": [],
+      "path": "agents/ledger_agent.py"
+    },
+    {
+      "classes": [
+        "PlannerAgent"
+      ],
+      "functions": [],
+      "path": "agents/planner_agent.py"
+    },
+    {
+      "classes": [
+        "ResearchAgent"
+      ],
+      "functions": [],
+      "path": "agents/research_agent.py"
+    },
+    {
+      "classes": [
+        "ReviewAgent"
+      ],
+      "functions": [],
+      "path": "agents/review_agent.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "get_agent",
+        "list_agents"
+      ],
+      "path": "agents/role_agents.py"
+    },
+    {
+      "classes": [
+        "FactoryDepartmentAgent",
+        "ProductVisionAgent",
+        "BRDAgent",
+        "PRDAgent",
+        "EpicStoryAgent",
+        "AcceptanceCriteriaAgent",
+        "ProductSpecValidatorAgent",
+        "ProductSpecCriticAgent",
+        "DomainAnalystAgent",
+        "TechnicalAnalystAgent",
+        "PatternDecisionAgent",
+        "ImplementationSpecAgent",
+        "DocsOrchestratorAgent",
+        "RepoScannerAgent",
+        "APIExtractorAgent",
+        "ArchitectureDecisionRecorderAgent",
+        "DocsWriterAgent",
+        "DocsVerifierAgent",
+        "FactoryFinalAgent"
+      ],
+      "functions": [
+        "_normalize_path",
+        "extract_requested_files",
+        "infer_project_slug",
+        "infer_domain_profile",
+        "_artifact",
+        "_required_missing",
+        "_artifact_links",
+        "_task_excerpt",
+        "factory_agent_catalog",
+        "artifacts_to_manifest",
+        "compact_stage_results",
+        "final_factory_payload"
+      ],
+      "path": "agents/software_factory_agents.py"
+    },
+    {
+      "classes": [
+        "TestAgent"
+      ],
+      "functions": [
+        "_safe_tool_call",
+        "_code_tests_to_run"
+      ],
+      "path": "agents/test_agent.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "tool_agent"
+      ],
+      "path": "agents/tool_agent.py"
+    },
+    {
+      "classes": [
+        "LensResult",
+        "LensSpec"
+      ],
+      "functions": [
+        "lens_names",
+        "safe_json_dumps",
+        "extract_json_object",
+        "run_prompt_lens",
+        "lens_results_to_dict",
+        "render_department_lens_prompt"
+      ],
+      "path": "agents/lenses/base_lens.py"
+    },
+    {
+      "classes": [
+        "CodeIndexError",
+        "_PythonIndexVisitor"
+      ],
+      "functions": [
+        "_safe_project_path",
+        "_rel",
+        "_is_excluded",
+        "_code_files",
+        "_range",
+        "_index_python",
+        "_index_js_like",
+        "_index_file",
+        "code_index",
+        "code_find_symbol",
+        "code_find_references",
+        "code_dependency_graph"
+      ],
+      "path": "mcp_servers/code_index_server.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_truthy_env",
+        "_metadata",
+        "_validate_service",
+        "_creationflags",
+        "_run",
+        "docker_health",
+        "docker_ps",
+        "docker_compose_ps",
+        "docker_compose_logs",
+        "docker_compose_up",
+        "docker_compose_stop"
+      ],
+      "path": "mcp_servers/docker_server.py"
+    },
+    {
+      "classes": [
+        "DocumentError"
+      ],
+      "functions": [
+        "_safe_workspace_path",
+        "_strip_html",
+        "_read_docx",
+        "_read_pdf",
+        "_extract_text",
+        "document_extract_text",
+        "document_write_markdown",
+        "document_append_section",
+        "document_outline"
+      ],
+      "path": "mcp_servers/document_server.py"
+    },
+    {
+      "classes": [
+        "ReadableHTMLParser"
+      ],
+      "functions": [
+        "_validate_url",
+        "_decode_body",
+        "_readable_text",
+        "fetch_url"
+      ],
+      "path": "mcp_servers/fetch_server.py"
+    },
+    {
+      "classes": [
+        "FileEditorError"
+      ],
+      "functions": [
+        "_safe_workspace_path",
+        "_read_text",
+        "_rel",
+        "file_editor_view",
+        "file_editor_create",
+        "file_editor_write_lines",
+        "file_editor_str_replace",
+        "file_editor_insert"
+      ],
+      "path": "mcp_servers/file_editor_server.py"
+    },
+    {
+      "classes": [
+        "IssueError"
+      ],
+      "functions": [
+        "_db_path",
+        "_now",
+        "_json",
+        "_load_json",
+        "_clean_text",
+        "_connect",
+        "_row",
+        "_priority",
+        "issue_create",
+        "issue_update",
+        "issue_add_comment",
+        "issue_list",
+        "issue_get",
+        "issue_search",
+        "issue_stats"
+      ],
+      "path": "mcp_servers/issue_server.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_utc_now",
+        "_ensure_ledger_path",
+        "_read_entries",
+        "ledger_append",
+        "ledger_tail",
+        "ledger_search",
+        "ledger_get",
+        "ledger_stats"
+      ],
+      "path": "mcp_servers/ledger_server.py"
+    },
+    {
+      "classes": [
+        "LintTestError"
+      ],
+      "functions": [
+        "_safe_project_path",
+        "_rel",
+        "_is_excluded",
+        "_python_files",
+        "_creationflags",
+        "_env",
+        "_run",
+        "_ruff_available",
+        "_ruff_exclude_args",
+        "lint_compile",
+        "lint_ruff_check",
+        "lint_ruff_format_check",
+        "test_python_file",
+        "test_smoke_suite"
+      ],
+      "path": "mcp_servers/lint_test_server.py"
+    },
+    {
+      "classes": [
+        "ObsidianError"
+      ],
+      "functions": [
+        "_vault_dir",
+        "_safe_note_path",
+        "_rel",
+        "_check_content",
+        "_read",
+        "obsidian_list_notes",
+        "obsidian_read_note",
+        "obsidian_write_note",
+        "obsidian_append_note",
+        "obsidian_search_notes",
+        "obsidian_create_daily_note"
+      ],
+      "path": "mcp_servers/obsidian_server.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_safe_workspace_path",
+        "_validate_url",
+        "_import_playwright",
+        "_open_page",
+        "playwright_health",
+        "playwright_get_text",
+        "playwright_screenshot"
+      ],
+      "path": "mcp_servers/playwright_server.py"
+    },
+    {
+      "classes": [
+        "SandboxError"
+      ],
+      "functions": [
+        "_safe_workspace_path",
+        "run_python",
+        "python_probe"
+      ],
+      "path": "mcp_servers/python_sandbox.py"
+    },
+    {
+      "classes": [
+        "RAGServerError"
+      ],
+      "functions": [
+        "_safe_workspace_path",
+        "_get_embedder",
+        "_get_client",
+        "_qdrant_status",
+        "_embed_texts",
+        "_embed_documents",
+        "_embed_query",
+        "_get_vector_size",
+        "_ensure_collection",
+        "_chunk_text",
+        "_stable_point_id",
+        "_relative_source",
+        "_delete_existing_source",
+        "_collect_files",
+        "_ingest_file",
+        "rag_health",
+        "rag_ingest",
+        "rag_search"
+      ],
+      "path": "mcp_servers/rag_server.py"
+    },
+    {
+      "classes": [
+        "DuckDuckGoParser"
+      ],
+      "functions": [
+        "_request_json",
+        "_search_tavily",
+        "_search_brave",
+        "_search_duckduckgo",
+        "_provider_order",
+        "search_health",
+        "web_search"
+      ],
+      "path": "mcp_servers/search_server.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "_truthy_env",
+        "_safe_cwd",
+        "_exe_name",
+        "_has_shell_tokens",
+        "_is_python",
+        "_summarize",
+        "_classify",
+        "terminal_run"
+      ],
+      "path": "mcp_servers/terminal_server.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "print_separator",
+        "print_header",
+        "main"
+      ],
+      "path": "openhands-workspace/society_sim/cli_demo.py"
+    },
+    {
+      "classes": [
+        "Person",
+        "House",
+        "Job",
+        "WorldEvent",
+        "WorldState"
+      ],
+      "functions": [
+        "generate_id"
+      ],
+      "path": "openhands-workspace/society_sim/models.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "save_world",
+        "load_world"
+      ],
+      "path": "openhands-workspace/society_sim/persistence.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "apply_action",
+        "clamp",
+        "decay_needs",
+        "calculate_mood",
+        "choose_action",
+        "apply_action"
+      ],
+      "path": "openhands-workspace/society_sim/rules.py"
+    },
+    {
+      "classes": [
+        "Simulation"
+      ],
+      "functions": [
+        "add_daily_summary_event",
+        "add_event"
+      ],
+      "path": "openhands-workspace/society_sim/simulation.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "test_create_default_world_has_minimum_people",
+        "test_needs_stay_within_bounds",
+        "test_money_changes_with_work",
+        "test_relationships_increase_after_socialize",
+        "test_save_load_preserves_population",
+        "test_cli_demo_logic",
+        "test_simulation_run_no_crash",
+        "test_summary_has_required_keys",
+        "test_all_rules_functions",
+        "test_world_functions",
+        "run_all_tests"
+      ],
+      "path": "openhands-workspace/society_sim/test_society_sim.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "create_default_world",
+        "get_person",
+        "get_job",
+        "get_house",
+        "add_event"
+      ],
+      "path": "openhands-workspace/society_sim/world.py"
+    },
+    {
+      "classes": [
+        "AgentState"
+      ],
+      "functions": [],
+      "path": "orchestration/agent_state.py"
+    },
+    {
+      "classes": [
+        "CodeTestOrchestrator"
+      ],
+      "functions": [],
+      "path": "orchestration/code_test_orchestrator.py"
+    },
+    {
+      "classes": [
+        "CompanyOrchestratorV05"
+      ],
+      "functions": [
+        "_has_required_success_marker"
+      ],
+      "path": "orchestration/company_orchestrator.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "parse_json",
+        "_build_role_json_retry_message",
+        "_require_langgraph",
+        "_append_message",
+        "_next_pipeline_role",
+        "_truncate",
+        "_fold_text",
+        "_normalize_project_path",
+        "_extract_required_files",
+        "_known_existing_files",
+        "_missing_required_files",
+        "_extract_failure_summary",
+        "_failure_signature",
+        "_compact_tool_result",
+        "_state_brief",
+        "_role_instruction",
+        "_record_role_output",
+        "_synthetic_invalid_json_action",
+        "_compact_action_for_log",
+        "_extract_simple_file_create_action",
+        "_extract_inline_file_content",
+        "_extract_files",
+        "_extract_tests",
+        "_is_file_change_tool",
+        "_is_whole_file_write_tool",
+        "_should_block_whole_file_repair",
+        "_is_validation_tool",
+        "_record_tool_files",
+        "_record_tool_tests",
+        "_requires_validation",
+        "_has_passing_validation",
+        "_has_run_path",
+        "_requires_cli_demo",
+        "_validation_complete",
+        "_forced_test_action",
+        "_finish_gate_message",
+        "_build_validated_final_message",
+        "_current_subtask_key",
+        "_should_fast_handoff_to_code",
+        "_fast_handoff_action",
+        "_subtask_budget_for",
+        "_budget_blocker",
+        "make_role_node",
+        "make_tool_node",
+        "route_next",
+        "build_graph",
+        "run_langgraph_orchestrator"
+      ],
+      "path": "orchestration/langgraph_orchestrator.py"
+    },
+    {
+      "classes": [
+        "SoftwareFactoryOrchestrator"
+      ],
+      "functions": [],
+      "path": "orchestration/software_factory_orchestrator.py"
+    },
+    {
+      "classes": [
+        "GateResult",
+        "JsonGateError"
+      ],
+      "functions": [
+        "json_gate",
+        "parse_json_action",
+        "_with_context",
+        "build_candidates",
+        "try_parse_json",
+        "apply_action_aliases",
+        "validate_agent_action_schema",
+        "resolve_tool_action",
+        "_resolve_tool",
+        "_unknown_tool",
+        "apply_safe_arg_aliases",
+        "validate_tool_args_for_action",
+        "_schema_issues",
+        "dry_run_safety_check",
+        "_validate_path_fields",
+        "validate_safe_relative_path",
+        "_path_error",
+        "_validate_content_size",
+        "_validate_terminal_args",
+        "build_json_gate_retry_message",
+        "_truncate",
+        "dump_gate_result",
+        "is_workspace_relative",
+        "workspace_path"
+      ],
+      "path": "output_gate/json_gate.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "repair_until_valid",
+        "build_repair_prompt",
+        "retry_message_for_gate",
+        "_history_item",
+        "_truncate"
+      ],
+      "path": "output_gate/repair_loop.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "strip_bom",
+        "strip_markdown_fence",
+        "extract_largest_json_region",
+        "_extract_balanced_region",
+        "remove_trailing_commas",
+        "replace_python_literals",
+        "quote_unquoted_keys",
+        "escape_control_chars_in_strings",
+        "escape_raw_content_field",
+        "balance_trailing_delimiters",
+        "convert_single_quoted_values",
+        "_find_single_quote_end",
+        "_looks_like_json_single_quoted_token",
+        "light_json_repair",
+        "try_literal_eval",
+        "_replace_identifiers_outside_strings"
+      ],
+      "path": "output_gate/repair_rules.py"
+    },
+    {
+      "classes": [
+        "EventLogger"
+      ],
+      "functions": [
+        "_utc_now",
+        "_json_default",
+        "_make_run_id"
+      ],
+      "path": "tools/event_log.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "get_runs_dir",
+        "_read_json",
+        "_read_jsonl",
+        "load_runs",
+        "resolve_run_id",
+        "load_events",
+        "_contains",
+        "filter_events",
+        "summarize_event"
+      ],
+      "path": "tools/event_reader.py"
+    },
+    {
+      "classes": [
+        "MCPToolError"
+      ],
+      "functions": [
+        "_resolve_workspace_path",
+        "_normalize_filesystem_args",
+        "_normalize_git_args",
+        "_server_params",
+        "_dump_content_block",
+        "_try_parse_json_text",
+        "_dump_result",
+        "_resolve_tool",
+        "canonicalize_tool_name",
+        "_all_canonical_tool_names",
+        "expand_tool_patterns",
+        "_call_mcp_tool",
+        "call_mcp_tool",
+        "_build_role_tool_examples",
+        "build_tool_prompt"
+      ],
+      "path": "tools/mcp_client.py"
+    },
+    {
+      "classes": [
+        "MCPServerConfig"
+      ],
+      "functions": [
+        "_context7_env",
+        "_optional_env"
+      ],
+      "path": "tools/mcp_config.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "read_prompt_file",
+        "resolve_prompt_path",
+        "render_system_prompt",
+        "read_user_prompt"
+      ],
+      "path": "tools/prompt_loader.py"
+    },
+    {
+      "classes": [
+        "Skill"
+      ],
+      "functions": [
+        "_load_agent_metadata",
+        "_parse_skill_markdown",
+        "load_skills",
+        "build_skills_prompt"
+      ],
+      "path": "tools/skill_loader.py"
+    },
+    {
+      "classes": [
+        "ToolPolicyDecision"
+      ],
+      "functions": [
+        "_truthy_env",
+        "check_tool_policy"
+      ],
+      "path": "tools/tool_policy.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "call_tool"
+      ],
+      "path": "tools/tool_registry.py"
+    },
+    {
+      "classes": [
+        "ArgSpec",
+        "ToolSchema"
+      ],
+      "functions": [
+        "_schema",
+        "canonical_tool_name",
+        "get_tool_schema",
+        "get_tool_metadata",
+        "validate_tool_args",
+        "build_tool_protocol_prompt"
+      ],
+      "path": "tools/tool_schemas.py"
+    },
+    {
+      "classes": [
+        "Amygdala",
+        "Hippocampus",
+        "PrefrontalCortex",
+        "BasalGanglia",
+        "Cerebellum",
+        "BrainSystem"
+      ],
+      "functions": [],
+      "path": "workspace/neuroscience_system.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "main"
+      ],
+      "path": "workspace/__init__.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "add"
+      ],
+      "path": "workspace/code/buggy_add.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "net_score"
+      ],
+      "path": "workspace/code/chain_calc.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "main"
+      ],
+      "path": "workspace/code/company_v05_smoke.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "divide"
+      ],
+      "path": "workspace/code/divide_test.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "should_act"
+      ],
+      "path": "workspace/code/instinct_policy.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "main"
+      ],
+      "path": "workspace/code/lens_smoke_test.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "target",
+        "unrelated"
+      ],
+      "path": "workspace/code/scope_test.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "is_ready"
+      ],
+      "path": "workspace/code/skill_auto_bugfix.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "value"
+      ],
+      "path": "workspace/code/skill_chain_debug_git.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "value"
+      ],
+      "path": "workspace/code/skill_chain_edit_test.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "hello_skill"
+      ],
+      "path": "workspace/code/skill_code_edit_create.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "get_value"
+      ],
+      "path": "workspace/code/skill_code_edit_existing.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "divide"
+      ],
+      "path": "workspace/code/skill_debug_divide.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "broken_func"
+      ],
+      "path": "workspace/code/skill_debug_syntax.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "calculate_price",
+        "helper_one",
+        "helper_two"
+      ],
+      "path": "workspace/code/skill_no_refactor.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "target",
+        "unrelated"
+      ],
+      "path": "workspace/code/skill_scope_guard.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "validate_schema"
+      ],
+      "path": "workspace/code/validate_schema.py"
+    },
+    {
+      "classes": [
+        "Amygdala"
+      ],
+      "functions": [],
+      "path": "workspace/neuroscience_modules/amygdala.py"
+    },
+    {
+      "classes": [
+        "BasalGanglia"
+      ],
+      "functions": [],
+      "path": "workspace/neuroscience_modules/basal_ganglia.py"
+    },
+    {
+      "classes": [
+        "Cerebellum"
+      ],
+      "functions": [],
+      "path": "workspace/neuroscience_modules/cerebellum.py"
+    },
+    {
+      "classes": [
+        "Hippocampus"
+      ],
+      "functions": [],
+      "path": "workspace/neuroscience_modules/hippocampus.py"
+    },
+    {
+      "classes": [
+        "PrefrontalCortex"
+      ],
+      "functions": [],
+      "path": "workspace/neuroscience_modules/prefrontal_cortex.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "main"
+      ],
+      "path": "workspace/society_sim/cli_demo.py"
+    },
+    {
+      "classes": [
+        "Person",
+        "House",
+        "Job",
+        "WorldEvent",
+        "WorldState"
+      ],
+      "functions": [],
+      "path": "workspace/society_sim/models.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "save_world",
+        "load_world"
+      ],
+      "path": "workspace/society_sim/persistence.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "clamp",
+        "decay_needs",
+        "calculate_mood",
+        "choose_action",
+        "apply_action"
+      ],
+      "path": "workspace/society_sim/rules.py"
+    },
+    {
+      "classes": [
+        "Simulation"
+      ],
+      "functions": [],
+      "path": "workspace/society_sim/simulation.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "test_create_default_world",
+        "test_needs_bounds",
+        "test_money_changes",
+        "test_relationships_increase",
+        "test_save_load",
+        "test_cli_demo_logic",
+        "test_simulation_run",
+        "test_summary_keys"
+      ],
+      "path": "workspace/society_sim/test_society_sim.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "create_default_world",
+        "get_person",
+        "get_job",
+        "get_house",
+        "add_event"
+      ],
+      "path": "workspace/society_sim/world.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "main"
+      ],
+      "path": "workspace/society_sim_backup_20260610_191213/cli_demo.py"
+    },
+    {
+      "classes": [
+        "Person",
+        "House",
+        "Job",
+        "WorldEvent",
+        "WorldState"
+      ],
+      "functions": [],
+      "path": "workspace/society_sim_backup_20260610_191213/models.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "save_world",
+        "load_world"
+      ],
+      "path": "workspace/society_sim_backup_20260610_191213/persistence.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "clamp",
+        "decay_needs",
+        "calculate_mood",
+        "choose_action",
+        "apply_action"
+      ],
+      "path": "workspace/society_sim_backup_20260610_191213/rules.py"
+    },
+    {
+      "classes": [
+        "Simulation"
+      ],
+      "functions": [],
+      "path": "workspace/society_sim_backup_20260610_191213/simulation.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "test_create_default_world",
+        "test_needs_in_range",
+        "test_money_changes",
+        "test_relationships_increase",
+        "test_save_load",
+        "test_cli_demo_logic",
+        "test_simulation_run",
+        "test_summary_keys",
+        "main"
+      ],
+      "path": "workspace/society_sim_backup_20260610_191213/test_society_sim.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "create_default_world",
+        "get_person",
+        "get_job",
+        "get_house",
+        "add_event"
+      ],
+      "path": "workspace/society_sim_backup_20260610_191213/world.py"
+    },
+    {
+      "classes": [
+        "Person",
+        "House",
+        "Job",
+        "WorldEvent",
+        "WorldState"
+      ],
+      "functions": [],
+      "path": "workspace/society_sim_failed_20260610_191525/models.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        "clamp",
+        "decay_needs",
+        "calculate_mood",
+        "choose_action",
+        "apply_action"
+      ],
+      "path": "workspace/society_sim_failed_20260610_191525/rules.py"
+    }
+  ],
+  "python_file_count": 112
+}

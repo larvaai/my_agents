@@ -1,0 +1,28 @@
+{
+  "analysis_channel": "artifact_files",
+  "artifact_policy": [
+    "Business reasoning lives in versioned artifacts.",
+    "Downstream agents must read artifact references instead of relying on pasted context.",
+    "Every long artifact has a compact summary and sha256 in the stage envelope."
+  ],
+  "control_channel": "compact_json_envelope",
+  "gate": "intake_protocol",
+  "handoff_rule": "Use compact JSON for control and artifact refs; use artifact files for long business, product, domain, and logic content.",
+  "json_policy": [
+    "JSON carries routing, decisions, status, and artifact references only.",
+    "Long BRD/PRD/domain/logic analysis must be written to markdown artifacts.",
+    "Long structured inventories must be written to JSON artifacts and passed by path/hash.",
+    "Coding tool calls can stay strict JSON because each call is a small action."
+  ],
+  "max_inline_chars": 480,
+  "reasons": [
+    "prompt is long enough that inline JSON analysis is fragile"
+  ],
+  "scores": {
+    "business": 1,
+    "coding": 6,
+    "documentation": 0
+  },
+  "status": "pass",
+  "task_mode": "business_to_logic"
+}

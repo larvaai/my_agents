@@ -177,6 +177,13 @@ MCP_SERVERS: dict[str, MCPServerConfig] = {
             "mcp_servers.document_server",
         ],
     ),
+    "pdf_text_extraction": MCPServerConfig(
+        command="python",
+        args=[
+            "-m",
+            "mcp_servers.pdf_text_extraction_server",
+        ],
+    ),
     "ledger": MCPServerConfig(
         command="python",
         args=[
@@ -301,6 +308,9 @@ MCP_TOOL_NAMES: dict[str, tuple[str, ...]] = {
         "document_append_section",
         "document_outline",
     ),
+    "pdf_text_extraction": (
+        "extract_text",
+    ),
     "ledger": (
         "ledger_append",
         "ledger_tail",
@@ -369,6 +379,7 @@ TOOL_ALIASES: dict[str, tuple[str, str, dict[str, str]]] = {
     "document_write_markdown": ("document", "document_write_markdown", {}),
     "document_append_section": ("document", "document_append_section", {}),
     "document_outline": ("document", "document_outline", {}),
+    "pdf_extract_text": ("pdf_text_extraction", "extract_text", {}),
 
     "ledger_append": ("ledger", "ledger_append", {}),
     "ledger_tail": ("ledger", "ledger_tail", {}),

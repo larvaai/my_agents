@@ -1,0 +1,160 @@
+{
+  "artifact_refs": [
+    {
+      "artifact_key": "protocol_strategy",
+      "bytes": 1203,
+      "kind": "protocol_strategy",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\00_protocol_strategy.json",
+      "producer": "Intake Protocol Agent",
+      "sha256": "23d12d0f0ca1b546b9521d0b46533adbe7ae7007d11111df8da1514c3c716522",
+      "summary": "Selected business_to_logic mode with artifact-first analysis.",
+      "title": "Protocol Strategy"
+    },
+    {
+      "artifact_key": "vision",
+      "bytes": 2481,
+      "kind": "product_vision",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\00_vision.md",
+      "producer": "Product Vision Agent",
+      "sha256": "8d3cbdbc083b7773e1de6d65c16b0bcdcb5c22e0082cec66fb8b89b59a8ae494",
+      "summary": "Product Vision",
+      "title": "Product Vision"
+    },
+    {
+      "artifact_key": "brd",
+      "bytes": 1285,
+      "kind": "business_requirements",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\01_brd.md",
+      "producer": "BRD Agent",
+      "sha256": "a0d02c70b3c9124f556bf39502d30f21d986b279250e8c37c5ace7040e00dedc",
+      "summary": "Business Requirements Document",
+      "title": "Business Requirements Document"
+    },
+    {
+      "artifact_key": "prd",
+      "bytes": 1824,
+      "kind": "product_requirements",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\02_prd.md",
+      "producer": "PRD Agent",
+      "sha256": "b00e7800b25484a2a74fd75695b1d0bc5afa7b84f1aeba9f97ded415b7723f0b",
+      "summary": "Product Requirements Document",
+      "title": "Product Requirements Document"
+    },
+    {
+      "artifact_key": "stories",
+      "bytes": 1647,
+      "kind": "epics_stories",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\03_epics_stories.md",
+      "producer": "Epic Story Agent",
+      "sha256": "40e32d6963314f86537f405f153ce6050385003717970f731b380dadc5c6a548",
+      "summary": "Epics and Stories",
+      "title": "Epics and Stories"
+    },
+    {
+      "artifact_key": "acceptance_criteria",
+      "bytes": 1117,
+      "kind": "acceptance_criteria",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\04_acceptance_criteria.md",
+      "producer": "Acceptance Criteria Agent",
+      "sha256": "f0455f01e9e1d5e9a0048e8916bf2d66815ada5bc42ac1ca3023fba06003f678",
+      "summary": "Acceptance Criteria",
+      "title": "Acceptance Criteria"
+    },
+    {
+      "artifact_key": "domain_analysis",
+      "bytes": 1502,
+      "kind": "domain_analysis",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\07_domain_analysis.md",
+      "producer": "Domain Analyst Agent",
+      "sha256": "33598abad8b8c8ac7601bafc100a54f011c416c2ffc40605dafb860582bf77ba",
+      "summary": "Domain Analysis and Change Hotspots",
+      "title": "Domain Analysis and Change Hotspots"
+    },
+    {
+      "artifact_key": "business_logic_model",
+      "bytes": 2592,
+      "kind": "business_logic_model",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\08_business_logic_model.md",
+      "producer": "Business Logic Model Agent",
+      "sha256": "2552dbb68371beee79048f45afd2414146eead6b14cfeffdcf3933cc3f7ba758",
+      "summary": "Business Logic Model",
+      "title": "Business Logic Model"
+    },
+    {
+      "artifact_key": "business_logic_validation",
+      "bytes": 459,
+      "kind": "business_logic_validation",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\08_business_logic_validation.json",
+      "producer": "Business Logic Validator Agent",
+      "sha256": "1ad07d228f0c70ab33d4e1b089d4287a0e3ece4199c224835cc488f6f9c1c21b",
+      "summary": "Business logic validation pass.",
+      "title": "Business Logic Validation"
+    },
+    {
+      "artifact_key": "technical_analysis",
+      "bytes": 2174,
+      "kind": "technical_analysis",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\08_technical_analysis.md",
+      "producer": "Technical Analyst Agent",
+      "sha256": "f72490778ed24e90446f503d31535a109654cc5e7bf1c464c0f82a0483893391",
+      "summary": "Technical Analysis",
+      "title": "Technical Analysis"
+    },
+    {
+      "artifact_key": "pattern_decision",
+      "bytes": 2709,
+      "kind": "pattern_decision",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\09_pattern_decision.md",
+      "producer": "Pattern Decision Agent",
+      "sha256": "a5ad9866fece91c6407d37c1ce6ae22a57b1346a4c4c8fe58855316624de6ec1",
+      "summary": "Pattern Decision",
+      "title": "Pattern Decision"
+    },
+    {
+      "artifact_key": "implementation_spec",
+      "bytes": 5046,
+      "kind": "implementation_spec",
+      "path": "workspace\\factory_runs\\society_sim_complex_docs_export\\10_implementation_spec.md",
+      "producer": "Implementation Spec Agent",
+      "sha256": "56dbd2ef9c6f516f33d6d1aa447468be58f45b3bceadeea4a2e197e78fba985e",
+      "summary": "Implementation Specification",
+      "title": "Implementation Specification"
+    }
+  ],
+  "code_agent_must": [
+    "Read implementation_spec before writing files.",
+    "Preserve business_logic_model invariants and decision table.",
+    "Use strict JSON only for small control/tool actions.",
+    "Run validation commands and report observed stdout/stderr markers.",
+    "Return docs metadata or a docs metadata artifact reference."
+  ],
+  "code_agent_must_not": [
+    "Paste long business analysis into JSON tool arguments.",
+    "Choose new design patterns without routing back to Pattern Decision.",
+    "Claim test success without observed validation output."
+  ],
+  "completion_requires": [
+    "implemented files match implementation_spec",
+    "tests or checks exercise acceptance criteria and logic examples",
+    "docs metadata is available for Docs Department"
+  ],
+  "gate": "code_handoff",
+  "handoff_mode": "artifact_reference_first",
+  "max_inline_chars": 480,
+  "read_order": [
+    "protocol_strategy",
+    "vision",
+    "brd",
+    "prd",
+    "stories",
+    "acceptance_criteria",
+    "domain_analysis",
+    "business_logic_model",
+    "business_logic_validation",
+    "technical_analysis",
+    "pattern_decision",
+    "implementation_spec"
+  ],
+  "status": "ready_for_code_agent",
+  "task_mode": "business_to_logic"
+}

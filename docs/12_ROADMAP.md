@@ -284,3 +284,46 @@ COMPANY_AGENTS_V05_SMOKE_OK
 ```
 
 This v0.5 layer is still separate from the main LangGraph path. Keep it that way until the dedicated smoke and existing LangGraph smoke stay stable together.
+
+## Proposed: General Multi-Agent OS Upgrade
+
+Tracking doc:
+
+```text
+docs/17_GENERAL_MULTI_AGENT_ROADMAP.md
+```
+
+Planned phases:
+
+1. Simple Router: `GENERAL_KNOWLEDGE`, `CODE_TASK`, `AGENT_CREATION`.
+2. Knowledge Agent: `agents/knowledge/general_knowledge_agent/` and `agents/knowledge/philosophy_agent/`.
+3. Final Synthesis Agent: one final answer owner for all departments.
+4. Research Department: Search, Fetch, PDF/Text Extraction, Citation Agent.
+5. Mixed Routing: router returns a multi-step execution plan.
+6. Safety Department: Permission, Risk, Prompt Injection, Tool Scope agents.
+
+Do not implement these phases until the file structure and routing flow in the tracking doc are agreed.
+## Update: General Multi-Agent OS Stage 1-6 Implemented
+
+This supersedes the earlier proposed note above for this roadmap item.
+
+Done:
+
+1. Simple Router with `GENERAL_KNOWLEDGE`, `CODE_TASK`, `AGENT_CREATION`, `RESEARCH_REQUIRED`, specialized knowledge intents, and `MIXED_TASK`.
+2. Knowledge Department with `general_knowledge_agent` and `philosophy_agent`.
+3. Final Synthesis Agent as the final answer owner.
+4. Research Department skeleton with Search, Fetch, PDF/Text Extraction, and Citation agents.
+5. Mixed Routing with sequential execution plans.
+6. Safety Department with Permission, Risk, Prompt Injection, and Tool Scope agents.
+
+Validation command:
+
+```powershell
+python run_global_supervisor_smoke.py
+```
+
+Expected marker:
+
+```text
+GLOBAL_SUPERVISOR_STAGE_1_6_SMOKE_OK
+```

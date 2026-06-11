@@ -1,0 +1,41 @@
+CASE: capability_00_project_suite
+GROUP: capability
+STATUS: FAIL
+RETURNCODE: 1
+DURATION_SECONDS: 3.35
+COMMAND: C:\Users\namso\AppData\Local\Programs\Python\Python311\python.exe run_capability_suite.py
+
+MISSING_EXPECTED:
+[
+  "PROJECT_CAPABILITY_SUITE_OK",
+  "router_capability",
+  "global_supervisor_capability",
+  "existing_smoke_scripts"
+]
+
+FORBIDDEN_FOUND:
+[
+  "Traceback",
+  "AssertionError"
+]
+
+================================================================================
+STDOUT
+================================================================================
+
+
+================================================================================
+STDERR
+================================================================================
+Traceback (most recent call last):
+  File "D:\Agent PRJ\my_agents\run_capability_suite.py", line 452, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\Agent PRJ\my_agents\run_capability_suite.py", line 441, in main
+    check_pdf_text_extraction_mcp(),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Agent PRJ\my_agents\run_capability_suite.py", line 357, in check_pdf_text_extraction_mcp
+    _require(alias_result.get("ok") is True, alias_result)
+  File "D:\Agent PRJ\my_agents\run_capability_suite.py", line 36, in _require
+    raise AssertionError(message)
+AssertionError: {'ok': False, 'tool': 'extract_text', 'path': 'notes/capability_pdf_text_fixture.md', 'error': 'File does not exist.', 'server': 'pdf_text_extraction', 'tool_metadata': {'schema_version': '1.0', 'input_schema': {'path': {'type': 'str', 'required': True, 'description': 'Workspace PDF/text path'}, 'max_chars': {'type': 'int', 'required': False, 'description': 'Max chars'}}, 'output_schema': {'ok': 'bool', 'text': 'str', 'document_type': 'str', 'truncated': 'bool'}, 'errors': ['error'], 'category': 'research', 'risk': 'low', 'read_only': True, 'changes_file': False}}

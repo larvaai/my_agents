@@ -1,0 +1,856 @@
+{
+  "agents": [
+    {
+      "artifact_key": "vision",
+      "department": "Product Department",
+      "name": "Product Vision Agent",
+      "next_agent": "BRD Agent",
+      "required_inputs": []
+    },
+    {
+      "artifact_key": "brd",
+      "department": "Business Analysis Department",
+      "name": "BRD Agent",
+      "next_agent": "PRD Agent",
+      "required_inputs": [
+        "vision"
+      ]
+    },
+    {
+      "artifact_key": "prd",
+      "department": "Product Department",
+      "name": "PRD Agent",
+      "next_agent": "Epic Story Agent",
+      "required_inputs": [
+        "vision",
+        "brd"
+      ]
+    },
+    {
+      "artifact_key": "stories",
+      "department": "Product Department",
+      "name": "Epic Story Agent",
+      "next_agent": "Acceptance Criteria Agent",
+      "required_inputs": [
+        "prd"
+      ]
+    },
+    {
+      "artifact_key": "acceptance_criteria",
+      "department": "Product Department",
+      "name": "Acceptance Criteria Agent",
+      "next_agent": "Product Spec Validator Agent",
+      "required_inputs": [
+        "stories"
+      ]
+    },
+    {
+      "artifact_key": "product_validation",
+      "department": "Product Quality Department",
+      "name": "Product Spec Validator Agent",
+      "next_agent": "Product Spec Critic Agent",
+      "required_inputs": [
+        "vision",
+        "brd",
+        "prd",
+        "stories",
+        "acceptance_criteria"
+      ]
+    },
+    {
+      "artifact_key": "product_critique",
+      "department": "Product Review Department",
+      "name": "Product Spec Critic Agent",
+      "next_agent": "Domain Analyst Agent",
+      "required_inputs": [
+        "product_validation"
+      ]
+    },
+    {
+      "artifact_key": "domain_analysis",
+      "department": "Domain Analysis Department",
+      "name": "Domain Analyst Agent",
+      "next_agent": "Technical Analyst Agent",
+      "required_inputs": [
+        "product_critique",
+        "acceptance_criteria"
+      ]
+    },
+    {
+      "artifact_key": "technical_analysis",
+      "department": "Technical Analysis Department",
+      "name": "Technical Analyst Agent",
+      "next_agent": "Pattern Decision Agent",
+      "required_inputs": [
+        "domain_analysis"
+      ]
+    },
+    {
+      "artifact_key": "pattern_decision",
+      "department": "Architecture Decision Department",
+      "name": "Pattern Decision Agent",
+      "next_agent": "Implementation Spec Agent",
+      "required_inputs": [
+        "domain_analysis",
+        "technical_analysis"
+      ]
+    },
+    {
+      "artifact_key": "implementation_spec",
+      "department": "Architecture Department",
+      "name": "Implementation Spec Agent",
+      "next_agent": "Code Agent",
+      "required_inputs": [
+        "pattern_decision"
+      ]
+    },
+    {
+      "artifact_key": "docs_plan",
+      "department": "Documentation Department",
+      "name": "Docs Orchestrator Agent",
+      "next_agent": "Repo Scanner Agent",
+      "required_inputs": [
+        "implementation_spec"
+      ]
+    },
+    {
+      "artifact_key": "repo_scan",
+      "department": "Documentation Department",
+      "name": "Repo Scanner Agent",
+      "next_agent": "API Extractor Agent",
+      "required_inputs": [
+        "docs_plan"
+      ]
+    },
+    {
+      "artifact_key": "api_inventory",
+      "department": "Documentation Department",
+      "name": "API Extractor Agent",
+      "next_agent": "Architecture Decision Recorder Agent",
+      "required_inputs": [
+        "repo_scan"
+      ]
+    },
+    {
+      "artifact_key": "adr_candidates",
+      "department": "Documentation Department",
+      "name": "Architecture Decision Recorder Agent",
+      "next_agent": "Docs Writer Agent",
+      "required_inputs": [
+        "pattern_decision",
+        "api_inventory"
+      ]
+    },
+    {
+      "artifact_key": "docs_package",
+      "department": "Documentation Department",
+      "name": "Docs Writer Agent",
+      "next_agent": "Docs Verifier Agent",
+      "required_inputs": [
+        "docs_plan",
+        "repo_scan",
+        "api_inventory",
+        "adr_candidates"
+      ]
+    },
+    {
+      "artifact_key": "docs_verification",
+      "department": "Documentation Quality Department",
+      "name": "Docs Verifier Agent",
+      "next_agent": "Final Agent",
+      "required_inputs": [
+        "docs_plan",
+        "repo_scan",
+        "api_inventory",
+        "adr_candidates",
+        "docs_package",
+        "implementation_spec"
+      ]
+    },
+    {
+      "artifact_key": "factory_final",
+      "department": "Communication Department",
+      "name": "Final Agent",
+      "next_agent": "done",
+      "required_inputs": [
+        "docs_verification",
+        "implementation_spec"
+      ]
+    }
+  ],
+  "artifact_dir": "workspace\\factory_runs\\20260610_201138_software_factory",
+  "artifacts": {
+    "acceptance_criteria": {
+      "bytes": 1118,
+      "kind": "acceptance_criteria",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\04_acceptance_criteria.md",
+      "producer": "Acceptance Criteria Agent",
+      "sha256": "36b342a6b5e27cde500a4b38609cb1ea467718813d15b8081596d3fd79d5e589",
+      "summary": "Acceptance Criteria",
+      "title": "Acceptance Criteria"
+    },
+    "adr_candidates": {
+      "bytes": 3247,
+      "kind": "adr_candidates",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\14_adr_candidates.md",
+      "producer": "Architecture Decision Recorder Agent",
+      "sha256": "6c67a82f51abe33217bfe62a554c0c030dc2cef8a48fbe7cec0b363094ef6964",
+      "summary": "ADR Candidates",
+      "title": "ADR Candidates"
+    },
+    "api_inventory": {
+      "bytes": 30139,
+      "kind": "api_inventory",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\13_api_inventory.json",
+      "producer": "API Extractor Agent",
+      "sha256": "9a2c8e2ea068a4d6eb9377f7b77ccf6e051815536afd3fdd76b175c25a7475da",
+      "summary": "Extracted API inventory from 112 Python files.",
+      "title": "API Inventory"
+    },
+    "brd": {
+      "bytes": 1286,
+      "kind": "business_requirements",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\01_brd.md",
+      "producer": "BRD Agent",
+      "sha256": "4258cdde1b7670cea6022dc9ee53279cbf82dfbc8177bf538c4b491ed45dcb37",
+      "summary": "Business Requirements Document",
+      "title": "Business Requirements Document"
+    },
+    "docs_package": {
+      "bytes": 1795,
+      "kind": "docs_package",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\15_docs_package.md",
+      "producer": "Docs Writer Agent",
+      "sha256": "675490893e18f5775001b276a0f7b2c7cadb36762489be2710672404d437e45a",
+      "summary": "Docs Package Draft",
+      "title": "Docs Package Draft"
+    },
+    "docs_plan": {
+      "bytes": 712,
+      "kind": "docs_plan",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\11_docs_plan.md",
+      "producer": "Docs Orchestrator Agent",
+      "sha256": "781e7d557bac0fdc5477d4c3279e404329f76b3a1cd65fb906e169cd927cdf34",
+      "summary": "Documentation Plan",
+      "title": "Documentation Plan"
+    },
+    "docs_verification": {
+      "bytes": 385,
+      "kind": "docs_verification",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\16_docs_verification.json",
+      "producer": "Docs Verifier Agent",
+      "sha256": "f55fe4841b9d5aaf7f999e4c4c59ea228a9a46f5f755ebad8ad200e64c2efefc",
+      "summary": "Docs verification pass.",
+      "title": "Docs Verification"
+    },
+    "domain_analysis": {
+      "bytes": 1506,
+      "kind": "domain_analysis",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\07_domain_analysis.md",
+      "producer": "Domain Analyst Agent",
+      "sha256": "48ee04707b3b1816bba1eb1d9ba962151bf6f21438ccc132e491fc0cdc1b2a03",
+      "summary": "Domain Analysis and Change Hotspots",
+      "title": "Domain Analysis and Change Hotspots"
+    },
+    "factory_final": {
+      "bytes": 653,
+      "kind": "factory_final",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\17_factory_final.md",
+      "producer": "Final Agent",
+      "sha256": "a415ca3cb59727f26338c4375830de1428ba12fa8b9b339777f0be41adb1448e",
+      "summary": "Factory Final Summary",
+      "title": "Factory Final Summary"
+    },
+    "implementation_spec": {
+      "bytes": 3842,
+      "kind": "implementation_spec",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\10_implementation_spec.md",
+      "producer": "Implementation Spec Agent",
+      "sha256": "6f5f3544a7286bc4bfbf95c62f4a292dc8772ba242120d48c9807776b6e0fcb3",
+      "summary": "Implementation Specification",
+      "title": "Implementation Specification"
+    },
+    "pattern_decision": {
+      "bytes": 2217,
+      "kind": "pattern_decision",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\09_pattern_decision.md",
+      "producer": "Pattern Decision Agent",
+      "sha256": "2d5cfec79bf05131939f39c3e5138d3a1c28a705364025762478acd5a1549c76",
+      "summary": "Pattern Decision",
+      "title": "Pattern Decision"
+    },
+    "prd": {
+      "bytes": 1456,
+      "kind": "product_requirements",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\02_prd.md",
+      "producer": "PRD Agent",
+      "sha256": "73f10b5abca5b4adb0f6ff6a70e2a6184d060c033346c0c908b6d6b461038ff2",
+      "summary": "Product Requirements Document",
+      "title": "Product Requirements Document"
+    },
+    "product_critique": {
+      "bytes": 1043,
+      "kind": "product_spec_critique",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\06_product_spec_critique.md",
+      "producer": "Product Spec Critic Agent",
+      "sha256": "716677741e92bbc14a03fce7a9314337fd82b3d23bb5ff2bfe793519b06f035e",
+      "summary": "Product Spec Critique",
+      "title": "Product Spec Critique"
+    },
+    "product_validation": {
+      "bytes": 306,
+      "kind": "product_spec_validation",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\05_product_spec_validation.json",
+      "producer": "Product Spec Validator Agent",
+      "sha256": "14736c811b91556c47610e82d733cc8a9b555ea174b8a62bc38d6022439d6b42",
+      "summary": "Product spec gate pass.",
+      "title": "Product Spec Validation"
+    },
+    "repo_scan": {
+      "bytes": 10974,
+      "kind": "repo_scan",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\12_repo_scan.json",
+      "producer": "Repo Scanner Agent",
+      "sha256": "bd4daaad6b72a54531bad2a56bb4aad9e3180ceb1d971acdbea5b00c770f8a84",
+      "summary": "Scanned 250 files for documentation evidence.",
+      "title": "Repository Scan"
+    },
+    "stories": {
+      "bytes": 1648,
+      "kind": "epics_stories",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\03_epics_stories.md",
+      "producer": "Epic Story Agent",
+      "sha256": "fb3dad3650af8769d91a18c63b74bfba4b0805ee313a737a19b89cd1e681f455",
+      "summary": "Epics and Stories",
+      "title": "Epics and Stories"
+    },
+    "technical_analysis": {
+      "bytes": 1186,
+      "kind": "technical_analysis",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\08_technical_analysis.md",
+      "producer": "Technical Analyst Agent",
+      "sha256": "243c65aa75143c865602ba781957b77bedf4004c0712dd38ff1bb1e321c7dd25",
+      "summary": "Technical Analysis",
+      "title": "Technical Analysis"
+    },
+    "vision": {
+      "bytes": 2414,
+      "kind": "product_vision",
+      "path": "workspace\\factory_runs\\20260610_201138_software_factory\\00_vision.md",
+      "producer": "Product Vision Agent",
+      "sha256": "657b698965cbee0cfeeeef1b3c835da97e4271b7bb9540092ea79a359d38d9c5",
+      "summary": "Product Vision",
+      "title": "Product Vision"
+    }
+  },
+  "implementation_spec": {
+    "bytes": 3842,
+    "kind": "implementation_spec",
+    "path": "workspace\\factory_runs\\20260610_201138_software_factory\\10_implementation_spec.md",
+    "producer": "Implementation Spec Agent",
+    "sha256": "6f5f3544a7286bc4bfbf95c62f4a292dc8772ba242120d48c9807776b6e0fcb3",
+    "summary": "Implementation Specification",
+    "title": "Implementation Specification"
+  },
+  "ok": true,
+  "run_id": "20260610_201138_software_factory",
+  "stage_count": 18,
+  "stage_results": [
+    {
+      "agent": "Product Vision Agent",
+      "artifact_refs": [
+        {
+          "bytes": 2414,
+          "kind": "product_vision",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\00_vision.md",
+          "producer": "Product Vision Agent",
+          "sha256": "657b698965cbee0cfeeeef1b3c835da97e4271b7bb9540092ea79a359d38d9c5",
+          "summary": "Product Vision",
+          "title": "Product Vision"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Product Department",
+      "metadata": {
+        "artifact_key": "vision"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "BRD Agent",
+        "reason": "Product Vision is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "BRD Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1286,
+          "kind": "business_requirements",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\01_brd.md",
+          "producer": "BRD Agent",
+          "sha256": "4258cdde1b7670cea6022dc9ee53279cbf82dfbc8177bf538c4b491ed45dcb37",
+          "summary": "Business Requirements Document",
+          "title": "Business Requirements Document"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Business Analysis Department",
+      "metadata": {
+        "artifact_key": "brd"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "PRD Agent",
+        "reason": "Business Requirements Document is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "PRD Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1456,
+          "kind": "product_requirements",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\02_prd.md",
+          "producer": "PRD Agent",
+          "sha256": "73f10b5abca5b4adb0f6ff6a70e2a6184d060c033346c0c908b6d6b461038ff2",
+          "summary": "Product Requirements Document",
+          "title": "Product Requirements Document"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Product Department",
+      "metadata": {
+        "artifact_key": "prd"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Epic Story Agent",
+        "reason": "Product Requirements Document is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Epic Story Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1648,
+          "kind": "epics_stories",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\03_epics_stories.md",
+          "producer": "Epic Story Agent",
+          "sha256": "fb3dad3650af8769d91a18c63b74bfba4b0805ee313a737a19b89cd1e681f455",
+          "summary": "Epics and Stories",
+          "title": "Epics and Stories"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Product Department",
+      "metadata": {
+        "artifact_key": "stories"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Acceptance Criteria Agent",
+        "reason": "Epics and Stories is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Acceptance Criteria Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1118,
+          "kind": "acceptance_criteria",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\04_acceptance_criteria.md",
+          "producer": "Acceptance Criteria Agent",
+          "sha256": "36b342a6b5e27cde500a4b38609cb1ea467718813d15b8081596d3fd79d5e589",
+          "summary": "Acceptance Criteria",
+          "title": "Acceptance Criteria"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Product Department",
+      "metadata": {
+        "artifact_key": "acceptance_criteria"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Product Spec Validator Agent",
+        "reason": "Acceptance Criteria is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Product Spec Validator Agent",
+      "artifact_refs": [
+        {
+          "bytes": 306,
+          "kind": "product_spec_validation",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\05_product_spec_validation.json",
+          "producer": "Product Spec Validator Agent",
+          "sha256": "14736c811b91556c47610e82d733cc8a9b555ea174b8a62bc38d6022439d6b42",
+          "summary": "Product spec gate pass.",
+          "title": "Product Spec Validation"
+        }
+      ],
+      "decision": "product_spec_valid",
+      "department": "Product Quality Department",
+      "metadata": {
+        "gate_status": "pass"
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Product spec chain is complete."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "Product Spec Critic Agent",
+        "reason": "Product spec validation completed."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Product Spec Critic Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1043,
+          "kind": "product_spec_critique",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\06_product_spec_critique.md",
+          "producer": "Product Spec Critic Agent",
+          "sha256": "716677741e92bbc14a03fce7a9314337fd82b3d23bb5ff2bfe793519b06f035e",
+          "summary": "Product Spec Critique",
+          "title": "Product Spec Critique"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Product Review Department",
+      "metadata": {
+        "artifact_key": "product_critique"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Domain Analyst Agent",
+        "reason": "Product Spec Critique is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Domain Analyst Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1506,
+          "kind": "domain_analysis",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\07_domain_analysis.md",
+          "producer": "Domain Analyst Agent",
+          "sha256": "48ee04707b3b1816bba1eb1d9ba962151bf6f21438ccc132e491fc0cdc1b2a03",
+          "summary": "Domain Analysis and Change Hotspots",
+          "title": "Domain Analysis and Change Hotspots"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Domain Analysis Department",
+      "metadata": {
+        "artifact_key": "domain_analysis"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Technical Analyst Agent",
+        "reason": "Domain Analysis and Change Hotspots is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Technical Analyst Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1186,
+          "kind": "technical_analysis",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\08_technical_analysis.md",
+          "producer": "Technical Analyst Agent",
+          "sha256": "243c65aa75143c865602ba781957b77bedf4004c0712dd38ff1bb1e321c7dd25",
+          "summary": "Technical Analysis",
+          "title": "Technical Analysis"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Technical Analysis Department",
+      "metadata": {
+        "artifact_key": "technical_analysis"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Pattern Decision Agent",
+        "reason": "Technical Analysis is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Pattern Decision Agent",
+      "artifact_refs": [
+        {
+          "bytes": 2217,
+          "kind": "pattern_decision",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\09_pattern_decision.md",
+          "producer": "Pattern Decision Agent",
+          "sha256": "2d5cfec79bf05131939f39c3e5138d3a1c28a705364025762478acd5a1549c76",
+          "summary": "Pattern Decision",
+          "title": "Pattern Decision"
+        }
+      ],
+      "decision": "pattern_decision_has_hotspot_evidence",
+      "department": "Architecture Decision Department",
+      "metadata": {
+        "artifact_key": "pattern_decision"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Implementation Spec Agent",
+        "reason": "Pattern Decision is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Implementation Spec Agent",
+      "artifact_refs": [
+        {
+          "bytes": 3842,
+          "kind": "implementation_spec",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\10_implementation_spec.md",
+          "producer": "Implementation Spec Agent",
+          "sha256": "6f5f3544a7286bc4bfbf95c62f4a292dc8772ba242120d48c9807776b6e0fcb3",
+          "summary": "Implementation Specification",
+          "title": "Implementation Specification"
+        }
+      ],
+      "decision": "ready_for_code_agent",
+      "department": "Architecture Department",
+      "metadata": {
+        "artifact_key": "implementation_spec"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Code Agent",
+        "reason": "Implementation Specification is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Docs Orchestrator Agent",
+      "artifact_refs": [
+        {
+          "bytes": 712,
+          "kind": "docs_plan",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\11_docs_plan.md",
+          "producer": "Docs Orchestrator Agent",
+          "sha256": "781e7d557bac0fdc5477d4c3279e404329f76b3a1cd65fb906e169cd927cdf34",
+          "summary": "Documentation Plan",
+          "title": "Documentation Plan"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Documentation Department",
+      "metadata": {
+        "artifact_key": "docs_plan"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Repo Scanner Agent",
+        "reason": "Documentation Plan is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Repo Scanner Agent",
+      "artifact_refs": [
+        {
+          "bytes": 10974,
+          "kind": "repo_scan",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\12_repo_scan.json",
+          "producer": "Repo Scanner Agent",
+          "sha256": "bd4daaad6b72a54531bad2a56bb4aad9e3180ceb1d971acdbea5b00c770f8a84",
+          "summary": "Scanned 250 files for documentation evidence.",
+          "title": "Repository Scan"
+        }
+      ],
+      "decision": "repo_scan_complete",
+      "department": "Documentation Department",
+      "metadata": {
+        "file_count": 250
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Scanned 250 files; excluded heavy runtime folders."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "API Extractor Agent",
+        "reason": "Repository evidence is available."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "API Extractor Agent",
+      "artifact_refs": [
+        {
+          "bytes": 30139,
+          "kind": "api_inventory",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\13_api_inventory.json",
+          "producer": "API Extractor Agent",
+          "sha256": "9a2c8e2ea068a4d6eb9377f7b77ccf6e051815536afd3fdd76b175c25a7475da",
+          "summary": "Extracted API inventory from 112 Python files.",
+          "title": "API Inventory"
+        }
+      ],
+      "decision": "api_inventory_complete",
+      "department": "Documentation Department",
+      "metadata": {
+        "python_file_count": 112
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Extracted classes/functions from 112 Python files."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "Architecture Decision Recorder Agent",
+        "reason": "API inventory is available."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Architecture Decision Recorder Agent",
+      "artifact_refs": [
+        {
+          "bytes": 3247,
+          "kind": "adr_candidates",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\14_adr_candidates.md",
+          "producer": "Architecture Decision Recorder Agent",
+          "sha256": "6c67a82f51abe33217bfe62a554c0c030dc2cef8a48fbe7cec0b363094ef6964",
+          "summary": "ADR Candidates",
+          "title": "ADR Candidates"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Documentation Department",
+      "metadata": {
+        "artifact_key": "adr_candidates"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Docs Writer Agent",
+        "reason": "ADR Candidates is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Docs Writer Agent",
+      "artifact_refs": [
+        {
+          "bytes": 1795,
+          "kind": "docs_package",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\15_docs_package.md",
+          "producer": "Docs Writer Agent",
+          "sha256": "675490893e18f5775001b276a0f7b2c7cadb36762489be2710672404d437e45a",
+          "summary": "Docs Package Draft",
+          "title": "Docs Package Draft"
+        }
+      ],
+      "decision": "artifact_created",
+      "department": "Documentation Department",
+      "metadata": {
+        "artifact_key": "docs_package"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "Docs Verifier Agent",
+        "reason": "Docs Package Draft is available as an artifact reference."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Docs Verifier Agent",
+      "artifact_refs": [
+        {
+          "bytes": 385,
+          "kind": "docs_verification",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\16_docs_verification.json",
+          "producer": "Docs Verifier Agent",
+          "sha256": "f55fe4841b9d5aaf7f999e4c4c59ea228a9a46f5f755ebad8ad200e64c2efefc",
+          "summary": "Docs verification pass.",
+          "title": "Docs Verification"
+        }
+      ],
+      "decision": "docs_verified",
+      "department": "Documentation Quality Department",
+      "metadata": {
+        "gate_status": "pass"
+      },
+      "missing_inputs": [],
+      "notes": [
+        "Docs evidence gate passed."
+      ],
+      "ok": true,
+      "route": {
+        "next_agent": "Final Agent",
+        "reason": "Docs verification completed."
+      },
+      "version": "v0.6"
+    },
+    {
+      "agent": "Final Agent",
+      "artifact_refs": [
+        {
+          "bytes": 653,
+          "kind": "factory_final",
+          "path": "workspace\\factory_runs\\20260610_201138_software_factory\\17_factory_final.md",
+          "producer": "Final Agent",
+          "sha256": "a415ca3cb59727f26338c4375830de1428ba12fa8b9b339777f0be41adb1448e",
+          "summary": "Factory Final Summary",
+          "title": "Factory Final Summary"
+        }
+      ],
+      "decision": "ready_for_real_code_test_review",
+      "department": "Communication Department",
+      "metadata": {
+        "artifact_key": "factory_final"
+      },
+      "missing_inputs": [],
+      "notes": [],
+      "ok": true,
+      "route": {
+        "next_agent": "done",
+        "reason": "Factory Final Summary is available as an artifact reference."
+      },
+      "version": "v0.6"
+    }
+  ],
+  "status": "ready_for_real_code_test_review",
+  "version": "v0.6"
+}

@@ -1,4 +1,22 @@
-# Architecture
+﻿# Architecture
+
+## General Multi-Agent Path
+
+Stage 1-6 is implemented. The tracking doc is
+`docs/17_GENERAL_MULTI_AGENT_ROADMAP.md`.
+
+```text
+User request
+  -> orchestration/global_supervisor.py
+  -> orchestration/intent_router.py
+  -> Safety Department when repo/code/web/agent-factory risk exists
+  -> GENERAL_KNOWLEDGE -> Knowledge Department
+  -> CODE_TASK -> existing Coding Department / Company Agents
+  -> AGENT_CREATION -> Agent Factory path
+  -> RESEARCH_REQUIRED -> Research Department
+  -> MIXED_TASK -> sequential execution plan across departments
+  -> Final Synthesis Agent
+```
 
 ## High-Level Map
 
@@ -28,6 +46,20 @@ main_langgraph.py
                                        MCP servers
 ```
 
+```text
+Software Factory v0.7 path:
+run_software_factory_demo.py
+  -> orchestration/software_factory_orchestrator.py
+  -> Intake Protocol -> Vision -> BRD -> PRD -> Story -> AC
+  -> Product validation/critique
+  -> Domain Analysis -> Business Logic Model/Validation
+  -> Technical Analysis -> Pattern Decision
+  -> Implementation Spec -> Code Handoff Packet
+  -> Docs Orchestrator -> Repo Scanner -> API Extractor -> ADR -> Docs Writer -> Docs Verifier
+  -> Final
+  -> handoff to run_company_agents_demo.py --real
+```
+
 Single-agent path vẫn hữu ích cho prompt đơn giản và backward compatibility. LangGraph path là hướng coding-agent chính.
 
 ## Core Layers
@@ -38,6 +70,7 @@ Single-agent path vẫn hữu ích cho prompt đơn giản và backward compatib
 |---|---|
 | `main.py` | Đọc prompt và chạy `run_orchestrator()` |
 | `main_langgraph.py` | Đọc prompt và chạy LangGraph orchestrator |
+| `run_software_factory_demo.py` | Chay Software Factory v0.7 artifact-first spec pipeline |
 | `run_all_cases.py` | Prompt-based test runner |
 | `run_langgraph_smoke.py` | Deterministic LangGraph smoke |
 | `run_json_gate_smoke.py` | Deterministic JsonGate smoke |
@@ -379,4 +412,48 @@ Full guide:
 
 ```text
 docs/15_COMPANY_AGENTS_V05.md
+```
+
+## Software Factory v0.7 Path
+
+Complex product prompts should not jump directly from user idea to code. v0.7
+adds an artifact-first specification room:
+
+```text
+Intake Protocol -> Vision -> BRD -> PRD -> Epic/Story -> Acceptance Criteria
+  -> Product Spec Validator/Critic
+  -> Domain Analysis + Change Hotspots
+  -> Business Logic Model + Business Logic Validation
+  -> Technical Analysis
+  -> Pattern Decision with evidence
+  -> Implementation Spec + Code Handoff Packet
+  -> Documentation verification
+```
+
+The important protocol change is that long analysis is stored in artifacts:
+
+```text
+workspace/factory_runs/<run_id>/*.md
+workspace/factory_runs/<run_id>/*.json
+```
+
+The JSON envelope stays small:
+
+```text
+agent + decision + route + artifact_refs + missing_inputs + metadata
+```
+
+This adapts the strict JSON protocol to business/domain work without weakening
+the coding/tool-call protocol.
+
+Smoke:
+
+```powershell
+python run_software_factory_smoke.py
+```
+
+Full guide:
+
+```text
+docs/16_SOFTWARE_FACTORY_V06.md
 ```

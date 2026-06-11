@@ -33,6 +33,41 @@ Rules:
 - JSON boolean phải là `true`/`false`, không phải Python `True`/`False`.
 - Tool name nên dùng dạng `server.tool_name`.
 
+## Adaptive Artifact Protocol For Long Analysis
+
+Strict JSON is still the rule for tool calls and final control messages.
+However, long business/product/domain analysis should not be stuffed into one
+large JSON string.
+
+For Software Factory v0.7, agents write long content into artifacts and return a
+small JSON-compatible envelope:
+
+```json
+{
+  "agent": "Business Logic Model Agent",
+  "decision": "artifact_created",
+  "artifact_refs": [
+    {
+      "path": "workspace/factory_runs/<run_id>/08_business_logic_model.md",
+      "kind": "business_logic_model",
+      "sha256": "..."
+    }
+  ],
+  "route": {
+    "next_agent": "Business Logic Validator Agent"
+  }
+}
+```
+
+Use this rule:
+
+- Coding/tool actions: strict JSON, short fields, schema validated by JsonGate.
+- Business/spec/docs analysis: write Markdown or JSON artifact, then pass only
+  references in the control envelope.
+- Pattern decisions: allowed only after Domain Analysis has explicit change
+  hotspots.
+- Final status: may summarize artifacts, but must not inline whole artifacts.
+
 ## JsonGate
 
 Mọi output agent đi qua `output_gate.JsonGate`.
