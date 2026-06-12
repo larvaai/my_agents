@@ -1,0 +1,69 @@
+version: "0.2"
+workflows:
+  direct:
+    description: "Quick direct answer for simple definitions or narrow clarifications."
+    difficulty: low
+    needs_baseline: false
+    needs_evaluation: false
+    max_steps: 2
+  assisted:
+    description: "Draft, critique, and rewrite for medium questions that need a check but not a deep flow."
+    difficulty: medium
+    needs_baseline: false
+    needs_evaluation: true
+    max_steps: 4
+  deep:
+    description: "Lens-based answer with optional baseline and full evaluation for architecture, strategy, or multi-step design."
+    difficulty: high
+    needs_baseline: true
+    needs_evaluation: true
+    max_steps: 6
+  repo_debug:
+    description: "Repo/local-context questions should not use external baseline by default."
+    difficulty: medium
+    needs_baseline: false
+    needs_evaluation: true
+    max_steps: 5
+
+rules:
+  definition:
+    workflow: direct
+    match:
+      - "what is"
+      - "la gi"
+      - "là gì"
+      - "define"
+      - "explain briefly"
+  repo_debug:
+    workflow: repo_debug
+    match:
+      - "traceback"
+      - "error"
+      - "bug"
+      - "file"
+      - "repo"
+      - "langgraph"
+      - "test fail"
+      - "loi"
+      - "lỗi"
+  deep:
+    workflow: deep
+    match:
+      - "architecture"
+      - "multi-agent"
+      - "self-eval"
+      - "self improvement"
+      - "workflow"
+      - "orchestration"
+      - "strategy"
+      - "thiết kế"
+      - "thiet ke"
+  assisted:
+    workflow: assisted
+    match:
+      - "compare"
+      - "evaluate"
+      - "should"
+      - "nên"
+      - "nen"
+      - "critical"

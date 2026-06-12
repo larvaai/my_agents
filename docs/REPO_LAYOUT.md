@@ -31,7 +31,7 @@ external reference deu co gia tri lich su/rag/debug rieng.
 | `main_langgraph.py` | Entry point LangGraph role orchestration. |
 | `orchestrator.py` | ReAct loop cu van con dung duoc. |
 | `business_prompt_lab/` | Mini repo dau tien: prompt benchmark va no-code agent room. |
-| `experiments/self_eval_qa_lab/` | Mini repo self-evaluating answer flow: simple answer, lens answer, evaluator, flow observer, ledger. |
+| `experiments/self_eval_qa_lab/` | Mini repo self-evaluating answer flow v0.2: workflow router, direct/assisted/deep/repo_debug paths, evaluator, flow observer, lessons, ledger. |
 
 ## Entry Points Va Smoke Scripts
 

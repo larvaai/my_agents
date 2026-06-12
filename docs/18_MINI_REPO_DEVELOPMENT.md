@@ -355,6 +355,30 @@ Nếu mini repo không còn giá trị:
 
 ## Pattern Cho Self-Eval QA Lab
 
+Ghi chu v0.2: `self_eval_qa_lab` bay gio uu tien workflow routing truoc khi tang so agent. Flow hien tai:
+
+```text
+Question
+  -> Question Classifier
+  -> Workflow Router
+  -> Simple Answer
+  -> Direct / Assisted / Deep / Repo Debug Path
+  -> Auto Baseline when route asks for it
+  -> Blind Evaluator
+  -> Error Analyzer
+  -> Flow Observer
+  -> Lesson Extractor
+  -> Ledger
+```
+
+Quy tac v0.2:
+
+- `direct`: cau hoi ngan, dinh nghia, giai thich hep.
+- `assisted`: draft, critic, rewrite cho cau hoi trung binh.
+- `deep`: lens flow, baseline auto, full evaluation cho kien truc/strategy/multi-agent.
+- `repo_debug`: cau hoi local repo/debug, mac dinh khong external baseline.
+- Lesson routing duoc ghi truoc; khong tu sua prompt/lens/code.
+
 Với ý tưởng `self_eval_qa_lab`, MVP nên gọn:
 
 ```text

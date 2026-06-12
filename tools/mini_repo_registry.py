@@ -52,7 +52,7 @@ MINI_REPOS: tuple[MiniRepo, ...] = (
     MiniRepo(
         id="self_eval_qa_lab",
         root=PROJECT_DIR / "experiments" / "self_eval_qa_lab",
-        description="Self-evaluating answer flow lab with simple, lens-based, baseline, evaluator, and flow observer paths.",
+        description="Self-evaluating QA lab v0.2 with workflow routing, direct/assisted/deep/repo_debug paths, observer, and lessons.",
         default_command="run",
         aliases=("self-eval", "qa-lab", "selfeval"),
         commands=(

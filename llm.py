@@ -46,20 +46,37 @@ def call_llm(
     user_prompt: str | None = None,
     model: str | None = None,
     temperature: float = 0.2,
+    base_url: str | None = None,
+    api_key: str | None = None,
+    timeout: float | None = None,
+    max_tokens: int | None = None,
 ) -> str:
     messages = _build_messages(messages_or_system, user_prompt)
+    selected_base_url = base_url or BASE_URL
+    selected_api_key = api_key or API_KEY
+    selected_model = model or MODEL
+    selected_timeout = timeout if timeout is not None else TIMEOUT
+    selected_max_tokens = max_tokens if max_tokens is not None else MAX_TOKENS
+    selected_client = client
+
+    if base_url is not None or api_key is not None or timeout is not None:
+        selected_client = OpenAI(
+            base_url=selected_base_url,
+            api_key=selected_api_key,
+            timeout=selected_timeout,
+        )
 
     try:
-        response = client.chat.completions.create(
-            model=model or MODEL,
+        response = selected_client.chat.completions.create(
+            model=selected_model,
             messages=messages,
             temperature=temperature,
-            max_tokens=MAX_TOKENS,
+            max_tokens=selected_max_tokens,
         )
     except Exception as exc:
         raise RuntimeError(
-            f"LLM request failed. Check LM Studio at {BASE_URL} and loaded model "
-            f"{model or MODEL!r}. Details: {exc}"
+            f"LLM request failed. Check OpenAI-compatible server at {selected_base_url} "
+            f"and loaded model {selected_model!r}. Details: {exc}"
         ) from exc
 
     return response.choices[0].message.content or ""

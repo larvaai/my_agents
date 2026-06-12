@@ -1,10 +1,28 @@
 lab:
   name: self_eval_qa_lab
-  version: "0.1"
+  version: "0.2"
+
+llm:
+  default_provider: local
+  providers:
+    local:
+      description: "Use llm.py defaults, normally LM Studio at LLM_BASE_URL."
+    server:
+      description: "Use an OpenAI-compatible server URL supplied by CLI or env."
+      url_env:
+        - SELF_EVAL_SERVER_URL
+        - LLM_SERVER_URL
+      api_key_env:
+        - SELF_EVAL_SERVER_API_KEY
+        - LLM_SERVER_API_KEY
+      model_env:
+        - SELF_EVAL_SERVER_MODEL
+        - LLM_SERVER_MODEL
 
 baseline:
-  default_mode: none
+  default_mode: auto
   supported_modes:
+    - auto
     - none
     - local
 

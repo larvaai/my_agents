@@ -170,6 +170,7 @@ python main.py lab list
 python main.py lab business_prompt_lab --mock "Toi nen validate y tuong SaaS nay nhu the nao?"
 python main.py lab business_prompt_lab benchmark --list
 python main.py lab self_eval_qa_lab --mock "Co nen dung multi-agent cho cau hoi nay khong?"
+python main.py lab self_eval_qa_lab --mock --workflow repo_debug "Repo test fail trong file main.py la gi?"
 ```
 
 Cu phap chung:
