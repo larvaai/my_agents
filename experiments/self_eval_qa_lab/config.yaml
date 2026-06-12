@@ -1,0 +1,23 @@
+lab:
+  name: self_eval_qa_lab
+  version: "0.1"
+
+baseline:
+  default_mode: none
+  supported_modes:
+    - none
+    - local
+
+lenses:
+  default:
+    - architecture
+    - critic
+    - practical
+    - clarity
+    - no_leap
+
+self_update:
+  enabled: false
+  proposal_only: true
+  min_repeated_failures: 3
+  require_human_approval: true

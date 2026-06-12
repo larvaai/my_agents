@@ -1,0 +1,100 @@
+from __future__ import annotations
+
+from agents.lenses.base_lens import LensSpec
+
+
+BUSINESS_ANALYST_LENSES: tuple[LensSpec, ...] = (
+    LensSpec(
+        name="problem_framing",
+        department="business_analysis",
+        purpose="Turn a vague request into a clear problem statement, goal, value, and success signal.",
+        allowed_tools=(),
+        forbidden_tools=("*",),
+        output_schema={
+            "lens": "problem_framing",
+            "problem_statement": "",
+            "business_goal": "",
+            "expected_value": "",
+            "success_metrics": [],
+            "open_questions": [],
+        },
+    ),
+    LensSpec(
+        name="evidence_separation",
+        department="business_analysis",
+        purpose="Separate given facts, logical inferences, assumptions, unknowns, and open questions.",
+        allowed_tools=(),
+        forbidden_tools=("*",),
+        output_schema={
+            "lens": "evidence_separation",
+            "given_facts": [],
+            "inferences": [],
+            "assumptions": [],
+            "unknowns": [],
+            "open_questions": [],
+        },
+    ),
+    LensSpec(
+        name="stakeholder_mapping",
+        department="business_analysis",
+        purpose="Identify requesters, users, approvers, operators, external dependencies, and affected parties.",
+        allowed_tools=(),
+        forbidden_tools=("*",),
+        output_schema={
+            "lens": "stakeholder_mapping",
+            "primary_users": [],
+            "secondary_users": [],
+            "business_owner": "",
+            "approvers": [],
+            "operators": [],
+            "affected_parties": [],
+        },
+    ),
+    LensSpec(
+        name="scope_control",
+        department="business_analysis",
+        purpose="Separate in-scope, out-of-scope, unknown scope, and possible scope creep.",
+        allowed_tools=(),
+        forbidden_tools=("*",),
+        output_schema={
+            "lens": "scope_control",
+            "in_scope": [],
+            "out_of_scope": [],
+            "unknown_scope": [],
+            "scope_creep_warnings": [],
+        },
+    ),
+    LensSpec(
+        name="requirement_decomposition",
+        department="business_analysis",
+        purpose="Split the need into business, user, functional, non-functional, data, and permission requirements.",
+        allowed_tools=(),
+        forbidden_tools=("*",),
+        output_schema={
+            "lens": "requirement_decomposition",
+            "business_requirements": [],
+            "user_requirements": [],
+            "functional_requirements": [],
+            "non_functional_requirements": [],
+            "business_rules": [],
+            "data_requirements": [],
+            "permission_requirements": [],
+        },
+    ),
+    LensSpec(
+        name="handoff_readiness",
+        department="business_analysis",
+        purpose="Check whether Planner can use the output: stories, pass/fail AC, risks, dependencies, and questions.",
+        allowed_tools=(),
+        forbidden_tools=("*",),
+        output_schema={
+            "lens": "handoff_readiness",
+            "epics": [],
+            "user_stories": [],
+            "acceptance_criteria": [],
+            "risks": [],
+            "dependencies": [],
+            "ready_for_planner": False,
+        },
+    ),
+)

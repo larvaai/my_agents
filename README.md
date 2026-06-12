@@ -17,6 +17,7 @@ Muc tieu cua project khong phai lam chatbot chung chung, ma la xay mot coding-ag
 - Muon chay project: `docs/03_SETUP_AND_RUN.md`.
 - Muon hieu kien truc: `docs/02_ARCHITECTURE.md`.
 - Muon them MCP/skill/agent: `docs/workflows/`.
+- Muon phat trien mini repo lab va chay qua `main.py`: `docs/18_MINI_REPO_DEVELOPMENT.md`.
 - Muon debug/test: `docs/08_TESTING_GUIDE.md` va `docs/09_DEBUGGING_GUIDE.md`.
 - Muon thu LangGraph role orchestration: `python run_langgraph_smoke.py` de compile smoke nhanh, hoac `python main_langgraph.py prompts/auto_cases/test_langgraph_01_smoke.md` de chay LLM smoke that qua MCP.
 - Muon thu Agent Kernel core boundary: `python run_kernel_smoke.py`.
@@ -160,6 +161,22 @@ Chay prompt mac dinh:
 
 ```powershell
 python main.py
+```
+
+Chay mini repo lab qua entrypoint chung:
+
+```powershell
+python main.py lab list
+python main.py lab business_prompt_lab --mock "Toi nen validate y tuong SaaS nay nhu the nao?"
+python main.py lab business_prompt_lab benchmark --list
+python main.py lab self_eval_qa_lab --mock "Co nen dung multi-agent cho cau hoi nay khong?"
+```
+
+Cu phap chung:
+
+```powershell
+python main.py lab <mini-repo> [command] [args...]
+python main.py lab <mini-repo>:<command> [args...]
 ```
 
 Chay capability suite deterministic, khong can LLM/network:

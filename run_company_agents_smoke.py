@@ -23,6 +23,7 @@ def main() -> int:
     agents = [item.get("agent") for item in history]
     expected_agents = [
         "research_agent",
+        "business_analyst_agent",
         "planner_agent",
         "architect_agent",
         "code_agent",

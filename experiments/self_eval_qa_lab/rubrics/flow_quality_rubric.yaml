@@ -1,0 +1,21 @@
+rubric_id: flow_quality_rubric_v1
+scale: 0_to_10
+criteria:
+  flow_necessity:
+    description: "The question actually needed more than a direct/simple answer."
+    weight: 2
+  routing_correctness:
+    description: "The selected lenses match the question type and constraints."
+    weight: 2
+  step_efficiency:
+    description: "The flow avoids extra steps that do not improve the answer."
+    weight: 2
+  error_visibility:
+    description: "The flow makes it possible to see where quality was gained or lost."
+    weight: 2
+  output_improvement:
+    description: "The flow improves the answer enough to justify its cost."
+    weight: 2
+final_score_formula:
+  weighted_sum: true
+  max_score: 100

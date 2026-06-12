@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from agents.architect_agent import ArchitectAgent
+from agents.business_analyst_agent import BusinessAnalystAgent
 from agents.code_agent import CodeAgent
 from agents.department_v05 import VERSION, changed_files_from_code_result, test_commands_from_test_result
 from agents.final_agent import FinalAgent
@@ -54,6 +55,7 @@ class CompanyOrchestratorV05:
         self.version = VERSION
         self.max_cycles = max(1, int(max_cycles))
         self.research_agent = ResearchAgent(use_llm=use_llm, model=model)
+        self.business_analyst_agent = BusinessAnalystAgent(use_llm=use_llm, model=model)
         self.planner_agent = PlannerAgent(use_llm=use_llm, model=model)
         self.architect_agent = ArchitectAgent(use_llm=use_llm, model=model)
         self.code_agent = CodeAgent(use_llm=use_llm, model=model)
@@ -109,12 +111,22 @@ class CompanyOrchestratorV05:
 
         research_result = self.research_agent.run(task, context={**context, "history": history})
         self._append(history, "research_agent", research_result)
-        if research_result.get("route", {}).get("next_agent") != "planner_agent":
+        if research_result.get("route", {}).get("next_agent") != "business_analyst_agent":
             return self._blocked("blocked_after_research", history, research_result.get("route", {}))
+
+        ba_result = self.business_analyst_agent.run(
+            task,
+            research_result=research_result,
+            context={**context, "history": history},
+        )
+        self._append(history, "business_analyst_agent", ba_result)
+        if ba_result.get("route", {}).get("next_agent") != "planner_agent":
+            return self._blocked("blocked_after_business_analysis", history, ba_result.get("route", {}))
 
         planner_result = self.planner_agent.run(
             task,
             research_result=research_result,
+            ba_result=ba_result,
             context={**context, "history": history},
         )
         self._append(history, "planner_agent", planner_result)
@@ -142,6 +154,7 @@ class CompanyOrchestratorV05:
                     "cycle": cycle,
                     "history": history,
                     "research_result": research_result,
+                    "business_analysis_result": ba_result,
                     "planner_result": planner_result,
                     "architect_result": architect_result,
                 },

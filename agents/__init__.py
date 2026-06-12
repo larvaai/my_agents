@@ -1,5 +1,6 @@
 from agents.base_agent import BaseAgent
 from agents.architect_agent import ArchitectAgent
+from agents.business_analyst_agent import BusinessAnalystAgent
 from agents.code_agent import CodeAgent
 from agents.final_agent import FinalAgent
 from agents.final_synthesis_agent import FinalSynthesisAgent
@@ -17,6 +18,7 @@ from agents.test_agent import TestAgent
 __all__ = [
     "ArchitectAgent",
     "BaseAgent",
+    "BusinessAnalystAgent",
     "CodeAgent",
     "FinalAgent",
     "FinalSynthesisAgent",

@@ -1,0 +1,21 @@
+rubric_id: answer_quality_rubric_v1
+scale: 0_to_10
+criteria:
+  accuracy:
+    description: "The answer is correct, grounded, and does not invent unsupported facts."
+    weight: 2
+  completeness:
+    description: "The answer covers the important parts of the user's question."
+    weight: 2
+  clarity:
+    description: "The answer is easy to follow and not needlessly long."
+    weight: 1
+  actionability:
+    description: "The user can act on the answer or make a decision from it."
+    weight: 2
+  constraint_following:
+    description: "The answer follows explicit constraints and does not drift into unwanted work."
+    weight: 2
+final_score_formula:
+  weighted_sum: true
+  max_score: 100

@@ -89,9 +89,14 @@ class PlannerAgent:
         self,
         task: str,
         research_result: dict[str, Any] | None = None,
+        ba_result: dict[str, Any] | None = None,
         context: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
-        context = {**(context or {}), "research_result": research_result or {}}
+        context = {
+            **(context or {}),
+            "research_result": research_result or {},
+            "business_analysis_result": ba_result or {},
+        }
         lens_results = self.run_lenses(task, context)
         synthesis = self.synthesize(task, context, lens_results)
         records = {

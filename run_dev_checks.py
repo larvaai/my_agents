@@ -19,6 +19,8 @@ SOURCE_DIRS = [
     "output_gate",
     "mcp_servers",
     "tools",
+    "business_prompt_lab",
+    "experiments",
 ]
 
 ENTRYPOINTS = [
@@ -26,6 +28,7 @@ ENTRYPOINTS = [
     "main_langgraph.py",
     "orchestrator.py",
     "run_agent_role_smoke.py",
+    "run_ba_agent_smoke.py",
     "run_feature_tests.py",
     "run_json_gate_smoke.py",
     "run_kernel_smoke.py",
@@ -40,6 +43,7 @@ QUICK_CHECKS = [
     [sys.executable, "run_kernel_smoke.py"],
     [sys.executable, "run_json_gate_smoke.py"],
     [sys.executable, "run_agent_role_smoke.py"],
+    [sys.executable, "run_ba_agent_smoke.py"],
     [sys.executable, "run_langgraph_smoke.py"],
 ]
 

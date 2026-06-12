@@ -5,6 +5,7 @@ from typing import Any, Literal, TypedDict
 
 AgentName = Literal[
     "research",
+    "business_analyst",
     "planner",
     "architect",
     "code",

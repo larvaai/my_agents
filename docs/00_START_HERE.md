@@ -87,6 +87,13 @@ Nếu bạn muốn thêm MCP, skill, hoặc agent:
 5. `docs/workflows/add-new-skill.md`
 6. `docs/workflows/create-new-agent.md`
 
+Nếu bạn muốn phát triển mini repo/lab:
+
+1. `docs/18_MINI_REPO_DEVELOPMENT.md`
+2. `docs/workflows/add-mini-repo-lab.md`
+3. `tools/mini_repo_registry.py`
+4. `business_prompt_lab/README.md`
+
 Nếu bạn muốn đóng góp kiến trúc:
 
 1. `docs/02_ARCHITECTURE.md`
@@ -101,6 +108,7 @@ Nếu bạn muốn đóng góp kiến trúc:
 | File | Vai trò |
 |---|---|
 | `main.py` | Chạy single-agent orchestrator |
+| `main.py lab ...` | Chạy mini repo/lab qua registry chung |
 | `main_langgraph.py` | Chạy LangGraph multi-agent pipeline |
 | `orchestrator.py` | ReAct loop cũ, vẫn còn dùng được |
 | `orchestration/langgraph_orchestrator.py` | Role pipeline mới |
@@ -109,7 +117,9 @@ Nếu bạn muốn đóng góp kiến trúc:
 | `orchestration/company_orchestrator.py` | Full Company Agents v0.5 runner |
 | `orchestration/software_factory_orchestrator.py` | Software Factory v0.7 artifact-first spec runner |
 | `docs/17_GENERAL_MULTI_AGENT_ROADMAP.md` | Global Supervisor / Intent Router roadmap |
+| `docs/18_MINI_REPO_DEVELOPMENT.md` | Guide phát triển nhiều mini repo/lab |
 | `agents/role_agents.py` | Khai báo role agents và quyền tool |
+| `agents/business_analyst_agent.py` | Business Analyst gate trước Planner |
 | `agents/lenses/` | Department lens specs |
 | `output_gate/` | JsonGate và JSON repair sandbox |
 | `features/mcp_tools/client.py` | MCP client/router |
@@ -132,6 +142,7 @@ Lệnh hữu ích:
 python inspect_runs.py list
 python inspect_runs.py events latest --limit 20
 python run_json_gate_smoke.py
+python run_ba_agent_smoke.py
 python run_agent_role_smoke.py
 ```
 
@@ -156,7 +167,7 @@ docs/14_CODE_TEST_V05.md
 Project also has a direct full-company v0.5 runner:
 
 ```text
-Research -> Planner -> Architect -> Code -> Test -> Review -> Ledger -> Final
+Research -> Business Analyst -> Planner -> Architect -> Code -> Test -> Review -> Ledger -> Final
 ```
 
 Run the deterministic smoke:

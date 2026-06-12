@@ -9,6 +9,7 @@ import yaml
 from agents.base_agent import BaseAgent
 from agents.lenses import (
     ARCHITECT_LENSES,
+    BUSINESS_ANALYST_LENSES,
     CODE_LENSES,
     FINAL_LENSES,
     LEDGER_LENSES,
@@ -26,6 +27,7 @@ DEFAULT_ROLES_DIR = PROJECT_DIR / "config" / "roles"
 
 LENS_GROUPS: dict[str, tuple[LensSpec, ...]] = {
     "architect": ARCHITECT_LENSES,
+    "business_analyst": BUSINESS_ANALYST_LENSES,
     "code": CODE_LENSES,
     "final": FINAL_LENSES,
     "ledger": LEDGER_LENSES,

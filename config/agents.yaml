@@ -2,6 +2,7 @@ roles_dir: config/roles
 roles:
   - tool
   - research
+  - business_analyst
   - planner
   - architect
   - code
@@ -12,6 +13,9 @@ roles:
 aliases:
   tool_agent: tool
   research_agent: research
+  ba: business_analyst
+  ba_agent: business_analyst
+  business_analyst_agent: business_analyst
   planner_agent: planner
   architect_agent: architect
   code_agent: code

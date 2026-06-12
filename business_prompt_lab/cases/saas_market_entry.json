@@ -1,0 +1,26 @@
+{
+  "id": "saas_market_entry",
+  "title": "AI invoice reconciliation add-on for mid-market ecommerce operators",
+  "business_task": "Analyze whether a small B2B SaaS team should launch an AI invoice reconciliation add-on for mid-market ecommerce operators in Vietnam.",
+  "company_context": "The company already sells an order and inventory operations SaaS to ecommerce merchants. It has 18 engineers, 4 customer success staff, and a small sales team. Current customers complain about manual invoice matching between marketplaces, payment gateways, shipping providers, and accounting exports.",
+  "available_facts": [
+    "Current product serves about 120 paying merchants.",
+    "The team has access to order, payout, shipping, and SKU data through existing integrations.",
+    "Five existing customers asked for faster invoice and payout reconciliation during the last quarter.",
+    "The team can build a prototype in 6 to 8 weeks, but production-grade accounting exports may take longer.",
+    "Sales team says customers resist add-ons priced above 20 percent of their current subscription unless the ROI is obvious.",
+    "Support team is already stretched during monthly closing periods."
+  ],
+  "constraints": [
+    "Do not assume external market size numbers.",
+    "Focus on a testable launch decision for the next quarter.",
+    "The company wants low operational complexity and low support burden."
+  ],
+  "requested_focus": [
+    "Recommendation",
+    "Customer segment fit",
+    "Pricing and unit economics signals",
+    "Operational risks",
+    "Validation plan"
+  ]
+}

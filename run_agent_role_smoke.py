@@ -27,6 +27,7 @@ def _has_lenses(role: str, expected: set[str]) -> bool:
 def main() -> int:
     expected_roles = {
         "research",
+        "business_analyst",
         "planner",
         "architect",
         "code",
@@ -44,6 +45,9 @@ def main() -> int:
     checks: list[tuple[str, Callable[[], bool]]] = [
         ("research_read_search", lambda: _allowed("research", "search.web_search")),
         ("research_no_edit", lambda: not _allowed("research", "file_editor.file_editor_create")),
+        ("ba_prompt_only_no_file_read", lambda: not _allowed("business_analyst", "filesystem.read_file")),
+        ("ba_prompt_only_no_web", lambda: not _allowed("business_analyst", "search.web_search")),
+        ("ba_prompt_only_no_edit", lambda: not _allowed("business_analyst", "file_editor.file_editor_create")),
         ("planner_can_issue", lambda: _allowed("planner", "issue.issue_create")),
         ("planner_no_edit", lambda: not _allowed("planner", "file_editor.file_editor_str_replace")),
         ("architect_can_write_design_doc", lambda: _allowed("architect", "document.document_write_markdown")),
@@ -80,6 +84,20 @@ def main() -> int:
             lambda: _has_lenses(
                 "research",
                 {"source_scout", "source_credibility", "fact_check", "synthesis", "knowledge_curator"},
+            ),
+        ),
+        (
+            "business_analysis_department_lenses",
+            lambda: _has_lenses(
+                "business_analyst",
+                {
+                    "problem_framing",
+                    "evidence_separation",
+                    "stakeholder_mapping",
+                    "scope_control",
+                    "requirement_decomposition",
+                    "handoff_readiness",
+                },
             ),
         ),
         (

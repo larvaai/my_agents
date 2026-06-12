@@ -6,6 +6,7 @@ The project now has a complete local coding-agent company chain:
 
 ```text
 Research Agent
+  -> Business Analyst Agent
   -> Planner Agent
   -> Architect Agent
   -> Code Agent
@@ -24,6 +25,7 @@ role accountable, bounded, testable, and easy to inspect.
 |---|---|
 | `agents/department_v05.py` | Shared helpers for v0.5 department runtimes |
 | `agents/research_agent.py` | Research Department runtime |
+| `agents/business_analyst_agent.py` | Business Analysis Department runtime |
 | `agents/planner_agent.py` | Planning Department runtime |
 | `agents/architect_agent.py` | Architecture Department runtime |
 | `agents/code_agent.py` | Engineering Department runtime |
@@ -75,6 +77,15 @@ Planning:
 - `dependency_planner`
 - `risk_manager`
 - `scope_control`
+
+Business Analysis:
+
+- `problem_framing`
+- `evidence_separation`
+- `stakeholder_mapping`
+- `scope_control`
+- `requirement_decomposition`
+- `handoff_readiness`
 
 Architecture:
 
@@ -141,7 +152,8 @@ The finish gate requires evidence.
 Default successful path:
 
 ```text
-research_agent -> planner_agent
+research_agent -> business_analyst_agent
+business_analyst_agent -> planner_agent
 planner_agent -> architect_agent
 architect_agent -> code_agent
 code_agent -> test_agent

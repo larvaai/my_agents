@@ -22,13 +22,16 @@ external reference deu co gia tri lich su/rag/debug rieng.
 | `orchestration/global_supervisor.py` | Global Supervisor stage 1-6 wrapper. |
 | `orchestration/intent_router.py` | Intent Router stage 1-6. |
 | `tools/` | Compatibility helpers: prompt/skill loader, event reader/logger. MCP adapter code lives in `features/mcp_tools/`. |
+| `tools/mini_repo_registry.py` | Registry cho mini repo/lab chạy qua `python main.py lab ...`. |
 | `mcp_servers/` | MCP servers noi bo cho filesystem-like workflow, validation, RAG, document, ledger, browser, issue, docker. |
 | `mcp_servers/pdf_text_extraction_server.py` | Read-only PDF/Text Extraction MCP. |
 | `output_gate/` | JsonGate va repair loop cho JSON action/output. |
 | `llm.py` | OpenAI-compatible LLM client wrapper. |
-| `main.py` | Entry point single-agent/orchestrator cu. |
+| `main.py` | Entry point single-agent/orchestrator cu, dong thoi co mode `lab` cho mini repo. |
 | `main_langgraph.py` | Entry point LangGraph role orchestration. |
 | `orchestrator.py` | ReAct loop cu van con dung duoc. |
+| `business_prompt_lab/` | Mini repo dau tien: prompt benchmark va no-code agent room. |
+| `experiments/self_eval_qa_lab/` | Mini repo self-evaluating answer flow: simple answer, lens answer, evaluator, flow observer, ledger. |
 
 ## Entry Points Va Smoke Scripts
 
@@ -82,6 +85,7 @@ external reference deu co gia tri lich su/rag/debug rieng.
 | `docs/15_COMPANY_AGENTS_V05.md` | Company Agents v0.5. |
 | `docs/16_SOFTWARE_FACTORY_V06.md` | Software Factory v0.7. |
 | `docs/17_GENERAL_MULTI_AGENT_ROADMAP.md` | Global Supervisor / Intent Router roadmap; stage 1-6 implemented. |
+| `docs/18_MINI_REPO_DEVELOPMENT.md` | Guide phat trien mini repo/lab va tich hop qua `main.py lab`. |
 | `docs/adr/` | Architecture Decision Records. |
 | `docs/agents/` | Tai lieu tung agent/lens. |
 | `docs/mcp/` | Tai lieu tung MCP. |

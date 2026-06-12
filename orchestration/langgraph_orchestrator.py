@@ -25,6 +25,7 @@ from core.runtime_paths import WORKSPACE_DIR
 
 PIPELINE: tuple[AgentName, ...] = (
     "research",
+    "business_analyst",
     "planner",
     "architect",
     "code",
@@ -40,6 +41,7 @@ MAX_JSON_RETRIES_PER_ROLE = 3
 STRICT_JSON_ROLES = {"code", "test", "final"}
 ROLE_BUDGETS = {
     "research": 2,
+    "business_analyst": 3,
     "planner": 3,
     "architect": 4,
     "code": 140,
@@ -93,6 +95,12 @@ ROLE_GUIDANCE: dict[str, str] = {
         "- Gather facts only when needed.\n"
         "- For a simple implementation smoke, do not call tools; return a short handoff.\n"
         "- Never create, edit, validate, or commit files."
+    ),
+    "business_analyst": (
+        "Business Analyst scope:\n"
+        "- Convert user intent into problem, stakeholders, scope, requirements, assumptions, open questions, and pass/fail acceptance signals.\n"
+        "- Stay prompt-only: do not call tools, browse, inspect files, choose tech stack, write code, or validate code.\n"
+        "- If the task is already a small explicit implementation smoke, hand off compactly to Planner."
     ),
     "planner": (
         "Planner scope:\n"
@@ -1109,7 +1117,7 @@ def _current_subtask_key(role: str, state: AgentState) -> str:
 
 
 def _should_fast_handoff_to_code(role: str, state: AgentState) -> bool:
-    if role not in {"research", "planner", "architect"}:
+    if role not in {"research", "business_analyst", "planner", "architect"}:
         return False
     required = [
         _normalize_project_path(path)
@@ -1743,6 +1751,7 @@ def build_graph(event_logger: EventLogger | None = None):
 
     route_map = {
         "research": "research",
+        "business_analyst": "business_analyst",
         "planner": "planner",
         "architect": "architect",
         "code": "code",

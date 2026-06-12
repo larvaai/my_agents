@@ -1,0 +1,27 @@
+{
+  "id": "retail_expansion",
+  "title": "Offline pickup counters for a DTC beverage brand",
+  "business_task": "Analyze whether a direct-to-consumer beverage brand should open offline pickup counters inside partner convenience stores.",
+  "company_context": "The brand sells functional bottled drinks online with same-day delivery in two large cities. Repeat purchase is healthy, but delivery fees hurt low-ticket orders. A convenience-store chain offered shelf-adjacent pickup counters in 25 stores for a three-month pilot.",
+  "available_facts": [
+    "Average online order value is 210000 VND.",
+    "Gross margin before delivery subsidy is about 42 percent.",
+    "Delivery subsidy averages 24000 VND per order.",
+    "The proposed partner charges a fixed monthly counter fee plus a handling fee per pickup order.",
+    "The brand has no previous offline operations team.",
+    "Customer surveys show some buyers want cheaper small-basket purchases during commute hours.",
+    "The pilot would require daily inventory replenishment and unsold stock handling."
+  ],
+  "constraints": [
+    "Do not invent foot traffic or conversion numbers.",
+    "Focus on the pilot design, not a national rollout.",
+    "Protect brand experience and cold-chain quality."
+  ],
+  "requested_focus": [
+    "Pilot go/no-go/defer decision",
+    "Operational complexity",
+    "Margin risk",
+    "Demand validation",
+    "Evidence needed before scaling"
+  ]
+}

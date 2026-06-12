@@ -8,6 +8,7 @@ from agents.lenses.base_lens import (
     safe_json_dumps,
 )
 from agents.lenses.architect_lenses import ARCHITECT_LENSES
+from agents.lenses.business_analyst_lenses import BUSINESS_ANALYST_LENSES
 from agents.lenses.code_lenses import CODE_LENSES
 from agents.lenses.final_lenses import FINAL_LENSES
 from agents.lenses.ledger_lenses import LEDGER_LENSES
@@ -18,6 +19,7 @@ from agents.lenses.test_lenses import TEST_LENSES
 
 __all__ = [
     "ARCHITECT_LENSES",
+    "BUSINESS_ANALYST_LENSES",
     "CODE_LENSES",
     "FINAL_LENSES",
     "LEDGER_LENSES",
