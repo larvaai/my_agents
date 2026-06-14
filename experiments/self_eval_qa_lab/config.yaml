@@ -1,6 +1,6 @@
 lab:
   name: self_eval_qa_lab
-  version: "0.2"
+  version: "0.3"
 
 llm:
   default_provider: local
@@ -25,6 +25,16 @@ baseline:
     - auto
     - none
     - local
+
+chatgpt_baseline:
+  default_mode: auto
+  supported_modes:
+    - auto
+    - manual
+    - mock
+    - local
+    - server
+  manual_prompt_artifact: prompts/chatgpt_prompt.md
 
 lenses:
   default:

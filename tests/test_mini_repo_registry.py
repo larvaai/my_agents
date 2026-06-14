@@ -62,6 +62,16 @@ class MiniRepoRegistryTests(unittest.TestCase):
         self.assertEqual(command.id, "run")
         self.assertEqual(args, ["--mock", "question"])
 
+    def test_self_eval_dataset_command(self) -> None:
+        repo, command, args = resolve_lab_invocation(
+            "self_eval_qa_lab",
+            ["dataset", "--mock", "--limit", "20"],
+        )
+
+        self.assertEqual(repo.id, "self_eval_qa_lab")
+        self.assertEqual(command.id, "dataset")
+        self.assertEqual(args, ["--mock", "--limit", "20"])
+
     def test_registered_command_scripts_exist(self) -> None:
         for repo in list_mini_repos():
             for command in repo.commands:

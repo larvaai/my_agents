@@ -1,0 +1,47 @@
+{
+  "dataset_id": "logikon/logikon-bench",
+  "name": "Logikon Bench",
+  "description": "Open CoT Leaderboard-style reasoning tasks republished as checked multiple-choice QA datasets.",
+  "source_url": "https://huggingface.co/datasets/logikon/logikon-bench",
+  "raw_base_url": "https://huggingface.co/datasets/logikon/logikon-bench/raw/main/",
+  "license": "other; see per-subset source licenses",
+  "task_categories": ["question-answering"],
+  "language": ["en"],
+  "subsets": [
+    {
+      "id": "logiqa",
+      "split": "test",
+      "path": "data/AGIEval/logiqa-en.jsonl",
+      "license": "CC BY-NC-SA 4.0",
+      "origin": "https://github.com/lgw863/LogiQA-dataset"
+    },
+    {
+      "id": "lsat-ar",
+      "split": "test",
+      "path": "data/AGIEval/lsat-ar.jsonl",
+      "license": "MIT",
+      "origin": "https://github.com/zhongwanjun/AR-LSAT"
+    },
+    {
+      "id": "lsat-lr",
+      "split": "test",
+      "path": "data/AGIEval/lsat-lr.jsonl",
+      "license": "MIT",
+      "origin": "https://github.com/zhongwanjun/AR-LSAT"
+    },
+    {
+      "id": "lsat-rc",
+      "split": "test",
+      "path": "data/AGIEval/lsat-rc.jsonl",
+      "license": "MIT",
+      "origin": "https://github.com/zhongwanjun/AR-LSAT"
+    },
+    {
+      "id": "logiqa2",
+      "split": "test",
+      "path": "data/LogiQA20/logiqa_20_en.jsonl",
+      "license": "CC BY-NC-SA 4.0",
+      "origin": "https://github.com/csitfun/LogiQA2.0"
+    }
+  ]
+}

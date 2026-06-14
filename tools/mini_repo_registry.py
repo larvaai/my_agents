@@ -52,7 +52,7 @@ MINI_REPOS: tuple[MiniRepo, ...] = (
     MiniRepo(
         id="self_eval_qa_lab",
         root=PROJECT_DIR / "experiments" / "self_eval_qa_lab",
-        description="Self-evaluating QA lab v0.2 with workflow routing, direct/assisted/deep/repo_debug paths, observer, and lessons.",
+        description="Self-evaluating QA lab v0.3 with workflow routing, full trace, ChatGPT baseline, critical audit, and evolution proposals.",
         default_command="run",
         aliases=("self-eval", "qa-lab", "selfeval"),
         commands=(
@@ -61,6 +61,12 @@ MINI_REPOS: tuple[MiniRepo, ...] = (
                 script=PROJECT_DIR / "experiments" / "self_eval_qa_lab" / "main.py",
                 description="Run one self-evaluation answer flow.",
                 aliases=("eval", "qa", "answer-flow"),
+            ),
+            MiniRepoCommand(
+                id="dataset",
+                script=PROJECT_DIR / "experiments" / "self_eval_qa_lab" / "dataset_runner.py",
+                description="Run batched Open CoT Leaderboard-style dataset cases with review every 20 cases.",
+                aliases=("bench", "benchmark", "cot"),
             ),
         ),
     ),
@@ -138,6 +144,7 @@ def _format_lab_list() -> str:
             "  python main.py lab business_prompt_lab benchmark --list",
             "  python main.py lab business_prompt_lab:agent-room --dry-run \"question\"",
             "  python main.py lab self_eval_qa_lab --mock \"question\"",
+            "  python main.py lab self_eval_qa_lab dataset --mock --limit 20",
         ]
     )
     return "\n".join(lines)

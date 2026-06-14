@@ -355,29 +355,38 @@ Nếu mini repo không còn giá trị:
 
 ## Pattern Cho Self-Eval QA Lab
 
-Ghi chu v0.2: `self_eval_qa_lab` bay gio uu tien workflow routing truoc khi tang so agent. Flow hien tai:
+Ghi chu v0.3: `self_eval_qa_lab` bay gio uu tien workflow routing, full trace, ChatGPT baseline, critical audit, va proposal-only evolution. Flow hien tai:
 
 ```text
 Question
+  -> Run Planner
   -> Question Classifier
   -> Workflow Router
   -> Simple Answer
   -> Direct / Assisted / Deep / Repo Debug Path
   -> Auto Baseline when route asks for it
+  -> ChatGPT Baseline
   -> Blind Evaluator
   -> Error Analyzer
   -> Flow Observer
   -> Lesson Extractor
+  -> Critical Auditor
+  -> Evolution Decider
   -> Ledger
 ```
 
-Quy tac v0.2:
+Quy tac v0.3:
 
 - `direct`: cau hoi ngan, dinh nghia, giai thich hep.
 - `assisted`: draft, critic, rewrite cho cau hoi trung binh.
 - `deep`: lens flow, baseline auto, full evaluation cho kien truc/strategy/multi-agent.
 - `repo_debug`: cau hoi local repo/debug, mac dinh khong external baseline.
 - Lesson routing duoc ghi truoc; khong tu sua prompt/lens/code.
+- Moi agent call luu full prompt, input, raw output, public rationale, handoff.
+- `admin/full_trace.json` la ban admin khong truncate.
+- ChatGPT prompt/answer luon duoc dua vao comparison neu co answer tu mock, server, local, hoac manual answer file.
+- Critical Auditor soi luong co logic hay thua thieu agent.
+- Evolution Decider chi de xuat them/xoa/sua agent, flow, output, skill, tool; khong tu apply.
 
 Với ý tưởng `self_eval_qa_lab`, MVP nên gọn:
 
