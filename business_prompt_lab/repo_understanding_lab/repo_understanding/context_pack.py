@@ -3,6 +3,8 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from .understanding import build_repo_flow_summary, build_understanding_report
+
 
 STOPWORDS = {
     "about",
@@ -56,6 +58,17 @@ FILE_HINTS = {
     "chay": {"run.py", "agent_room.py", "run.ps1", "talk.ps1", "README.md"},
 }
 
+FLOW_SYMBOL_NAMES = {
+    "final_synthesis",
+    "followup_tasks",
+    "plan_tasks",
+    "review_outputs",
+    "run",
+    "run_tasks",
+    "tasks_from_plan",
+    "write_outputs",
+}
+
 
 def classify_question(question: str) -> str:
     lowered = question.lower()
@@ -101,7 +114,9 @@ def select_files(file_map: list[dict[str, Any]], entities: list[str], limit: int
         for entity in entities:
             lowered = entity.lower()
             hint_paths = {hint.lower() for hint in FILE_HINTS.get(lowered, set())}
-            if hint_paths and (node["path"] in FILE_HINTS[lowered] or basename in hint_paths):
+            hint_exact = node["path"] in FILE_HINTS.get(lowered, set())
+            hint_basename = basename in hint_paths and "/" not in node["path"]
+            if hint_paths and (hint_exact or hint_basename):
                 hint_score = 0 if node["role"] == "entrypoint" else 1
                 score = hint_score if score is None else min(score, hint_score)
                 continue
@@ -174,6 +189,8 @@ def symbol_match_score(
             best = module_score if best is None else min(best, module_score)
         elif lowered in qualified:
             best = 2 if best is None else min(best, 2)
+    if symbol["file"].endswith("agent_room.py") and symbol["name"] in FLOW_SYMBOL_NAMES:
+        best = 0 if best is None else min(best, 0)
     if symbol["file"] in selected_file_paths:
         best = 1 if best is None else min(best, 1)
     return best
@@ -300,6 +317,19 @@ def build_context_pack(
     graph_slice = select_graph_edges(graph, selected_files, selected_symbols)
     selected_tests = select_tests(test_map, selected_files, selected_symbols)
     selected_docs = select_docs(docs, entities)
+    repo_flow = build_repo_flow_summary(file_map=file_map, symbol_index=symbol_index, docs=docs)
+    selected_doc_paths = {doc["path"] for doc in selected_docs}
+    repo_name = repo_profile.get("repo_path", "").replace("\\", "/").rstrip("/").rsplit("/", 1)[-1]
+    filtered_artifact_hints = []
+    for hint in repo_flow["doc_artifact_hints"]:
+        if hint["path"] not in selected_doc_paths:
+            continue
+        artifact_paths = [
+            artifact for artifact in hint["artifact_paths"] if not repo_name or repo_name in artifact
+        ]
+        if artifact_paths:
+            filtered_artifact_hints.append({**hint, "artifact_paths": artifact_paths})
+    repo_flow["doc_artifact_hints"] = filtered_artifact_hints
     unknowns = []
     if not selected_symbols and intent == "symbol_question":
         unknowns.append("No matching symbol was found; answer must stay at file/runtime level.")
@@ -308,7 +338,7 @@ def build_context_pack(
     if symbol_index.get("parse_errors"):
         unknowns.append("Some Python files failed to parse; symbol graph may be incomplete.")
 
-    return {
+    context_pack = {
         "task": {
             "user_request": question,
             "intent": intent,
@@ -326,13 +356,97 @@ def build_context_pack(
         "docs_context": selected_docs,
         "tests": selected_tests,
         "runtime_commands": runtime_map,
+        "repo_flow": repo_flow,
         "ledger_lessons": [],
         "known_risks": [],
         "unknowns": unknowns,
     }
+    context_pack["understanding_report"] = build_understanding_report(context_pack)
+    return context_pack
+
+
+def is_flow_question(context_pack: dict[str, Any]) -> bool:
+    question = context_pack["task"]["user_request"].lower()
+    return any(
+        word in question
+        for word in (
+            "agent room",
+            "artifact",
+            "artifacts",
+            "business_prompt_lab",
+            "chay",
+            "flow",
+            "output",
+            "outputs",
+            "runner",
+            "runners",
+        )
+    )
+
+
+def render_flow_answer(context_pack: dict[str, Any]) -> str:
+    flow = context_pack.get("repo_flow", {})
+    report = context_pack.get("understanding_report", {})
+    lines = [
+        "# Repo Understanding Answer",
+        "",
+        f"Question: {context_pack['task']['user_request']}",
+        f"Intent: `{context_pack['task']['intent']}`",
+        "",
+        "## Understanding Level",
+        f"- Score: `{report.get('score_5', 0)}/5`",
+        f"- Level: `{report.get('level', 'unknown')}`",
+        "",
+        "## Runners",
+    ]
+    runners = flow.get("runners", [])
+    for runner in runners[:12]:
+        lines.append(f"- `{runner['path']}`: {runner['description']}")
+    if not runners:
+        lines.append("- No runner was detected.")
+
+    lines.extend(["", "## Agent Room Flow"])
+    room_flow = flow.get("agent_room_flow", [])
+    if room_flow:
+        for index, step in enumerate(room_flow, start=1):
+            lines.append(
+                f"{index}. `{step['symbol']}` in `{step['file']}` lines {step['line_start']}-{step['line_end']}"
+            )
+    else:
+        lines.append("- AgentRoom flow was not recovered from symbols.")
+
+    lines.extend(["", "## Output Artifacts"])
+    artifact_docs = flow.get("doc_artifact_hints", [])
+    if artifact_docs:
+        for doc in artifact_docs:
+            lines.append(f"- From `{doc['path']}`:")
+            for artifact in doc["artifact_paths"]:
+                lines.append(f"  - `{artifact}`")
+    else:
+        lines.append("- No artifact paths were recovered from docs.")
+
+    lines.extend(["", "## Related Tests"])
+    if context_pack["tests"]:
+        for test in context_pack["tests"]:
+            targets = ", ".join(f"`{item}`" for item in test["target_files"]) or "package-level"
+            lines.append(f"- `{test['path']}` -> {targets} ({test['reason']})")
+    else:
+        lines.append("- No direct tests were mapped for this context.")
+
+    lines.extend(["", "## Evidence Files"])
+    for file_node in context_pack["relevant_files"][:12]:
+        lines.append(f"- `{file_node['path']}` ({file_node['role']}, {file_node['language']})")
+
+    lines.extend(["", "## Gaps"])
+    for weakness in report.get("weaknesses", []) or ["No major weakness recorded."]:
+        lines.append(f"- {weakness}")
+    return "\n".join(lines) + "\n"
 
 
 def generate_answer(context_pack: dict[str, Any]) -> str:
+    if is_flow_question(context_pack):
+        return render_flow_answer(context_pack)
+
     lines = [
         "# Evidence-Based Repo Answer",
         "",

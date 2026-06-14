@@ -18,6 +18,7 @@ from repo_understanding.context_pack import (  # noqa: E402
 )
 from repo_understanding.docs_reader import read_docs  # noqa: E402
 from repo_understanding.graphs import build_graph, build_test_map  # noqa: E402
+from repo_understanding.graphs import build_external_test_map  # noqa: E402
 from repo_understanding.io_utils import (  # noqa: E402
     append_jsonl,
     make_run_id,
@@ -165,6 +166,14 @@ def run_baseline(repo_path: Path, out_dir: Path, limit_files: int | None = None)
     append_jsonl(transcript, {"event": "map_written", "name": "dependency_graph", "edges": len(graph["edges"])})
 
     test_map = build_test_map(file_map, symbol_index)
+    test_map.extend(
+        build_external_test_map(
+            repo_path=repo_path,
+            project_dir=PROJECT_DIR,
+            file_map=file_map,
+            symbol_index=symbol_index,
+        )
+    )
     write_json(maps_dir / "test_map.json", test_map)
     append_jsonl(transcript, {"event": "map_written", "name": "test_map", "count": len(test_map)})
 
@@ -315,6 +324,7 @@ def run_ask(
 
     observer_report = observe_answer(context_pack, final_answer)
     write_json(reports_dir / "observer_report.json", observer_report)
+    write_json(reports_dir / "understanding_report.json", context_pack["understanding_report"])
 
     summary = {
         "repo_path": str(repo_path),
@@ -324,6 +334,8 @@ def run_ask(
         "context_file_count": len(context_pack["relevant_files"]),
         "context_symbol_count": len(context_pack["relevant_symbols"]),
         "observer_overall": observer_report["scores"]["overall"],
+        "understanding_score_5": context_pack["understanding_report"]["score_5"],
+        "understanding_level": context_pack["understanding_report"]["level"],
         "verdict": observer_report["verdict"],
     }
     write_json(out_dir / "summary.json", summary)
@@ -383,11 +395,14 @@ def run_impact(
     write_text(out_dir / "final_answer.md", final_answer)
     observer_report = observe_answer(context_pack, final_answer)
     write_json(reports_dir / "observer_report.json", observer_report)
+    write_json(reports_dir / "understanding_report.json", context_pack["understanding_report"])
     summary = {
         "repo_path": str(repo_path),
         "target": target,
         "out_dir": str(out_dir),
         "observer_overall": observer_report["scores"]["overall"],
+        "understanding_score_5": context_pack["understanding_report"]["score_5"],
+        "understanding_level": context_pack["understanding_report"]["level"],
         "verdict": observer_report["verdict"],
     }
     write_json(out_dir / "summary.json", summary)

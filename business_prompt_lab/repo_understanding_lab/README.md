@@ -94,6 +94,7 @@ maps/test_map.json
 maps/runtime_map.json
 context/context_pack.json
 reports/observer_report.json
+reports/understanding_report.json
 final_answer.md
 summary.json
 summary.md
@@ -132,6 +133,8 @@ docs/04_AGENT_FLOW.md
 
 4. `v0.4-context-pack`
    Query flow that turns a user question into an evidence-backed context pack.
+   Done: v0.4 adds repo-flow synthesis, external workspace test mapping, and
+   `reports/understanding_report.json`.
 
 5. `v0.5-observer`
    No-Leap Guardian checks whether the agent jumped to conclusions, skipped

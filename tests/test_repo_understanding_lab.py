@@ -83,7 +83,11 @@ class RepoUnderstandingLabTests(unittest.TestCase):
             self.assertIn("run.py", selected_paths)
             self.assertIn("README.md", selected_paths)
             self.assertIn("NO_CODE_AGENT_FLOW.md", selected_paths)
+            self.assertTrue(context["tests"])
+            self.assertGreaterEqual(context["understanding_report"]["score_5"], 3.0)
+            self.assertTrue(context["repo_flow"]["agent_room_flow"])
             self.assertTrue((Path(baseline["summary"]["out_dir"]) / "admin" / "full_trace.json").exists())
+            self.assertTrue((Path(baseline["summary"]["out_dir"]) / "reports" / "understanding_report.json").exists())
 
 
 if __name__ == "__main__":

@@ -163,3 +163,62 @@ def build_test_map(file_map: list[dict[str, Any]], symbol_index: dict[str, Any])
             }
         )
     return sorted(test_items, key=lambda item: item["path"])
+
+
+def build_external_test_map(
+    *,
+    repo_path: Path,
+    project_dir: Path,
+    file_map: list[dict[str, Any]],
+    symbol_index: dict[str, Any],
+) -> list[dict[str, Any]]:
+    repo_path = repo_path.resolve()
+    project_dir = project_dir.resolve()
+    tests_dir = project_dir / "tests"
+    if repo_path == project_dir or not tests_dir.exists():
+        return []
+    try:
+        package_name = repo_path.relative_to(project_dir).as_posix().replace("/", ".")
+    except ValueError:
+        return []
+
+    source_files = [node for node in file_map if node["language"] == "python" and not node["is_test"]]
+    symbols_by_file: dict[str, list[str]] = {}
+    for symbol in symbol_index["symbols"]:
+        symbols_by_file.setdefault(symbol["file"], []).append(symbol["qualified_name"])
+
+    external_tests: list[dict[str, Any]] = []
+    for path in sorted(tests_dir.rglob("test*.py")):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if package_name not in text:
+            continue
+
+        target_files: set[str] = set()
+        target_symbols: set[str] = set()
+        for node in source_files:
+            module_path = f"{package_name}.{Path(node['path']).with_suffix('').as_posix().replace('/', '.')}"
+            basename = Path(node["path"]).name
+            stem = Path(node["path"]).stem
+            if module_path in text or stem in text or basename in text:
+                target_files.add(node["path"])
+                target_symbols.update(symbols_by_file.get(node["path"], []))
+
+        if not target_files:
+            for node in source_files:
+                if node["role"] == "entrypoint":
+                    target_files.add(node["path"])
+                    target_symbols.update(symbols_by_file.get(node["path"], []))
+
+        rel_path = path.relative_to(project_dir).as_posix()
+        external_tests.append(
+            {
+                "test_id": rel_path,
+                "path": rel_path,
+                "test_type": "external_workspace",
+                "target_files": sorted(target_files),
+                "target_symbols": sorted(target_symbols),
+                "last_status": "unknown",
+                "reason": f"external test mentions package {package_name}",
+            }
+        )
+    return external_tests

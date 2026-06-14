@@ -69,6 +69,8 @@ Exit criteria:
 
 ## v0.4 - Context Pack And Evidence Answer
 
+Status: done for deterministic repo-flow synthesis.
+
 Deliverables:
 
 - query classifier
@@ -86,6 +88,9 @@ Exit criteria:
 - context pack is saved
 
 Current note: deterministic context pack and answer writer are implemented.
+The v0.4 implementation also writes `reports/understanding_report.json`, maps
+workspace tests outside a scanned sub-repo when they mention the package, and
+renders a specialized repo-flow answer for runner/agent-room/artifact questions.
 Optional LLM answer is still future work.
 
 ## v0.5 - No-Leap Guardian And Ledger
