@@ -24,6 +24,13 @@ class MiniRepoRegistryTests(unittest.TestCase):
         self.assertTrue(repo.root.exists())
         self.assertEqual(repo.default_command, "run")
 
+    def test_repo_understanding_lab_is_registered(self) -> None:
+        repo = resolve_mini_repo("repo-understanding")
+
+        self.assertEqual(repo.id, "repo_understanding_lab")
+        self.assertTrue(repo.root.exists())
+        self.assertEqual(repo.default_command, "run")
+
     def test_default_command_keeps_forwarded_args(self) -> None:
         repo, command, args = resolve_lab_invocation(
             "business_prompt_lab",
@@ -71,6 +78,16 @@ class MiniRepoRegistryTests(unittest.TestCase):
         self.assertEqual(repo.id, "self_eval_qa_lab")
         self.assertEqual(command.id, "dataset")
         self.assertEqual(args, ["--mock", "--limit", "20"])
+
+    def test_repo_understanding_forwards_commands_to_runner(self) -> None:
+        repo, command, args = resolve_lab_invocation(
+            "repo-understand",
+            ["--mock", "ask", "How does PlannerAgent work?"],
+        )
+
+        self.assertEqual(repo.id, "repo_understanding_lab")
+        self.assertEqual(command.id, "run")
+        self.assertEqual(args, ["--mock", "ask", "How does PlannerAgent work?"])
 
     def test_registered_command_scripts_exist(self) -> None:
         for repo in list_mini_repos():

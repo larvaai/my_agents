@@ -4,6 +4,7 @@ Mini repo nay co 2 che do rieng, deu nam gon trong `business_prompt_lab` va dung
 
 - `agent_room.py`: cho agent noi chuyen voi nhau, tu giao viec, review, va agent cuoi tong hop cau tra loi. Che do nay khong sinh code.
 - `run.py`: prompt benchmark cu de test prompt phan tich business va cham diem JSON output.
+- `repo_understanding_lab/`: mini repo doc hieu codebase theo file map, symbol map, graph, test map, context pack, va No-Leap Guardian. Co runner mock/real scanner va da register vao `main.py lab`.
 
 ## No-code agent room
 
@@ -96,3 +97,19 @@ Runner cham diem output theo muc do kiem soat:
 - Executive summary ngan gon.
 
 Diem nay do prompt discipline, khong phai chan ly business. Sau khi loc prompt diem cao, van can doc `outputs/*.txt` de danh gia chat luong lap luan.
+
+## Repo Understanding Lab
+
+Doc proposal nam o:
+
+```text
+business_prompt_lab/repo_understanding_lab/README.md
+business_prompt_lab/repo_understanding_lab/docs/00_START_HERE.md
+```
+
+Muc tieu la thiet ke mot lab de agent hieu repo truoc khi tra loi hoac de xuat sua code. Hien da co mock runner va scanner Python stdlib:
+
+```powershell
+python main.py lab repo-understanding --mock ask "How does PlannerAgent work?"
+python main.py lab repo-understanding baseline --repo .
+```

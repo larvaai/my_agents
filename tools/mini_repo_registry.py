@@ -70,6 +70,21 @@ MINI_REPOS: tuple[MiniRepo, ...] = (
             ),
         ),
     ),
+    MiniRepo(
+        id="repo_understanding_lab",
+        root=PROJECT_DIR / "business_prompt_lab" / "repo_understanding_lab",
+        description="Docs-first code understanding lab: repo map, symbol map, graph, test map, context pack, and No-Leap Guardian.",
+        default_command="run",
+        aliases=("repo-understanding", "repo-understand", "code-understanding"),
+        commands=(
+            MiniRepoCommand(
+                id="run",
+                script=PROJECT_DIR / "business_prompt_lab" / "repo_understanding_lab" / "main.py",
+                description="Build repo understanding maps or answer repo questions with evidence.",
+                aliases=(),
+            ),
+        ),
+    ),
 )
 
 
@@ -145,6 +160,8 @@ def _format_lab_list() -> str:
             "  python main.py lab business_prompt_lab:agent-room --dry-run \"question\"",
             "  python main.py lab self_eval_qa_lab --mock \"question\"",
             "  python main.py lab self_eval_qa_lab dataset --mock --limit 20",
+            "  python main.py lab repo-understanding --mock ask \"How does PlannerAgent work?\"",
+            "  python main.py lab repo-understanding baseline --repo .",
         ]
     )
     return "\n".join(lines)
