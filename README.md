@@ -18,6 +18,8 @@ Muc tieu cua project khong phai lam chatbot chung chung, ma la xay mot coding-ag
 - Muon hieu kien truc: `docs/02_ARCHITECTURE.md`.
 - Muon them MCP/skill/agent: `docs/workflows/`.
 - Muon phat trien mini repo lab va chay qua `main.py`: `docs/18_MINI_REPO_DEVELOPMENT.md`.
+- Muon chen lenh user khi root agent dang chay: `docs/19_USER_AGENT_CONTROL.md`.
+- Muon xem UI quan ly process/log/state: `python run_process_ui.py --port 8765`, doc `docs/20_PROCESS_DASHBOARD_UI.md`.
 - Muon debug/test: `docs/08_TESTING_GUIDE.md` va `docs/09_DEBUGGING_GUIDE.md`.
 - Muon thu LangGraph role orchestration: `python run_langgraph_smoke.py` de compile smoke nhanh, hoac `python main_langgraph.py prompts/auto_cases/test_langgraph_01_smoke.md` de chay LLM smoke that qua MCP.
 - Muon thu Agent Kernel core boundary: `python run_kernel_smoke.py`.

@@ -59,6 +59,7 @@ Roadmap này ưu tiên làm project thành coding-agent ổn định trước kh
 ### Orchestration
 
 - Single-agent ReAct orchestrator.
+- User Agent checkpoint control for root orchestrator.
 - LangGraph role pipeline.
 - Tool node.
 - Role budgets.
@@ -185,6 +186,7 @@ After failed test:
 ### UI And Run Viewer
 
 - View `agent_runs`.
+- Show live user directives and stale outputs in run timeline.
 - View tool timeline.
 - View current `AgentState`.
 - View role budgets and repair attempts.

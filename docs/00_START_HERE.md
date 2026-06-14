@@ -69,6 +69,41 @@ python run_all_cases.py --group langgraph --timeout 180 --fail-fast
 docker compose up -d qdrant
 ```
 
+## User Agent Control
+
+Root `main.py` supports live user directives while the agent is running:
+
+```powershell
+python main.py --interactive-user-agent prompts/user_prompt.md
+python main.py --user-control-dir var/live_control prompts/user_prompt.md
+```
+
+Read:
+
+```text
+docs/19_USER_AGENT_CONTROL.md
+```
+
+## Process Dashboard UI
+
+Chay UI local de quan ly process, xem agent/state/log, va gui live directive:
+
+```powershell
+python run_process_ui.py --port 8765
+```
+
+Mo:
+
+```text
+http://127.0.0.1:8765
+```
+
+Docs:
+
+```text
+docs/20_PROCESS_DASHBOARD_UI.md
+```
+
 ## Đường Đọc Tài Liệu
 
 Nếu bạn là người mới:
@@ -108,6 +143,7 @@ Nếu bạn muốn đóng góp kiến trúc:
 | File | Vai trò |
 |---|---|
 | `main.py` | Chạy single-agent orchestrator |
+| `main.py --interactive-user-agent ...` | Chạy single-agent orchestrator với live User Agent directives |
 | `main.py lab ...` | Chạy mini repo/lab qua registry chung |
 | `main_langgraph.py` | Chạy LangGraph multi-agent pipeline |
 | `orchestrator.py` | ReAct loop cũ, vẫn còn dùng được |
@@ -118,6 +154,8 @@ Nếu bạn muốn đóng góp kiến trúc:
 | `orchestration/software_factory_orchestrator.py` | Software Factory v0.7 artifact-first spec runner |
 | `docs/17_GENERAL_MULTI_AGENT_ROADMAP.md` | Global Supervisor / Intent Router roadmap |
 | `docs/18_MINI_REPO_DEVELOPMENT.md` | Guide phát triển nhiều mini repo/lab |
+| `docs/19_USER_AGENT_CONTROL.md` | Live user directives cho root orchestrator |
+| `docs/20_PROCESS_DASHBOARD_UI.md` | UI quan ly process, agent state, LangGraph logs, User Agent input |
 | `agents/role_agents.py` | Khai báo role agents và quyền tool |
 | `agents/business_analyst_agent.py` | Business Analyst gate trước Planner |
 | `agents/lenses/` | Department lens specs |

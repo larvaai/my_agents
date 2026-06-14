@@ -1,9 +1,11 @@
 import json
 import os
 import time
+from pathlib import Path
 from typing import Any
 
 from agents.tool_agent import tool_agent
+from agents.user_agent import UserDirective, UserDirectiveController
 from output_gate import JsonGateError, build_json_gate_retry_message, parse_json_action
 from tools.event_log import EventLogger
 from core.capabilities import call_tool
@@ -306,6 +308,8 @@ def run_orchestrator(
     max_steps: int = 80,
     max_parse_errors: int = 3,
     max_same_tool_calls: int | None = None,
+    user_control_dir: str | Path | None = None,
+    interactive_user_agent: bool = False,
 ) -> Any:
     """
     Main orchestration loop:
@@ -315,6 +319,16 @@ def run_orchestrator(
         max_same_tool_calls = int(os.getenv("ORCH_MAX_SAME_TOOL_CALLS", "3"))
 
     event_logger = EventLogger()
+    env_control_dir = os.getenv("ORCH_USER_CONTROL_DIR")
+    env_interactive = os.getenv("ORCH_USER_AGENT_INTERACTIVE", "0") == "1"
+    user_controller = UserDirectiveController(
+        run_id=event_logger.run_id,
+        control_dir=user_control_dir or env_control_dir,
+        default_control_dir=event_logger.run_dir / "control",
+        interactive=interactive_user_agent or env_interactive,
+        event_logger=event_logger,
+    )
+    user_controller.start()
     metrics: dict[str, Any] = {
         "steps": 0,
         "llm_calls": 0,
@@ -329,14 +343,21 @@ def run_orchestrator(
         "validations": 0,
         "finish_gate_blocks": 0,
         "condensed_observations": 0,
+        "user_directives": 0,
+        "user_interruptions": 0,
+        "stale_agent_outputs": 0,
     }
 
     print(f"RUN ID: {event_logger.run_id}")
     if event_logger.enabled:
         print(f"EVENT LOG: {event_logger.events_path}")
+    if user_controller.enabled:
+        print(f"USER AGENT CONTROL: {user_controller.control_dir}")
+        print("Live directives: type in interactive mode, or append JSONL to control/inbox.jsonl.")
 
     def finish(status: str, message: Any) -> Any:
         metrics["status"] = status
+        user_controller.stop()
         event_logger.emit(
             "StateEvent",
             status="run_finished",
@@ -350,6 +371,48 @@ def run_orchestrator(
             final_message=message,
         )
         return message
+
+    def apply_user_directives(
+        directives: list[UserDirective],
+        *,
+        stage: str,
+        step: int,
+    ) -> bool:
+        if not directives:
+            return False
+        metrics["user_directives"] += len(directives)
+        prompt_block = user_controller.render_prompt_block(directives)
+        if prompt_block:
+            messages.append({"role": "user", "content": prompt_block})
+        if user_controller.has_force_final(directives):
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        "The latest live user directive asks you to stop optional work "
+                        "and answer now. Return final JSON only. If a required safety or "
+                        "validation gate prevents completion, return a blocker final JSON."
+                    ),
+                }
+            )
+        event_logger.emit(
+            "StateEvent",
+            status="user_directives_applied",
+            stage=stage,
+            step=step,
+            directive_ids=[directive.directive_id for directive in directives],
+            accepted=[
+                directive.directive_id
+                for directive in directives
+                if directive.status in {"accepted", "accepted_with_degradation"}
+            ],
+            rejected=[
+                directive.directive_id
+                for directive in directives
+                if directive.status == "rejected"
+            ],
+        )
+        return True
 
     messages = [
         {
@@ -377,6 +440,11 @@ def run_orchestrator(
         metrics["steps"] = step + 1
         print(f"\n--- STEP {step + 1} ---")
         event_logger.emit("StateEvent", status="step_started", step=step + 1)
+        apply_user_directives(
+            user_controller.poll(),
+            stage="before_agent_call",
+            step=step + 1,
+        )
 
         try:
             llm_started = time.monotonic()
@@ -396,6 +464,24 @@ def run_orchestrator(
             duration_seconds=llm_duration,
             raw=True,
         )
+
+        live_directives = user_controller.poll()
+        if live_directives:
+            metrics["user_interruptions"] += 1
+            metrics["stale_agent_outputs"] += 1
+            event_logger.emit(
+                "StateEvent",
+                status="agent_output_marked_stale_by_user_directive",
+                step=step + 1,
+                directive_ids=[directive.directive_id for directive in live_directives],
+                output_preview=_truncate_text(agent_output, 1000),
+            )
+            apply_user_directives(
+                live_directives,
+                stage="after_agent_call",
+                step=step + 1,
+            )
+            continue
 
         try:
             action = parse_json(agent_output)
@@ -652,6 +738,11 @@ def run_orchestrator(
                     "tool_result": condensed_tool_result,
                 }, ensure_ascii=False),
             })
+            apply_user_directives(
+                user_controller.poll(),
+                stage="after_tool_result",
+                step=step + 1,
+            )
             continue
 
         metrics["invalid_actions"] += 1
@@ -665,6 +756,11 @@ def run_orchestrator(
             "role": "user",
             "content": _invalid_action_retry_message(),
         })
+        apply_user_directives(
+            user_controller.poll(),
+            stage="after_invalid_action",
+            step=step + 1,
+        )
         continue
 
     return finish("max_steps", "Agent exceeded the maximum number of allowed steps.")

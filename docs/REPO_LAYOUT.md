@@ -15,6 +15,7 @@ external reference deu co gia tri lich su/rag/debug rieng.
 | `config/agents.yaml` | Agent role registry and aliases. |
 | `config/roles/*.yaml` | Role permissions, skills, route permissions, test ownership, and lens group. |
 | `agents/` | Agent runtime, department agents, lenses, artifact protocol. |
+| `agents/user_agent.py` | Live user directive parser/inbox for root orchestrator control. |
 | `agents/knowledge/` | Read-only Knowledge Department agents. |
 | `agents/research_department/` | Research Department search/fetch/PDF/citation wrappers. |
 | `agents/safety/` | Safety Department permission/risk/prompt-injection/tool-scope gate. |
@@ -49,6 +50,7 @@ external reference deu co gia tri lich su/rag/debug rieng.
 | `run_software_factory_smoke.py` | Smoke Software Factory artifact pipeline. |
 | `run_global_supervisor_smoke.py` | Smoke Global Supervisor stage 1-6 router/knowledge/research/final flow. |
 | `run_global_supervisor_demo.py` | Run a task or task file through Global Supervisor and write a JSON log. |
+| `run_process_ui.py` | Local web dashboard for starting runs, viewing logs/state, and sending User Agent directives. |
 | `run_all_cases.py` | Prompt-based case runner. |
 | `inspect_runs.py` | Doc/search event logs trong `var/agent_runs/`. |
 
@@ -86,6 +88,8 @@ external reference deu co gia tri lich su/rag/debug rieng.
 | `docs/16_SOFTWARE_FACTORY_V06.md` | Software Factory v0.7. |
 | `docs/17_GENERAL_MULTI_AGENT_ROADMAP.md` | Global Supervisor / Intent Router roadmap; stage 1-6 implemented. |
 | `docs/18_MINI_REPO_DEVELOPMENT.md` | Guide phat trien mini repo/lab va tich hop qua `main.py lab`. |
+| `docs/19_USER_AGENT_CONTROL.md` | Live User Agent control plane for root `main.py`. |
+| `docs/20_PROCESS_DASHBOARD_UI.md` | Local process dashboard UI. |
 | `docs/adr/` | Architecture Decision Records. |
 | `docs/agents/` | Tai lieu tung agent/lens. |
 | `docs/mcp/` | Tai lieu tung MCP. |

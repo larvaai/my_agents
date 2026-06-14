@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agent Process Console</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" aria-label="Run navigation">
+        <div class="brand">
+          <div class="brand-mark">AP</div>
+          <div>
+            <h1>Agent Process</h1>
+            <p>Runtime console</p>
+          </div>
+        </div>
+
+        <div class="sidebar-actions">
+          <button id="refreshBtn" class="icon-button" type="button" title="Refresh">
+            <i data-lucide="refresh-cw"></i>
+          </button>
+          <button id="newRunFocusBtn" class="icon-button" type="button" title="New run">
+            <i data-lucide="plus"></i>
+          </button>
+        </div>
+
+        <div class="run-list-header">
+          <span>Runs</span>
+          <span id="runCount">0</span>
+        </div>
+        <div id="runList" class="run-list"></div>
+      </aside>
+
+      <main class="workspace">
+        <section class="topbar">
+          <div>
+            <div class="eyebrow">Local control plane</div>
+            <h2 id="selectedTitle">No run selected</h2>
+          </div>
+          <div class="topbar-actions">
+            <span id="connectionStatus" class="status-pill neutral">Connecting</span>
+            <button id="stopBtn" class="danger-button" type="button" disabled>
+              <i data-lucide="square"></i>
+              <span>Stop</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="control-grid">
+          <form id="startForm" class="panel start-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Start Run</h3>
+                <p>Root supports live User Agent directives. LangGraph is observable here.</p>
+              </div>
+              <button class="primary-button" type="submit">
+                <i data-lucide="play"></i>
+                <span>Start</span>
+              </button>
+            </div>
+
+            <div class="form-row">
+              <label>
+                <span>Runtime</span>
+                <select id="modeSelect">
+                  <option value="root">Root Orchestrator + User Agent</option>
+                  <option value="langgraph">LangGraph Pipeline</option>
+                </select>
+              </label>
+              <label>
+                <span>Max steps</span>
+                <input id="maxStepsInput" type="number" min="1" max="300" value="30" />
+              </label>
+            </div>
+
+            <label class="prompt-field">
+              <span>Prompt</span>
+              <textarea id="promptInput" rows="7">Summarize the current repo process in a concise way. If user directives arrive, follow the latest one.</textarea>
+            </label>
+          </form>
+
+          <form id="directiveForm" class="panel directive-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>User Agent Input</h3>
+                <p>Send a current-run directive into the selected run inbox.</p>
+              </div>
+              <button class="secondary-button" type="submit" id="sendDirectiveBtn" disabled>
+                <i data-lucide="send"></i>
+                <span>Send</span>
+              </button>
+            </div>
+            <textarea id="directiveInput" rows="5">Trong lượt chạy này không cần vai trò của critic agent, lượt sau vẫn cần. Trả lời ngắn hơn.</textarea>
+            <div class="quick-directives">
+              <button type="button" data-directive="Dừng lại, trả lời ngay và ngắn gọn.">Stop now</button>
+              <button type="button" data-directive="Trong lượt chạy này không cần vai trò của critic agent, lượt sau vẫn cần.">Skip role once</button>
+              <button type="button" data-directive="Thêm một agent kiểm tra logic trước khi final nếu runtime hỗ trợ.">Add logic check</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="status-grid">
+          <div class="metric-panel">
+            <span>Status</span>
+            <strong id="metricStatus">-</strong>
+          </div>
+          <div class="metric-panel">
+            <span>Current Agent</span>
+            <strong id="metricAgent">-</strong>
+          </div>
+          <div class="metric-panel">
+            <span>Step</span>
+            <strong id="metricStep">-</strong>
+          </div>
+          <div class="metric-panel">
+            <span>Events</span>
+            <strong id="metricEvents">-</strong>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Agent Graph</h3>
+              <p>Active roles, action counts, and latest state.</p>
+            </div>
+            <span id="graphMode" class="status-pill neutral">-</span>
+          </div>
+          <div id="agentGraph" class="agent-graph"></div>
+        </section>
+
+        <section class="split-grid">
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <h3>State</h3>
+                <p>Derived from event logs and summary metrics.</p>
+              </div>
+            </div>
+            <pre id="stateJson" class="json-view">{}</pre>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <h3>User Directives</h3>
+                <p>Accepted, rejected, and queued instructions.</p>
+              </div>
+            </div>
+            <div id="directiveList" class="directive-list"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Timeline</h3>
+              <p>Messages, actions, observations, state changes, and user interrupts.</p>
+            </div>
+            <div class="filter-row">
+              <input id="eventFilter" type="search" placeholder="Filter events" />
+            </div>
+          </div>
+          <div id="timeline" class="timeline"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Process Output</h3>
+              <p>Stdout/stderr tail from the managed process.</p>
+            </div>
+          </div>
+          <pre id="stdoutView" class="stdout-view"></pre>
+        </section>
+      </main>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

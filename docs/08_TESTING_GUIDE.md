@@ -306,3 +306,25 @@ python run_code_test_agents_demo.py --version v0.5 --agent orchestrator --max-cy
 
 This runner does not require LLM by default. Add `--use-llm` only when you want
 to experiment with model-generated lens output.
+
+## User Agent Control Tests
+
+Run the focused User Agent Control tests after changing `main.py`,
+`orchestrator.py`, or `agents/user_agent.py`:
+
+```powershell
+python -m unittest tests.test_user_agent_control
+```
+
+These tests cover directive parsing, rejected trace-disabling requests, the
+control-dir inbox, and stale-output handling when a directive arrives during an
+agent call.
+
+## Process Dashboard UI Tests
+
+Run these after changing `run_process_ui.py` or `ui/process_dashboard/`:
+
+```powershell
+python -m unittest tests.test_process_ui
+python -m py_compile run_process_ui.py
+```

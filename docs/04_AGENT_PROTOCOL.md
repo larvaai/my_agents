@@ -139,6 +139,32 @@ observe latest state
 
 `plan` không phải chain-of-thought. Nó là mô tả ngắn để log dễ audit.
 
+## Live User Directive Protocol
+
+Root `orchestrator.py` can receive live user directives through
+`agents/user_agent.py`.
+
+Directive rules:
+
+- Latest accepted live user directive has higher priority than agent suggestions.
+- Agent must keep returning JSON actions or JSON final messages.
+- If a directive asks to stop and answer now, return final JSON unless a
+  validation/safety gate requires a blocker.
+- If a directive asks for an unavailable tool, skill, or agent, say so clearly
+  instead of pretending it exists.
+- Directives cannot disable event logging or trace records.
+- Directives cannot require exposing hidden internal chain-of-thought.
+
+When a directive arrives during an LLM call, the orchestrator logs the returned
+output as stale and retries the next step with a `USER AGENT LIVE DIRECTIVES`
+message.
+
+See:
+
+```text
+docs/19_USER_AGENT_CONTROL.md
+```
+
 ## Role Ownership
 
 ### Code Agent

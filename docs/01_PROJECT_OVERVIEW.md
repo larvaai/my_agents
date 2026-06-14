@@ -40,6 +40,10 @@ Nó có:
 - Event log.
 - JsonGate trước khi gọi tool.
 
+User Agent Control is now part of this root path: live directives can arrive by
+stdin or control inbox, stale outputs are logged, and the next agent call gets a
+high-priority directive block. See `docs/19_USER_AGENT_CONTROL.md`.
+
 ### 2. LangGraph Multi-Agent Pipeline
 
 `orchestration/langgraph_orchestrator.py` là pipeline role-based:

@@ -107,6 +107,50 @@ run_software_factory_demo.py
 
 Single-agent path vẫn hữu ích cho prompt đơn giản và backward compatibility. LangGraph path là hướng coding-agent chính.
 
+## User Agent Control Plane
+
+The root single-agent path now has a live user control plane:
+
+```text
+User live input / control inbox
+  -> agents/user_agent.py
+  -> orchestrator.py checkpoint poll
+  -> USER AGENT LIVE DIRECTIVES prompt block
+  -> tool_agent follows latest accepted directive
+```
+
+If a directive arrives while the LLM call is running, the returned agent output
+is marked stale and the next agent call receives the directive. This is a
+checkpoint interrupt, not yet hard HTTP cancellation.
+
+Full guide:
+
+```text
+docs/19_USER_AGENT_CONTROL.md
+```
+
+## Process Dashboard UI
+
+The local UI starts and observes agent processes:
+
+```text
+run_process_ui.py
+  -> static dashboard in ui/process_dashboard/
+  -> subprocess main.py or main_langgraph.py
+  -> var/agent_runs/<run_id>/events.jsonl
+  -> User Agent control inbox for root runs
+```
+
+It is a process manager and run viewer. It does not replace the orchestrators;
+it reads their event logs and writes user directives into the selected run's
+control inbox.
+
+Guide:
+
+```text
+docs/20_PROCESS_DASHBOARD_UI.md
+```
+
 ## Core Layers
 
 ### Entry Points
@@ -114,8 +158,10 @@ Single-agent path vẫn hữu ích cho prompt đơn giản và backward compatib
 | File | Vai trò |
 |---|---|
 | `main.py` | Đọc prompt và chạy `run_orchestrator()` |
+| `main.py --interactive-user-agent ...` | Chạy root orchestrator với live User Agent directives |
 | `main_langgraph.py` | Đọc prompt và chạy LangGraph orchestrator |
 | `run_software_factory_demo.py` | Chay Software Factory v0.7 artifact-first spec pipeline |
+| `run_process_ui.py` | Local web UI for process/state/log/User Agent control |
 | `run_all_cases.py` | Prompt-based test runner |
 | `run_langgraph_smoke.py` | Deterministic LangGraph smoke |
 | `run_json_gate_smoke.py` | Deterministic JsonGate smoke |
@@ -172,6 +218,7 @@ Files:
 - `config/agents.yaml`
 - `config/roles/*.yaml`
 - `agents/tool_agent.py`
+- `agents/user_agent.py`
 - `agents/lenses/`
 
 `BaseAgent`:

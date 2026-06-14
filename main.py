@@ -1,5 +1,7 @@
+import argparse
 import os
 import sys
+from pathlib import Path
 
 from orchestrator import run_orchestrator
 from tools.prompt_loader import read_user_prompt
@@ -32,14 +34,31 @@ def main(argv: list[str] | None = None) -> int:
 
         return run_lab_cli(args[1:])
 
-    prompt_path = args[0] if args else None
-    task = read_user_prompt(prompt_path)
+    parser = argparse.ArgumentParser(description="Run the root single-agent orchestrator.")
+    parser.add_argument("prompt_path", nargs="?", help="Prompt file. Defaults to prompts/user_prompt.md.")
+    parser.add_argument("--max-steps", type=int, default=None, help="Override ORCH_MAX_STEPS.")
+    parser.add_argument(
+        "--interactive-user-agent",
+        action="store_true",
+        help="Read live user directives from stdin while the run is active.",
+    )
+    parser.add_argument(
+        "--user-control-dir",
+        type=Path,
+        default=None,
+        help="Directory containing control/inbox.jsonl or inbox/*.txt live directives.",
+    )
+    parsed = parser.parse_args(args)
 
-    max_steps = int(os.getenv("ORCH_MAX_STEPS", "30"))
+    task = read_user_prompt(parsed.prompt_path)
+
+    max_steps = parsed.max_steps or int(os.getenv("ORCH_MAX_STEPS", "30"))
 
     result = run_orchestrator(
         task,
         max_steps=max_steps,
+        user_control_dir=parsed.user_control_dir,
+        interactive_user_agent=parsed.interactive_user_agent,
     )
 
     print("\n=== FINAL RESULT ===")
